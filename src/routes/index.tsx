@@ -730,6 +730,40 @@ function Dashboard() {
           </div>
         </aside>
       </div>
+
+      {/* ============ MOBILE BOTTOM NAV ============ */}
+      <nav
+        className="lg:hidden fixed bottom-3 left-3 right-3 z-30 rounded-full backdrop-blur-xl px-2 py-2 flex items-center justify-around shadow-lg"
+        style={{
+          background: dark ? "rgba(34,31,28,0.92)" : "rgba(255,251,243,0.92)",
+          border: `1px solid ${dark ? "#2a2724" : "#ebe2d1"}`,
+          boxShadow: "0 8px 32px -12px rgba(42,39,36,0.18)",
+        }}
+      >
+        {navMain.slice(0, 5).map((item) => {
+          const Icon = item.icon;
+          return (
+            <button
+              key={item.label}
+              aria-label={item.label}
+              className="relative flex flex-col items-center justify-center w-12 h-11 rounded-full transition"
+              style={
+                item.active
+                  ? { background: dark ? "#2a2724" : "#ede4d1", color: dark ? "#e8e2d5" : "#2a2724" }
+                  : { color: dark ? "#8a8378" : "#8a8378" }
+              }
+            >
+              <Icon className="w-[18px] h-[18px]" strokeWidth={1.5} />
+              {item.active && (
+                <span
+                  className="absolute -bottom-0.5 w-1 h-1 rounded-full"
+                  style={{ background: "#a67c52" }}
+                />
+              )}
+            </button>
+          );
+        })}
+      </nav>
     </div>
   );
 }
