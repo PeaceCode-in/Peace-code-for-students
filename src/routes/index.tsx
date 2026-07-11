@@ -109,10 +109,10 @@ function Dashboard() {
         color: dark ? "#e8e2d5" : "#2a2724",
       }}
     >
-      <div className="grid grid-cols-[220px_1fr_340px] h-screen">
+      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_320px] xl:grid-cols-[220px_1fr_340px] lg:h-screen">
         {/* ============ SIDEBAR ============ */}
         <aside
-          className="flex flex-col px-5 py-7 border-r"
+          className="flex flex-col px-5 py-7 lg:border-r border-b lg:border-b-0"
           style={{ borderColor: dark ? "#2a2724" : "#e8dfd0", background: dark ? "#1a1815" : "#f0e9dc" }}
         >
           <div className="flex items-center gap-2.5 mb-12">
