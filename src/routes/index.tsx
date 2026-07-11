@@ -251,7 +251,7 @@ function Dashboard() {
                 <button
                   key={dd.n}
                   onClick={() => setDay(dd.n)}
-                  className="flex flex-col items-center justify-center w-12 h-16 rounded-full transition-all text-[10px]"
+                  className="shrink-0 flex flex-col items-center justify-center w-12 h-16 rounded-full transition-all text-[10px]"
                   style={
                     active
                       ? { background: "#2a2724", color: "#faf6ee" }
