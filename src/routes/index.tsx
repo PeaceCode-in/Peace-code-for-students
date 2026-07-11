@@ -109,10 +109,43 @@ function Dashboard() {
         color: dark ? "#e8e2d5" : "#2a2724",
       }}
     >
+      {/* ============ MOBILE TOP BAR ============ */}
+      <header
+        className="lg:hidden sticky top-0 z-30 flex items-center justify-between px-5 py-3.5 backdrop-blur-md border-b"
+        style={{
+          background: dark ? "rgba(26,24,21,0.85)" : "rgba(240,233,220,0.85)",
+          borderColor: dark ? "#2a2724" : "#e8dfd0",
+        }}
+      >
+        <div className="flex items-center gap-2.5">
+          <Mark className="w-7 h-7" />
+          <div>
+            <div className="font-serif text-[16px] leading-none tracking-tight">PeaceCode</div>
+            <div className="text-[8px] tracking-[0.28em] uppercase mt-1 opacity-50">a soft place</div>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <div
+            className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px]"
+            style={{ background: dark ? "#2a2724" : "#efe6d5", color: "#a67c52" }}
+          >
+            <Flame className="w-3 h-3" strokeWidth={1.5} /> 12
+          </div>
+          <button
+            onClick={() => setDark(!dark)}
+            className="w-9 h-9 rounded-full flex items-center justify-center"
+            style={{ background: dark ? "#221f1c" : "#faf6ee", border: `1px solid ${dark ? "#2a2724" : "#ebe2d1"}` }}
+            aria-label="toggle night mode"
+          >
+            <Moon className="w-4 h-4 opacity-70" strokeWidth={1.5} />
+          </button>
+        </div>
+      </header>
+
       <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_320px] xl:grid-cols-[220px_1fr_340px] lg:h-screen">
-        {/* ============ SIDEBAR ============ */}
+        {/* ============ SIDEBAR (desktop only) ============ */}
         <aside
-          className="flex flex-col px-5 py-7 lg:border-r border-b lg:border-b-0"
+          className="hidden lg:flex flex-col px-5 py-7 lg:border-r"
           style={{ borderColor: dark ? "#2a2724" : "#e8dfd0", background: dark ? "#1a1815" : "#f0e9dc" }}
         >
           <div className="flex items-center gap-2.5 mb-12">
@@ -204,7 +237,7 @@ function Dashboard() {
         </aside>
 
         {/* ============ MAIN ============ */}
-        <main className="px-6 sm:px-8 lg:px-12 py-8 lg:py-10 lg:overflow-y-auto min-w-0">
+        <main className="px-6 sm:px-8 lg:px-12 py-8 lg:py-10 pb-28 lg:pb-10 lg:overflow-y-auto min-w-0">
           <header className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 mb-10">
             <div className="min-w-0">
               <div
@@ -697,6 +730,40 @@ function Dashboard() {
           </div>
         </aside>
       </div>
+
+      {/* ============ MOBILE BOTTOM NAV ============ */}
+      <nav
+        className="lg:hidden fixed bottom-3 left-3 right-3 z-30 rounded-full backdrop-blur-xl px-2 py-2 flex items-center justify-around shadow-lg"
+        style={{
+          background: dark ? "rgba(34,31,28,0.92)" : "rgba(255,251,243,0.92)",
+          border: `1px solid ${dark ? "#2a2724" : "#ebe2d1"}`,
+          boxShadow: "0 8px 32px -12px rgba(42,39,36,0.18)",
+        }}
+      >
+        {navMain.slice(0, 5).map((item) => {
+          const Icon = item.icon;
+          return (
+            <button
+              key={item.label}
+              aria-label={item.label}
+              className="relative flex flex-col items-center justify-center w-12 h-11 rounded-full transition"
+              style={
+                item.active
+                  ? { background: dark ? "#2a2724" : "#ede4d1", color: dark ? "#e8e2d5" : "#2a2724" }
+                  : { color: dark ? "#8a8378" : "#8a8378" }
+              }
+            >
+              <Icon className="w-[18px] h-[18px]" strokeWidth={1.5} />
+              {item.active && (
+                <span
+                  className="absolute -bottom-0.5 w-1 h-1 rounded-full"
+                  style={{ background: "#a67c52" }}
+                />
+              )}
+            </button>
+          );
+        })}
+      </nav>
     </div>
   );
 }
