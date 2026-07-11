@@ -494,7 +494,7 @@ function Dashboard() {
 
         {/* ============ RIGHT PANEL ============ */}
         <aside
-          className="px-7 py-8 border-l overflow-y-auto"
+          className="px-6 sm:px-7 py-8 lg:border-l border-t lg:border-t-0 lg:overflow-y-auto"
           style={{ borderColor: dark ? "#2a2724" : "#e8dfd0", background: dark ? "#1a1815" : "#f0e9dc" }}
         >
           {/* Featured */}
