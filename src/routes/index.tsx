@@ -281,10 +281,10 @@ function Dashboard() {
                 log mood <ArrowUpRight className="w-3 h-3" />
               </button>
             </div>
-            <div className="flex items-center gap-10 mb-6">
-              <div className="flex-1">
+            <div className="flex flex-wrap items-center gap-6 sm:gap-10 mb-6">
+              <div className="flex-1 min-w-[160px]">
                 <div className="flex items-baseline gap-3 mb-1">
-                  <span className="font-serif text-[72px] leading-none tracking-tight">90</span>
+                  <span className="font-serif text-[56px] sm:text-[72px] leading-none tracking-tight">90</span>
                   <span className="font-serif italic text-2xl opacity-50">%</span>
                 </div>
                 <p className="text-[13px] opacity-60">a soft, quiet kind of happy.</p>
