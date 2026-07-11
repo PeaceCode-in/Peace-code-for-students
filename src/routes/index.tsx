@@ -244,7 +244,7 @@ function Dashboard() {
           </header>
 
           {/* Days */}
-          <div className="flex items-center gap-2 mb-10">
+          <div className="flex items-center gap-2 mb-10 overflow-x-auto pb-1 -mx-2 px-2 scrollbar-none">
             {days.map((dd) => {
               const active = day === dd.n;
               return (
