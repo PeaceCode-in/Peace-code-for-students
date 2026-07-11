@@ -690,6 +690,7 @@ function Dashboard() {
               })}
             </div>
           </div>
+          </div>
 
           <div className="mt-8 flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase opacity-40 justify-center">
             <Sparkles className="w-3 h-3" /> now playing · forest rain
