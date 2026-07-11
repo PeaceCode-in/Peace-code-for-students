@@ -204,16 +204,16 @@ function Dashboard() {
         </aside>
 
         {/* ============ MAIN ============ */}
-        <main className="px-12 py-10 overflow-y-auto">
-          <header className="flex items-start justify-between mb-10">
-            <div>
+        <main className="px-6 sm:px-8 lg:px-12 py-8 lg:py-10 lg:overflow-y-auto min-w-0">
+          <header className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 mb-10">
+            <div className="min-w-0">
               <div
                 className="text-[10px] tracking-[0.3em] uppercase mb-3 opacity-60"
                 style={{ color: "#a89380" }}
               >
                 Wednesday · Eleven July
               </div>
-              <h1 className="font-serif text-[52px] leading-[1.05] tracking-tight max-w-xl" style={{ letterSpacing: "-0.02em" }}>
+              <h1 className="font-serif text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] tracking-tight max-w-xl" style={{ letterSpacing: "-0.02em" }}>
                 <em className="italic font-light" style={{ color: "#a67c52" }}>Softly,</em>
                 <br />
                 you begin again.
@@ -222,9 +222,9 @@ function Dashboard() {
                 A slow look at how your mind and moments are moving today. No pressure — just presence.
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 shrink-0">
               <div
-                className="flex items-center gap-2 rounded-full px-4 py-2"
+                className="hidden sm:flex items-center gap-2 rounded-full px-4 py-2"
                 style={{ background: dark ? "#221f1c" : "#faf6ee", border: `1px solid ${dark ? "#2a2724" : "#ebe2d1"}` }}
               >
                 <Search className="w-3.5 h-3.5 opacity-40" />
@@ -234,7 +234,7 @@ function Dashboard() {
                 />
               </div>
               <button
-                className="relative w-10 h-10 rounded-full flex items-center justify-center"
+                className="relative w-10 h-10 rounded-full flex items-center justify-center shrink-0"
                 style={{ background: dark ? "#221f1c" : "#faf6ee", border: `1px solid ${dark ? "#2a2724" : "#ebe2d1"}` }}
               >
                 <Bell className="w-4 h-4 opacity-60" strokeWidth={1.5} />
