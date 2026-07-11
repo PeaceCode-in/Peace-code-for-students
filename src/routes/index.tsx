@@ -268,7 +268,7 @@ function Dashboard() {
 
           {/* Mood + hero */}
           <section
-            className="rounded-[32px] p-8 mb-6 relative overflow-hidden"
+            className="rounded-[32px] p-6 sm:p-8 mb-6 relative overflow-hidden"
             style={{ background: dark ? "#221f1c" : "#faf6ee", border: `1px solid ${dark ? "#2a2724" : "#ebe2d1"}` }}
           >
             <Mark className="absolute -right-8 -bottom-8 w-56 h-56" opacity={dark ? 0.05 : 0.06} />
