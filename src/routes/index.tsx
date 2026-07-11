@@ -237,7 +237,7 @@ function Dashboard() {
         </aside>
 
         {/* ============ MAIN ============ */}
-        <main className="px-6 sm:px-8 lg:px-12 py-8 lg:py-10 lg:overflow-y-auto min-w-0">
+        <main className="px-6 sm:px-8 lg:px-12 py-8 lg:py-10 pb-28 lg:pb-10 lg:overflow-y-auto min-w-0">
           <header className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 mb-10">
             <div className="min-w-0">
               <div
