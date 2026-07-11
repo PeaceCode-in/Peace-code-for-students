@@ -330,7 +330,7 @@ function Dashboard() {
             <h3 className="font-serif text-[22px] tracking-tight">A quiet toolkit</h3>
             <span className="text-[10px] tracking-[0.25em] uppercase opacity-50">tap to begin</span>
           </div>
-          <div className="grid grid-cols-4 gap-3 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
             {focusTools.map((t) => {
               const I = t.icon;
               return (
