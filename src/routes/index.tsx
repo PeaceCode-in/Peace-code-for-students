@@ -469,7 +469,7 @@ function Dashboard() {
 
           {/* Emergency */}
           <div
-            className="rounded-3xl p-6 flex items-center gap-5"
+            className="rounded-3xl p-5 sm:p-6 flex flex-wrap items-center gap-4 sm:gap-5"
             style={{ background: dark ? "#2a201d" : "#efdfd5", border: `1px solid ${dark ? "#3a2a25" : "#e0c9bc"}` }}
           >
             <div className="w-11 h-11 rounded-full flex items-center justify-center" style={{ background: "#c17b6f" }}>
