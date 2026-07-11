@@ -475,7 +475,7 @@ function Dashboard() {
             <div className="w-11 h-11 rounded-full flex items-center justify-center" style={{ background: "#c17b6f" }}>
               <Mark className="w-6 h-6" />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 min-w-[180px]">
               <div className="font-serif text-[17px] leading-tight">Not okay right now?</div>
               <div className="text-[12px] opacity-60 mt-0.5 italic">a trained listener is one soft tap away — always, and in confidence.</div>
             </div>
