@@ -19,6 +19,7 @@ import { Route as JournalVoiceRouteImport } from './routes/journal.voice'
 import { Route as JournalMemoriesRouteImport } from './routes/journal.memories'
 import { Route as JournalIdRouteImport } from './routes/journal.$id'
 import { Route as GratitudeWallRouteImport } from './routes/gratitude.wall'
+import { Route as GratitudeTreeRouteImport } from './routes/gratitude.tree'
 import { Route as GratitudeHistoryRouteImport } from './routes/gratitude.history'
 import { Route as BreatheStatsRouteImport } from './routes/breathe.stats'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
@@ -73,6 +74,11 @@ const GratitudeWallRoute = GratitudeWallRouteImport.update({
   path: '/wall',
   getParentRoute: () => GratitudeRoute,
 } as any)
+const GratitudeTreeRoute = GratitudeTreeRouteImport.update({
+  id: '/tree',
+  path: '/tree',
+  getParentRoute: () => GratitudeRoute,
+} as any)
 const GratitudeHistoryRoute = GratitudeHistoryRouteImport.update({
   id: '/history',
   path: '/history',
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
+  '/gratitude/tree': typeof GratitudeTreeRoute
   '/gratitude/wall': typeof GratitudeWallRoute
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
@@ -114,6 +121,7 @@ export interface FileRoutesByTo {
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
+  '/gratitude/tree': typeof GratitudeTreeRoute
   '/gratitude/wall': typeof GratitudeWallRoute
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
@@ -130,6 +138,7 @@ export interface FileRoutesById {
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
+  '/gratitude/tree': typeof GratitudeTreeRoute
   '/gratitude/wall': typeof GratitudeWallRoute
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
@@ -147,6 +156,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/breathe/stats'
     | '/gratitude/history'
+    | '/gratitude/tree'
     | '/gratitude/wall'
     | '/journal/$id'
     | '/journal/memories'
@@ -162,6 +172,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/breathe/stats'
     | '/gratitude/history'
+    | '/gratitude/tree'
     | '/gratitude/wall'
     | '/journal/$id'
     | '/journal/memories'
@@ -177,6 +188,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/breathe/stats'
     | '/gratitude/history'
+    | '/gratitude/tree'
     | '/gratitude/wall'
     | '/journal/$id'
     | '/journal/memories'
@@ -265,6 +277,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GratitudeWallRouteImport
       parentRoute: typeof GratitudeRoute
     }
+    '/gratitude/tree': {
+      id: '/gratitude/tree'
+      path: '/tree'
+      fullPath: '/gratitude/tree'
+      preLoaderRoute: typeof GratitudeTreeRouteImport
+      parentRoute: typeof GratitudeRoute
+    }
     '/gratitude/history': {
       id: '/gratitude/history'
       path: '/history'
@@ -302,11 +321,13 @@ const BreatheRouteWithChildren =
 
 interface GratitudeRouteChildren {
   GratitudeHistoryRoute: typeof GratitudeHistoryRoute
+  GratitudeTreeRoute: typeof GratitudeTreeRoute
   GratitudeWallRoute: typeof GratitudeWallRoute
 }
 
 const GratitudeRouteChildren: GratitudeRouteChildren = {
   GratitudeHistoryRoute: GratitudeHistoryRoute,
+  GratitudeTreeRoute: GratitudeTreeRoute,
   GratitudeWallRoute: GratitudeWallRoute,
 }
 
