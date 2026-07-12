@@ -146,6 +146,13 @@ function Donut({ segments, size = 200, ink }: { segments: { v: number; c: string
   );
 }
 
+// tracks the cursor as CSS vars so ambient glows can follow the pointer
+const trackCursor = (e: React.MouseEvent<HTMLElement>) => {
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty("--mx", `${((e.clientX - r.left) / r.width) * 100}%`);
+  e.currentTarget.style.setProperty("--my", `${((e.clientY - r.top) / r.height) * 100}%`);
+};
+
 function Dashboard() {
   const [dark, setDark] = useState(false);
   const [day, setDay] = useState(12);
