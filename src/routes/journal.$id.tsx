@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import {
   ArrowLeft, Save, Star, Trash2, Sparkles, Bot, X, RefreshCw, Zap,
   Heart, Trophy, CloudRain, MapPin, CloudSun, Wand2, PenLine, Lightbulb,
+  Maximize2, Minimize2, Bold, Italic, Quote, List, ListOrdered, Heading1, Heading2, Minus, Link as LinkIcon,
 } from "lucide-react";
 import { AppShell, palette } from "@/components/AppShell";
 import {
@@ -32,6 +33,9 @@ function EditorPage() {
   const [aiLoading, setAiLoading] = useState<string | null>(null);
   const [aiResult, setAiResult] = useState<{ kind: string; text: string } | null>(null);
   const [savedTick, setSavedTick] = useState(0);
+  const [zen, setZen] = useState(false);
+  const [font, setFont] = useState<"serif" | "sans" | "mono">("serif");
+  const [fontSize, setFontSize] = useState(19);
   const bodyRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -82,6 +86,51 @@ function EditorPage() {
     setTimeout(() => { ta.focus(); ta.setSelectionRange(s + txt.length, s + txt.length); }, 0);
   }
 
+  // wrap current selection with prefix/suffix (for bold, italic, etc.)
+  function wrapSelection(prefix: string, suffix: string = prefix, placeholder = "") {
+    if (!bodyRef.current || !entry) return;
+    const ta = bodyRef.current;
+    const s = ta.selectionStart, e = ta.selectionEnd;
+    const sel = entry.body.slice(s, e) || placeholder;
+    const next = entry.body.slice(0, s) + prefix + sel + suffix + entry.body.slice(e);
+    patch({ body: next });
+    setTimeout(() => {
+      ta.focus();
+      ta.setSelectionRange(s + prefix.length, s + prefix.length + sel.length);
+    }, 0);
+  }
+
+  // prepend a line marker (#, >, -, 1.) to current line
+  function prefixLine(marker: string) {
+    if (!bodyRef.current || !entry) return;
+    const ta = bodyRef.current;
+    const s = ta.selectionStart;
+    const before = entry.body.slice(0, s);
+    const lineStart = before.lastIndexOf("\n") + 1;
+    const next = entry.body.slice(0, lineStart) + marker + entry.body.slice(lineStart);
+    patch({ body: next });
+    setTimeout(() => { ta.focus(); ta.setSelectionRange(s + marker.length, s + marker.length); }, 0);
+  }
+
+  // zen (fullscreen) shortcuts
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && zen) setZen(false);
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "b") { e.preventDefault(); wrapSelection("**", "**", "bold"); }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "i") { e.preventDefault(); wrapSelection("_", "_", "italic"); }
+    };
+    window.addEventListener("keydown", onKey);
+    if (zen) document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [zen, entry?.body]);
+
+  const fontFamily = font === "serif" ? "'Fraunces', serif" : font === "mono" ? "'JetBrains Mono', ui-monospace, monospace" : "'DM Sans', sans-serif";
+
+
   const created = new Date(entry.createdAt);
 
   return (
@@ -104,6 +153,12 @@ function EditorPage() {
               className="w-9 h-9 rounded-full flex items-center justify-center transition hover:-translate-y-0.5"
               style={{ background: surface, border: `1px solid ${border}` }} aria-label="delete">
               <Trash2 className="w-3.5 h-3.5 opacity-70" />
+            </button>
+            <button onClick={() => setZen(true)}
+              className="inline-flex items-center gap-2 h-9 px-3 rounded-full text-[11px] transition hover:-translate-y-0.5"
+              style={{ background: surface, color: ink, border: `1px solid ${border}` }}
+              title="focus mode (fullscreen)">
+              <Maximize2 className="w-3.5 h-3.5" /> focus
             </button>
             <button onClick={() => setAiOpen(true)}
               className="inline-flex items-center gap-2 h-9 px-4 rounded-full text-[12px] transition hover:-translate-y-0.5"
@@ -146,18 +201,30 @@ function EditorPage() {
             </div>
           </div>
 
+          {/* formatting toolbar */}
+          <FormatToolbar
+            onWrap={wrapSelection}
+            onPrefix={prefixLine}
+            onInsert={insertAtCursor}
+            font={font} setFont={setFont}
+            fontSize={fontSize} setFontSize={setFontSize}
+          />
+
           <textarea ref={bodyRef}
             value={entry.body}
             onChange={(e) => patch({ body: e.target.value })}
             placeholder="write freely. no one is watching…"
-            className="w-full bg-transparent outline-none mt-6 min-h-[380px] font-['Fraunces',serif] text-[19px] leading-[1.7] placeholder:opacity-30 resize-none" />
+            style={{ fontFamily, fontSize: `${fontSize}px`, lineHeight: 1.7 }}
+            className="w-full bg-transparent outline-none mt-3 min-h-[380px] placeholder:opacity-30 resize-none" />
 
-          {/* mini toolbar / prompts */}
+          {/* prompt inserts */}
           <div className="flex flex-wrap gap-2 mt-4 pt-4" style={{ borderTop: `1px solid ${border}` }}>
             {[
               { label: "gratitude", txt: "\n\n🌿 grateful for: " },
               { label: "a win", txt: "\n\n🏆 today's win: " },
               { label: "challenge", txt: "\n\n🌧 challenge: " },
+              { label: "letting go", txt: "\n\n🍃 letting go of: " },
+              { label: "note to self", txt: "\n\n✉️ note to self — " },
             ].map((b) => (
               <button key={b.label} onClick={() => insertAtCursor(b.txt)}
                 className="text-[11px] px-3 h-7 rounded-full inline-flex items-center gap-1.5"
@@ -251,9 +318,105 @@ function EditorPage() {
           </aside>
         </div>
       )}
+
+      {/* ── ZEN FULLSCREEN WRITING ─────────────────────── */}
+      {zen && (
+        <div className="fixed inset-0 z-[100]" role="dialog" aria-modal="true"
+             style={{ background: `radial-gradient(1000px 500px at 50% 0%, ${surface2}, ${surface} 60%)`, color: ink }}>
+          <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-8 py-5 backdrop-blur-md"
+               style={{ background: `${surface}CC`, borderBottom: `1px solid ${border}` }}>
+            <div className="flex items-center gap-3 text-[10px] tracking-[0.35em] uppercase opacity-60">
+              <span>{created.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}</span>
+              <span className="opacity-40">·</span>
+              <span>{words} words · {readMin} min</span>
+              <span className="opacity-40">·</span>
+              <span>{savedTick > 0 ? "saved" : "draft"}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <FormatToolbar compact
+                onWrap={wrapSelection}
+                onPrefix={prefixLine}
+                onInsert={insertAtCursor}
+                font={font} setFont={setFont}
+                fontSize={fontSize} setFontSize={setFontSize}
+              />
+              <button onClick={() => setZen(false)}
+                className="inline-flex items-center gap-2 h-9 px-4 rounded-full text-[11px]"
+                style={{ background: ink, color: "#fff" }}>
+                <Minimize2 className="w-3.5 h-3.5"/> exit
+              </button>
+            </div>
+          </div>
+
+          <div className="h-full overflow-y-auto pt-24 pb-24 px-6">
+            <div className="max-w-3xl mx-auto">
+              <input value={entry.title} onChange={(e) => patch({ title: e.target.value })}
+                placeholder="untitled"
+                className="w-full bg-transparent outline-none font-['Fraunces',serif] text-[48px] sm:text-[64px] font-light leading-[1.02] placeholder:opacity-25 mb-8"/>
+              <textarea
+                value={entry.body}
+                onChange={(e) => patch({ body: e.target.value })}
+                placeholder="the room is quiet. begin anywhere…"
+                autoFocus
+                style={{ fontFamily, fontSize: `${fontSize + 2}px`, lineHeight: 1.8 }}
+                className="w-full bg-transparent outline-none min-h-[70vh] placeholder:opacity-25 resize-none"
+                onKeyDown={(e) => {
+                  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "b") { e.preventDefault(); wrapSelection("**","**","bold"); }
+                  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "i") { e.preventDefault(); wrapSelection("_","_","italic"); }
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </AppShell>
   );
 }
+
+function FormatToolbar({ onWrap, onPrefix, onInsert, font, setFont, fontSize, setFontSize, compact }: {
+  onWrap: (p: string, s?: string, ph?: string) => void;
+  onPrefix: (m: string) => void;
+  onInsert: (t: string) => void;
+  font: "serif" | "sans" | "mono";
+  setFont: (f: "serif" | "sans" | "mono") => void;
+  fontSize: number;
+  setFontSize: (n: number) => void;
+  compact?: boolean;
+}) {
+  const btn = "w-8 h-8 rounded-lg inline-flex items-center justify-center transition hover:-translate-y-0.5";
+  return (
+    <div className={`flex flex-wrap items-center gap-1.5 ${compact ? "" : "mt-5 pt-4"}`}
+         style={compact ? {} : { borderTop: `1px solid ${border}` }}>
+      <button className={btn} title="heading" style={{ background: surface2 }} onClick={() => onPrefix("# ")}><Heading1 className="w-3.5 h-3.5"/></button>
+      <button className={btn} title="subheading" style={{ background: surface2 }} onClick={() => onPrefix("## ")}><Heading2 className="w-3.5 h-3.5"/></button>
+      <span className="w-px h-4 opacity-20" style={{ background: ink }}/>
+      <button className={btn} title="bold (⌘B)" style={{ background: surface2 }} onClick={() => onWrap("**","**","bold")}><Bold className="w-3.5 h-3.5"/></button>
+      <button className={btn} title="italic (⌘I)" style={{ background: surface2 }} onClick={() => onWrap("_","_","italic")}><Italic className="w-3.5 h-3.5"/></button>
+      <button className={btn} title="quote" style={{ background: surface2 }} onClick={() => onPrefix("> ")}><Quote className="w-3.5 h-3.5"/></button>
+      <span className="w-px h-4 opacity-20" style={{ background: ink }}/>
+      <button className={btn} title="bullet list" style={{ background: surface2 }} onClick={() => onPrefix("- ")}><List className="w-3.5 h-3.5"/></button>
+      <button className={btn} title="numbered list" style={{ background: surface2 }} onClick={() => onPrefix("1. ")}><ListOrdered className="w-3.5 h-3.5"/></button>
+      <button className={btn} title="divider" style={{ background: surface2 }} onClick={() => onInsert("\n\n———\n\n")}><Minus className="w-3.5 h-3.5"/></button>
+      <button className={btn} title="link" style={{ background: surface2 }} onClick={() => onWrap("[", "](https://)", "text")}><LinkIcon className="w-3.5 h-3.5"/></button>
+      <span className="w-px h-4 opacity-20" style={{ background: ink }}/>
+      <div className="flex items-center gap-1 rounded-full px-1 py-0.5" style={{ background: surface2 }}>
+        {(["serif","sans","mono"] as const).map((f) => (
+          <button key={f} onClick={() => setFont(f)}
+            className="text-[10px] px-2 h-6 rounded-full tracking-wide"
+            style={{ background: font === f ? ink : "transparent", color: font === f ? "#fff" : ink }}>
+            {f === "serif" ? "Aa" : f === "mono" ? "</>" : "aa"}
+          </button>
+        ))}
+      </div>
+      <div className="flex items-center gap-0.5 rounded-full px-1 py-0.5" style={{ background: surface2 }}>
+        <button onClick={() => setFontSize(Math.max(14, fontSize - 1))} className="w-6 h-6 text-[12px]">−</button>
+        <span className="text-[10px] opacity-60 w-6 text-center">{fontSize}</span>
+        <button onClick={() => setFontSize(Math.min(28, fontSize + 1))} className="w-6 h-6 text-[12px]">+</button>
+      </div>
+    </div>
+  );
+}
+
 
 function ListCard({ title, icon, items, onChange, placeholder }:
   { title: string; icon: React.ReactNode; items: string[]; onChange: (v: string[]) => void; placeholder: string }) {

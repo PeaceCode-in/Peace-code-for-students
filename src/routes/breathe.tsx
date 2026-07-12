@@ -5,7 +5,7 @@ import {
   Volume2, VolumeX, Mic, MicOff, Flame, Sparkles, Target, Star,
   Cloud, Waves, Trees, Sun, Bird, Radio, Flame as Fire, Accessibility,
   Trash2, ChevronRight, X, Award, Timer, Settings2, TrendingUp, BarChart3,
-  Keyboard, Contrast, Type,
+  Keyboard, Contrast, Type, Maximize2, Minimize2,
 } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
 import {
@@ -315,6 +315,16 @@ function BreathePage() {
     setTimeout(() => start(), 50);
   };
 
+  // ─ cinema (fullscreen) mode ─
+  const [cinema, setCinema] = useState(false);
+  useEffect(() => {
+    if (!cinema) return;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setCinema(false); };
+    window.addEventListener("keydown", onKey);
+    return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", onKey); };
+  }, [cinema]);
+
   const hc = prefs.highContrast;
   const themeStyle = {
     background: hc ? "#FFFFFF" : bg,
@@ -368,6 +378,15 @@ function BreathePage() {
             aria-label="session history"
           >
             <Timer size={16} />
+          </button>
+          <button
+            onClick={() => setCinema(true)}
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2"
+            style={{ background: ink, color: surface }}
+            aria-label="cinema mode"
+            title="cinema mode"
+          >
+            <Maximize2 size={15} />
           </button>
         </div>
       </header>
@@ -868,6 +887,86 @@ function BreathePage() {
       }} />}
       {showA11y && <A11yModal prefs={prefs} onChange={updatePrefs} onClose={() => setShowA11y(false)} />}
     </div>
+
+    {/* ── CINEMA MODE ─────────────────────────────────── */}
+    {cinema && (
+      <div className="fixed inset-0 z-[100]" role="dialog" aria-modal="true" style={{ color: "#F7FAFF" }}>
+        <div className="absolute inset-0" style={{
+          background: `radial-gradient(1000px 600px at 50% 0%, ${currentTech.color}33, transparent 60%), radial-gradient(800px 500px at 50% 100%, ${primary}22, transparent 60%), #0B1226`,
+        }}/>
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full blur-3xl opacity-40 pointer-events-none"
+             style={{ background: `radial-gradient(circle, ${currentTech.color}, transparent 60%)` }}/>
+        <div className="absolute bottom-[-200px] right-[-100px] w-[520px] h-[520px] rounded-full blur-3xl opacity-25 pointer-events-none"
+             style={{ background: `radial-gradient(circle, ${lavender}, transparent 60%)` }}/>
+
+        <div className="relative z-10 flex items-center justify-between px-8 pt-7">
+          <div className="flex items-center gap-3 text-[10px] tracking-[0.4em] uppercase opacity-70">
+            <img src={logo} alt="" className="w-6 h-6 opacity-90"/>
+            cinema · {currentTech.name.toLowerCase()} · esc to exit
+          </div>
+          <button onClick={() => setCinema(false)}
+                  className="inline-flex items-center gap-2 h-9 px-4 rounded-full text-[11px] tracking-wide transition hover:-translate-y-0.5"
+                  style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.14)" }}>
+            <Minimize2 className="w-3.5 h-3.5"/> exit
+          </button>
+        </div>
+
+        <div className="relative z-10 h-[calc(100vh-88px)] flex flex-col items-center justify-center px-6">
+          <div className="mb-6 text-[11px] tracking-[0.5em] uppercase opacity-70">
+            {running ? phaseLabel[phase] : "ready"}
+          </div>
+          <div className="relative w-[min(78vmin,640px)] h-[min(78vmin,640px)] flex items-center justify-center">
+            <div className="absolute inset-0 rounded-full transition-transform duration-[300ms] ease-out"
+                 style={{
+                   transform: `scale(${scale})`,
+                   background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), ${currentTech.color}66 60%, transparent 78%)`,
+                   filter: `drop-shadow(0 0 40px ${currentTech.color})`,
+                 }}/>
+            <div className="absolute rounded-full transition-transform duration-[300ms] ease-out"
+                 style={{
+                   width: "72%", height: "72%",
+                   transform: `scale(${scale})`,
+                   background: `radial-gradient(circle, rgba(255,255,255,0.15), ${currentTech.color}22)`,
+                   border: "1px solid rgba(255,255,255,0.16)",
+                 }}/>
+            <svg className="absolute inset-0 -rotate-90" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="47" fill="none" stroke="rgba(255,255,255,0.14)" strokeWidth="0.4" />
+              <circle cx="50" cy="50" r="47" fill="none"
+                stroke="#F7FAFF" strokeWidth="0.6" strokeLinecap="round"
+                strokeDasharray={`${2 * Math.PI * 47}`}
+                strokeDashoffset={`${2 * Math.PI * 47 * (1 - totalElapsed / Math.max(1, totalSecs))}`}
+                style={{ transition: "stroke-dashoffset 0.3s linear" }}/>
+            </svg>
+            <div className="relative z-10 text-center">
+              <div className="font-['Fraunces',serif] font-light" style={{ fontSize: "clamp(72px, 12vmin, 148px)" }}>
+                {formatTime(remaining)}
+              </div>
+              <div className="text-[11px] tracking-[0.4em] uppercase opacity-60 mt-3">
+                cycle {cycles} · {duration}m
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-14 flex items-center gap-4">
+            <button onClick={reset}
+                    className="w-12 h-12 rounded-full flex items-center justify-center transition hover:-translate-y-0.5"
+                    style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.16)" }}>
+              <RotateCcw size={15}/>
+            </button>
+            <button onClick={() => (running ? setRunning(false) : totalElapsed > 0 ? setRunning(true) : start())}
+                    className="h-14 px-10 rounded-full flex items-center gap-3 text-[13px] tracking-[0.2em] uppercase transition hover:-translate-y-0.5"
+                    style={{ background: "#F7FAFF", color: "#0B1226", boxShadow: `0 20px 60px -20px ${currentTech.color}` }}>
+              {running ? <><Pause size={16}/> pause</> : totalElapsed > 0 ? <><Play size={16}/> resume</> : <><Play size={16}/> begin</>}
+            </button>
+            <button onClick={stop}
+                    className="w-12 h-12 rounded-full flex items-center justify-center transition hover:-translate-y-0.5"
+                    style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.16)" }}>
+              <SkipForward size={15}/>
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
     </AppShell>
   );
 }
