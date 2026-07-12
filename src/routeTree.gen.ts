@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ScreeningIndexRouteImport } from './routes/screening.index'
+import { Route as PeacebotIndexRouteImport } from './routes/peacebot.index'
 import { Route as JournalIndexRouteImport } from './routes/journal.index'
 import { Route as GratitudeIndexRouteImport } from './routes/gratitude.index'
 import { Route as FocusIndexRouteImport } from './routes/focus.index'
@@ -49,6 +50,11 @@ const IndexRoute = IndexRouteImport.update({
 const ScreeningIndexRoute = ScreeningIndexRouteImport.update({
   id: '/screening/',
   path: '/screening/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeacebotIndexRoute = PeacebotIndexRouteImport.update({
+  id: '/peacebot/',
+  path: '/peacebot/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JournalIndexRoute = JournalIndexRouteImport.update({
@@ -187,6 +193,7 @@ export interface FileRoutesByFullPath {
   '/focus/': typeof FocusIndexRoute
   '/gratitude/': typeof GratitudeIndexRoute
   '/journal/': typeof JournalIndexRoute
+  '/peacebot/': typeof PeacebotIndexRoute
   '/screening/': typeof ScreeningIndexRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
@@ -215,6 +222,7 @@ export interface FileRoutesByTo {
   '/focus': typeof FocusIndexRoute
   '/gratitude': typeof GratitudeIndexRoute
   '/journal': typeof JournalIndexRoute
+  '/peacebot': typeof PeacebotIndexRoute
   '/screening': typeof ScreeningIndexRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
@@ -244,6 +252,7 @@ export interface FileRoutesById {
   '/focus/': typeof FocusIndexRoute
   '/gratitude/': typeof GratitudeIndexRoute
   '/journal/': typeof JournalIndexRoute
+  '/peacebot/': typeof PeacebotIndexRoute
   '/screening/': typeof ScreeningIndexRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
@@ -274,6 +283,7 @@ export interface FileRouteTypes {
     | '/focus/'
     | '/gratitude/'
     | '/journal/'
+    | '/peacebot/'
     | '/screening/'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
@@ -302,6 +312,7 @@ export interface FileRouteTypes {
     | '/focus'
     | '/gratitude'
     | '/journal'
+    | '/peacebot'
     | '/screening'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
@@ -330,6 +341,7 @@ export interface FileRouteTypes {
     | '/focus/'
     | '/gratitude/'
     | '/journal/'
+    | '/peacebot/'
     | '/screening/'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
@@ -359,6 +371,7 @@ export interface RootRouteChildren {
   FocusIndexRoute: typeof FocusIndexRoute
   GratitudeIndexRoute: typeof GratitudeIndexRoute
   JournalIndexRoute: typeof JournalIndexRoute
+  PeacebotIndexRoute: typeof PeacebotIndexRoute
   ScreeningIndexRoute: typeof ScreeningIndexRoute
   ScreeningAssessmentIdRoute: typeof ScreeningAssessmentIdRoute
   ScreeningConsentIdRoute: typeof ScreeningConsentIdRoute
@@ -389,6 +402,13 @@ declare module '@tanstack/react-router' {
       path: '/screening'
       fullPath: '/screening/'
       preLoaderRoute: typeof ScreeningIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/peacebot/': {
+      id: '/peacebot/'
+      path: '/peacebot'
+      fullPath: '/peacebot/'
+      preLoaderRoute: typeof PeacebotIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/journal/': {
@@ -575,6 +595,7 @@ const rootRouteChildren: RootRouteChildren = {
   FocusIndexRoute: FocusIndexRoute,
   GratitudeIndexRoute: GratitudeIndexRoute,
   JournalIndexRoute: JournalIndexRoute,
+  PeacebotIndexRoute: PeacebotIndexRoute,
   ScreeningIndexRoute: ScreeningIndexRoute,
   ScreeningAssessmentIdRoute: ScreeningAssessmentIdRoute,
   ScreeningConsentIdRoute: ScreeningConsentIdRoute,
