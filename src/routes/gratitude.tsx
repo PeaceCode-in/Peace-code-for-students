@@ -306,6 +306,26 @@ function GratitudePage() {
           </div>
         </section>
 
+        {/* ─── AI REFLECTIONS ─── */}
+        <section className="grid lg:grid-cols-2 gap-3">
+          <ReflectionCard
+            label="this week"
+            title="a soft read of the last seven days"
+            text={reflection}
+            loading={loadingReflection}
+            onGenerate={() => generateReflection("reflect_week")}
+            entriesInRange={entries.filter((e) => (Date.now() - new Date(e.createdAt).getTime()) < 7 * 86400000).length}
+          />
+          <ReflectionCard
+            label="this month"
+            title="what shifted, quietly"
+            text={monthlyReflection}
+            loading={loadingMonthly}
+            onGenerate={() => generateReflection("reflect_month")}
+            entriesInRange={entries.filter((e) => (Date.now() - new Date(e.createdAt).getTime()) < 30 * 86400000).length}
+          />
+        </section>
+
         {/* ─── DEEPER: reveal-on-click tiles ─── */}
         <section className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           <RevealTile to="/gratitude/tree"    icon={<TreePine className="w-4 h-4" />}   title="Tree & Garden" hint="watch it bloom" />
