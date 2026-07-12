@@ -379,8 +379,15 @@ function BreathePage() {
           >
             <Timer size={16} />
           </button>
-        </div>
-      </header>
+          <button
+            onClick={() => setCinema(true)}
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2"
+            style={{ background: ink, color: surface }}
+            aria-label="cinema mode"
+            title="cinema mode"
+          >
+            <Maximize2 size={15} />
+          </button>
 
       {/* hero + orb */}
       <section className="max-w-6xl mx-auto px-4 sm:px-8">
