@@ -181,6 +181,10 @@ function Dashboard() {
   const [stress, setStress] = useState(28);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [expIdx, setExpIdx] = useState(0);
+  const [expAuto, setExpAuto] = useState(true);
+  const [expSaved, setExpSaved] = useState<Record<number, boolean>>({});
+  const [expProgress, setExpProgress] = useState(0);
   const mainRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
