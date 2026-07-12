@@ -6,6 +6,7 @@ import {
   Circle, ChevronRight, Bookmark, MoreHorizontal, Waves, Feather,
 } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
+import { AppShell } from "@/components/AppShell";
 
 export const Route = createFileRoute("/community")({ component: CommunityPage });
 
