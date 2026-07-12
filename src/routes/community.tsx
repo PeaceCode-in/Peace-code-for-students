@@ -63,9 +63,24 @@ export default function CommunityPage() {
   const [query, setQuery] = useState("");
   const [threads, setThreads] = useState(initialThreads);
   const [saved, setSaved] = useState<Set<string>>(new Set());
+  const [composeOpen, setComposeOpen] = useState(false);
+  const [composeTitle, setComposeTitle] = useState("");
+  const [composeBody, setComposeBody] = useState("");
+  const [composeCircle, setComposeCircle] = useState(circles[0].name);
 
   const currentRoom = view.kind === "room" ? rooms.find(r => r.id === view.roomId) : null;
   const currentThread = view.kind === "thread" ? threads.find(t => t.id === view.threadId) : null;
+
+  function submitCompose() {
+    if (!composeTitle.trim()) return;
+    const nt = {
+      id: "t" + Date.now(), author: "you (anon)", circle: composeCircle,
+      title: composeTitle.trim(), body: composeBody.trim(), votes: 1, comments: 0, tag: "soft", time: "now",
+    };
+    setThreads([nt, ...threads]);
+    setComposeOpen(false); setComposeTitle(""); setComposeBody("");
+    setTab("threads");
+  }
 
   return (
     <AppShell>
