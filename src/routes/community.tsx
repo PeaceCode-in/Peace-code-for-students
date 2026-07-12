@@ -183,29 +183,29 @@ function HomeView({
   }, [threads, query, sort]);
 
   return (
-    <main className="relative z-10 max-w-[1280px] mx-auto px-5 lg:px-10 pt-8 lg:pt-10 pb-24">
+    <main className="relative z-10 max-w-[1280px] mx-auto px-5 lg:px-10 pt-6 lg:pt-10 pb-24">
       {/* Editorial hero */}
-      <section className="relative mb-9 lg:mb-14">
-        <div className="text-[8.5px] sm:text-[9px] tracking-[0.34em] sm:tracking-[0.4em] uppercase mb-4" style={{ color: muted }}>
+      <section className="relative mb-7 lg:mb-14">
+        <div className="text-[8px] sm:text-[9px] tracking-[0.3em] sm:tracking-[0.4em] uppercase mb-3 sm:mb-4" style={{ color: muted }}>
           the circle · sunday · 42 quietly here
         </div>
-        <h1 className="font-serif font-medium tracking-tight leading-[1.02] sm:leading-[0.98] text-[clamp(2.05rem,10vw,4.6rem)] max-w-[900px]">
+        <h1 className="font-serif font-medium tracking-tight leading-[1.01] sm:leading-[0.98] text-[clamp(1.85rem,8.6vw,4.6rem)] max-w-[900px]">
           nobody heals alone. <span style={{ color: primary, fontStyle: "italic" }}>even in silence, we're here.</span>
         </h1>
-        <p className="mt-5 sm:mt-6 max-w-[560px] text-[13.5px] sm:text-[14px] leading-relaxed" style={{ color: muted }}>
+        <p className="mt-4 sm:mt-6 max-w-[560px] text-[13px] sm:text-[14px] leading-relaxed" style={{ color: muted }}>
           circles are small rooms for the same feeling. live rooms are voices held together. threads are quiet letters, left open for someone else to find.
         </p>
 
         {/* live pulse bar */}
-        <div className="mt-7 sm:mt-8 grid grid-cols-1 sm:flex sm:flex-wrap sm:items-center gap-3 sm:gap-4">
-          <div className="flex min-w-0 items-center gap-2.5 rounded-full h-11 pl-4 pr-5" style={{ background: surface, border: `1px solid ${border}` }}>
+        <div className="mt-5 sm:mt-8 grid grid-cols-1 sm:flex sm:flex-wrap sm:items-center gap-2.5 sm:gap-4">
+          <div className="flex min-w-0 items-center gap-2.5 rounded-full h-10 sm:h-11 pl-4 pr-5" style={{ background: surface, border: `1px solid ${border}` }}>
             <span className="relative flex w-2 h-2">
               <span className="absolute inset-0 rounded-full animate-ping" style={{ background: "#EF6B6B", opacity: 0.6 }}/>
               <span className="relative rounded-full w-2 h-2" style={{ background: "#EF6B6B" }}/>
             </span>
             <span className="text-[10.5px] sm:text-[11.5px] tracking-[0.2em] sm:tracking-[0.22em] uppercase truncate" style={{ color: muted }}>live · 4 rooms · 180 listening</span>
           </div>
-          <div className="flex-1 min-w-0 sm:min-w-[220px] flex items-center gap-2 h-11 rounded-full px-4"
+          <div className="flex-1 min-w-0 sm:min-w-[220px] flex items-center gap-2 h-10 sm:h-11 rounded-full px-4"
                style={{ background: surface, border: `1px solid ${border}` }}>
             <Search className="w-4 h-4" strokeWidth={1.5} style={{ color: muted }}/>
             <input
@@ -217,7 +217,7 @@ function HomeView({
             />
           </div>
           <button onClick={() => openCompose && openCompose()}
-                  className="h-11 px-5 rounded-full inline-flex w-fit items-center gap-2 text-[12.5px] tracking-wide transition hover:translate-y-[-1px]"
+                  className="h-10 sm:h-11 px-4 sm:px-5 rounded-full inline-flex w-fit items-center gap-2 text-[12.5px] tracking-wide transition hover:translate-y-[-1px]"
                   style={{ background: ink, color: "#F7FAFF", boxShadow: "0 12px 24px -12px rgba(29,42,68,0.5)" }}>
             <Plus className="w-4 h-4" strokeWidth={1.8}/> offer a thread
           </button>
@@ -225,7 +225,7 @@ function HomeView({
       </section>
 
       {/* tabs */}
-      <div className="grid grid-cols-3 items-end gap-0 mb-7 lg:mb-10 border-b" style={{ borderColor: border }}>
+      <div className="grid grid-cols-3 items-end gap-0 mb-6 lg:mb-10 border-b" style={{ borderColor: border }}>
         {[
           { k: "circles", label: "circles", icon: Users, count: circles.length },
           { k: "rooms",   label: "live rooms", icon: Radio, count: rooms.length },
@@ -235,7 +235,7 @@ function HomeView({
           const Icon = t.icon;
           return (
             <button key={t.k} onClick={() => setTab(t.k)}
-                    className="relative flex min-w-0 items-center justify-center sm:justify-start gap-1.5 sm:gap-2 px-2 sm:px-5 py-3.5 sm:py-4 text-[12px] sm:text-[13px] transition"
+                    className="relative flex min-w-0 items-center justify-center sm:justify-start gap-1.5 sm:gap-2 px-2 sm:px-5 py-3 sm:py-4 text-[12px] sm:text-[13px] transition"
                     style={{ color: active ? ink : muted }}>
               <Icon className="w-4 h-4" strokeWidth={1.5}/>
               <span className="tracking-wide truncate">{t.label}</span>
