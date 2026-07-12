@@ -406,10 +406,10 @@ function Dashboard() {
             <div className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px]" style={{ background: surface2, color: accent }}>
               <Flame className="w-3 h-3" strokeWidth={1.5}/> 12
             </div>
-            <button className="relative w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }}>
+            <Link to="/peacebot" aria-label="notifications" className="relative w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }}>
               <Bell className="w-3.5 h-3.5 opacity-70" strokeWidth={1.5}/>
               <span className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full" style={{ background: accent }}/>
-            </button>
+            </Link>
             <button onClick={() => setDark(!dark)} aria-label="toggle mode" className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }}>
               {dark ? <Sun className="w-3.5 h-3.5 opacity-70"/> : <Moon className="w-3.5 h-3.5 opacity-70"/>}
             </button>
