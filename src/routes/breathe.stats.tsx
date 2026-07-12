@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, TrendingUp, Award, Clock, Target, Sparkles } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
+import { AppShell } from "@/components/AppShell";
 import { loadSessions, type BreathSession, type BreathTechniqueKey } from "@/lib/breathe-store";
 
 export const Route = createFileRoute("/breathe/stats")({ component: BreatheStatsPage });
@@ -77,7 +78,8 @@ function BreatheStatsPage() {
   }, [sessions]);
 
   return (
-    <div className="min-h-screen font-['DM_Sans',sans-serif]" style={{ background: bg, color: ink }}>
+    <AppShell>
+    <div className="font-['DM_Sans',sans-serif]" style={{ color: ink }}>
       <header className="max-w-6xl mx-auto px-4 sm:px-8 pt-6 sm:pt-10 pb-6 flex items-center justify-between">
         <Link to="/breathe" className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 rounded-full">
           <ArrowLeft size={18} className="opacity-60 group-hover:-translate-x-0.5 transition-transform" />
@@ -212,8 +214,10 @@ function BreatheStatsPage() {
         </div>
       </section>
     </div>
+    </AppShell>
   );
 }
+
 
 function Big({ label, value }: { label: string; value: number | string }) {
   return (

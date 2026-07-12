@@ -13,6 +13,7 @@ import {
   computeStreak, weekSummary, dayKey,
   type BreathSession, type BreathTechniqueKey, type BreathPattern, type BreathPrefs,
 } from "@/lib/breathe-store";
+import { AppShell } from "@/components/AppShell";
 
 export const Route = createFileRoute("/breathe")({ component: BreathePage });
 
@@ -323,9 +324,11 @@ function BreathePage() {
   const cardBorder = hc ? "#000000" : border;
 
   return (
-    <div className="min-h-screen font-['DM_Sans',sans-serif]" style={themeStyle}>
+    <AppShell>
+    <div className="font-['DM_Sans',sans-serif]" style={{ ...themeStyle, background: "transparent" }}>
       {/* live region for screen readers */}
       <div aria-live="polite" aria-atomic="true" className="sr-only">{announce}</div>
+
 
       {/* header */}
       <header className="max-w-6xl mx-auto px-4 sm:px-8 pt-6 sm:pt-10 pb-6 flex items-center justify-between">
@@ -865,8 +868,10 @@ function BreathePage() {
       }} />}
       {showA11y && <A11yModal prefs={prefs} onChange={updatePrefs} onClose={() => setShowA11y(false)} />}
     </div>
+    </AppShell>
   );
 }
+
 
 // ── helpers ───────────────────────────────────────────────────────
 function Card({ children, accent }: { children: React.ReactNode; accent?: string }) {
