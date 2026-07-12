@@ -5,6 +5,7 @@ import {
   Heart, Flame, Users, Feather, Wind, Search, Plus,
   ChevronRight, ArrowUpRight, Waves, Leaf, Coffee, PenLine, Volume2, VolumeX, Quote,
   Bot, CalendarCheck, UserCheck, ClipboardList, Target, Activity, Brain, Menu, X,
+  MessageCircle, Sparkles,
 } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
 
