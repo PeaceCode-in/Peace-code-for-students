@@ -147,14 +147,9 @@ function FocusPage() {
   }, [breathOn]);
 
   return (
-    <div className="min-h-screen w-full font-sans relative" style={{ background: bg, color: ink }}>
-      {/* aurora */}
-      <div className="fixed inset-0 -z-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-[560px] h-[560px] rounded-full blur-3xl opacity-60"
-             style={{ background: `radial-gradient(circle, ${lavender}, transparent 70%)` }}/>
-        <div className="absolute -bottom-32 -right-32 w-[520px] h-[520px] rounded-full blur-3xl opacity-70"
-             style={{ background: `radial-gradient(circle, ${sky}, transparent 70%)` }}/>
-      </div>
+    <AppShell>
+      <div className="w-full font-sans relative" style={{ color: ink }}>
+
 
       {/* header */}
       <header className="relative z-10 max-w-[1280px] mx-auto px-6 lg:px-10 pt-8 flex items-center justify-between">
