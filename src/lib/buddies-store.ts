@@ -370,6 +370,18 @@ export function simulateBuddyResponse(sessionId: string) {
   }
 }
 
+// ─── Favorites / Blocked ─────────────────────────────────────────
+export function favorites(): string[] { return load<string[]>(KEY_F, []); }
+export function toggleFavorite(id: string) {
+  const f = favorites();
+  save(KEY_F, f.includes(id) ? f.filter((x) => x !== id) : [...f, id]);
+}
+export function blocked(): string[] { return load<string[]>(KEY_B, []); }
+export function toggleBlock(id: string) {
+  const b = blocked();
+  save(KEY_B, b.includes(id) ? b.filter((x) => x !== id) : [...b, id]);
+}
+
 // ─── Prefs ──────────────────────────────────────────────────────
 const defaultPrefs: Prefs = {
   anonymous: false, hideIdentity: false, language: "English",
