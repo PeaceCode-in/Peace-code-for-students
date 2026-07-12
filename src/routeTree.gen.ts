@@ -25,6 +25,7 @@ import { Route as PeacebotVoiceRouteImport } from './routes/peacebot.voice'
 import { Route as PeacebotToolsRouteImport } from './routes/peacebot.tools'
 import { Route as PeacebotMentalRouteImport } from './routes/peacebot.mental'
 import { Route as PeacebotMemoryRouteImport } from './routes/peacebot.memory'
+import { Route as PeacebotInsightsRouteImport } from './routes/peacebot.insights'
 import { Route as JournalVoiceRouteImport } from './routes/journal.voice'
 import { Route as JournalMemoriesRouteImport } from './routes/journal.memories'
 import { Route as JournalIdRouteImport } from './routes/journal.$id'
@@ -122,6 +123,11 @@ const PeacebotMemoryRoute = PeacebotMemoryRouteImport.update({
   path: '/peacebot/memory',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PeacebotInsightsRoute = PeacebotInsightsRouteImport.update({
+  id: '/peacebot/insights',
+  path: '/peacebot/insights',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const JournalVoiceRoute = JournalVoiceRouteImport.update({
   id: '/journal/voice',
   path: '/journal/voice',
@@ -215,6 +221,7 @@ export interface FileRoutesByFullPath {
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
+  '/peacebot/insights': typeof PeacebotInsightsRoute
   '/peacebot/memory': typeof PeacebotMemoryRoute
   '/peacebot/mental': typeof PeacebotMentalRoute
   '/peacebot/tools': typeof PeacebotToolsRoute
@@ -249,6 +256,7 @@ export interface FileRoutesByTo {
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
+  '/peacebot/insights': typeof PeacebotInsightsRoute
   '/peacebot/memory': typeof PeacebotMemoryRoute
   '/peacebot/mental': typeof PeacebotMentalRoute
   '/peacebot/tools': typeof PeacebotToolsRoute
@@ -284,6 +292,7 @@ export interface FileRoutesById {
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
+  '/peacebot/insights': typeof PeacebotInsightsRoute
   '/peacebot/memory': typeof PeacebotMemoryRoute
   '/peacebot/mental': typeof PeacebotMentalRoute
   '/peacebot/tools': typeof PeacebotToolsRoute
@@ -320,6 +329,7 @@ export interface FileRouteTypes {
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
+    | '/peacebot/insights'
     | '/peacebot/memory'
     | '/peacebot/mental'
     | '/peacebot/tools'
@@ -354,6 +364,7 @@ export interface FileRouteTypes {
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
+    | '/peacebot/insights'
     | '/peacebot/memory'
     | '/peacebot/mental'
     | '/peacebot/tools'
@@ -388,6 +399,7 @@ export interface FileRouteTypes {
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
+    | '/peacebot/insights'
     | '/peacebot/memory'
     | '/peacebot/mental'
     | '/peacebot/tools'
@@ -423,6 +435,7 @@ export interface RootRouteChildren {
   JournalIdRoute: typeof JournalIdRoute
   JournalMemoriesRoute: typeof JournalMemoriesRoute
   JournalVoiceRoute: typeof JournalVoiceRoute
+  PeacebotInsightsRoute: typeof PeacebotInsightsRoute
   PeacebotMemoryRoute: typeof PeacebotMemoryRoute
   PeacebotMentalRoute: typeof PeacebotMentalRoute
   PeacebotToolsRoute: typeof PeacebotToolsRoute
@@ -560,6 +573,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PeacebotMemoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/peacebot/insights': {
+      id: '/peacebot/insights'
+      path: '/peacebot/insights'
+      fullPath: '/peacebot/insights'
+      preLoaderRoute: typeof PeacebotInsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/journal/voice': {
       id: '/journal/voice'
       path: '/journal/voice'
@@ -687,6 +707,7 @@ const rootRouteChildren: RootRouteChildren = {
   JournalIdRoute: JournalIdRoute,
   JournalMemoriesRoute: JournalMemoriesRoute,
   JournalVoiceRoute: JournalVoiceRoute,
+  PeacebotInsightsRoute: PeacebotInsightsRoute,
   PeacebotMemoryRoute: PeacebotMemoryRoute,
   PeacebotMentalRoute: PeacebotMentalRoute,
   PeacebotToolsRoute: PeacebotToolsRoute,
