@@ -1731,10 +1731,10 @@ function Dashboard() {
               </div>
             </div>
             <div className="relative flex flex-wrap gap-2">
-              <button className="text-[11px] tracking-[0.2em] uppercase px-5 py-2.5 rounded-full transition"
-                      style={{ background: ink, color: bg }}>talk now</button>
-              <button className="text-[11px] tracking-[0.2em] uppercase px-5 py-2.5 rounded-full transition"
-                      style={{ border: `1px solid ${border}` }}>text a friend</button>
+              <Link to="/counselling/emergency" className="text-[11px] tracking-[0.2em] uppercase px-5 py-2.5 rounded-full transition"
+                      style={{ background: ink, color: bg }}>talk now</Link>
+              <Link to="/buddies" className="text-[11px] tracking-[0.2em] uppercase px-5 py-2.5 rounded-full transition"
+                      style={{ border: `1px solid ${border}` }}>text a friend</Link>
             </div>
           </div>
         </section>
