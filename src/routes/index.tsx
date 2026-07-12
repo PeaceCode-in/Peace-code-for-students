@@ -436,10 +436,10 @@ function Dashboard() {
                   <Search className="w-3.5 h-3.5 opacity-40"/>
                   <input placeholder="search stillness…" className="bg-transparent outline-none text-[12px] w-40 placeholder:opacity-40"/>
                 </div>
-                <button className="relative w-10 h-10 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }}>
+                <Link to="/peacebot" aria-label="notifications" className="relative w-10 h-10 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }}>
                   <Bell className="w-4 h-4 opacity-60" strokeWidth={1.5}/>
                   <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 rounded-full" style={{ background: accent }}/>
-                </button>
+                </Link>
               </div>
             </div>
 
