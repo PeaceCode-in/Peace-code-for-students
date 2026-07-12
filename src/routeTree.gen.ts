@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ScreeningIndexRouteImport } from './routes/screening.index'
+import { Route as PeacebotIndexRouteImport } from './routes/peacebot.index'
 import { Route as JournalIndexRouteImport } from './routes/journal.index'
 import { Route as GratitudeIndexRouteImport } from './routes/gratitude.index'
 import { Route as FocusIndexRouteImport } from './routes/focus.index'
@@ -20,6 +21,14 @@ import { Route as ScreeningSettingsRouteImport } from './routes/screening.settin
 import { Route as ScreeningResourcesRouteImport } from './routes/screening.resources'
 import { Route as ScreeningLibraryRouteImport } from './routes/screening.library'
 import { Route as ScreeningHistoryRouteImport } from './routes/screening.history'
+import { Route as PeacebotVoiceRouteImport } from './routes/peacebot.voice'
+import { Route as PeacebotToolsRouteImport } from './routes/peacebot.tools'
+import { Route as PeacebotSettingsRouteImport } from './routes/peacebot.settings'
+import { Route as PeacebotPromptsRouteImport } from './routes/peacebot.prompts'
+import { Route as PeacebotMentalRouteImport } from './routes/peacebot.mental'
+import { Route as PeacebotMemoryRouteImport } from './routes/peacebot.memory'
+import { Route as PeacebotInsightsRouteImport } from './routes/peacebot.insights'
+import { Route as PeacebotAvatarRouteImport } from './routes/peacebot.avatar'
 import { Route as JournalVoiceRouteImport } from './routes/journal.voice'
 import { Route as JournalMemoriesRouteImport } from './routes/journal.memories'
 import { Route as JournalIdRouteImport } from './routes/journal.$id'
@@ -35,6 +44,7 @@ import { Route as ScreeningProcessingIdRouteImport } from './routes/screening.pr
 import { Route as ScreeningInstructionsIdRouteImport } from './routes/screening.instructions.$id'
 import { Route as ScreeningConsentIdRouteImport } from './routes/screening.consent.$id'
 import { Route as ScreeningAssessmentIdRouteImport } from './routes/screening.assessment.$id'
+import { Route as PeacebotCIdRouteImport } from './routes/peacebot.c.$id'
 
 const CommunityRoute = CommunityRouteImport.update({
   id: '/community',
@@ -49,6 +59,11 @@ const IndexRoute = IndexRouteImport.update({
 const ScreeningIndexRoute = ScreeningIndexRouteImport.update({
   id: '/screening/',
   path: '/screening/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeacebotIndexRoute = PeacebotIndexRouteImport.update({
+  id: '/peacebot/',
+  path: '/peacebot/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JournalIndexRoute = JournalIndexRouteImport.update({
@@ -89,6 +104,46 @@ const ScreeningLibraryRoute = ScreeningLibraryRouteImport.update({
 const ScreeningHistoryRoute = ScreeningHistoryRouteImport.update({
   id: '/screening/history',
   path: '/screening/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeacebotVoiceRoute = PeacebotVoiceRouteImport.update({
+  id: '/peacebot/voice',
+  path: '/peacebot/voice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeacebotToolsRoute = PeacebotToolsRouteImport.update({
+  id: '/peacebot/tools',
+  path: '/peacebot/tools',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeacebotSettingsRoute = PeacebotSettingsRouteImport.update({
+  id: '/peacebot/settings',
+  path: '/peacebot/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeacebotPromptsRoute = PeacebotPromptsRouteImport.update({
+  id: '/peacebot/prompts',
+  path: '/peacebot/prompts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeacebotMentalRoute = PeacebotMentalRouteImport.update({
+  id: '/peacebot/mental',
+  path: '/peacebot/mental',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeacebotMemoryRoute = PeacebotMemoryRouteImport.update({
+  id: '/peacebot/memory',
+  path: '/peacebot/memory',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeacebotInsightsRoute = PeacebotInsightsRouteImport.update({
+  id: '/peacebot/insights',
+  path: '/peacebot/insights',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeacebotAvatarRoute = PeacebotAvatarRouteImport.update({
+  id: '/peacebot/avatar',
+  path: '/peacebot/avatar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JournalVoiceRoute = JournalVoiceRouteImport.update({
@@ -166,6 +221,11 @@ const ScreeningAssessmentIdRoute = ScreeningAssessmentIdRouteImport.update({
   path: '/screening/assessment/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PeacebotCIdRoute = PeacebotCIdRouteImport.update({
+  id: '/peacebot/c/$id',
+  path: '/peacebot/c/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -179,6 +239,14 @@ export interface FileRoutesByFullPath {
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
+  '/peacebot/avatar': typeof PeacebotAvatarRoute
+  '/peacebot/insights': typeof PeacebotInsightsRoute
+  '/peacebot/memory': typeof PeacebotMemoryRoute
+  '/peacebot/mental': typeof PeacebotMentalRoute
+  '/peacebot/prompts': typeof PeacebotPromptsRoute
+  '/peacebot/settings': typeof PeacebotSettingsRoute
+  '/peacebot/tools': typeof PeacebotToolsRoute
+  '/peacebot/voice': typeof PeacebotVoiceRoute
   '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
@@ -187,7 +255,9 @@ export interface FileRoutesByFullPath {
   '/focus/': typeof FocusIndexRoute
   '/gratitude/': typeof GratitudeIndexRoute
   '/journal/': typeof JournalIndexRoute
+  '/peacebot/': typeof PeacebotIndexRoute
   '/screening/': typeof ScreeningIndexRoute
+  '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -207,6 +277,14 @@ export interface FileRoutesByTo {
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
+  '/peacebot/avatar': typeof PeacebotAvatarRoute
+  '/peacebot/insights': typeof PeacebotInsightsRoute
+  '/peacebot/memory': typeof PeacebotMemoryRoute
+  '/peacebot/mental': typeof PeacebotMentalRoute
+  '/peacebot/prompts': typeof PeacebotPromptsRoute
+  '/peacebot/settings': typeof PeacebotSettingsRoute
+  '/peacebot/tools': typeof PeacebotToolsRoute
+  '/peacebot/voice': typeof PeacebotVoiceRoute
   '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
@@ -215,7 +293,9 @@ export interface FileRoutesByTo {
   '/focus': typeof FocusIndexRoute
   '/gratitude': typeof GratitudeIndexRoute
   '/journal': typeof JournalIndexRoute
+  '/peacebot': typeof PeacebotIndexRoute
   '/screening': typeof ScreeningIndexRoute
+  '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -236,6 +316,14 @@ export interface FileRoutesById {
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
+  '/peacebot/avatar': typeof PeacebotAvatarRoute
+  '/peacebot/insights': typeof PeacebotInsightsRoute
+  '/peacebot/memory': typeof PeacebotMemoryRoute
+  '/peacebot/mental': typeof PeacebotMentalRoute
+  '/peacebot/prompts': typeof PeacebotPromptsRoute
+  '/peacebot/settings': typeof PeacebotSettingsRoute
+  '/peacebot/tools': typeof PeacebotToolsRoute
+  '/peacebot/voice': typeof PeacebotVoiceRoute
   '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
@@ -244,7 +332,9 @@ export interface FileRoutesById {
   '/focus/': typeof FocusIndexRoute
   '/gratitude/': typeof GratitudeIndexRoute
   '/journal/': typeof JournalIndexRoute
+  '/peacebot/': typeof PeacebotIndexRoute
   '/screening/': typeof ScreeningIndexRoute
+  '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -266,6 +356,14 @@ export interface FileRouteTypes {
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
+    | '/peacebot/avatar'
+    | '/peacebot/insights'
+    | '/peacebot/memory'
+    | '/peacebot/mental'
+    | '/peacebot/prompts'
+    | '/peacebot/settings'
+    | '/peacebot/tools'
+    | '/peacebot/voice'
     | '/screening/history'
     | '/screening/library'
     | '/screening/resources'
@@ -274,7 +372,9 @@ export interface FileRouteTypes {
     | '/focus/'
     | '/gratitude/'
     | '/journal/'
+    | '/peacebot/'
     | '/screening/'
+    | '/peacebot/c/$id'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -294,6 +394,14 @@ export interface FileRouteTypes {
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
+    | '/peacebot/avatar'
+    | '/peacebot/insights'
+    | '/peacebot/memory'
+    | '/peacebot/mental'
+    | '/peacebot/prompts'
+    | '/peacebot/settings'
+    | '/peacebot/tools'
+    | '/peacebot/voice'
     | '/screening/history'
     | '/screening/library'
     | '/screening/resources'
@@ -302,7 +410,9 @@ export interface FileRouteTypes {
     | '/focus'
     | '/gratitude'
     | '/journal'
+    | '/peacebot'
     | '/screening'
+    | '/peacebot/c/$id'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -322,6 +432,14 @@ export interface FileRouteTypes {
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
+    | '/peacebot/avatar'
+    | '/peacebot/insights'
+    | '/peacebot/memory'
+    | '/peacebot/mental'
+    | '/peacebot/prompts'
+    | '/peacebot/settings'
+    | '/peacebot/tools'
+    | '/peacebot/voice'
     | '/screening/history'
     | '/screening/library'
     | '/screening/resources'
@@ -330,7 +448,9 @@ export interface FileRouteTypes {
     | '/focus/'
     | '/gratitude/'
     | '/journal/'
+    | '/peacebot/'
     | '/screening/'
+    | '/peacebot/c/$id'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -351,6 +471,14 @@ export interface RootRouteChildren {
   JournalIdRoute: typeof JournalIdRoute
   JournalMemoriesRoute: typeof JournalMemoriesRoute
   JournalVoiceRoute: typeof JournalVoiceRoute
+  PeacebotAvatarRoute: typeof PeacebotAvatarRoute
+  PeacebotInsightsRoute: typeof PeacebotInsightsRoute
+  PeacebotMemoryRoute: typeof PeacebotMemoryRoute
+  PeacebotMentalRoute: typeof PeacebotMentalRoute
+  PeacebotPromptsRoute: typeof PeacebotPromptsRoute
+  PeacebotSettingsRoute: typeof PeacebotSettingsRoute
+  PeacebotToolsRoute: typeof PeacebotToolsRoute
+  PeacebotVoiceRoute: typeof PeacebotVoiceRoute
   ScreeningHistoryRoute: typeof ScreeningHistoryRoute
   ScreeningLibraryRoute: typeof ScreeningLibraryRoute
   ScreeningResourcesRoute: typeof ScreeningResourcesRoute
@@ -359,7 +487,9 @@ export interface RootRouteChildren {
   FocusIndexRoute: typeof FocusIndexRoute
   GratitudeIndexRoute: typeof GratitudeIndexRoute
   JournalIndexRoute: typeof JournalIndexRoute
+  PeacebotIndexRoute: typeof PeacebotIndexRoute
   ScreeningIndexRoute: typeof ScreeningIndexRoute
+  PeacebotCIdRoute: typeof PeacebotCIdRoute
   ScreeningAssessmentIdRoute: typeof ScreeningAssessmentIdRoute
   ScreeningConsentIdRoute: typeof ScreeningConsentIdRoute
   ScreeningInstructionsIdRoute: typeof ScreeningInstructionsIdRoute
@@ -389,6 +519,13 @@ declare module '@tanstack/react-router' {
       path: '/screening'
       fullPath: '/screening/'
       preLoaderRoute: typeof ScreeningIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/peacebot/': {
+      id: '/peacebot/'
+      path: '/peacebot'
+      fullPath: '/peacebot/'
+      preLoaderRoute: typeof PeacebotIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/journal/': {
@@ -445,6 +582,62 @@ declare module '@tanstack/react-router' {
       path: '/screening/history'
       fullPath: '/screening/history'
       preLoaderRoute: typeof ScreeningHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/peacebot/voice': {
+      id: '/peacebot/voice'
+      path: '/peacebot/voice'
+      fullPath: '/peacebot/voice'
+      preLoaderRoute: typeof PeacebotVoiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/peacebot/tools': {
+      id: '/peacebot/tools'
+      path: '/peacebot/tools'
+      fullPath: '/peacebot/tools'
+      preLoaderRoute: typeof PeacebotToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/peacebot/settings': {
+      id: '/peacebot/settings'
+      path: '/peacebot/settings'
+      fullPath: '/peacebot/settings'
+      preLoaderRoute: typeof PeacebotSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/peacebot/prompts': {
+      id: '/peacebot/prompts'
+      path: '/peacebot/prompts'
+      fullPath: '/peacebot/prompts'
+      preLoaderRoute: typeof PeacebotPromptsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/peacebot/mental': {
+      id: '/peacebot/mental'
+      path: '/peacebot/mental'
+      fullPath: '/peacebot/mental'
+      preLoaderRoute: typeof PeacebotMentalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/peacebot/memory': {
+      id: '/peacebot/memory'
+      path: '/peacebot/memory'
+      fullPath: '/peacebot/memory'
+      preLoaderRoute: typeof PeacebotMemoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/peacebot/insights': {
+      id: '/peacebot/insights'
+      path: '/peacebot/insights'
+      fullPath: '/peacebot/insights'
+      preLoaderRoute: typeof PeacebotInsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/peacebot/avatar': {
+      id: '/peacebot/avatar'
+      path: '/peacebot/avatar'
+      fullPath: '/peacebot/avatar'
+      preLoaderRoute: typeof PeacebotAvatarRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/journal/voice': {
@@ -552,6 +745,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScreeningAssessmentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/peacebot/c/$id': {
+      id: '/peacebot/c/$id'
+      path: '/peacebot/c/$id'
+      fullPath: '/peacebot/c/$id'
+      preLoaderRoute: typeof PeacebotCIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -567,6 +767,14 @@ const rootRouteChildren: RootRouteChildren = {
   JournalIdRoute: JournalIdRoute,
   JournalMemoriesRoute: JournalMemoriesRoute,
   JournalVoiceRoute: JournalVoiceRoute,
+  PeacebotAvatarRoute: PeacebotAvatarRoute,
+  PeacebotInsightsRoute: PeacebotInsightsRoute,
+  PeacebotMemoryRoute: PeacebotMemoryRoute,
+  PeacebotMentalRoute: PeacebotMentalRoute,
+  PeacebotPromptsRoute: PeacebotPromptsRoute,
+  PeacebotSettingsRoute: PeacebotSettingsRoute,
+  PeacebotToolsRoute: PeacebotToolsRoute,
+  PeacebotVoiceRoute: PeacebotVoiceRoute,
   ScreeningHistoryRoute: ScreeningHistoryRoute,
   ScreeningLibraryRoute: ScreeningLibraryRoute,
   ScreeningResourcesRoute: ScreeningResourcesRoute,
@@ -575,7 +783,9 @@ const rootRouteChildren: RootRouteChildren = {
   FocusIndexRoute: FocusIndexRoute,
   GratitudeIndexRoute: GratitudeIndexRoute,
   JournalIndexRoute: JournalIndexRoute,
+  PeacebotIndexRoute: PeacebotIndexRoute,
   ScreeningIndexRoute: ScreeningIndexRoute,
+  PeacebotCIdRoute: PeacebotCIdRoute,
   ScreeningAssessmentIdRoute: ScreeningAssessmentIdRoute,
   ScreeningConsentIdRoute: ScreeningConsentIdRoute,
   ScreeningInstructionsIdRoute: ScreeningInstructionsIdRoute,
