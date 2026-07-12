@@ -292,6 +292,10 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
                 </div>
               ))}
             </nav>
+            <button onClick={toggleTheme} className="mt-6 flex items-center gap-3 h-11 px-3 rounded-2xl text-[13px]" style={{ background: surface2, color: ink }} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
+              {theme === "dark" ? <Sun className="w-4 h-4" strokeWidth={1.5}/> : <Moon className="w-4 h-4" strokeWidth={1.5}/>}
+              {theme === "dark" ? "Light mode" : "Dark mode"}
+            </button>
           </div>
         </div>
       )}
