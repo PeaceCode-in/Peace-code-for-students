@@ -1,8 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { AppShell, palette } from "@/components/AppShell";
-import { getBuddy, avatarFor, createSession } from "@/lib/buddies-store";
-import { ArrowLeft, ArrowRight, ShieldAlert } from "lucide-react";
-import { useState } from "react";
+import { getBuddy, avatarFor, createSession, upcomingSlots, isBuddyAvailable } from "@/lib/buddies-store";
+import { ArrowLeft, ArrowRight, ShieldAlert, Clock } from "lucide-react";
+import { useMemo, useState } from "react";
 
 export const Route = createFileRoute("/buddies/safety/$id")({
   component: Safety,
@@ -31,23 +31,26 @@ function Safety() {
   const [reason, setReason] = useState("");
   const [goal, setGoal] = useState("");
   const [urgency, setUrgency] = useState("");
+  const [slotTs, setSlotTs] = useState<number | null>(null);
   const [crisisChecked, setCrisisChecked] = useState<string[]>([]);
+
+  const slots = useMemo(() => (b ? upcomingSlots(b.id, 7, 8) : []), [b]);
+  const available = b ? isBuddyAvailable(b.id) : false;
 
   if (!b) return <AppShell><main className="p-10 text-center">Buddy not found.</main></AppShell>;
 
   const isCrisis = crisisChecked.length > 0;
-  const ready = mood && energy && reason && goal && urgency && !isCrisis;
+  const ready = mood && energy && reason && goal && urgency && slotTs && !isCrisis && available;
 
   const proceed = () => {
-    const s = createSession({ buddyId: id, moodBefore: mood, topic: reason, goal, urgency });
-    setTimeout(() => {
-      // simulate buddy accepting
-      const sess = JSON.parse(localStorage.getItem("peacecode.buddies.sessions.v1") || "[]");
-      const idx = sess.findIndex((x: {id:string}) => x.id === s.id);
-      if (idx >= 0) { sess[idx].status = "accepted"; localStorage.setItem("peacecode.buddies.sessions.v1", JSON.stringify(sess)); }
-    }, 800);
-    navigate({ to: "/buddies/chat/$id", params: { id: s.id } });
+    const chosen = slots.find(s => s.ts === slotTs);
+    const s = createSession({
+      buddyId: id, moodBefore: mood, topic: reason, goal, urgency,
+      scheduledFor: chosen?.ts, slotLabel: chosen ? `${chosen.label} · ${chosen.slot}` : undefined,
+    });
+    navigate({ to: "/buddies/request/$id", params: { id: s.id } });
   };
+
 
   return (
     <AppShell>
@@ -100,6 +103,33 @@ function Safety() {
             ))}
           </div>
         </Group>
+
+        <Group label="Pick a time that works">
+          {!available ? (
+            <div className="rounded-2xl p-4 text-[12.5px]" style={{ background: surface, border: `1px solid ${border}`, color: muted }}>
+              {b.name.split(" ")[0]} has no open slots this week. <Link to="/buddies/browse" className="underline" style={{ color: ink }}>Try another buddy →</Link>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {slots.map((s) => {
+                const active = slotTs === s.ts;
+                return (
+                  <button key={s.ts} onClick={()=>setSlotTs(s.ts)}
+                    className="rounded-2xl p-3 text-left transition"
+                    style={{ background: active ? ink : surface, color: active ? surface : ink, border: `1px solid ${border}` }}>
+                    <div className="text-[9px] uppercase tracking-[0.2em] opacity-70 flex items-center gap-1">
+                      <Clock className="w-2.5 h-2.5"/> {s.label}
+                    </div>
+                    <div className="font-serif text-[14px] mt-0.5">{s.slot}</div>
+                    {s.isSoon && <div className="text-[9px] mt-1 opacity-70">soon</div>}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </Group>
+
+
 
         {/* crisis screen */}
         <div className="rounded-2xl p-5 mb-6" style={{ background: `linear-gradient(120deg, ${soft}, ${lavender})`, border: `1px solid ${border}` }}>

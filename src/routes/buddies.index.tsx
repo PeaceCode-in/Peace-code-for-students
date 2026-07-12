@@ -15,8 +15,14 @@ export const Route = createFileRoute("/buddies/")({
 function BuddiesHome() {
   const { surface, surface2, border, ink, muted, primary, soft, lavender } = palette;
   const sessions = listSessions();
-  const cont = useMemo(() => sessions.find((s) => s.status === "active" || s.status === "accepted"), [sessions]);
-  const upcoming = sessions.filter((s) => s.scheduledFor && s.scheduledFor > Date.now()).slice(0, 3);
+  const cont = useMemo(
+    () => sessions.find((s) => s.status === "active" || s.status === "accepted" || s.status === "waiting" || s.status === "rescheduled"),
+    [sessions]
+  );
+  const upcoming = sessions
+    .filter((s) => s.scheduledFor && s.scheduledFor > Date.now() && ["waiting","accepted","rescheduled"].includes(s.status))
+    .sort((a,b)=>(a.scheduledFor??0)-(b.scheduledFor??0))
+    .slice(0, 3);
   const featured = BUDDIES.filter((b) => b.rating >= 4.8).slice(0, 3);
   const active = BUDDIES.filter((b) => b.online).slice(0, 4);
   const rec = BUDDIES.find((b) => favorites().includes(b.id)) ?? BUDDIES[0];
@@ -60,15 +66,23 @@ function BuddiesHome() {
             style={{ background: `linear-gradient(120deg, ${soft}, ${lavender})`, border: `1px solid ${border}` }}>
             <img src={avatarFor(cont.buddyId)} alt="" className="w-14 h-14 rounded-2xl" style={{ background: surface }}/>
             <div className="flex-1 min-w-0">
-              <div className="text-[10px] tracking-[0.3em] uppercase opacity-60">continue conversation</div>
+              <div className="text-[10px] tracking-[0.3em] uppercase opacity-60">
+                {cont.status === "active" ? "continue conversation" :
+                 cont.status === "accepted" ? "your buddy is ready" :
+                 cont.status === "rescheduled" ? "new time proposed" : "request pending"}
+              </div>
               <div className="font-serif text-[19px] leading-tight" style={{ color: ink }}>{getBuddy(cont.buddyId)?.name}</div>
               <div className="text-[12px]" style={{ color: muted }}>
-                {cont.status === "active" ? "active now" : "waiting for you"} · {cont.messages.length} messages
+                {cont.status === "active" ? `active now · ${cont.messages.length} messages` :
+                 cont.status === "accepted" ? "tap to open chat" :
+                 cont.status === "rescheduled" ? "review their proposed time" : "waiting for response"}
               </div>
             </div>
-            <Link to="/buddies/chat/$id" params={{ id: cont.id }} className="px-5 py-2.5 rounded-full text-[12px] font-medium" style={{ background: ink, color: surface }}>
-              open chat
-            </Link>
+            {cont.status === "active" || cont.status === "accepted" ? (
+              <Link to="/buddies/chat/$id" params={{ id: cont.id }} className="px-5 py-2.5 rounded-full text-[12px] font-medium" style={{ background: ink, color: surface }}>open chat</Link>
+            ) : (
+              <Link to="/buddies/request/$id" params={{ id: cont.id }} className="px-5 py-2.5 rounded-full text-[12px] font-medium" style={{ background: ink, color: surface }}>view request</Link>
+            )}
           </section>
         )}
 
@@ -112,12 +126,18 @@ function BuddiesHome() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
               {upcoming.map((s) => {
                 const b = getBuddy(s.buddyId);
+                const to = s.status === "accepted" ? "/buddies/chat/$id" : "/buddies/request/$id";
                 return (
-                  <Link key={s.id} to="/buddies/chat/$id" params={{ id: s.id }} className="rounded-2xl p-4 flex items-center gap-3" style={{ background: surface, border: `1px solid ${border}` }}>
+                  <Link key={s.id} to={to} params={{ id: s.id }} className="rounded-2xl p-4 flex items-center gap-3" style={{ background: surface, border: `1px solid ${border}` }}>
                     <img src={avatarFor(s.buddyId)} className="w-11 h-11 rounded-xl" alt=""/>
-                    <div className="min-w-0"><div className="font-serif text-[14px] truncate" style={{ color: ink }}>{b?.name}</div>
-                      <div className="text-[11px] flex items-center gap-1" style={{ color: muted }}><Clock className="w-3 h-3"/>
-                        {new Date(s.scheduledFor!).toLocaleString([], { weekday: "short", hour: "numeric", minute: "2-digit" })}</div></div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-serif text-[14px] truncate" style={{ color: ink }}>{b?.name}</div>
+                      <div className="text-[11px] flex items-center gap-1" style={{ color: muted }}>
+                        <Clock className="w-3 h-3"/>
+                        {new Date(s.scheduledFor!).toLocaleString([], { weekday: "short", hour: "numeric", minute: "2-digit" })}
+                      </div>
+                      <div className="text-[9.5px] uppercase tracking-[0.2em] mt-0.5" style={{ color: muted }}>{s.status}</div>
+                    </div>
                   </Link>
                 );
               })}
