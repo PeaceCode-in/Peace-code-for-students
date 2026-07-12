@@ -246,4 +246,4 @@ function weeksSinceFirst(entries: GratitudeEntry[]) {
   const first = new Date(entries[entries.length - 1].createdAt);
   return Math.max(1, Math.ceil((Date.now() - first.getTime()) / (7 * 86400000)));
 }
-import { computeStreak } from "@/lib/gratitude-store";
+
