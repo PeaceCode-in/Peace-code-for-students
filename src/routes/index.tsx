@@ -182,9 +182,28 @@ function Dashboard() {
   }, [running]);
 
   useEffect(() => {
-    const q = setInterval(() => setQuote((q) => (q + 1) % quotes.length), 8000);
-    return () => clearInterval(q);
-  }, []);
+    if (!breathing) return;
+    const t = setInterval(() => {
+      setBreathPhase((p) => {
+        const next = (p + 1) % 4;
+        if (next === 0) setBreathCycles((c) => c + 1);
+        return next;
+      });
+    }, 4000);
+    return () => clearInterval(t);
+  }, [breathing]);
+
+  useEffect(() => {
+    setQuoteProgress(0);
+    const start = Date.now();
+    const dur = 9000;
+    const raf = setInterval(() => {
+      const p = Math.min(1, (Date.now() - start) / dur);
+      setQuoteProgress(p);
+      if (p >= 1) setQuote((q) => (q + 1) % quotes.length);
+    }, 60);
+    return () => clearInterval(raf);
+  }, [quote]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
