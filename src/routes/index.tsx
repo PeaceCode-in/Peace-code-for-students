@@ -218,6 +218,20 @@ function Dashboard() {
   }, [quote]);
 
   useEffect(() => {
+    setExpProgress(0);
+    if (!expAuto) return;
+    const start = Date.now();
+    const dur = 6500;
+    const raf = setInterval(() => {
+      const p = Math.min(1, (Date.now() - start) / dur);
+      setExpProgress(p);
+      if (p >= 1) setExpIdx((i) => (i + 1) % experiences.length);
+    }, 60);
+    return () => clearInterval(raf);
+  }, [expIdx, expAuto]);
+
+
+  useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
