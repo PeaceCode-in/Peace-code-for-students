@@ -623,15 +623,20 @@ function Dashboard() {
               <div className="absolute left-4 right-4 top-4 h-px" style={{ background: dark ? "#3a3630" : "#c9b99a" }}/>
               <div className="absolute left-4 top-4 h-px transition-all duration-1000" style={{ width: "40%", background: accent }}/>
               {journey.map((m) => (
-                <div key={m.day} className="relative flex flex-col items-center gap-3 z-10 shrink-0 px-2">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center font-serif text-[12px] transition"
-                       style={m.current ? { background: ink, color: bg, transform: "scale(1.25)" }
+                <button key={m.day} className="group relative flex flex-col items-center gap-3 z-10 shrink-0 px-2 focus:outline-none">
+                  {/* tooltip above */}
+                  <span className="pointer-events-none absolute -top-9 whitespace-nowrap opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300 text-[9px] tracking-[0.28em] uppercase px-2.5 py-1 rounded-full"
+                        style={{ background: ink, color: bg }}>
+                    day {m.day} · {m.label}
+                  </span>
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center font-serif text-[12px] transition-all duration-300 group-hover:scale-110"
+                       style={m.current ? { background: ink, color: bg, transform: "scale(1.25)", boxShadow: `0 10px 24px -10px ${accent}` }
                                         : m.done ? { background: accent, color: "#faf3e3" }
                                                  : { background: surface, color: muted, border: `1px solid ${dark ? "#3a3630" : "#c9b99a"}` }}>
                     {m.day}
                   </div>
-                  <span className="text-[9px] tracking-[0.2em] uppercase opacity-60">{m.label}</span>
-                </div>
+                  <span className="text-[9px] tracking-[0.2em] uppercase transition-opacity" style={{ color: m.current || m.done ? ink : muted, opacity: m.current ? 0.9 : 0.55 }}>{m.label}</span>
+                </button>
               ))}
             </div>
           </div>
