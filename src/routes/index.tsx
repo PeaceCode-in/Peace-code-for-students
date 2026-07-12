@@ -431,34 +431,8 @@ function Dashboard() {
             {/* ─── Today's Composure — the luxury morning brief ─── */}
             <TodayBrief accent={accent} ink={ink} bg={bg} border={border} surface={surface} surface2={surface2} muted={muted}/>
 
-            {/* editorial day rail */}
-            <div className="mt-12 lg:mt-14 relative">
-              <div className="absolute left-0 right-0 top-1/2 h-px opacity-40" style={{ background: border }} />
-              <div className="relative flex items-center gap-2 sm:gap-3 overflow-x-auto scrollbar-none pb-1">
-                {days.map((dd) => {
-                  const active = day === dd.n;
-                  return (
-                    <button key={dd.n} onClick={() => setDay(dd.n)}
-                            className="shrink-0 group/day flex flex-col items-center justify-center relative w-[54px] sm:w-[62px] transition-all">
-                      <div className="text-[8.5px] tracking-[0.28em] uppercase mb-2 transition-colors"
-                           style={{ color: active ? accent : muted, opacity: active ? 1 : 0.55 }}>
-                        {dd.d}
-                      </div>
-                      <div className={`flex items-center justify-center rounded-full font-serif transition-all duration-300 ${active ? "w-[54px] h-[54px] sm:w-[62px] sm:h-[62px] text-[22px]" : "w-11 h-11 text-[17px] hover:scale-105"}`}
-                           style={active
-                              ? { background: ink, color: bg, boxShadow: "0 12px 28px -12px rgba(38,34,28,0.55)" }
-                              : { background: "transparent", color: ink, border: `1px solid ${border}` }}>
-                        {dd.n}
-                      </div>
-                      <div className="mt-2 h-1 flex items-center justify-center">
-                        <span className="w-1 h-1 rounded-full transition-all" style={{ background: active ? accent : "transparent" }}/>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
           </div>
+
 
           {/* right: STILLNESS DECK — layered rotating carousel of experiences */}
           <div className="lg:col-span-4">
