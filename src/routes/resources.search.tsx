@@ -7,22 +7,8 @@ import {
 } from "@/lib/resources-store";
 import { Search as SearchIcon, Mic, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { z } from "zod";
-import { zodValidator, fallback } from "@tanstack/zod-adapter";
-
-const searchSchema = z.object({
-  q: fallback(z.string(), "").default(""),
-  category: fallback(z.string(), "all").default("all"),
-  format: fallback(z.string(), "all").default("all"),
-  difficulty: fallback(z.string(), "all").default("all"),
-  language: fallback(z.string(), "all").default("all"),
-  sort: fallback(z.string(), "recommended").default("recommended"),
-  saved: fallback(z.boolean(), false).default(false),
-  completed: fallback(z.boolean(), false).default(false),
-});
 
 export const Route = createFileRoute("/resources/search")({
-  validateSearch: zodValidator(searchSchema),
   head: () => ({ meta: [{ title: "Search — Resources" }] }),
   component: SearchPage,
 });
@@ -42,27 +28,35 @@ const SORTS: { k: string; label: string }[] = [
 const FORMATS: ResourceFormat[] = Object.keys(FORMAT_LABELS) as ResourceFormat[];
 
 function SearchPage() {
-  const params = Route.useSearch();
-  const navigate = Route.useNavigate();
-  const [q, setQ] = useState(params.q);
+  const [q, setQ] = useState("");
+  const [category, setCategory] = useState<string>("all");
+  const [format, setFormat] = useState<string>("all");
+  const [difficulty, setDifficulty] = useState<string>("all");
+  const [language, setLanguage] = useState<string>("all");
+  const [sort, setSort] = useState<string>("recommended");
+  const [saved, setSaved] = useState(false);
+  const [completed, setCompleted] = useState(false);
+  const [submitted, setSubmitted] = useState("");
   const [listening, setListening] = useState(false);
 
-  useEffect(() => setQ(params.q), [params.q]);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const initQ = params.get("q") || "";
+    if (initQ) { setQ(initQ); setSubmitted(initQ); }
+    const initCat = params.get("category"); if (initCat) setCategory(initCat);
+  }, []);
 
-  const results = useMemo(() => searchResources(params.q, {
-    category: params.category as CategorySlug | "all",
-    format: params.format as ResourceFormat | "all",
-    difficulty: params.difficulty as Difficulty | "all",
-    language: params.language as Language | "all",
-    saved: params.saved,
-    completed: params.completed,
-    sort: params.sort as any,
-  }), [params]);
+  const results = useMemo(() => searchResources(submitted, {
+    category: category as CategorySlug | "all",
+    format: format as ResourceFormat | "all",
+    difficulty: difficulty as Difficulty | "all",
+    language: language as Language | "all",
+    saved, completed,
+    sort: sort as any,
+  }), [submitted, category, format, difficulty, language, saved, completed, sort]);
 
-  function submit(query: string) {
-    pushSearch(query);
-    navigate({ search: (p) => ({ ...p, q: query }) });
-  }
+  function submit(query: string) { pushSearch(query); setSubmitted(query); }
 
   function startVoice() {
     const SR: any = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
@@ -80,7 +74,6 @@ function SearchPage() {
   return (
     <AppShell>
       <main className="max-w-[1240px] mx-auto px-4 sm:px-6 py-6 sm:py-10">
-        {/* Search bar */}
         <div className="rounded-3xl p-4 sm:p-5 flex items-center gap-3"
           style={{ background: "var(--pc-surface)", border: "1px solid var(--pc-border)" }}>
           <SearchIcon className="w-5 h-5 opacity-60"/>
@@ -97,7 +90,7 @@ function SearchPage() {
           </button>
         </div>
 
-        {!params.q && (
+        {!submitted && (
           <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <div className="text-[10px] tracking-[0.3em] uppercase mb-3" style={{ color: "var(--pc-muted)" }}>Recent</div>
@@ -121,26 +114,19 @@ function SearchPage() {
           </div>
         )}
 
-        {/* Filters */}
         <div className="mt-6 flex flex-wrap gap-2">
-          <Pill label="Category" value={params.category} options={[{ v: "all", l: "All" }, ...CATEGORIES.map(c => ({ v: c.slug, l: c.name }))]}
-            onChange={v => navigate({ search: (p) => ({ ...p, category: v }) })}/>
-          <Pill label="Format" value={params.format} options={[{ v: "all", l: "All" }, ...FORMATS.map(f => ({ v: f, l: FORMAT_LABELS[f] }))]}
-            onChange={v => navigate({ search: (p) => ({ ...p, format: v }) })}/>
-          <Pill label="Difficulty" value={params.difficulty} options={[{ v: "all", l: "Any" }, ...DIFFICULTIES.map(d => ({ v: d, l: d }))]}
-            onChange={v => navigate({ search: (p) => ({ ...p, difficulty: v }) })}/>
-          <Pill label="Language" value={params.language} options={[{ v: "all", l: "Any" }, ...LANGUAGES.map(l => ({ v: l, l }))]}
-            onChange={v => navigate({ search: (p) => ({ ...p, language: v }) })}/>
-          <Pill label="Sort" value={params.sort} options={SORTS.map(s => ({ v: s.k, l: s.label }))}
-            onChange={v => navigate({ search: (p) => ({ ...p, sort: v }) })}/>
-          <Toggle label="Saved" active={params.saved} onChange={v => navigate({ search: (p) => ({ ...p, saved: v }) })}/>
-          <Toggle label="Completed" active={params.completed} onChange={v => navigate({ search: (p) => ({ ...p, completed: v }) })}/>
+          <Pill label="Category" value={category} options={[{ v: "all", l: "All" }, ...CATEGORIES.map(c => ({ v: c.slug, l: c.name }))]} onChange={setCategory}/>
+          <Pill label="Format" value={format} options={[{ v: "all", l: "All" }, ...FORMATS.map(f => ({ v: f, l: FORMAT_LABELS[f] }))]} onChange={setFormat}/>
+          <Pill label="Difficulty" value={difficulty} options={[{ v: "all", l: "Any" }, ...DIFFICULTIES.map(d => ({ v: d, l: d }))]} onChange={setDifficulty}/>
+          <Pill label="Language" value={language} options={[{ v: "all", l: "Any" }, ...LANGUAGES.map(l => ({ v: l, l }))]} onChange={setLanguage}/>
+          <Pill label="Sort" value={sort} options={SORTS.map(s => ({ v: s.k, l: s.label }))} onChange={setSort}/>
+          <Toggle label="Saved" active={saved} onChange={setSaved}/>
+          <Toggle label="Completed" active={completed} onChange={setCompleted}/>
         </div>
 
-        {/* Results */}
         <div className="mt-6 flex items-center justify-between mb-4">
           <div className="text-[13px]" style={{ color: "var(--pc-muted)" }}>
-            {results.length} result{results.length === 1 ? "" : "s"}{params.q ? ` for "${params.q}"` : ""}
+            {results.length} result{results.length === 1 ? "" : "s"}{submitted ? ` for "${submitted}"` : ""}
           </div>
         </div>
 

@@ -17,7 +17,7 @@ export const Route = createFileRoute("/resources/collection/$slug")({
 
 function CollectionPage() {
   const { col } = Route.useLoaderData();
-  const items = col.resourceIds.map(id => byId(id)).filter(Boolean) as any[];
+  const items = col.resourceIds.map((id: string) => byId(id)).filter(Boolean) as any[];
   const others = COLLECTIONS.filter(c => c.slug !== col.slug).slice(0, 4);
   return (
     <AppShell>
