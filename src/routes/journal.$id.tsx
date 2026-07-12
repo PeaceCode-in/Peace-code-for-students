@@ -59,7 +59,7 @@ function EditorPage() {
   const words = useMemo(() => (entry?.body.trim().split(/\s+/).filter(Boolean).length ?? 0), [entry?.body]);
   const readMin = Math.max(1, Math.round(words / 220));
 
-  if (!entry) return <AppShell><div className="p-10 opacity-50">loading…</div></AppShell>;
+  
 
   function patch(p: Partial<JournalEntry>) {
     setEntry((e) => (e ? { ...e, ...p } : e));
