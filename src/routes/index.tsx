@@ -2001,14 +2001,14 @@ function TodayBrief({ accent, ink, bg, border, surface, surface2, muted }: Brief
                     </div>
                   </div>
                 </div>
-                <button className="group/cta relative overflow-hidden rounded-full px-5 h-11 flex items-center gap-2.5 text-[12px] tracking-wide shrink-0 transition-all duration-300 hover:pr-6"
+                <Link to={cta.to} className="group/cta relative overflow-hidden rounded-full px-5 h-11 flex items-center gap-2.5 text-[12px] tracking-wide shrink-0 transition-all duration-300 hover:pr-6"
                         style={{ background: ink, color: bg }}
                         data-target={cta.target}>
                   <span className="relative z-10">{cta.label}</span>
                   <ArrowUpRight className="w-3.5 h-3.5 relative z-10 transition-transform group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" strokeWidth={1.75}/>
                   <span className="absolute inset-0 opacity-0 group-hover/cta:opacity-100 transition-opacity"
                         style={{ background: `linear-gradient(90deg, ${ink} 0%, ${accent} 120%)` }}/>
-                </button>
+                </Link>
               </div>
             </>
           );
