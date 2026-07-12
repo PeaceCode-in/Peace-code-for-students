@@ -238,7 +238,7 @@ function FocusPage() {
 
             {/* dial */}
             <div className="relative flex flex-col items-center">
-              <div className="relative w-[min(100%,260px)] h-[260px] sm:w-[340px] sm:h-[340px]">
+              <div className="relative w-full max-w-[260px] h-[260px] sm:max-w-none sm:w-[340px] sm:h-[340px]">
                 <svg viewBox="0 0 200 200" className="w-full h-full -rotate-90">
                   <defs>
                     <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
@@ -277,7 +277,7 @@ function FocusPage() {
                   <RotateCcw className="w-4 h-4" strokeWidth={1.6}/>
                 </button>
                 <button onClick={() => setRunning(r => !r)}
-                        className="h-13 sm:h-14 px-7 sm:px-8 rounded-full flex items-center gap-3 text-[13px] sm:text-[13.5px] tracking-wide transition hover:-translate-y-0.5"
+                        className="h-[52px] sm:h-14 px-7 sm:px-8 rounded-full flex items-center gap-3 text-[13px] sm:text-[13.5px] tracking-wide transition hover:-translate-y-0.5"
                         style={{ background: ink, color: "#F7FAFF", boxShadow: "0 16px 32px -14px rgba(29,42,68,0.55)" }}>
                   {running ? <Pause className="w-4 h-4" strokeWidth={1.8}/> : <Play className="w-4 h-4" strokeWidth={1.8}/>}
                   {running ? "pause" : remaining === totalSecs ? "begin" : "resume"}
