@@ -1105,7 +1105,7 @@ function Dashboard() {
                       </div>
                     )}
                   </div>
-                </button>
+                </Link>
               );
             })}
           </div>
