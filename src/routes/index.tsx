@@ -848,15 +848,22 @@ function Dashboard() {
               </div>
             </div>
             <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
-              {Array.from({ length: 8 }).map((_, i) => {
+              {["first breath","seven mornings","one honest note","a walk alone","two weeks steady","empty inbox","early sleep","stillness · 10h"].map((name, i) => {
                 const unlocked = i < 4;
                 return (
-                  <div key={i}
-                       className="aspect-square rounded-2xl flex items-center justify-center transition hover:scale-110 cursor-pointer relative overflow-hidden"
+                  <button key={i} title={name}
+                       onMouseMove={trackCursor}
+                       className="group cursor-glow aspect-square rounded-2xl flex items-center justify-center cursor-pointer relative overflow-hidden transition-all duration-500 hover:-translate-y-1 focus:outline-none"
                        style={{ background: surface2, border: `1px solid ${border}` }}>
-                    <Mark className="w-6 h-6" opacity={unlocked ? 0.85 : 0.18}/>
-                    {unlocked && <div className="absolute inset-0 opacity-30" style={{ background: `radial-gradient(circle at 30% 30%,${soft},transparent 70%)` }}/>}
-                  </div>
+                    <Mark className="w-6 h-6 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3" opacity={unlocked ? 0.9 : 0.16}/>
+                    {unlocked && <div className="absolute inset-0 opacity-40 transition-opacity duration-500 group-hover:opacity-70" style={{ background: `radial-gradient(circle at 30% 30%,${soft},transparent 70%)` }}/>}
+                    {!unlocked && <span className="absolute bottom-1.5 text-[7.5px] tracking-[0.25em] uppercase opacity-40">locked</span>}
+                    {/* tooltip */}
+                    <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300 text-[8.5px] tracking-[0.25em] uppercase px-2 py-1 rounded-full z-10"
+                          style={{ background: ink, color: bg }}>
+                      {name}
+                    </span>
+                  </button>
                 );
               })}
             </div>
