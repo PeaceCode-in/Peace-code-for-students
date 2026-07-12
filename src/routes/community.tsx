@@ -172,7 +172,7 @@ export default function CommunityPage() {
 
 // ─── home view ────────────────────────────────────────────────────
 function HomeView({
-  tab, setTab, sort, setSort, query, setQuery, threads, openRoom, openThread, onVote, saved, toggleSave,
+  tab, setTab, sort, setSort, query, setQuery, threads, openRoom, openThread, onVote, saved, toggleSave, openCompose,
 }: any) {
   const filtered = useMemo(() => {
     let list = [...threads];
