@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import {
   Sparkles, ArrowRight, Heart, Users, TreePine, LineChart, Lock,
-  Shield, Trophy, Bell, Plus, Send, Flame, Bookmark, Quote,
+  Shield, Trophy, Bell, BellOff, Plus, Send, Flame, Bookmark, Quote, RefreshCw,
 } from "lucide-react";
 import { AppShell, palette } from "@/components/AppShell";
 import {
@@ -13,6 +13,7 @@ import {
   type GratitudeEntry, type Prefs, type Category, type GratitudePrivacy,
 } from "@/lib/gratitude-store";
 import { gratitudeAI } from "@/lib/gratitude-ai.functions";
+import { getPermission, requestPermission, startReminderLoop, type NotifyPermission } from "@/lib/gratitude-notify";
 
 export const Route = createFileRoute("/gratitude")({
   head: () => ({
@@ -48,7 +49,13 @@ function GratitudePage() {
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [showAch, setShowAch] = useState(false);
   const [showChallenges, setShowChallenges] = useState(false);
+  const [reflection, setReflection] = useState<string>("");
+  const [loadingReflection, setLoadingReflection] = useState(false);
+  const [monthlyReflection, setMonthlyReflection] = useState<string>("");
+  const [loadingMonthly, setLoadingMonthly] = useState(false);
+  const [notifPerm, setNotifPerm] = useState<NotifyPermission>("default");
   const promptFn = useServerFn(gratitudeAI);
+  const reflectFn = useServerFn(gratitudeAI);
 
   useEffect(() => { setEntries(loadEntries()); }, []);
   useEffect(() => { setPrivacy(prefs.defaultPrivacy); }, [prefs.defaultPrivacy]);
@@ -72,6 +79,41 @@ function GratitudePage() {
     } finally { setLoadingPrompt(false); }
   }
   useEffect(() => { if (!prompt) void refreshPrompt(); /* eslint-disable-next-line */ }, []);
+
+  // Kick off notification loop when prefs change or on mount.
+  useEffect(() => {
+    setNotifPerm(getPermission());
+    const stop = startReminderLoop(() => loadPrefs());
+    return stop;
+  }, [prefs]);
+
+  async function enableNotifications() {
+    const r = await requestPermission();
+    setNotifPerm(r);
+  }
+
+  async function generateReflection(kind: "reflect_week" | "reflect_month") {
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - (kind === "reflect_week" ? 7 : 30));
+    const relevant = entries.filter((e) => new Date(e.createdAt) >= cutoff);
+    if (relevant.length === 0) {
+      const empty = kind === "reflect_week"
+        ? "no entries this week yet. one small note starts the pattern."
+        : "the month is quiet. plant a seed to begin.";
+      if (kind === "reflect_week") setReflection(empty);
+      else setMonthlyReflection(empty);
+      return;
+    }
+    const text = relevant.map((e) => `- ${e.body}`).join("\n").slice(0, 4000);
+    if (kind === "reflect_week") setLoadingReflection(true); else setLoadingMonthly(true);
+    try {
+      const r = await reflectFn({ data: { kind, text } });
+      if (kind === "reflect_week") setReflection(r.text);
+      else setMonthlyReflection(r.text);
+    } finally {
+      if (kind === "reflect_week") setLoadingReflection(false); else setLoadingMonthly(false);
+    }
+  }
 
   function plantSeed() {
     if (!composer.trim()) return;
@@ -264,6 +306,26 @@ function GratitudePage() {
           </div>
         </section>
 
+        {/* ─── AI REFLECTIONS ─── */}
+        <section className="grid lg:grid-cols-2 gap-3">
+          <ReflectionCard
+            label="this week"
+            title="a soft read of the last seven days"
+            text={reflection}
+            loading={loadingReflection}
+            onGenerate={() => generateReflection("reflect_week")}
+            entriesInRange={entries.filter((e) => (Date.now() - new Date(e.createdAt).getTime()) < 7 * 86400000).length}
+          />
+          <ReflectionCard
+            label="this month"
+            title="what shifted, quietly"
+            text={monthlyReflection}
+            loading={loadingMonthly}
+            onGenerate={() => generateReflection("reflect_month")}
+            entriesInRange={entries.filter((e) => (Date.now() - new Date(e.createdAt).getTime()) < 30 * 86400000).length}
+          />
+        </section>
+
         {/* ─── DEEPER: reveal-on-click tiles ─── */}
         <section className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           <RevealTile to="/gratitude/tree"    icon={<TreePine className="w-4 h-4" />}   title="Tree & Garden" hint="watch it bloom" />
@@ -303,13 +365,24 @@ function GratitudePage() {
             <div className="text-[11px] opacity-60 mt-0.5" style={{ color: muted }}>defaults & identity</div>
           </button>
 
-          <div className="rounded-3xl p-5" style={{ background: surface, border: `1px solid ${border}` }}>
+          <button onClick={enableNotifications}
+                  disabled={notifPerm === "unsupported" || notifPerm === "denied"}
+                  className="rounded-3xl p-5 text-left transition hover:-translate-y-0.5 disabled:opacity-60"
+                  style={{ background: surface, border: `1px solid ${border}` }}>
             <div className="flex items-center gap-2 text-[10px] tracking-[0.28em] uppercase" style={{ color: muted }}>
-              <Bell className="w-3.5 h-3.5" /> notifications
+              {notifPerm === "granted" ? <Bell className="w-3.5 h-3.5" /> : <BellOff className="w-3.5 h-3.5" />} notifications
             </div>
-            <div className="mt-2 font-serif italic text-lg" style={{ color: ink, fontFamily: "'Fraunces', serif" }}>{[prefs.notifyDaily, prefs.notifyStreak, prefs.notifyBloom, prefs.notifyWeekly].filter(Boolean).length}/4</div>
-            <div className="text-[11px] opacity-60 mt-0.5" style={{ color: muted }}>gentle reminders</div>
-          </div>
+            <div className="mt-2 font-serif italic text-lg" style={{ color: ink, fontFamily: "'Fraunces', serif" }}>
+              {notifPerm === "granted"
+                ? `${[prefs.notifyDaily, prefs.notifyStreak, prefs.notifyBloom, prefs.notifyWeekly].filter(Boolean).length}/4 on`
+                : notifPerm === "denied" ? "blocked"
+                : notifPerm === "unsupported" ? "not available"
+                : "enable"}
+            </div>
+            <div className="text-[11px] opacity-60 mt-0.5" style={{ color: muted }}>
+              {notifPerm === "granted" ? "gentle reminders" : notifPerm === "denied" ? "allow in browser settings" : "tap to allow"}
+            </div>
+          </button>
         </section>
 
         {/* ─── quote ─── */}
@@ -366,6 +439,36 @@ function GratitudePage() {
 // ────────────────────────────────────────────────────────
 // small pieces
 // ────────────────────────────────────────────────────────
+
+function ReflectionCard({ label, title, text, loading, onGenerate, entriesInRange }: {
+  label: string; title: string; text: string; loading: boolean; onGenerate: () => void; entriesInRange: number;
+}) {
+  const { ink, muted, border, primary, surface, surface2 } = palette;
+  return (
+    <div className="rounded-3xl p-6" style={{ background: surface, border: `1px solid ${border}` }}>
+      <div className="flex items-center justify-between mb-3">
+        <div>
+          <div className="text-[10px] tracking-[0.28em] uppercase" style={{ color: muted }}>peace's reflection · {label}</div>
+          <h3 className="font-serif italic text-xl mt-1" style={{ color: ink, fontFamily: "'Fraunces', serif" }}>{title}</h3>
+        </div>
+        <button onClick={onGenerate} disabled={loading}
+                className="text-[11px] inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full transition hover:opacity-90 disabled:opacity-50"
+                style={{ background: surface2, color: primary }}>
+          <Sparkles className="w-3 h-3" /> {loading ? "reading…" : text ? "again" : "reflect"}
+        </button>
+      </div>
+      {text ? (
+        <p className="font-serif italic text-[15px] leading-relaxed whitespace-pre-line" style={{ color: ink, fontFamily: "'Fraunces', serif" }}>{text}</p>
+      ) : (
+        <p className="text-sm" style={{ color: muted }}>
+          {entriesInRange === 0
+            ? "no entries yet in this window. plant one, then reflect."
+            : `${entriesInRange} ${entriesInRange === 1 ? "entry" : "entries"} waiting. tap reflect for a soft summary.`}
+        </p>
+      )}
+    </div>
+  );
+}
 
 function BackgroundLeaves() {
   return (
