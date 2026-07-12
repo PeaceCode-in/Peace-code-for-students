@@ -1745,16 +1745,25 @@ function Dashboard() {
       </main>
 
       {/* mobile bottom bar — brand mark + hamburger */}
-      <nav className="lg:hidden fixed bottom-4 left-4 right-4 z-30 rounded-full backdrop-blur-xl px-3 py-2 flex items-center justify-between"
+      <nav className="lg:hidden fixed bottom-4 left-4 right-4 z-30 rounded-full backdrop-blur-xl px-2 py-2 flex items-center justify-between gap-1"
            style={{ background: dark ? "rgba(30,27,23,0.92)" : "rgba(255,251,240,0.94)", border: `1px solid ${border}`, boxShadow: "0 14px 44px -14px rgba(42,39,36,0.28)" }}>
-        <button aria-label="PeaceCode" className="w-11 h-11 rounded-full flex items-center justify-center" style={{ background: dark ? "#223050" : "#EAF3FF" }}>
+        <Link to="/" aria-label="Today" className="w-11 h-11 rounded-full flex items-center justify-center shrink-0" style={{ background: dark ? "#223050" : "#EAF3FF" }}>
           <Mark className="w-5 h-5"/>
-        </button>
-        <div className="flex items-center gap-1 text-[10px] tracking-[0.3em] uppercase" style={{ color: muted }}>
-          <span>day 14</span><span className="opacity-40">·</span><span style={{ color: accent }}>bloom</span>
-        </div>
+        </Link>
+        <Link to="/peacebot" aria-label="Peace Bot" className="flex-1 h-11 rounded-full flex items-center justify-center transition active:scale-95" style={{ color: ink }}>
+          <Bot className="w-[19px] h-[19px]" strokeWidth={1.5}/>
+        </Link>
+        <Link to="/buddies" aria-label="Peace Buddies" className="flex-1 h-11 rounded-full flex items-center justify-center transition active:scale-95" style={{ color: ink }}>
+          <UserCheck className="w-[19px] h-[19px]" strokeWidth={1.5}/>
+        </Link>
+        <Link to="/counselling" aria-label="Counselling" className="flex-1 h-11 rounded-full flex items-center justify-center transition active:scale-95" style={{ color: ink }}>
+          <CalendarCheck className="w-[19px] h-[19px]" strokeWidth={1.5}/>
+        </Link>
+        <Link to="/community" aria-label="Community" className="flex-1 h-11 rounded-full flex items-center justify-center transition active:scale-95" style={{ color: ink }}>
+          <Users className="w-[19px] h-[19px]" strokeWidth={1.5}/>
+        </Link>
         <button aria-label="Open menu" onClick={() => setMenuOpen(true)}
-                className="w-11 h-11 rounded-full flex items-center justify-center transition active:scale-95"
+                className="w-11 h-11 rounded-full flex items-center justify-center transition active:scale-95 shrink-0"
                 style={{ background: dark ? "#223050" : "#EAF3FF", color: ink }}>
           <Menu className="w-[18px] h-[18px]" strokeWidth={1.6}/>
         </button>
