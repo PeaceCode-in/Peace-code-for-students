@@ -158,12 +158,18 @@ function Dashboard() {
   const [day, setDay] = useState(12);
   const [mood, setMood] = useState(3);
   const [breathing, setBreathing] = useState(false);
+  const [breathPhase, setBreathPhase] = useState(0); // 0 in · 1 hold · 2 out · 3 hold
+  const [breathCycles, setBreathCycles] = useState(0);
   const [seconds, setSeconds] = useState(25 * 60);
+  const [pomoLength, setPomoLength] = useState(25);
+  const [pomoSessions, setPomoSessions] = useState(1);
   const [running, setRunning] = useState(false);
   const [likes, setLikes] = useState<Record<number, number>>({});
   const [note, setNote] = useState("");
   const [sound, setSound] = useState(false);
   const [quote, setQuote] = useState(0);
+  const [quoteProgress, setQuoteProgress] = useState(0);
+  const [savedQuotes, setSavedQuotes] = useState<Record<number, boolean>>({});
   const [stress, setStress] = useState(28);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -176,9 +182,28 @@ function Dashboard() {
   }, [running]);
 
   useEffect(() => {
-    const q = setInterval(() => setQuote((q) => (q + 1) % quotes.length), 8000);
-    return () => clearInterval(q);
-  }, []);
+    if (!breathing) return;
+    const t = setInterval(() => {
+      setBreathPhase((p) => {
+        const next = (p + 1) % 4;
+        if (next === 0) setBreathCycles((c) => c + 1);
+        return next;
+      });
+    }, 4000);
+    return () => clearInterval(t);
+  }, [breathing]);
+
+  useEffect(() => {
+    setQuoteProgress(0);
+    const start = Date.now();
+    const dur = 9000;
+    const raf = setInterval(() => {
+      const p = Math.min(1, (Date.now() - start) / dur);
+      setQuoteProgress(p);
+      if (p >= 1) setQuote((q) => (q + 1) % quotes.length);
+    }, 60);
+    return () => clearInterval(raf);
+  }, [quote]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -495,76 +520,240 @@ function Dashboard() {
           </div>
         </section>
 
-        {/* BENTO ROW: breathing orb · timer · quote — unified glass */}
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 mb-16">
-          {/* breathing orb */}
-          <div className="lg:col-span-4 rounded-[32px] p-6 relative overflow-hidden"
-               style={{ background: surface, border: `1px solid ${border}` }}>
-            <div className="flex items-center justify-between mb-2">
-              <div className="text-[10px] tracking-[0.3em] uppercase opacity-50">box breathing</div>
-              <button onClick={() => setBreathing(!breathing)}
-                      className="text-[10px] tracking-[0.2em] uppercase px-3.5 py-1.5 rounded-full transition"
-                      style={{ background: ink, color: bg }}>
-                {breathing ? "pause" : "begin"}
-              </button>
-            </div>
-            <div className="flex items-center justify-center py-6">
-              <div className="relative w-44 h-44 flex items-center justify-center">
-                <div className="absolute inset-0 rounded-full" style={{ background: `radial-gradient(circle at 30% 30%, ${soft}55, ${accent}22 60%, transparent 80%)`, animation: breathing ? "breathe-orb 8s ease-in-out infinite" : "none" }}/>
-                <div className="absolute inset-4 rounded-full backdrop-blur-md" style={{ background: `radial-gradient(circle at 30% 30%, ${soft}, ${accent})`, boxShadow: `inset 0 0 40px rgba(255,255,255,0.35), inset 0 -20px 40px ${deep}55`, animation: breathing ? "breathe-orb 8s ease-in-out infinite" : "none" }}/>
-                <Mark className="relative w-12 h-12" opacity={0.9}/>
-              </div>
-            </div>
-            <div className="font-serif italic text-center text-[13px] opacity-60">
-              {breathing ? "in… hold… out… hold…" : "four seconds each side"}
-            </div>
-            <style>{`@keyframes breathe-orb{0%,100%{transform:scale(0.86);opacity:0.85}50%{transform:scale(1.06);opacity:1}}`}</style>
-          </div>
-
-          {/* pomodoro — dark cinematic (same warm ink) */}
-          <div className="lg:col-span-4 rounded-[32px] p-6 relative overflow-hidden" style={{ background: "#26221c", color: "#f4ecdd" }}>
-            <Curl stroke="#f4ecdd" className="absolute -right-8 -bottom-8 w-52 opacity-15" />
-            <div className="relative flex flex-col h-full">
-              <div className="flex items-center justify-between mb-3">
-                <div className="text-[10px] tracking-[0.3em] uppercase opacity-50">a slow hour</div>
-                <div className="text-[10px] italic opacity-60">pomodoro · deep focus</div>
-              </div>
-              <div className="font-serif text-[76px] leading-none tracking-tight text-center my-6" style={{ letterSpacing: "-0.03em" }}>
-                {mm}<span className="opacity-30">:</span>{ss}
-              </div>
-              <div className="flex gap-2 mt-auto">
-                <button onClick={() => setRunning(!running)}
-                        className="flex-1 rounded-full py-3 text-[11px] tracking-[0.25em] uppercase flex items-center justify-center gap-2"
-                        style={{ background: "#f4ecdd", color: "#26221c" }}>
-                  {running ? <Pause className="w-3 h-3"/> : <Play className="w-3 h-3"/>}
-                  {running ? "pause" : "begin"}
-                </button>
-                <button onClick={() => { setRunning(false); setSeconds(25 * 60); }}
-                        className="px-5 rounded-full text-[11px] tracking-[0.25em] uppercase opacity-70 hover:opacity-100"
-                        style={{ border: "1px solid rgba(244,236,221,0.15)" }}>reset</button>
-                <button onClick={() => setSound(!sound)} className="w-11 rounded-full flex items-center justify-center opacity-70 hover:opacity-100"
-                        style={{ border: "1px solid rgba(244,236,221,0.15)" }}>
-                  {sound ? <Volume2 className="w-3.5 h-3.5"/> : <VolumeX className="w-3.5 h-3.5"/>}
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* quote */}
-          <div className="lg:col-span-4 rounded-[32px] p-7 relative overflow-hidden flex flex-col justify-between"
-               style={{ background: surface, border: `1px solid ${border}` }}>
-            <Quote className="w-8 h-8 opacity-25" strokeWidth={1}/>
+        {/* SANCTUM — a stillness triptych. one continuous surface, three instruments. */}
+        <section className="mb-16">
+          <div className="flex items-baseline justify-between mb-5">
             <div>
-              <p className="font-serif text-[19px] leading-[1.35] italic transition-opacity duration-500" style={{ color: ink }}>
-                "{quotes[quote].t}"
-              </p>
-              <div className="text-[10px] tracking-[0.3em] uppercase opacity-50 mt-4">— {quotes[quote].a}</div>
+              <div className="text-[10px] tracking-[0.35em] uppercase opacity-50 mb-2" style={{ color: accent }}>the sanctum</div>
+              <h3 className="font-serif text-[26px] tracking-tight">Three ways to be here.</h3>
             </div>
-            <div className="flex items-center gap-1.5">
-              {quotes.map((_, i) => (
-                <button key={i} onClick={() => setQuote(i)} className="h-[3px] rounded-full transition-all"
-                        style={{ width: quote === i ? 24 : 8, background: quote === i ? accent : border }}/>
-              ))}
+            <span className="text-[10px] tracking-[0.25em] uppercase opacity-50 hidden sm:block">breath · focus · verse</span>
+          </div>
+
+          <div className="relative rounded-[36px] overflow-hidden"
+               style={{ background: surface, border: `1px solid ${border}`, boxShadow: "0 30px 80px -40px rgba(38,34,28,0.25)" }}>
+            {/* organic ambient wash */}
+            <div className="absolute inset-0 pointer-events-none opacity-70"
+                 style={{ background: `radial-gradient(600px 300px at 15% 20%, ${accent}18, transparent 60%), radial-gradient(500px 260px at 88% 90%, ${deep}14, transparent 65%)` }} />
+            <Curl stroke={accent} className="absolute -left-16 top-1/2 -translate-y-1/2 w-96 opacity-[0.08] pointer-events-none" />
+
+            <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.05fr_1.25fr_1fr]">
+              {/* ─── I · BOX BREATHING — the literal box ───────────────── */}
+              <div className="relative p-7 md:p-8 lg:border-r" style={{ borderColor: border }}>
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <div className="text-[9px] tracking-[0.4em] uppercase opacity-40 mb-1">I · breath</div>
+                    <div className="font-serif text-[17px] tracking-tight">Box Breathing</div>
+                  </div>
+                  <button onClick={() => { setBreathing(!breathing); if (!breathing) { setBreathPhase(0); setBreathCycles(0); } }}
+                          className="group flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase px-3.5 py-2 rounded-full transition-all hover:gap-3"
+                          style={{ background: breathing ? "transparent" : ink, color: breathing ? ink : bg, border: `1px solid ${breathing ? border : "transparent"}` }}>
+                    <span className="relative flex h-1.5 w-1.5">
+                      {breathing && <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: accent }} />}
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5" style={{ background: breathing ? accent : bg }} />
+                    </span>
+                    {breathing ? "pause" : "begin"}
+                  </button>
+                </div>
+
+                {/* the box itself */}
+                <div className="flex items-center justify-center py-2">
+                  <div className="relative w-56 h-56">
+                    {/* corner labels */}
+                    {[
+                      { top: "-14px", left: "-14px", label: "inhale", i: 0 },
+                      { top: "-14px", right: "-14px", label: "hold", i: 1 },
+                      { bottom: "-14px", right: "-14px", label: "exhale", i: 2 },
+                      { bottom: "-14px", left: "-14px", label: "hold", i: 3 },
+                    ].map((c, k) => (
+                      <div key={k} className="absolute text-[8px] tracking-[0.3em] uppercase transition-all duration-500"
+                           style={{ top: c.top, left: c.left, right: c.right, bottom: c.bottom, color: breathing && breathPhase === c.i ? accent : muted, opacity: breathing && breathPhase === c.i ? 1 : 0.35, fontWeight: breathing && breathPhase === c.i ? 600 : 400 }}>
+                        {c.label}
+                      </div>
+                    ))}
+
+                    {/* the square, drawn with SVG so we can animate a dashed stroke around it */}
+                    <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full">
+                      <defs>
+                        <linearGradient id="boxG" x1="0" y1="0" x2="1" y2="1">
+                          <stop offset="0%" stopColor={accent} stopOpacity="0.9"/>
+                          <stop offset="100%" stopColor={deep} stopOpacity="0.6"/>
+                        </linearGradient>
+                      </defs>
+                      <rect x="8" y="8" width="84" height="84" rx="6" fill="none" stroke={border} strokeWidth="0.8"/>
+                      {/* animated progress edge: 4 sides, one at a time */}
+                      <rect x="8" y="8" width="84" height="84" rx="6" fill="none"
+                            stroke="url(#boxG)" strokeWidth="1.6" strokeLinecap="round"
+                            strokeDasharray="84 252"
+                            style={{
+                              strokeDashoffset: breathing ? -84 * breathPhase : 0,
+                              transition: breathing ? "stroke-dashoffset 4s linear" : "none",
+                            }}/>
+                    </svg>
+
+                    {/* traveling dot */}
+                    <div className="absolute w-3 h-3 rounded-full transition-all duration-[3800ms] ease-linear"
+                         style={{
+                           background: accent,
+                           boxShadow: `0 0 20px ${accent}, 0 0 40px ${accent}88`,
+                           top:  breathPhase === 0 ? "4%" : breathPhase === 1 ? "4%" : breathPhase === 2 ? "96%" : "96%",
+                           left: breathPhase === 0 ? "4%" : breathPhase === 1 ? "96%" : breathPhase === 2 ? "96%" : "4%",
+                           transform: "translate(-50%,-50%)",
+                           opacity: breathing ? 1 : 0.4,
+                         }}/>
+
+                    {/* center: phase word + mark */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <div className="font-serif italic text-[26px] tracking-tight transition-all duration-500"
+                           style={{ color: ink, opacity: breathing ? 1 : 0.35 }}>
+                        {breathing ? ["inhale", "hold", "exhale", "hold"][breathPhase] : "rest"}
+                      </div>
+                      <div className="mt-2 text-[9px] tracking-[0.35em] uppercase" style={{ color: muted }}>
+                        4 · 4 · 4 · 4
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between mt-6 text-[10px] tracking-[0.25em] uppercase" style={{ color: muted }}>
+                  <span>cycle · {String(breathCycles).padStart(2, "0")}</span>
+                  <span className="italic normal-case font-serif tracking-normal text-[12px]" style={{ color: breathing ? ink : muted }}>
+                    {breathing ? "with the shape, not against it" : "four seconds each side"}
+                  </span>
+                </div>
+              </div>
+
+              {/* ─── II · POMODORO — cinematic ink slab with SVG dial ─── */}
+              <div className="relative p-7 md:p-8 lg:border-r flex flex-col" style={{ background: "#211d18", color: "#f4ecdd", borderColor: border }}>
+                <div className="absolute inset-0 pointer-events-none opacity-40"
+                     style={{ background: "radial-gradient(400px 220px at 70% 20%, rgba(244,236,221,0.06), transparent 60%)" }} />
+                <Curl stroke="#f4ecdd" className="absolute -right-10 -bottom-10 w-64 opacity-[0.08] pointer-events-none" />
+
+                <div className="relative flex items-center justify-between mb-4">
+                  <div>
+                    <div className="text-[9px] tracking-[0.4em] uppercase opacity-40 mb-1">II · focus</div>
+                    <div className="font-serif text-[17px] tracking-tight">A Slow Hour</div>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    {[15, 25, 45].map((m) => (
+                      <button key={m} onClick={() => { setPomoLength(m); setSeconds(m * 60); setRunning(false); }}
+                              className="text-[9px] tracking-[0.2em] uppercase px-2.5 py-1 rounded-full transition-all"
+                              style={{
+                                background: pomoLength === m ? "#f4ecdd" : "transparent",
+                                color: pomoLength === m ? "#211d18" : "rgba(244,236,221,0.55)",
+                                border: `1px solid ${pomoLength === m ? "transparent" : "rgba(244,236,221,0.12)"}`,
+                              }}>
+                        {m}m
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* dial */}
+                <div className="relative flex-1 flex items-center justify-center py-2">
+                  <div className="relative w-[220px] h-[220px]">
+                    <svg viewBox="0 0 100 100" className="absolute inset-0 -rotate-90">
+                      <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(244,236,221,0.08)" strokeWidth="1.2"/>
+                      <circle cx="50" cy="50" r="45" fill="none" stroke="#f4ecdd" strokeWidth="1.4" strokeLinecap="round"
+                              strokeDasharray={2 * Math.PI * 45}
+                              strokeDashoffset={2 * Math.PI * 45 * (1 - (seconds / (pomoLength * 60)))}
+                              style={{ transition: "stroke-dashoffset 1s linear" }} />
+                      {/* tick marks */}
+                      {Array.from({ length: 60 }).map((_, i) => (
+                        <line key={i} x1="50" y1="4" x2="50" y2={i % 5 === 0 ? 7 : 5.5}
+                              stroke="rgba(244,236,221,0.18)" strokeWidth={i % 5 === 0 ? 0.5 : 0.25}
+                              transform={`rotate(${i * 6} 50 50)`} />
+                      ))}
+                    </svg>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <div className="font-serif text-[68px] leading-none tracking-tight" style={{ letterSpacing: "-0.03em" }}>
+                        {mm}<span className="opacity-30">:</span>{ss}
+                      </div>
+                      <div className="mt-3 flex items-center gap-1.5">
+                        {[0, 1, 2, 3].map((i) => (
+                          <span key={i} className="w-1.5 h-1.5 rounded-full transition-all"
+                                style={{ background: i < pomoSessions ? "#f4ecdd" : "rgba(244,236,221,0.18)" }} />
+                        ))}
+                      </div>
+                      <div className="mt-1.5 text-[9px] tracking-[0.3em] uppercase opacity-50">
+                        session {pomoSessions}/4
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="relative flex items-center gap-2 mt-4">
+                  <button onClick={() => setRunning(!running)}
+                          className="flex-1 rounded-full py-3 text-[11px] tracking-[0.25em] uppercase flex items-center justify-center gap-2 transition-transform active:scale-[0.98]"
+                          style={{ background: "#f4ecdd", color: "#211d18" }}>
+                    {running ? <Pause className="w-3 h-3"/> : <Play className="w-3 h-3"/>}
+                    {running ? "pause" : seconds < pomoLength * 60 ? "resume" : "begin"}
+                  </button>
+                  <button onClick={() => { setRunning(false); setSeconds(pomoLength * 60); }}
+                          className="px-5 py-3 rounded-full text-[11px] tracking-[0.25em] uppercase opacity-70 hover:opacity-100 transition"
+                          style={{ border: "1px solid rgba(244,236,221,0.15)" }}>reset</button>
+                  <button onClick={() => setSound(!sound)} aria-label="ambient sound"
+                          className="w-11 h-11 rounded-full flex items-center justify-center opacity-70 hover:opacity-100 transition"
+                          style={{ border: "1px solid rgba(244,236,221,0.15)" }}>
+                    {sound ? <Volume2 className="w-3.5 h-3.5"/> : <VolumeX className="w-3.5 h-3.5"/>}
+                  </button>
+                </div>
+              </div>
+
+              {/* ─── III · VERSE — the quiet page ─────────────────────── */}
+              <div className="relative p-7 md:p-8 flex flex-col">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <div className="text-[9px] tracking-[0.4em] uppercase opacity-40 mb-1">III · verse</div>
+                    <div className="font-serif text-[17px] tracking-tight">A Held Line</div>
+                  </div>
+                  <button onClick={() => setSavedQuotes({ ...savedQuotes, [quote]: !savedQuotes[quote] })}
+                          aria-label="save to journal"
+                          className="w-9 h-9 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95"
+                          style={{ background: savedQuotes[quote] ? ink : "transparent", color: savedQuotes[quote] ? bg : ink, border: `1px solid ${border}` }}>
+                    <Heart className={`w-3.5 h-3.5 ${savedQuotes[quote] ? "animate-heart-pop" : ""}`}
+                           fill={savedQuotes[quote] ? "currentColor" : "none"} strokeWidth={1.5}/>
+                  </button>
+                </div>
+
+                <div className="flex-1 flex flex-col justify-center relative">
+                  <div className="absolute -top-2 -left-1 font-serif text-[80px] leading-none opacity-[0.08] select-none pointer-events-none" style={{ color: ink }}>“</div>
+                  <p key={quote} className="relative font-serif text-[20px] md:text-[21px] leading-[1.4] italic animate-rise" style={{ color: ink }}>
+                    {quotes[quote].t}
+                  </p>
+                  <div className="mt-5 flex items-center gap-3">
+                    <div className="h-px flex-1" style={{ background: `linear-gradient(90deg, ${accent}, transparent)` }} />
+                    <div className="text-[10px] tracking-[0.35em] uppercase" style={{ color: muted }}>{quotes[quote].a}</div>
+                  </div>
+                </div>
+
+                {/* auto-advance progress + nav */}
+                <div className="mt-6 space-y-3">
+                  <div className="h-[2px] w-full rounded-full overflow-hidden" style={{ background: border }}>
+                    <div className="h-full rounded-full transition-none"
+                         style={{ width: `${quoteProgress * 100}%`, background: `linear-gradient(90deg, ${accent}, ${deep})` }}/>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      {quotes.map((_, i) => (
+                        <button key={i} onClick={() => setQuote(i)} aria-label={`verse ${i + 1}`}
+                                className="h-[6px] rounded-full transition-all hover:opacity-100"
+                                style={{ width: quote === i ? 22 : 6, background: quote === i ? accent : border, opacity: quote === i ? 1 : 0.6 }}/>
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <button onClick={() => setQuote((quote - 1 + quotes.length) % quotes.length)}
+                              className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-black/5 transition" aria-label="previous">
+                        <ChevronRight className="w-3.5 h-3.5 rotate-180" strokeWidth={1.5}/>
+                      </button>
+                      <button onClick={() => setQuote((quote + 1) % quotes.length)}
+                              className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-black/5 transition" aria-label="next">
+                        <ChevronRight className="w-3.5 h-3.5" strokeWidth={1.5}/>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
