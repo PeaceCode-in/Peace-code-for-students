@@ -3,8 +3,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeft, Play, Pause, RotateCcw, SkipForward, Wind, Zap, Heart,
   Volume2, VolumeX, Mic, MicOff, Flame, Sparkles, Target, Star,
-  Cloud, Waves, Trees, Sun, Bird, Radio, Flame as Fire,
-  Trash2, ChevronRight, X, Award, Timer, Settings2, TrendingUp,
+  Cloud, Waves, Trees, Sun, Bird, Radio, Flame as Fire, Accessibility,
+  Trash2, ChevronRight, X, Award, Timer, Settings2, TrendingUp, BarChart3,
+  Keyboard, Contrast, Type,
 } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
 import {
