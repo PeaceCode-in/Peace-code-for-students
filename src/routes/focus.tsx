@@ -205,7 +205,7 @@ function FocusPage() {
             <div className="absolute -top-24 -right-16 w-80 h-80 rounded-full blur-3xl opacity-60 pointer-events-none"
                  style={{ background: `radial-gradient(circle, ${currentMode.color}, transparent 70%)` }}/>
 
-            <div className="relative flex flex-wrap gap-2 mb-6">
+            <div className="relative flex flex-wrap gap-2 mb-6 items-center">
               {modes.map(m => {
                 const active = mode === m.key;
                 return (
@@ -220,6 +220,12 @@ function FocusPage() {
                   </button>
                 );
               })}
+              <button onClick={() => setCinema(true)}
+                      title="enter cinema mode (fullscreen)"
+                      className="ml-auto inline-flex items-center gap-2 h-9 px-4 rounded-full text-[11.5px] tracking-wide transition hover:-translate-y-0.5"
+                      style={{ background: surface, color: ink, border: `1px solid ${border}` }}>
+                <Maximize2 className="w-3.5 h-3.5" strokeWidth={1.6}/> cinema
+              </button>
             </div>
 
             {/* task label input */}
