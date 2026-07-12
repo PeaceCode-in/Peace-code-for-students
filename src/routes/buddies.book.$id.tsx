@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { AppShell, palette } from "@/components/AppShell";
-import { getBuddy, avatarFor, createSession } from "@/lib/buddies-store";
-import { ArrowLeft, ArrowRight, Calendar, Clock } from "lucide-react";
+import { getBuddy, avatarFor, createSession, parseSlot } from "@/lib/buddies-store";
+import { ArrowLeft, ArrowRight, Calendar } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/buddies/book/$id")({
@@ -12,7 +12,7 @@ function Book() {
   const { id } = Route.useParams();
   const navigate = useNavigate();
   const b = getBuddy(id);
-  const { surface, surface2, border, ink, muted, primary } = palette;
+  const { surface, surface2, border, ink, muted } = palette;
 
   const [day, setDay] = useState<string>("");
   const [time, setTime] = useState("");
@@ -34,9 +34,15 @@ function Book() {
 
   const book = () => {
     const selectedDay = upcoming.find(u => u.day === day);
-    const scheduledFor = selectedDay?.date.getTime();
-    const s = createSession({ buddyId: id, status: "waiting", scheduledFor, duration, topic, language });
-    navigate({ to: "/buddies/chat/$id", params: { id: s.id } });
+    const p = parseSlot(time);
+    let scheduledFor: number | undefined;
+    if (selectedDay && p) {
+      const when = new Date(selectedDay.date); when.setHours(p.h, p.m, 0, 0);
+      scheduledFor = when.getTime();
+    }
+    const slotLabel = selectedDay ? `${selectedDay.label} · ${time}` : time;
+    const s = createSession({ buddyId: id, status: "waiting", scheduledFor, slotLabel, duration, topic, language, goal: mode === "offline" ? "Campus meetup" : undefined });
+    navigate({ to: "/buddies/request/$id", params: { id: s.id } });
   };
 
   return (
