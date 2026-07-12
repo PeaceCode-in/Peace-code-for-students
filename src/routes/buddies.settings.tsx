@@ -57,7 +57,7 @@ function Settings() {
         <Section icon={Ban} title="Blocked buddies">
           {blockedList.length === 0 ? <p className="text-[12px]" style={{ color: muted }}>No blocked buddies.</p> : (
             <div className="space-y-2">
-              {blockedList.map((id) => {
+              {blockedList.map((id: string) => {
                 const b = BUDDIES.find(x=>x.id===id); if (!b) return null;
                 return (
                   <div key={id} className="flex items-center justify-between rounded-2xl p-3" style={{ background: surface2 }}>
