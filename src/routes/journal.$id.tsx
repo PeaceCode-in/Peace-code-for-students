@@ -33,6 +33,9 @@ function EditorPage() {
   const [aiLoading, setAiLoading] = useState<string | null>(null);
   const [aiResult, setAiResult] = useState<{ kind: string; text: string } | null>(null);
   const [savedTick, setSavedTick] = useState(0);
+  const [zen, setZen] = useState(false);
+  const [font, setFont] = useState<"serif" | "sans" | "mono">("serif");
+  const [fontSize, setFontSize] = useState(19);
   const bodyRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
