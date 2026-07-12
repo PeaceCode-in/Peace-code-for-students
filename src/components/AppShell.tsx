@@ -78,7 +78,7 @@ const navGroups: NavGroup[] = [
     items: [
       { icon: Bot, label: "Peace Bot", to: "/peacebot" },
       { icon: CalendarCheck, label: "Counseling" },
-      { icon: UserCheck, label: "Experts" },
+      { icon: UserCheck, label: "Peace Buddies", to: "/buddies" },
       { icon: ClipboardList, label: "Screening", to: "/screening" },
     ],
   },
