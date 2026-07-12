@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import {
   Sparkles, ArrowRight, Heart, Users, TreePine, LineChart, Lock,
-  Shield, Trophy, Bell, Plus, Send, Flame, Bookmark, Quote,
+  Shield, Trophy, Bell, BellOff, Plus, Send, Flame, Bookmark, Quote, RefreshCw,
 } from "lucide-react";
 import { AppShell, palette } from "@/components/AppShell";
 import {
@@ -13,6 +13,7 @@ import {
   type GratitudeEntry, type Prefs, type Category, type GratitudePrivacy,
 } from "@/lib/gratitude-store";
 import { gratitudeAI } from "@/lib/gratitude-ai.functions";
+import { getPermission, requestPermission, startReminderLoop, type NotifyPermission } from "@/lib/gratitude-notify";
 
 export const Route = createFileRoute("/gratitude")({
   head: () => ({
