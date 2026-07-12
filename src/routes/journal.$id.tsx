@@ -154,6 +154,12 @@ function EditorPage() {
               style={{ background: surface, border: `1px solid ${border}` }} aria-label="delete">
               <Trash2 className="w-3.5 h-3.5 opacity-70" />
             </button>
+            <button onClick={() => setZen(true)}
+              className="inline-flex items-center gap-2 h-9 px-3 rounded-full text-[11px] transition hover:-translate-y-0.5"
+              style={{ background: surface, color: ink, border: `1px solid ${border}` }}
+              title="focus mode (fullscreen)">
+              <Maximize2 className="w-3.5 h-3.5" /> focus
+            </button>
             <button onClick={() => setAiOpen(true)}
               className="inline-flex items-center gap-2 h-9 px-4 rounded-full text-[12px] transition hover:-translate-y-0.5"
               style={{ background: ink, color: "#fff" }}>
@@ -195,18 +201,30 @@ function EditorPage() {
             </div>
           </div>
 
+          {/* formatting toolbar */}
+          <FormatToolbar
+            onWrap={wrapSelection}
+            onPrefix={prefixLine}
+            onInsert={insertAtCursor}
+            font={font} setFont={setFont}
+            fontSize={fontSize} setFontSize={setFontSize}
+          />
+
           <textarea ref={bodyRef}
             value={entry.body}
             onChange={(e) => patch({ body: e.target.value })}
             placeholder="write freely. no one is watching…"
-            className="w-full bg-transparent outline-none mt-6 min-h-[380px] font-['Fraunces',serif] text-[19px] leading-[1.7] placeholder:opacity-30 resize-none" />
+            style={{ fontFamily, fontSize: `${fontSize}px`, lineHeight: 1.7 }}
+            className="w-full bg-transparent outline-none mt-3 min-h-[380px] placeholder:opacity-30 resize-none" />
 
-          {/* mini toolbar / prompts */}
+          {/* prompt inserts */}
           <div className="flex flex-wrap gap-2 mt-4 pt-4" style={{ borderTop: `1px solid ${border}` }}>
             {[
               { label: "gratitude", txt: "\n\n🌿 grateful for: " },
               { label: "a win", txt: "\n\n🏆 today's win: " },
               { label: "challenge", txt: "\n\n🌧 challenge: " },
+              { label: "letting go", txt: "\n\n🍃 letting go of: " },
+              { label: "note to self", txt: "\n\n✉️ note to self — " },
             ].map((b) => (
               <button key={b.label} onClick={() => insertAtCursor(b.txt)}
                 className="text-[11px] px-3 h-7 rounded-full inline-flex items-center gap-1.5"
