@@ -189,36 +189,43 @@ function Dashboard() {
   const [ritualProgress, setRitualProgress] = useState(42);
   const [chatInput, setChatInput] = useState("");
   const [chatLog, setChatLog] = useState<{ from: "me" | "peace"; text: string }[]>([
-    { from: "me", text: "I've felt tight lately. Sleep is uneven." },
-    { from: "peace", text: "I hear you. When did the tightness first arrive?" },
+    { from: "peace", text: "hey Jai. day 14 — soft win. sleep held at 7h 24m. what's alive in you right now?" },
   ]);
-  const [peaceTyping, setPeaceTyping] = useState(true);
+  const [peaceTyping, setPeaceTyping] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
 
-  // gentle "peace is thinking" heartbeat + soft canned response
-  useEffect(() => {
-    if (!peaceTyping) return;
-    const t = setTimeout(() => setPeaceTyping(false), 2600);
-    return () => clearTimeout(t);
-  }, [peaceTyping, chatLog.length]);
-
-  const sendToPeace = (text: string) => {
+  const sendToPeace = async (text: string) => {
     const t = text.trim();
-    if (!t) return;
-    setChatLog((l) => [...l, { from: "me", text: t }]);
+    if (!t || peaceTyping) return;
+    const next = [...chatLog, { from: "me" as const, text: t }];
+    setChatLog(next);
     setChatInput("");
     setPeaceTyping(true);
-    const softReplies = [
-      "let's stay with that for a breath. what does it feel like in the body?",
-      "thank you for saying it out loud. we can move slowly from here.",
-      "that sounds heavy. would a two-minute pause help right now?",
-      "noted, gently. nothing needs solving tonight — just noticing.",
-    ];
-    setTimeout(() => {
-      setChatLog((l) => [...l, { from: "peace", text: softReplies[l.length % softReplies.length] }]);
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: next }),
+      });
+      const data = (await res.json()) as { reply?: string; error?: string };
+      if (!res.ok || !data.reply) {
+        const fallback =
+          res.status === 429
+            ? "the line is quiet for a moment — try again in a breath."
+            : res.status === 402
+            ? "peace needs a small credit refill. tell your workspace admin."
+            : "i couldn't hear you clearly just then. try once more?";
+        setChatLog((l) => [...l, { from: "peace", text: fallback }]);
+      } else {
+        setChatLog((l) => [...l, { from: "peace", text: data.reply! }]);
+      }
+    } catch {
+      setChatLog((l) => [...l, { from: "peace", text: "the signal wavered. stay — try that again." }]);
+    } finally {
       setPeaceTyping(false);
-    }, 2400);
+    }
   };
+
 
   // slow progress creep on the active ritual, like a lived-in moment
   useEffect(() => {
