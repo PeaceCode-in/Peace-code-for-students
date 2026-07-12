@@ -88,6 +88,14 @@ const quotes = [
   { t: "Almost everything will work again if you unplug it, including you.", a: "Anne Lamott" },
 ];
 
+const experiences = [
+  { kicker: "a walk with breath", title: "Meditation", italic: "& movement",  mins: 24, tag: "gentle · guided",   hue: ["#e2c39c", "#a67c52", "#5a3a22"], mood: "grounding" },
+  { kicker: "a soft descent",     title: "Sleep",      italic: "stories",     mins: 32, tag: "night · whispered",  hue: ["#b9a48a", "#5a4632", "#241a12"], mood: "drift" },
+  { kicker: "the still hour",     title: "Deep",       italic: "focus",       mins: 45, tag: "flow · instrumental",hue: ["#d9b58a", "#8a5a36", "#3a2416"], mood: "sharp" },
+  { kicker: "for the tight chest",title: "Anxiety",    italic: "release",     mins: 12, tag: "grounding · body",   hue: ["#e6c9a4", "#b07a48", "#4a2e1a"], mood: "hold" },
+  { kicker: "on waking",          title: "Morning",    italic: "intention",   mins: 8,  tag: "brief · warm",       hue: ["#eed8b4", "#c8955c", "#5c3820"], mood: "begin" },
+];
+
 function Mark({ className = "w-5 h-5", opacity = 1 }: { className?: string; opacity?: number }) {
   return <img src={logo} alt="" className={className} style={{ opacity }} />;
 }
