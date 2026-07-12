@@ -1,11 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { ResourceCard, ResourceRow } from "@/components/resources/ResourceCard";
+import { LanguageToggle } from "@/components/resources/LanguageToggle";
 import {
   RESOURCES, CATEGORIES, COLLECTIONS, AUTHORS, trending, featured,
   recommend, continueLearning, useResourceStore, byId, heroBg, TRENDING_SEARCHES,
 } from "@/lib/resources-store";
-import { Search, Sparkles, Compass, Bookmark, History, Trophy, ListMusic, Download, Filter } from "lucide-react";
+import { useLang, UI, CATEGORY_HI, TRENDING_HI, useResourceI18n, tCached } from "@/lib/resources-i18n";
+import { Search, Sparkles, Compass, Bookmark, History, Trophy, ListMusic, Download, Filter, Loader2 } from "lucide-react";
 import { useMemo } from "react";
 
 export const Route = createFileRoute("/resources/")({
@@ -22,12 +24,21 @@ export const Route = createFileRoute("/resources/")({
 
 function ResourcesHome() {
   const snap = useResourceStore();
+  const [lang] = useLang();
+  const t = UI[lang];
   const cont = useMemo(() => continueLearning(), [snap]);
   const recs = useMemo(() => recommend(10), [snap]);
   const trend = useMemo(() => trending(), []);
   const recent = snap.history.slice(0, 8).map(h => byId(h.id)).filter(Boolean) as any[];
   const feat = featured();
   const featuredCollection = COLLECTIONS[0];
+
+  // Prewarm the translation cache with everything visible on this page.
+  const visible = useMemo(
+    () => Array.from(new Set([...cont.map(c => c.resource), ...recs, ...trend, ...recent, ...feat])),
+    [cont, recs, trend, recent, feat],
+  );
+  const { loading } = useResourceI18n(visible);
 
   return (
     <AppShell>
