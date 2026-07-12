@@ -440,6 +440,36 @@ function GratitudePage() {
 // small pieces
 // ────────────────────────────────────────────────────────
 
+function ReflectionCard({ label, title, text, loading, onGenerate, entriesInRange }: {
+  label: string; title: string; text: string; loading: boolean; onGenerate: () => void; entriesInRange: number;
+}) {
+  const { ink, muted, border, primary, surface, surface2 } = palette;
+  return (
+    <div className="rounded-3xl p-6" style={{ background: surface, border: `1px solid ${border}` }}>
+      <div className="flex items-center justify-between mb-3">
+        <div>
+          <div className="text-[10px] tracking-[0.28em] uppercase" style={{ color: muted }}>peace's reflection · {label}</div>
+          <h3 className="font-serif italic text-xl mt-1" style={{ color: ink, fontFamily: "'Fraunces', serif" }}>{title}</h3>
+        </div>
+        <button onClick={onGenerate} disabled={loading}
+                className="text-[11px] inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full transition hover:opacity-90 disabled:opacity-50"
+                style={{ background: surface2, color: primary }}>
+          <Sparkles className="w-3 h-3" /> {loading ? "reading…" : text ? "again" : "reflect"}
+        </button>
+      </div>
+      {text ? (
+        <p className="font-serif italic text-[15px] leading-relaxed whitespace-pre-line" style={{ color: ink, fontFamily: "'Fraunces', serif" }}>{text}</p>
+      ) : (
+        <p className="text-sm" style={{ color: muted }}>
+          {entriesInRange === 0
+            ? "no entries yet in this window. plant one, then reflect."
+            : `${entriesInRange} ${entriesInRange === 1 ? "entry" : "entries"} waiting. tap reflect for a soft summary.`}
+        </p>
+      )}
+    </div>
+  );
+}
+
 function BackgroundLeaves() {
   return (
     <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 800 400" preserveAspectRatio="none" aria-hidden>
