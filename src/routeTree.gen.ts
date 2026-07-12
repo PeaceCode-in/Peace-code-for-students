@@ -17,6 +17,7 @@ import { Route as CommunityRouteImport } from './routes/community'
 import { Route as BreatheRouteImport } from './routes/breathe'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ScreeningLibraryRouteImport } from './routes/screening.library'
+import { Route as ScreeningHistoryRouteImport } from './routes/screening.history'
 import { Route as JournalVoiceRouteImport } from './routes/journal.voice'
 import { Route as JournalMemoriesRouteImport } from './routes/journal.memories'
 import { Route as JournalIdRouteImport } from './routes/journal.$id'
@@ -71,6 +72,11 @@ const IndexRoute = IndexRouteImport.update({
 const ScreeningLibraryRoute = ScreeningLibraryRouteImport.update({
   id: '/library',
   path: '/library',
+  getParentRoute: () => ScreeningRoute,
+} as any)
+const ScreeningHistoryRoute = ScreeningHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
   getParentRoute: () => ScreeningRoute,
 } as any)
 const JournalVoiceRoute = JournalVoiceRouteImport.update({
@@ -166,6 +172,7 @@ export interface FileRoutesByFullPath {
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
+  '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
@@ -191,6 +198,7 @@ export interface FileRoutesByTo {
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
+  '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
@@ -217,6 +225,7 @@ export interface FileRoutesById {
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
+  '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
@@ -244,6 +253,7 @@ export interface FileRouteTypes {
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
+    | '/screening/history'
     | '/screening/library'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
@@ -269,6 +279,7 @@ export interface FileRouteTypes {
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
+    | '/screening/history'
     | '/screening/library'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
@@ -294,6 +305,7 @@ export interface FileRouteTypes {
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
+    | '/screening/history'
     | '/screening/library'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
@@ -370,6 +382,13 @@ declare module '@tanstack/react-router' {
       path: '/library'
       fullPath: '/screening/library'
       preLoaderRoute: typeof ScreeningLibraryRouteImport
+      parentRoute: typeof ScreeningRoute
+    }
+    '/screening/history': {
+      id: '/screening/history'
+      path: '/history'
+      fullPath: '/screening/history'
+      preLoaderRoute: typeof ScreeningHistoryRouteImport
       parentRoute: typeof ScreeningRoute
     }
     '/journal/voice': {
@@ -525,6 +544,7 @@ const JournalRouteWithChildren =
   JournalRoute._addFileChildren(JournalRouteChildren)
 
 interface ScreeningRouteChildren {
+  ScreeningHistoryRoute: typeof ScreeningHistoryRoute
   ScreeningLibraryRoute: typeof ScreeningLibraryRoute
   ScreeningAssessmentIdRoute: typeof ScreeningAssessmentIdRoute
   ScreeningConsentIdRoute: typeof ScreeningConsentIdRoute
@@ -535,6 +555,7 @@ interface ScreeningRouteChildren {
 }
 
 const ScreeningRouteChildren: ScreeningRouteChildren = {
+  ScreeningHistoryRoute: ScreeningHistoryRoute,
   ScreeningLibraryRoute: ScreeningLibraryRoute,
   ScreeningAssessmentIdRoute: ScreeningAssessmentIdRoute,
   ScreeningConsentIdRoute: ScreeningConsentIdRoute,
