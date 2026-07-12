@@ -739,28 +739,86 @@ function Dashboard() {
           <div>
             <div className="text-[10px] tracking-[0.35em] uppercase opacity-50 mb-2" style={{ color: accent }}>a quiet circle</div>
             <h3 className="font-serif text-[26px] tracking-tight">Anonymous gratitude.</h3>
+            <p className="text-[12px] italic opacity-55 mt-1.5 max-w-md">little offerings from students, held gently. no names, no likes count as approval — just witness.</p>
           </div>
-          <button className="text-[10px] tracking-[0.25em] uppercase opacity-60 hover:opacity-100 flex items-center gap-1">
-            <Plus className="w-3 h-3"/> share
+          <button className="group flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase px-4 py-2.5 rounded-full transition"
+                  style={{ background: ink, color: bg }}>
+            <Plus className="w-3 h-3 transition-transform group-hover:rotate-90 duration-500"/> offer one
           </button>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-16">
-          {posts.map((p, i) => (
-            <div key={i} className="group rounded-[24px] p-5 transition cursor-pointer relative overflow-hidden hover:-translate-y-1 duration-200"
-                 style={{ background: surface, border: `1px solid ${border}` }}>
-              <Curl stroke={accent} className="absolute -right-6 -top-6 w-24 opacity-20" />
-              <div className="text-[10px] tracking-[0.25em] uppercase opacity-50 mb-3 relative">{p.name}</div>
-              <p className="font-serif italic text-[15px] leading-snug mb-5 opacity-90 relative">"{p.text}"</p>
-              <div className="flex items-center justify-between relative">
-                <button onClick={() => setLikes({ ...likes, [i]: (likes[i] ?? 0) + 1 })}
-                        className="flex items-center gap-1.5 text-[11px] opacity-70 hover:opacity-100 transition" style={{ color: accent }}>
-                  <Heart className={`w-3.5 h-3.5 transition ${likes[i] ? "fill-current" : ""}`} strokeWidth={1.5}/>
-                  {p.likes + (likes[i] ?? 0)}
-                </button>
-                <span className="text-[9px] opacity-40 tracking-widest uppercase">6h ago</span>
-              </div>
-            </div>
-          ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
+          {posts.map((p, i) => {
+            const liked = (likes[i] ?? 0) > 0;
+            // subtle rotation of tonal accents within the ONE palette — no color clashes
+            const tints = [
+              { bg: surface,  ribbon: soft   },
+              { bg: surface2, ribbon: accent },
+              { bg: surface,  ribbon: deep   },
+              { bg: surface2, ribbon: soft   },
+            ];
+            const t = tints[i % tints.length];
+            return (
+              <article key={i}
+                       onMouseMove={trackCursor}
+                       className="group card-lift cursor-glow relative rounded-[28px] p-6 pb-5 cursor-pointer flex flex-col min-h-[220px]"
+                       style={{ background: t.bg, border: `1px solid ${border}` }}>
+                <span className="shine" aria-hidden />
+                {/* delicate top ribbon that widens on hover */}
+                <span aria-hidden className="absolute left-6 right-6 top-0 h-[2px] rounded-b-full transition-all duration-500 group-hover:left-3 group-hover:right-3"
+                      style={{ background: t.ribbon, opacity: 0.55 }} />
+
+                {/* oversized editorial quote glyph */}
+                <div className="absolute -top-2 right-4 font-serif italic leading-none select-none pointer-events-none transition-all duration-500 group-hover:-translate-y-1 group-hover:opacity-40"
+                     style={{ fontSize: 96, color: t.ribbon, opacity: 0.18 }}>
+                  &ldquo;
+                </div>
+
+                {/* header row */}
+                <header className="relative flex items-center gap-2.5 mb-4">
+                  <span className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
+                        style={{ background: t.ribbon, opacity: 0.9 }}>
+                    <Feather className="w-3 h-3" style={{ color: "#faf3e3" }} strokeWidth={1.6}/>
+                  </span>
+                  <div className="min-w-0">
+                    <div className="text-[10.5px] tracking-[0.22em] uppercase truncate" style={{ color: ink, opacity: 0.75 }}>{p.name}</div>
+                    <div className="text-[8.5px] tracking-[0.28em] uppercase opacity-45 mt-0.5">left an offering</div>
+                  </div>
+                </header>
+
+                {/* body — the whisper */}
+                <p className="relative font-serif italic text-[15.5px] leading-[1.45] mb-5" style={{ color: ink }}>
+                  {p.text}
+                </p>
+
+                {/* hairline that draws in on hover */}
+                <div className="mt-auto relative">
+                  <div className="h-px w-full mb-3 origin-left transition-transform duration-700 group-hover:scale-x-100 scale-x-[0.25]"
+                       style={{ background: t.ribbon, opacity: 0.5 }} />
+
+                  {/* footer — heart, time, and hover-reveal reply/hold */}
+                  <div className="flex items-center justify-between relative">
+                    <button onClick={(e) => { e.stopPropagation(); setLikes({ ...likes, [i]: (likes[i] ?? 0) + 1 }); }}
+                            className="flex items-center gap-2 text-[11px] transition group/heart">
+                      <span key={likes[i] ?? 0} className="inline-flex" style={{ animation: liked ? "heart-pop 0.55s cubic-bezier(0.22,1,0.36,1)" : "none" }}>
+                        <Heart className={`w-[15px] h-[15px] transition ${liked ? "fill-current" : ""}`}
+                               style={{ color: liked ? t.ribbon : muted }} strokeWidth={1.5}/>
+                      </span>
+                      <span className="font-serif" style={{ color: liked ? ink : muted }}>{p.likes + (likes[i] ?? 0)}</span>
+                      <span className="text-[9px] tracking-[0.25em] uppercase opacity-40 hidden sm:inline">held</span>
+                    </button>
+
+                    <div className="flex items-center gap-2">
+                      <button className="reveal flex items-center gap-1.5 text-[10px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-full"
+                              style={{ background: "transparent", border: `1px solid ${border}`, color: ink }}>
+                        <MessageCircle className="w-3 h-3" strokeWidth={1.5}/> echo
+                      </button>
+                      <span className="text-[9px] tracking-[0.22em] uppercase opacity-40 group-hover:opacity-0 transition duration-300">6h ago</span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
 
         {/* ACHIEVEMENTS + SUPPORT (unified tone, no peach) */}
