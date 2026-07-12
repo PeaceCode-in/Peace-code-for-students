@@ -183,43 +183,54 @@ function Dashboard() {
       </div>
 
       {/* ─── glass sidebar (fixed shape, expands cleanly) ─── */}
-      <aside className="hidden lg:flex fixed top-6 bottom-6 left-6 z-40 group flex-col py-6 px-3 rounded-[38px] backdrop-blur-2xl transition-[width] duration-300 ease-out hover:w-60 w-[80px]"
+      <aside className="hidden lg:flex fixed top-6 bottom-6 left-6 z-40 group flex-col py-6 rounded-[38px] backdrop-blur-2xl transition-[width] duration-300 ease-out hover:w-60 w-[80px] overflow-hidden"
              style={{ background: dark ? "rgba(30,27,23,0.75)" : "rgba(255,251,240,0.78)", border: `1px solid ${border}`, boxShadow: "0 30px 60px -30px rgba(38,34,28,0.22)" }}>
-        <div className="flex items-center gap-3 px-2.5 mb-8 overflow-hidden">
-          <Mark className="w-10 h-10 shrink-0" />
-          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 whitespace-nowrap">
+        {/* brand row */}
+        <div className="flex items-center h-12 mb-8">
+          <div className="w-[80px] shrink-0 flex justify-center">
+            <Mark className="w-9 h-9"/>
+          </div>
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 whitespace-nowrap -ml-1">
             <div className="font-serif text-[17px] leading-none">PeaceCode</div>
             <div className="text-[8px] tracking-[0.3em] uppercase opacity-50 mt-1.5">a soft place</div>
           </div>
         </div>
 
-        <nav className="flex flex-col gap-1">
+        <nav className="flex flex-col gap-1.5 px-3">
           {nav.map((item) => {
             const Icon = item.icon;
             return (
-              <button key={item.label} className="relative flex items-center gap-3.5 px-3 py-2.5 rounded-2xl transition overflow-hidden"
+              <button key={item.label} className="relative flex items-center h-11 rounded-2xl transition"
                       style={item.active ? { background: dark ? "#2b2620" : "#ebe0c8", color: ink } : { color: muted }}>
-                <Icon className="w-[19px] h-[19px] shrink-0" strokeWidth={1.4} />
-                <span className="text-[13px] tracking-wide whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">{item.label}</span>
+                <span className="w-[56px] shrink-0 flex justify-center">
+                  <Icon className="w-[19px] h-[19px]" strokeWidth={1.4} />
+                </span>
+                <span className="text-[13px] tracking-wide whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">{item.label}</span>
               </button>
             );
           })}
         </nav>
 
-        <div className="mt-auto flex flex-col gap-1">
-          <button onClick={() => setDark(!dark)} className="flex items-center gap-3.5 px-3 py-2.5 rounded-2xl transition overflow-hidden" style={{ color: muted }}>
-            {dark ? <Sun className="w-[19px] h-[19px] shrink-0" strokeWidth={1.4}/> : <Moon className="w-[19px] h-[19px] shrink-0" strokeWidth={1.4}/>}
-            <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">{dark ? "day" : "night"} mode</span>
+        <div className="mt-auto flex flex-col gap-1.5 px-3">
+          <button onClick={() => setDark(!dark)} className="flex items-center h-11 rounded-2xl transition" style={{ color: muted }}>
+            <span className="w-[56px] shrink-0 flex justify-center">
+              {dark ? <Sun className="w-[19px] h-[19px]" strokeWidth={1.4}/> : <Moon className="w-[19px] h-[19px]" strokeWidth={1.4}/>}
+            </span>
+            <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">{dark ? "day" : "night"} mode</span>
           </button>
-          <button className="flex items-center gap-3.5 px-3 py-2.5 rounded-2xl overflow-hidden" style={{ color: muted }}>
-            <Settings className="w-[19px] h-[19px] shrink-0" strokeWidth={1.4}/>
-            <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">Settings</span>
+          <button className="flex items-center h-11 rounded-2xl" style={{ color: muted }}>
+            <span className="w-[56px] shrink-0 flex justify-center">
+              <Settings className="w-[19px] h-[19px]" strokeWidth={1.4}/>
+            </span>
+            <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">Settings</span>
           </button>
-          <div className="mt-3 rounded-2xl p-2.5 flex items-center gap-2.5 overflow-hidden" style={{ background: dark ? "#26221d" : "#ebe0c8" }}>
-            <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: soft }}>
-              <Mark className="w-4 h-4"/>
-            </div>
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 whitespace-nowrap min-w-0">
+          <div className="mt-3 mx-1 rounded-2xl flex items-center h-14" style={{ background: dark ? "#26221d" : "#ebe0c8" }}>
+            <span className="w-[52px] shrink-0 flex justify-center">
+              <span className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: soft }}>
+                <Mark className="w-4 h-4"/>
+              </span>
+            </span>
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 whitespace-nowrap min-w-0 -ml-1">
               <div className="font-serif text-[13px] leading-none">Keya</div>
               <div className="flex items-center gap-1 mt-1 text-[9px]" style={{ color: accent }}>
                 <Flame className="w-2.5 h-2.5" strokeWidth={1.5}/> 12 day streak
