@@ -21,9 +21,9 @@ const navGroups = [
   {
     label: "Core Care",
     items: [
-      { icon: Bot, label: "Peace Bot" },
-      { icon: CalendarCheck, label: "Counseling" },
-      { icon: UserCheck, label: "Experts" },
+      { icon: Bot, label: "Peace Bot", to: "/peacebot" },
+      { icon: CalendarCheck, label: "Counseling", to: "/counselling" },
+      { icon: UserCheck, label: "Peace Buddies", to: "/buddies" },
       { icon: ClipboardList, label: "Screening", to: "/screening" },
     ],
   },
@@ -34,15 +34,15 @@ const navGroups = [
       { icon: Target, label: "Focus", to: "/focus" },
       { icon: Heart, label: "Gratitude", to: "/gratitude" },
       { icon: PenLine, label: "Journal", to: "/journal" },
-      { icon: Activity, label: "Mood Tracker" },
-      { icon: Brain, label: "Mind Gym" },
+      { icon: Activity, label: "Mood Tracker", to: "/screening" },
+      { icon: Brain, label: "Mind Gym", to: "/peacebot/tools" },
     ],
   },
   {
     label: "Community & Resources",
     items: [
       { icon: Users, label: "Community", to: "/community" },
-      { icon: BookOpen, label: "Resources" },
+      { icon: BookOpen, label: "Resources", to: "/resources" },
     ],
   },
 ] as const;
