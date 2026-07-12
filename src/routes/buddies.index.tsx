@@ -26,8 +26,6 @@ function BuddiesHome() {
   const featured = BUDDIES.filter((b) => b.rating >= 4.8).slice(0, 3);
   const active = BUDDIES.filter((b) => b.online).slice(0, 4);
   const rec = BUDDIES.find((b) => favorites().includes(b.id)) ?? BUDDIES[0];
-  const active = BUDDIES.filter((b) => b.online).slice(0, 4);
-  const rec = BUDDIES.find((b) => favorites().includes(b.id)) ?? BUDDIES[0];
 
   return (
     <AppShell>
