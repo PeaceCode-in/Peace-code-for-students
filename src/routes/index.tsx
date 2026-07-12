@@ -301,10 +301,10 @@ function Dashboard() {
               <Sprig stroke={accent} className="hidden sm:block absolute -right-2 lg:right-8 -top-6 w-[90px] lg:w-[130px] opacity-25 pointer-events-none"/>
               <Curl stroke={accent} className="hidden lg:block absolute -left-10 top-24 w-[220px] opacity-20 pointer-events-none"/>
 
-              <h1 className="font-serif font-medium text-[44px] xs:text-[52px] sm:text-[76px] lg:text-[96px] xl:text-[112px] leading-[1.02] lg:leading-[0.98] tracking-tight relative" style={{ letterSpacing: "-0.04em" }}>
-                <span className="italic font-normal block" style={{ color: accent }}>Softly,</span>
-                <span className="block">you begin</span>
-                <span className="block">again<span style={{ color: accent }}>.</span></span>
+              <h1 className="font-serif font-medium text-[32px] xs:text-[38px] sm:text-[54px] lg:text-[68px] xl:text-[78px] leading-[1.05] lg:leading-[1.02] tracking-tight relative" style={{ letterSpacing: "-0.035em" }}>
+                <span className="italic font-normal block" style={{ color: accent }}>Breathe,</span>
+                <span className="block">your mind</span>
+                <span className="block">matters<span style={{ color: accent }}>.</span></span>
               </h1>
             </div>
 
