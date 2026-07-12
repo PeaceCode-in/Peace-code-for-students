@@ -7,18 +7,61 @@ import {
 } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
 
-// ─── ONE constant palette for every page ─────────────────────────
+// ─── Themeable palette — every value is a CSS variable so light/dark ────
+// can be swapped globally by toggling `.dark` on <html>. Tokens live in
+// styles.css under `:root` and `.dark, [data-theme="dark"]`.
 export const palette = {
-  bg:       "#F7FAFF",
-  surface:  "#FFFFFF",
-  surface2: "#EAF3FF",
-  border:   "#DCE3EF",
-  ink:      "#1D2A44",
-  muted:    "#7587A6",
-  primary:  "#4B6CB7",
-  soft:     "#AFC9F5",
-  lavender: "#D5C9F7",
+  bg:       "var(--pc-bg)",
+  surface:  "var(--pc-surface)",
+  surface2: "var(--pc-surface2)",
+  border:   "var(--pc-border)",
+  ink:      "var(--pc-ink)",
+  muted:    "var(--pc-muted)",
+  primary:  "var(--pc-primary)",
+  soft:     "var(--pc-soft)",
+  lavender: "var(--pc-lavender)",
 };
+
+// ─── theme (persistent, cross-page) ─────────────────────────────────
+const THEME_KEY = "peacecode.theme.v1";
+export type Theme = "light" | "dark";
+
+export function getInitialTheme(): Theme {
+  if (typeof window === "undefined") return "light";
+  try {
+    const saved = localStorage.getItem(THEME_KEY);
+    if (saved === "light" || saved === "dark") return saved;
+  } catch {}
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+function applyTheme(t: Theme) {
+  if (typeof document === "undefined") return;
+  const root = document.documentElement;
+  root.classList.toggle("dark", t === "dark");
+  root.setAttribute("data-theme", t);
+  try { localStorage.setItem(THEME_KEY, t); } catch {}
+  window.dispatchEvent(new CustomEvent("peacecode-theme", { detail: t }));
+}
+export function useTheme(): [Theme, (t: Theme) => void, () => void] {
+  const [theme, setThemeState] = useState<Theme>("light");
+  useEffect(() => {
+    const t = getInitialTheme();
+    setThemeState(t);
+    applyTheme(t);
+    const onSync = (e: Event) => {
+      const next = (e as CustomEvent<Theme>).detail;
+      if (next && next !== theme) setThemeState(next);
+    };
+    window.addEventListener("peacecode-theme", onSync);
+    return () => window.removeEventListener("peacecode-theme", onSync);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const setTheme = (t: Theme) => { setThemeState(t); applyTheme(t); };
+  const toggle = () => setTheme(theme === "dark" ? "light" : "dark");
+  return [theme, setTheme, toggle];
+}
+
+
 
 const { bg, surface, surface2, border, ink, muted, primary, soft } = palette;
 
