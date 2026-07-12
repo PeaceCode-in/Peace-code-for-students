@@ -67,16 +67,9 @@ export default function CommunityPage() {
   const currentThread = view.kind === "thread" ? threads.find(t => t.id === view.threadId) : null;
 
   return (
-    <div className="min-h-screen w-full font-sans" style={{ background: bg, color: ink }}>
-      {/* soft aurora backdrop */}
-      <div className="fixed inset-0 pointer-events-none -z-0 overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-[560px] h-[560px] rounded-full blur-3xl opacity-60"
-             style={{ background: "radial-gradient(circle, #D5C9F7, transparent 70%)" }} />
-        <div className="absolute -bottom-32 -right-32 w-[520px] h-[520px] rounded-full blur-3xl opacity-70"
-             style={{ background: "radial-gradient(circle, #AFC9F5, transparent 70%)" }} />
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[400px] h-[400px] rounded-full blur-3xl opacity-40"
-             style={{ background: "radial-gradient(circle, #EAF3FF, transparent 70%)" }} />
-      </div>
+    <AppShell>
+      <div className="w-full font-sans" style={{ color: ink }}>
+
 
       {/* header */}
       <header className="relative z-10 max-w-[1280px] mx-auto px-6 lg:px-10 pt-8 flex items-center justify-between">
