@@ -12,6 +12,7 @@ import {
   aggregateByDay, computeStreaks, dayKey, shiftDays, weekdayIndex,
   type FocusMode, type FocusSession,
 } from "@/lib/focus-store";
+import { AppShell } from "@/components/AppShell";
 
 export const Route = createFileRoute("/focus")({ component: FocusPage });
 
