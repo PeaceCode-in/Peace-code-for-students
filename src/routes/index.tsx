@@ -217,20 +217,29 @@ function Dashboard() {
           </div>
         </div>
 
-        <nav className="flex flex-col gap-1.5 px-3">
-          {nav.map((item) => {
-            const Icon = item.icon;
-            return (
-              <button key={item.label} className="relative flex items-center h-11 rounded-2xl transition"
-                      style={item.active ? { background: dark ? "#2b2620" : "#ebe0c8", color: ink } : { color: muted }}>
-                <span className="w-[56px] shrink-0 flex justify-center">
-                  <Icon className="w-[19px] h-[19px]" strokeWidth={1.4} />
-                </span>
-                <span className="text-[13px] tracking-wide whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">{item.label}</span>
-              </button>
-            );
-          })}
+        <nav className="flex-1 flex flex-col gap-4 px-3 overflow-y-auto scrollbar-none pr-2">
+          {navGroups.map((group) => (
+            <div key={group.label} className="flex flex-col gap-1">
+              <div className="h-4 flex items-center pl-4 mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
+                <span className="text-[8.5px] tracking-[0.32em] uppercase whitespace-nowrap" style={{ color: muted }}>{group.label}</span>
+              </div>
+              {group.items.map((item) => {
+                const Icon = item.icon;
+                const active = "active" in item && item.active;
+                return (
+                  <button key={item.label} className="relative flex items-center h-11 rounded-2xl transition"
+                          style={active ? { background: dark ? "#2b2620" : "#ebe0c8", color: ink } : { color: muted }}>
+                    <span className="w-[56px] shrink-0 flex justify-center">
+                      <Icon className="w-[19px] h-[19px]" strokeWidth={1.4} />
+                    </span>
+                    <span className="text-[13px] tracking-wide whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">{item.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          ))}
         </nav>
+
 
         <div className="mt-auto flex flex-col gap-1.5 px-3">
           <button onClick={() => setDark(!dark)} className="flex items-center h-11 rounded-2xl transition" style={{ color: muted }}>
