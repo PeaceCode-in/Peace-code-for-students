@@ -136,7 +136,7 @@ function FindExperts() {
           </Card>
         )}
 
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-3 md:grid-cols-2 2xl:grid-cols-3 min-w-0">
           {results.map(e => {
             const next = nextAvailable(e.id);
             const isFav = favs.includes(e.id);
