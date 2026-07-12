@@ -104,6 +104,33 @@ function Safety() {
           </div>
         </Group>
 
+        <Group label="Pick a time that works">
+          {!available ? (
+            <div className="rounded-2xl p-4 text-[12.5px]" style={{ background: surface, border: `1px solid ${border}`, color: muted }}>
+              {b.name.split(" ")[0]} has no open slots this week. <Link to="/buddies/browse" className="underline" style={{ color: ink }}>Try another buddy →</Link>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {slots.map((s) => {
+                const active = slotTs === s.ts;
+                return (
+                  <button key={s.ts} onClick={()=>setSlotTs(s.ts)}
+                    className="rounded-2xl p-3 text-left transition"
+                    style={{ background: active ? ink : surface, color: active ? surface : ink, border: `1px solid ${border}` }}>
+                    <div className="text-[9px] uppercase tracking-[0.2em] opacity-70 flex items-center gap-1">
+                      <Clock className="w-2.5 h-2.5"/> {s.label}
+                    </div>
+                    <div className="font-serif text-[14px] mt-0.5">{s.slot}</div>
+                    {s.isSoon && <div className="text-[9px] mt-1 opacity-70">soon</div>}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </Group>
+
+
+
         {/* crisis screen */}
         <div className="rounded-2xl p-5 mb-6" style={{ background: `linear-gradient(120deg, ${soft}, ${lavender})`, border: `1px solid ${border}` }}>
           <div className="flex items-start gap-3 mb-3">
