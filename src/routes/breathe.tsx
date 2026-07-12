@@ -323,9 +323,11 @@ function BreathePage() {
   const cardBorder = hc ? "#000000" : border;
 
   return (
-    <div className="min-h-screen font-['DM_Sans',sans-serif]" style={themeStyle}>
+    <AppShell>
+    <div className="font-['DM_Sans',sans-serif]" style={{ ...themeStyle, background: "transparent" }}>
       {/* live region for screen readers */}
       <div aria-live="polite" aria-atomic="true" className="sr-only">{announce}</div>
+
 
       {/* header */}
       <header className="max-w-6xl mx-auto px-4 sm:px-8 pt-6 sm:pt-10 pb-6 flex items-center justify-between">
