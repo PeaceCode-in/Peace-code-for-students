@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import {
   ArrowLeft, Save, Star, Trash2, Sparkles, Bot, X, RefreshCw, Zap,
   Heart, Trophy, CloudRain, MapPin, CloudSun, Wand2, PenLine, Lightbulb,
+  Maximize2, Minimize2, Bold, Italic, Quote, List, ListOrdered, Heading1, Heading2, Minus, Link as LinkIcon,
 } from "lucide-react";
 import { AppShell, palette } from "@/components/AppShell";
 import {
