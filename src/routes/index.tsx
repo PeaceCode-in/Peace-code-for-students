@@ -269,11 +269,11 @@ function Dashboard() {
         {/* HERO — quiet editorial band */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 items-start">
           <div className="lg:col-span-8 flex flex-col">
-            <div className="flex items-center justify-between mb-8">
+            <div className="hidden lg:flex items-center justify-between mb-8">
               <div className="text-[10px] tracking-[0.35em] uppercase opacity-60" style={{ color: accent }}>
                 Wednesday · Eleven July · 06:41
               </div>
-              <div className="hidden lg:flex items-center gap-2">
+              <div className="flex items-center gap-2">
                 <div className="flex items-center gap-2 rounded-full px-4 py-2" style={{ background: surface, border: `1px solid ${border}` }}>
                   <Search className="w-3.5 h-3.5 opacity-40"/>
                   <input placeholder="search stillness…" className="bg-transparent outline-none text-[12px] w-40 placeholder:opacity-40"/>
@@ -285,7 +285,7 @@ function Dashboard() {
               </div>
             </div>
 
-            <h1 className="font-serif text-[44px] sm:text-[64px] lg:text-[88px] xl:text-[108px] leading-[0.94] tracking-tight" style={{ letterSpacing: "-0.035em" }}>
+            <h1 className="font-serif text-[38px] xs:text-[44px] sm:text-[64px] lg:text-[88px] xl:text-[108px] leading-[0.94] tracking-tight break-words" style={{ letterSpacing: "-0.035em" }}>
               <em className="italic font-light" style={{ color: accent }}>Softly,</em><br/>
               you begin<br/>
               again.
