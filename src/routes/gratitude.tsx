@@ -80,6 +80,41 @@ function GratitudePage() {
   }
   useEffect(() => { if (!prompt) void refreshPrompt(); /* eslint-disable-next-line */ }, []);
 
+  // Kick off notification loop when prefs change or on mount.
+  useEffect(() => {
+    setNotifPerm(getPermission());
+    const stop = startReminderLoop(() => loadPrefs());
+    return stop;
+  }, [prefs]);
+
+  async function enableNotifications() {
+    const r = await requestPermission();
+    setNotifPerm(r);
+  }
+
+  async function generateReflection(kind: "reflect_week" | "reflect_month") {
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - (kind === "reflect_week" ? 7 : 30));
+    const relevant = entries.filter((e) => new Date(e.createdAt) >= cutoff);
+    if (relevant.length === 0) {
+      const empty = kind === "reflect_week"
+        ? "no entries this week yet. one small note starts the pattern."
+        : "the month is quiet. plant a seed to begin.";
+      if (kind === "reflect_week") setReflection(empty);
+      else setMonthlyReflection(empty);
+      return;
+    }
+    const text = relevant.map((e) => `- ${e.body}`).join("\n").slice(0, 4000);
+    if (kind === "reflect_week") setLoadingReflection(true); else setLoadingMonthly(true);
+    try {
+      const r = await reflectFn({ data: { kind, text } });
+      if (kind === "reflect_week") setReflection(r.text);
+      else setMonthlyReflection(r.text);
+    } finally {
+      if (kind === "reflect_week") setLoadingReflection(false); else setLoadingMonthly(false);
+    }
+  }
+
   function plantSeed() {
     if (!composer.trim()) return;
     const now = new Date().toISOString();
