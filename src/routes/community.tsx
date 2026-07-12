@@ -109,7 +109,7 @@ export default function CommunityPage() {
             setSaved(s);
           }}
           onBack={() => setView({ kind: "home" })}
-          onVote={(delta) => setThreads(threads.map(t => t.id === currentThread.id ? { ...t, votes: t.votes + delta } : t))}
+          onVote={(delta: number) => setThreads(threads.map(t => t.id === currentThread.id ? { ...t, votes: t.votes + delta } : t))}
         />
       ) : (
         <HomeView
@@ -117,11 +117,11 @@ export default function CommunityPage() {
           sort={sort} setSort={setSort}
           query={query} setQuery={setQuery}
           threads={threads}
-          openRoom={(id) => setView({ kind: "room", roomId: id })}
-          openThread={(id) => setView({ kind: "thread", threadId: id })}
-          onVote={(id, d) => setThreads(threads.map(t => t.id === id ? { ...t, votes: t.votes + d } : t))}
+          openRoom={(id: string) => setView({ kind: "room", roomId: id })}
+          openThread={(id: string) => setView({ kind: "thread", threadId: id })}
+          onVote={(id: string, d: number) => setThreads(threads.map(t => t.id === id ? { ...t, votes: t.votes + d } : t))}
           saved={saved}
-          toggleSave={(id) => {
+          toggleSave={(id: string) => {
             const s = new Set(saved); s.has(id) ? s.delete(id) : s.add(id); setSaved(s);
           }}
         />
