@@ -1054,3 +1054,76 @@ function CompletionModal({ mins, cycles, onClose }: { mins: number; cycles: numb
     </div>
   );
 }
+
+// ── a11y modal ────────────────────────────────────────────────────
+function A11yModal({ prefs, onChange, onClose }: { prefs: BreathPrefs; onChange: (p: Partial<BreathPrefs>) => void; onClose: () => void }) {
+  const scales = [
+    { v: 1,    label: "normal" },
+    { v: 1.15, label: "large" },
+    { v: 1.3,  label: "larger" },
+    { v: 1.5,  label: "largest" },
+  ];
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "#1D2A4488" }} onClick={onClose} role="dialog" aria-modal="true" aria-label="Accessibility settings">
+      <div className="w-full max-w-md rounded-2xl p-6" style={{ background: surface, border: `1px solid ${border}` }} onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between mb-5">
+          <div>
+            <Kicker>accessibility</Kicker>
+            <h3 className="font-['Fraunces',serif] text-2xl mt-1">Tune it to fit you.</h3>
+          </div>
+          <button onClick={onClose} className="w-9 h-9 rounded-full flex items-center justify-center focus:outline-none focus-visible:ring-2" style={{ background: surface2 }} aria-label="close"><X size={15} /></button>
+        </div>
+
+        <Toggle icon={Sparkles} label="Reduced motion" hint="Freezes the orb — steady visual guide only." value={prefs.reducedMotion} onToggle={() => onChange({ reducedMotion: !prefs.reducedMotion })} />
+        <Toggle icon={Contrast} label="High contrast" hint="Black on white, thicker borders." value={prefs.highContrast} onToggle={() => onChange({ highContrast: !prefs.highContrast })} />
+        <Toggle icon={Keyboard} label="Show keyboard hints" hint="Space · play/pause  ·  R · reset  ·  S · stop  ·  1–6 · technique" value={prefs.keyboardHints} onToggle={() => onChange({ keyboardHints: !prefs.keyboardHints })} />
+
+        <div className="mt-4 pt-4" style={{ borderTop: `1px solid ${border}` }}>
+          <div className="flex items-center gap-2 mb-2">
+            <Type size={13} />
+            <span className="text-[12px]">text size</span>
+          </div>
+          <div className="grid grid-cols-4 gap-2">
+            {scales.map((s) => (
+              <button
+                key={s.v}
+                onClick={() => onChange({ fontScale: s.v })}
+                className="h-10 rounded-xl text-[11px] focus:outline-none focus-visible:ring-2"
+                style={{
+                  background: prefs.fontScale === s.v ? ink : surface,
+                  color: prefs.fontScale === s.v ? surface : ink,
+                  border: `1px solid ${prefs.fontScale === s.v ? ink : border}`,
+                }}
+              >{s.label}</button>
+            ))}
+          </div>
+        </div>
+        <button onClick={onClose} className="w-full mt-6 h-11 rounded-full text-[13px]" style={{ background: ink, color: surface }}>done</button>
+      </div>
+    </div>
+  );
+}
+
+function Toggle({ icon: Icon, label, hint, value, onToggle }: { icon: typeof Sparkles; label: string; hint: string; value: boolean; onToggle: () => void }) {
+  return (
+    <div className="flex items-start justify-between gap-4 py-3">
+      <div className="flex items-start gap-3">
+        <Icon size={15} className="mt-0.5 opacity-70" aria-hidden="true" />
+        <div>
+          <div className="text-[13px]">{label}</div>
+          <div className="text-[11px] opacity-60 mt-0.5">{hint}</div>
+        </div>
+      </div>
+      <button
+        onClick={onToggle}
+        role="switch"
+        aria-checked={value}
+        aria-label={label}
+        className="shrink-0 w-14 h-8 rounded-full relative transition-colors focus:outline-none focus-visible:ring-2"
+        style={{ background: value ? primary : border }}
+      >
+        <span className="absolute top-1 w-6 h-6 rounded-full transition-all" style={{ background: surface, left: value ? "28px" : "4px" }} />
+      </button>
+    </div>
+  );
+}
