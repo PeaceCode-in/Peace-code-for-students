@@ -318,9 +318,105 @@ function EditorPage() {
           </aside>
         </div>
       )}
+
+      {/* ── ZEN FULLSCREEN WRITING ─────────────────────── */}
+      {zen && (
+        <div className="fixed inset-0 z-[100]" role="dialog" aria-modal="true"
+             style={{ background: `radial-gradient(1000px 500px at 50% 0%, ${surface2}, ${surface} 60%)`, color: ink }}>
+          <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-8 py-5 backdrop-blur-md"
+               style={{ background: `${surface}CC`, borderBottom: `1px solid ${border}` }}>
+            <div className="flex items-center gap-3 text-[10px] tracking-[0.35em] uppercase opacity-60">
+              <span>{created.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}</span>
+              <span className="opacity-40">·</span>
+              <span>{words} words · {readMin} min</span>
+              <span className="opacity-40">·</span>
+              <span>{savedTick > 0 ? "saved" : "draft"}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <FormatToolbar compact
+                onWrap={wrapSelection}
+                onPrefix={prefixLine}
+                onInsert={insertAtCursor}
+                font={font} setFont={setFont}
+                fontSize={fontSize} setFontSize={setFontSize}
+              />
+              <button onClick={() => setZen(false)}
+                className="inline-flex items-center gap-2 h-9 px-4 rounded-full text-[11px]"
+                style={{ background: ink, color: "#fff" }}>
+                <Minimize2 className="w-3.5 h-3.5"/> exit
+              </button>
+            </div>
+          </div>
+
+          <div className="h-full overflow-y-auto pt-24 pb-24 px-6">
+            <div className="max-w-3xl mx-auto">
+              <input value={entry.title} onChange={(e) => patch({ title: e.target.value })}
+                placeholder="untitled"
+                className="w-full bg-transparent outline-none font-['Fraunces',serif] text-[48px] sm:text-[64px] font-light leading-[1.02] placeholder:opacity-25 mb-8"/>
+              <textarea
+                value={entry.body}
+                onChange={(e) => patch({ body: e.target.value })}
+                placeholder="the room is quiet. begin anywhere…"
+                autoFocus
+                style={{ fontFamily, fontSize: `${fontSize + 2}px`, lineHeight: 1.8 }}
+                className="w-full bg-transparent outline-none min-h-[70vh] placeholder:opacity-25 resize-none"
+                onKeyDown={(e) => {
+                  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "b") { e.preventDefault(); wrapSelection("**","**","bold"); }
+                  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "i") { e.preventDefault(); wrapSelection("_","_","italic"); }
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </AppShell>
   );
 }
+
+function FormatToolbar({ onWrap, onPrefix, onInsert, font, setFont, fontSize, setFontSize, compact }: {
+  onWrap: (p: string, s?: string, ph?: string) => void;
+  onPrefix: (m: string) => void;
+  onInsert: (t: string) => void;
+  font: "serif" | "sans" | "mono";
+  setFont: (f: "serif" | "sans" | "mono") => void;
+  fontSize: number;
+  setFontSize: (n: number) => void;
+  compact?: boolean;
+}) {
+  const btn = "w-8 h-8 rounded-lg inline-flex items-center justify-center transition hover:-translate-y-0.5";
+  return (
+    <div className={`flex flex-wrap items-center gap-1.5 ${compact ? "" : "mt-5 pt-4"}`}
+         style={compact ? {} : { borderTop: `1px solid ${border}` }}>
+      <button className={btn} title="heading" style={{ background: surface2 }} onClick={() => onPrefix("# ")}><Heading1 className="w-3.5 h-3.5"/></button>
+      <button className={btn} title="subheading" style={{ background: surface2 }} onClick={() => onPrefix("## ")}><Heading2 className="w-3.5 h-3.5"/></button>
+      <span className="w-px h-4 opacity-20" style={{ background: ink }}/>
+      <button className={btn} title="bold (⌘B)" style={{ background: surface2 }} onClick={() => onWrap("**","**","bold")}><Bold className="w-3.5 h-3.5"/></button>
+      <button className={btn} title="italic (⌘I)" style={{ background: surface2 }} onClick={() => onWrap("_","_","italic")}><Italic className="w-3.5 h-3.5"/></button>
+      <button className={btn} title="quote" style={{ background: surface2 }} onClick={() => onPrefix("> ")}><Quote className="w-3.5 h-3.5"/></button>
+      <span className="w-px h-4 opacity-20" style={{ background: ink }}/>
+      <button className={btn} title="bullet list" style={{ background: surface2 }} onClick={() => onPrefix("- ")}><List className="w-3.5 h-3.5"/></button>
+      <button className={btn} title="numbered list" style={{ background: surface2 }} onClick={() => onPrefix("1. ")}><ListOrdered className="w-3.5 h-3.5"/></button>
+      <button className={btn} title="divider" style={{ background: surface2 }} onClick={() => onInsert("\n\n———\n\n")}><Minus className="w-3.5 h-3.5"/></button>
+      <button className={btn} title="link" style={{ background: surface2 }} onClick={() => onWrap("[", "](https://)", "text")}><LinkIcon className="w-3.5 h-3.5"/></button>
+      <span className="w-px h-4 opacity-20" style={{ background: ink }}/>
+      <div className="flex items-center gap-1 rounded-full px-1 py-0.5" style={{ background: surface2 }}>
+        {(["serif","sans","mono"] as const).map((f) => (
+          <button key={f} onClick={() => setFont(f)}
+            className="text-[10px] px-2 h-6 rounded-full tracking-wide"
+            style={{ background: font === f ? ink : "transparent", color: font === f ? "#fff" : ink }}>
+            {f === "serif" ? "Aa" : f === "mono" ? "</>" : "aa"}
+          </button>
+        ))}
+      </div>
+      <div className="flex items-center gap-0.5 rounded-full px-1 py-0.5" style={{ background: surface2 }}>
+        <button onClick={() => setFontSize(Math.max(14, fontSize - 1))} className="w-6 h-6 text-[12px]">−</button>
+        <span className="text-[10px] opacity-60 w-6 text-center">{fontSize}</span>
+        <button onClick={() => setFontSize(Math.min(28, fontSize + 1))} className="w-6 h-6 text-[12px]">+</button>
+      </div>
+    </div>
+  );
+}
+
 
 function ListCard({ title, icon, items, onChange, placeholder }:
   { title: string; icon: React.ReactNode; items: string[]; onChange: (v: string[]) => void; placeholder: string }) {
