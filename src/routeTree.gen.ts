@@ -23,6 +23,7 @@ import { Route as ScreeningLibraryRouteImport } from './routes/screening.library
 import { Route as ScreeningHistoryRouteImport } from './routes/screening.history'
 import { Route as PeacebotVoiceRouteImport } from './routes/peacebot.voice'
 import { Route as PeacebotToolsRouteImport } from './routes/peacebot.tools'
+import { Route as PeacebotSettingsRouteImport } from './routes/peacebot.settings'
 import { Route as PeacebotPromptsRouteImport } from './routes/peacebot.prompts'
 import { Route as PeacebotMentalRouteImport } from './routes/peacebot.mental'
 import { Route as PeacebotMemoryRouteImport } from './routes/peacebot.memory'
@@ -113,6 +114,11 @@ const PeacebotVoiceRoute = PeacebotVoiceRouteImport.update({
 const PeacebotToolsRoute = PeacebotToolsRouteImport.update({
   id: '/peacebot/tools',
   path: '/peacebot/tools',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeacebotSettingsRoute = PeacebotSettingsRouteImport.update({
+  id: '/peacebot/settings',
+  path: '/peacebot/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PeacebotPromptsRoute = PeacebotPromptsRouteImport.update({
@@ -238,6 +244,7 @@ export interface FileRoutesByFullPath {
   '/peacebot/memory': typeof PeacebotMemoryRoute
   '/peacebot/mental': typeof PeacebotMentalRoute
   '/peacebot/prompts': typeof PeacebotPromptsRoute
+  '/peacebot/settings': typeof PeacebotSettingsRoute
   '/peacebot/tools': typeof PeacebotToolsRoute
   '/peacebot/voice': typeof PeacebotVoiceRoute
   '/screening/history': typeof ScreeningHistoryRoute
@@ -275,6 +282,7 @@ export interface FileRoutesByTo {
   '/peacebot/memory': typeof PeacebotMemoryRoute
   '/peacebot/mental': typeof PeacebotMentalRoute
   '/peacebot/prompts': typeof PeacebotPromptsRoute
+  '/peacebot/settings': typeof PeacebotSettingsRoute
   '/peacebot/tools': typeof PeacebotToolsRoute
   '/peacebot/voice': typeof PeacebotVoiceRoute
   '/screening/history': typeof ScreeningHistoryRoute
@@ -313,6 +321,7 @@ export interface FileRoutesById {
   '/peacebot/memory': typeof PeacebotMemoryRoute
   '/peacebot/mental': typeof PeacebotMentalRoute
   '/peacebot/prompts': typeof PeacebotPromptsRoute
+  '/peacebot/settings': typeof PeacebotSettingsRoute
   '/peacebot/tools': typeof PeacebotToolsRoute
   '/peacebot/voice': typeof PeacebotVoiceRoute
   '/screening/history': typeof ScreeningHistoryRoute
@@ -352,6 +361,7 @@ export interface FileRouteTypes {
     | '/peacebot/memory'
     | '/peacebot/mental'
     | '/peacebot/prompts'
+    | '/peacebot/settings'
     | '/peacebot/tools'
     | '/peacebot/voice'
     | '/screening/history'
@@ -389,6 +399,7 @@ export interface FileRouteTypes {
     | '/peacebot/memory'
     | '/peacebot/mental'
     | '/peacebot/prompts'
+    | '/peacebot/settings'
     | '/peacebot/tools'
     | '/peacebot/voice'
     | '/screening/history'
@@ -426,6 +437,7 @@ export interface FileRouteTypes {
     | '/peacebot/memory'
     | '/peacebot/mental'
     | '/peacebot/prompts'
+    | '/peacebot/settings'
     | '/peacebot/tools'
     | '/peacebot/voice'
     | '/screening/history'
@@ -464,6 +476,7 @@ export interface RootRouteChildren {
   PeacebotMemoryRoute: typeof PeacebotMemoryRoute
   PeacebotMentalRoute: typeof PeacebotMentalRoute
   PeacebotPromptsRoute: typeof PeacebotPromptsRoute
+  PeacebotSettingsRoute: typeof PeacebotSettingsRoute
   PeacebotToolsRoute: typeof PeacebotToolsRoute
   PeacebotVoiceRoute: typeof PeacebotVoiceRoute
   ScreeningHistoryRoute: typeof ScreeningHistoryRoute
@@ -583,6 +596,13 @@ declare module '@tanstack/react-router' {
       path: '/peacebot/tools'
       fullPath: '/peacebot/tools'
       preLoaderRoute: typeof PeacebotToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/peacebot/settings': {
+      id: '/peacebot/settings'
+      path: '/peacebot/settings'
+      fullPath: '/peacebot/settings'
+      preLoaderRoute: typeof PeacebotSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/peacebot/prompts': {
@@ -752,6 +772,7 @@ const rootRouteChildren: RootRouteChildren = {
   PeacebotMemoryRoute: PeacebotMemoryRoute,
   PeacebotMentalRoute: PeacebotMentalRoute,
   PeacebotPromptsRoute: PeacebotPromptsRoute,
+  PeacebotSettingsRoute: PeacebotSettingsRoute,
   PeacebotToolsRoute: PeacebotToolsRoute,
   PeacebotVoiceRoute: PeacebotVoiceRoute,
   ScreeningHistoryRoute: ScreeningHistoryRoute,
