@@ -431,26 +431,122 @@ function Dashboard() {
             </div>
           </div>
 
-          {/* right: featured stillness — cinematic single anchor */}
+          {/* right: STILLNESS DECK — layered rotating carousel of experiences */}
           <div className="lg:col-span-4">
-            <div className="relative rounded-[36px] overflow-hidden aspect-[4/5] p-7 flex flex-col justify-between cursor-pointer group"
-                 style={{ background: `linear-gradient(160deg,${soft} 0%,${accent} 50%,${deep} 100%)` }}>
-              <Curl stroke="#f5eee0" className="absolute -left-6 top-8 w-[220px] opacity-40 group-hover:translate-x-2 transition duration-700" />
-              <Mark className="absolute -right-12 -bottom-12 w-72 h-72 group-hover:scale-110 transition duration-[1200ms]" opacity={0.16}/>
-              <div className="relative">
-                <div className="text-[10px] tracking-[0.3em] uppercase mb-4" style={{ color: "#f5eee0" }}>a walk with breath</div>
-                <div className="font-serif text-[38px] lg:text-[46px] leading-[0.95]" style={{ color: "#2a1f14" }}>
-                  Meditation<br/><em className="italic font-light">&amp; movement</em>
-                </div>
+            <div className="relative" style={{ perspective: "1400px" }}
+                 onMouseEnter={() => setExpAuto(false)}
+                 onMouseLeave={() => setExpAuto(true)}>
+              {/* the stack — 3 visible layers, deepest first */}
+              <div className="relative aspect-[4/5]">
+                {experiences.map((exp, i) => {
+                  const total = experiences.length;
+                  // distance forward in the stack: 0 = top, 1 = next, 2 = after
+                  const offset = (i - expIdx + total) % total;
+                  const isTop = offset === 0;
+                  const visible = offset < 3;
+                  const scale = 1 - offset * 0.05;
+                  const translateY = offset * 14;
+                  const translateX = offset * 6;
+                  const rotate = offset * -1.2;
+                  return (
+                    <div key={i}
+                         onClick={() => { if (!isTop) setExpIdx(i); }}
+                         className={`absolute inset-0 rounded-[36px] overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isTop ? "cursor-default" : "cursor-pointer"}`}
+                         style={{
+                           background: `linear-gradient(160deg, ${exp.hue[0]} 0%, ${exp.hue[1]} 55%, ${exp.hue[2]} 100%)`,
+                           transform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale}) rotate(${rotate}deg)`,
+                           opacity: visible ? (isTop ? 1 : 0.55 - offset * 0.15) : 0,
+                           zIndex: total - offset,
+                           boxShadow: isTop
+                             ? "0 30px 80px -30px rgba(38,34,28,0.5), 0 8px 20px -8px rgba(38,34,28,0.3)"
+                             : "0 20px 40px -20px rgba(38,34,28,0.3)",
+                           pointerEvents: visible ? "auto" : "none",
+                         }}>
+                      {/* decorative curls + mark */}
+                      <Curl stroke="#f5eee0" className={`absolute -left-6 top-8 w-[220px] transition-all duration-1000 ${isTop ? "opacity-40" : "opacity-25"}`} />
+                      <Mark className={`absolute -right-12 -bottom-12 w-72 h-72 transition-transform duration-[1500ms] ${isTop ? "" : "scale-90"}`} opacity={0.16}/>
+
+                      {/* grain */}
+                      <div className="absolute inset-0 opacity-[0.06] pointer-events-none mix-blend-overlay"
+                           style={{ backgroundImage: `radial-gradient(rgba(0,0,0,0.6) 1px, transparent 1px)`, backgroundSize: "3px 3px" }} />
+
+                      {/* content — only render on top for a11y/perf; others are just visual peek */}
+                      <div className="relative h-full p-7 flex flex-col justify-between">
+                        <div>
+                          <div className="flex items-center justify-between">
+                            <div className="text-[10px] tracking-[0.3em] uppercase" style={{ color: "#f5eee0" }}>{exp.kicker}</div>
+                            {isTop && (
+                              <div className="flex items-center gap-1 text-[9px] tracking-[0.25em] uppercase" style={{ color: "#f5eee0", opacity: 0.75 }}>
+                                <span>{expIdx + 1}</span><span className="opacity-50">/</span><span className="opacity-60">{total}</span>
+                              </div>
+                            )}
+                          </div>
+                          <div className="font-serif text-[38px] lg:text-[46px] leading-[0.95] mt-4" style={{ color: "#2a1f14" }}>
+                            {exp.title}<br/><em className="italic font-light">{exp.italic}</em>
+                          </div>
+                        </div>
+
+                        <div className="flex items-end justify-between">
+                          <div style={{ color: "#2a1f14" }}>
+                            <div className="font-serif italic text-xl">{exp.mins} min</div>
+                            <div className="opacity-60 tracking-[0.25em] uppercase text-[9px] mt-1">{exp.tag}</div>
+                          </div>
+                          {isTop && (
+                            <div className="flex items-center gap-2">
+                              <button onClick={(e) => { e.stopPropagation(); setExpSaved({ ...expSaved, [i]: !expSaved[i] }); }}
+                                      aria-label="save"
+                                      className="w-11 h-11 rounded-full flex items-center justify-center transition hover:scale-105 active:scale-95"
+                                      style={{ background: expSaved[i] ? "#26221c" : "rgba(255,255,255,0.18)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.25)" }}>
+                                <Heart className={`w-3.5 h-3.5 ${expSaved[i] ? "animate-heart-pop" : ""}`}
+                                       fill={expSaved[i] ? "#f5eee0" : "none"}
+                                       style={{ color: expSaved[i] ? "#f5eee0" : "#2a1f14" }} strokeWidth={1.6}/>
+                              </button>
+                              <button className="group w-14 h-14 rounded-full flex items-center justify-center transition hover:scale-105 relative overflow-hidden" style={{ background: "#26221c" }}>
+                                {/* ring progress on the play button */}
+                                <svg className="absolute inset-0 -rotate-90" viewBox="0 0 56 56">
+                                  <circle cx="28" cy="28" r="26" fill="none" stroke="rgba(245,238,224,0.15)" strokeWidth="1.5"/>
+                                  <circle cx="28" cy="28" r="26" fill="none" stroke="#f5eee0" strokeWidth="1.5" strokeLinecap="round"
+                                          strokeDasharray={2 * Math.PI * 26}
+                                          strokeDashoffset={2 * Math.PI * 26 * (1 - (expAuto ? expProgress : 0))} />
+                                </svg>
+                                <Play className="w-4 h-4 ml-0.5 relative" style={{ color: "#faf3e3" }} strokeWidth={2}/>
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-              <div className="relative flex items-end justify-between">
-                <div style={{ color: "#2a1f14" }}>
-                  <div className="font-serif italic text-xl">24 min</div>
-                  <div className="opacity-60 tracking-[0.25em] uppercase text-[9px] mt-1">gentle · guided</div>
+
+              {/* ambient controls beneath the deck */}
+              <div className="mt-5 flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  {experiences.map((_, i) => (
+                    <button key={i} onClick={() => setExpIdx(i)} aria-label={`experience ${i + 1}`}
+                            className="h-[6px] rounded-full transition-all"
+                            style={{
+                              width: i === expIdx ? 28 : 6,
+                              background: i === expIdx ? accent : border,
+                              opacity: i === expIdx ? 1 : 0.7,
+                            }}/>
+                  ))}
                 </div>
-                <button className="w-14 h-14 rounded-full flex items-center justify-center transition group-hover:scale-105" style={{ background: "#26221c" }}>
-                  <Play className="w-4 h-4 ml-0.5" style={{ color: "#faf3e3" }} strokeWidth={2}/>
-                </button>
+                <div className="flex items-center gap-1">
+                  <button onClick={() => setExpIdx((expIdx - 1 + experiences.length) % experiences.length)}
+                          className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-black/5 transition" aria-label="previous">
+                    <ChevronRight className="w-3.5 h-3.5 rotate-180" strokeWidth={1.5}/>
+                  </button>
+                  <button onClick={() => setExpAuto(!expAuto)}
+                          className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-black/5 transition" aria-label="toggle auto-play">
+                    {expAuto ? <Pause className="w-3 h-3" strokeWidth={1.5}/> : <Play className="w-3 h-3 ml-0.5" strokeWidth={1.5}/>}
+                  </button>
+                  <button onClick={() => setExpIdx((expIdx + 1) % experiences.length)}
+                          className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-black/5 transition" aria-label="next">
+                    <ChevronRight className="w-3.5 h-3.5" strokeWidth={1.5}/>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
