@@ -289,7 +289,7 @@ function ResourcePage() {
             style={{ background: heroBg(nextResource.hero) }}>
             <div className="text-white/80 text-[10px] tracking-[0.3em] uppercase mb-2">Next up</div>
             <div className="font-serif text-white text-[24px] leading-tight">{nextResource.title}</div>
-            <div className="text-white/85 text-[12px] mt-2">{nextResource.minutes} min · {FORMAT_LABELS[nextResource.format]} →</div>
+            <div className="text-white/85 text-[12px] mt-2">{nextResource.minutes} min · {FORMAT_LABELS[nextResource.format as keyof typeof FORMAT_LABELS]} →</div>
           </Link>
         )}
       </main>
