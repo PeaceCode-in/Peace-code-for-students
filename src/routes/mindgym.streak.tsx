@@ -12,7 +12,7 @@ function StreakPage() {
   for (let i = 41; i >= 0; i--) {
     const d = new Date(today); d.setDate(today.getDate() - i);
     const key = d.toISOString().slice(0, 10);
-    const sess = s.sessions.filter(x => x.completedAt.slice(0,10) === key);
+    const sess = s.sessions.filter(x => new Date(x.at).toISOString().slice(0,10) === key);
     days.push({ d, on: sess.length > 0, xp: sess.reduce((a,b)=>a+b.xp,0) });
   }
   return (
@@ -21,7 +21,7 @@ function StreakPage() {
       <h1 className="font-serif text-[36px] sm:text-[48px] leading-none mt-1" style={{ color: "var(--pc-ink)", letterSpacing: "-0.02em" }}>
         {s.streak.current}-day streak
       </h1>
-      <div className="text-[13px] mt-2" style={{ color: "var(--pc-muted)" }}>Best: {s.streak.longest} days · Freezes available: {s.streak.freezes}</div>
+      <div className="text-[13px] mt-2" style={{ color: "var(--pc-muted)" }}>Best: {s.streak.longest} days</div>
 
       <section className="mt-8 rounded-3xl p-6" style={{ background: "var(--pc-surface)", border: "1px solid var(--pc-border)" }}>
         <div className="grid grid-cols-7 gap-2">

@@ -19,7 +19,7 @@ function DnaPage() {
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
-    call({ data: { brain: s.brain, level: s.level.tier, streak: s.streak.current } })
+    call({ data: { brain: s.brain, level: s.title, streak: s.streak.current } })
       .then(r => { if (!cancelled) setText(r.text); })
       .catch(() => {})
       .finally(() => { if (!cancelled) setLoading(false); });
