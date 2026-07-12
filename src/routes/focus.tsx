@@ -4,7 +4,7 @@ import {
   ArrowLeft, Play, Pause, RotateCcw, SkipForward, Plus, Check,
   CloudRain, Coffee, Waves, Wind, VolumeX, Volume2, Timer, Target,
   TrendingUp, Flame, Sparkles, Zap, Trash2, Calendar as CalendarIcon,
-  Filter, ChevronLeft, ChevronRight, History, X,
+  Filter, ChevronLeft, ChevronRight, History, X, Maximize2, Minimize2,
 } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
 import {
