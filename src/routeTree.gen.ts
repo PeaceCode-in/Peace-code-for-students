@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as JournalRouteImport } from './routes/journal'
 import { Route as FocusRouteImport } from './routes/focus'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as BreatheRouteImport } from './routes/breathe'
@@ -16,6 +17,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as BreatheStatsRouteImport } from './routes/breathe.stats'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 
+const JournalRoute = JournalRouteImport.update({
+  id: '/journal',
+  path: '/journal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FocusRoute = FocusRouteImport.update({
   id: '/focus',
   path: '/focus',
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRoute
   '/focus': typeof FocusRoute
+  '/journal': typeof JournalRoute
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRoute
   '/focus': typeof FocusRoute
+  '/journal': typeof JournalRoute
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
 }
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRoute
   '/focus': typeof FocusRoute
+  '/journal': typeof JournalRoute
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
 }
@@ -79,6 +88,7 @@ export interface FileRouteTypes {
     | '/breathe'
     | '/community'
     | '/focus'
+    | '/journal'
     | '/api/chat'
     | '/breathe/stats'
   fileRoutesByTo: FileRoutesByTo
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
     | '/breathe'
     | '/community'
     | '/focus'
+    | '/journal'
     | '/api/chat'
     | '/breathe/stats'
   id:
@@ -95,6 +106,7 @@ export interface FileRouteTypes {
     | '/breathe'
     | '/community'
     | '/focus'
+    | '/journal'
     | '/api/chat'
     | '/breathe/stats'
   fileRoutesById: FileRoutesById
@@ -104,11 +116,19 @@ export interface RootRouteChildren {
   BreatheRoute: typeof BreatheRouteWithChildren
   CommunityRoute: typeof CommunityRoute
   FocusRoute: typeof FocusRoute
+  JournalRoute: typeof JournalRoute
   ApiChatRoute: typeof ApiChatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/journal': {
+      id: '/journal'
+      path: '/journal'
+      fullPath: '/journal'
+      preLoaderRoute: typeof JournalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/focus': {
       id: '/focus'
       path: '/focus'
@@ -170,6 +190,7 @@ const rootRouteChildren: RootRouteChildren = {
   BreatheRoute: BreatheRouteWithChildren,
   CommunityRoute: CommunityRoute,
   FocusRoute: FocusRoute,
+  JournalRoute: JournalRoute,
   ApiChatRoute: ApiChatRoute,
 }
 export const routeTree = rootRouteImport
