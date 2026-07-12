@@ -74,7 +74,7 @@ function LiveSession() {
           <span>{signal >= 4 ? "Excellent" : signal >= 3 ? "Good" : "Fair"} connection</span>
         </div>
         <Link to="/counselling/emergency" className="rounded-full px-2.5 sm:px-3 py-1.5 text-[12px] inline-flex items-center gap-1" style={{ background: "#c14a5a" }}>
-          <LifeBuoy className="w-3.5 h-3.5" /> <span className="hidden xs:inline">Emergency</span>
+          <LifeBuoy className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Emergency</span>
         </Link>
       </div>
 

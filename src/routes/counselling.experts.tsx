@@ -25,7 +25,7 @@ function FindExperts() {
   const [emergencyOnly, setEmergencyOnly] = useState(false);
   const [maxFee, setMaxFee] = useState(2500);
   const [sort, setSort] = useState<Sort>("recommended");
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
   const [favs, setFavs] = useState<string[]>(favorites());
 
   const toggle = (arr: string[], v: string, set: (a: string[]) => void) =>
