@@ -5,7 +5,7 @@ import {
   Volume2, VolumeX, Mic, MicOff, Flame, Sparkles, Target, Star,
   Cloud, Waves, Trees, Sun, Bird, Radio, Flame as Fire, Accessibility,
   Trash2, ChevronRight, X, Award, Timer, Settings2, TrendingUp, BarChart3,
-  Keyboard, Contrast, Type,
+  Keyboard, Contrast, Type, Maximize2, Minimize2,
 } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
 import {
