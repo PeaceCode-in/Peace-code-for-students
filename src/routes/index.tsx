@@ -1278,13 +1278,13 @@ function Dashboard() {
 
               <div className="flex items-center justify-between pt-3 border-t mt-2" style={{ borderColor: border }}>
                 <span className="text-[10px] opacity-45 tracking-[0.15em] uppercase">{note.length} · yours only</span>
-                <button className="group/keep flex items-center gap-2 text-[10px] tracking-[0.28em] uppercase pl-4 pr-1.5 py-1.5 rounded-full transition-all hover:pr-4"
+                <Link to="/journal" className="group/keep flex items-center gap-2 text-[10px] tracking-[0.28em] uppercase pl-4 pr-1.5 py-1.5 rounded-full transition-all hover:pr-4"
                         style={{ background: ink, color: bg }}>
                   <span>seal</span>
                   <span className="w-6 h-6 rounded-full flex items-center justify-center transition-transform group-hover/keep:rotate-45" style={{ background: bg, color: ink }}>
                     <Plus className="w-3 h-3" strokeWidth={2.2}/>
                   </span>
-                </button>
+                </Link>
               </div>
             </div>
           </div>
