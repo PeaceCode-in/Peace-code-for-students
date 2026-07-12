@@ -554,11 +554,16 @@ function LiveRoom({ room, onLeave }: any) {
               {muted_ ? <MicOff className="w-4 h-4" strokeWidth={1.6}/> : <Mic className="w-4 h-4" strokeWidth={1.6}/>}
               {muted_ ? "raise a hand" : "you're live"}
             </button>
-            <button className="h-12 w-12 rounded-full flex items-center justify-center transition hover:-translate-y-0.5"
+            <button onClick={() => {
+                      if (navigator.share) navigator.share({ title: room.name, text: room.topic }).catch(()=>{});
+                      else { navigator.clipboard.writeText(`${room.name} — ${room.topic}`); alert("room link copied"); }
+                    }}
+                    className="h-12 w-12 rounded-full flex items-center justify-center transition hover:-translate-y-0.5"
                     style={{ background: surface, border: `1px solid ${border}`, color: ink }}>
               <Heart className="w-4 h-4" strokeWidth={1.6}/>
             </button>
-            <button className="h-12 w-12 rounded-full flex items-center justify-center transition hover:-translate-y-0.5"
+            <button onClick={() => alert("room options: report · settings · leave quietly")}
+                    className="h-12 w-12 rounded-full flex items-center justify-center transition hover:-translate-y-0.5"
                     style={{ background: surface, border: `1px solid ${border}`, color: ink }}>
               <MoreHorizontal className="w-4 h-4" strokeWidth={1.6}/>
             </button>
