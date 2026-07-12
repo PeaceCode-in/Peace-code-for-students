@@ -1834,14 +1834,15 @@ type BriefProps = {
 };
 
 function TodayBrief({ accent, ink, bg, border, surface, surface2, muted }: BriefProps) {
-  const [time, setTime] = useState<Date>(new Date());
+  const [time, setTime] = useState<Date | null>(null);
   const [hoverStat, setHoverStat] = useState<number | null>(null);
   useEffect(() => {
+    setTime(new Date());
     const id = setInterval(() => setTime(new Date()), 30_000);
     return () => clearInterval(id);
   }, []);
 
-  const hour = time.getHours();
+  const hour = (time ?? new Date(2024, 0, 1, 9, 0)).getHours();
   const salutation =
     hour < 5 ? "still up" :
     hour < 12 ? "good morning" :
@@ -1882,7 +1883,7 @@ function TodayBrief({ accent, ink, bg, border, surface, surface2, muted }: Brief
             today's composure
           </div>
           <div className="text-[10px] tracking-[0.28em] uppercase opacity-55 tabular-nums">
-            {time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+            {time ? time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "\u00a0"}
           </div>
         </div>
 
