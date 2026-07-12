@@ -16,6 +16,7 @@ import { Route as PeacebotIndexRouteImport } from './routes/peacebot.index'
 import { Route as JournalIndexRouteImport } from './routes/journal.index'
 import { Route as GratitudeIndexRouteImport } from './routes/gratitude.index'
 import { Route as FocusIndexRouteImport } from './routes/focus.index'
+import { Route as BuddiesIndexRouteImport } from './routes/buddies.index'
 import { Route as BreatheIndexRouteImport } from './routes/breathe.index'
 import { Route as ScreeningSettingsRouteImport } from './routes/screening.settings'
 import { Route as ScreeningResourcesRouteImport } from './routes/screening.resources'
@@ -36,6 +37,14 @@ import { Route as GratitudeWallRouteImport } from './routes/gratitude.wall'
 import { Route as GratitudeTreeRouteImport } from './routes/gratitude.tree'
 import { Route as GratitudeHistoryRouteImport } from './routes/gratitude.history'
 import { Route as GratitudeForestRouteImport } from './routes/gratitude.forest'
+import { Route as BuddiesSettingsRouteImport } from './routes/buddies.settings'
+import { Route as BuddiesPsychologistsRouteImport } from './routes/buddies.psychologists'
+import { Route as BuddiesHistoryRouteImport } from './routes/buddies.history'
+import { Route as BuddiesGroupsRouteImport } from './routes/buddies.groups'
+import { Route as BuddiesEmergencyRouteImport } from './routes/buddies.emergency'
+import { Route as BuddiesBrowseRouteImport } from './routes/buddies.browse'
+import { Route as BuddiesAboutRouteImport } from './routes/buddies.about'
+import { Route as BuddiesIdRouteImport } from './routes/buddies.$id'
 import { Route as BreatheStatsRouteImport } from './routes/breathe.stats'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ScreeningTestIdRouteImport } from './routes/screening.test.$id'
@@ -45,6 +54,11 @@ import { Route as ScreeningInstructionsIdRouteImport } from './routes/screening.
 import { Route as ScreeningConsentIdRouteImport } from './routes/screening.consent.$id'
 import { Route as ScreeningAssessmentIdRouteImport } from './routes/screening.assessment.$id'
 import { Route as PeacebotCIdRouteImport } from './routes/peacebot.c.$id'
+import { Route as BuddiesSafetyIdRouteImport } from './routes/buddies.safety.$id'
+import { Route as BuddiesGuidelinesIdRouteImport } from './routes/buddies.guidelines.$id'
+import { Route as BuddiesFeedbackIdRouteImport } from './routes/buddies.feedback.$id'
+import { Route as BuddiesChatIdRouteImport } from './routes/buddies.chat.$id'
+import { Route as BuddiesBookIdRouteImport } from './routes/buddies.book.$id'
 
 const CommunityRoute = CommunityRouteImport.update({
   id: '/community',
@@ -79,6 +93,11 @@ const GratitudeIndexRoute = GratitudeIndexRouteImport.update({
 const FocusIndexRoute = FocusIndexRouteImport.update({
   id: '/focus/',
   path: '/focus/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuddiesIndexRoute = BuddiesIndexRouteImport.update({
+  id: '/buddies/',
+  path: '/buddies/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BreatheIndexRoute = BreatheIndexRouteImport.update({
@@ -181,6 +200,46 @@ const GratitudeForestRoute = GratitudeForestRouteImport.update({
   path: '/gratitude/forest',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BuddiesSettingsRoute = BuddiesSettingsRouteImport.update({
+  id: '/buddies/settings',
+  path: '/buddies/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuddiesPsychologistsRoute = BuddiesPsychologistsRouteImport.update({
+  id: '/buddies/psychologists',
+  path: '/buddies/psychologists',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuddiesHistoryRoute = BuddiesHistoryRouteImport.update({
+  id: '/buddies/history',
+  path: '/buddies/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuddiesGroupsRoute = BuddiesGroupsRouteImport.update({
+  id: '/buddies/groups',
+  path: '/buddies/groups',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuddiesEmergencyRoute = BuddiesEmergencyRouteImport.update({
+  id: '/buddies/emergency',
+  path: '/buddies/emergency',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuddiesBrowseRoute = BuddiesBrowseRouteImport.update({
+  id: '/buddies/browse',
+  path: '/buddies/browse',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuddiesAboutRoute = BuddiesAboutRouteImport.update({
+  id: '/buddies/about',
+  path: '/buddies/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuddiesIdRoute = BuddiesIdRouteImport.update({
+  id: '/buddies/$id',
+  path: '/buddies/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BreatheStatsRoute = BreatheStatsRouteImport.update({
   id: '/breathe/stats',
   path: '/breathe/stats',
@@ -226,12 +285,45 @@ const PeacebotCIdRoute = PeacebotCIdRouteImport.update({
   path: '/peacebot/c/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BuddiesSafetyIdRoute = BuddiesSafetyIdRouteImport.update({
+  id: '/buddies/safety/$id',
+  path: '/buddies/safety/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuddiesGuidelinesIdRoute = BuddiesGuidelinesIdRouteImport.update({
+  id: '/buddies/guidelines/$id',
+  path: '/buddies/guidelines/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuddiesFeedbackIdRoute = BuddiesFeedbackIdRouteImport.update({
+  id: '/buddies/feedback/$id',
+  path: '/buddies/feedback/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuddiesChatIdRoute = BuddiesChatIdRouteImport.update({
+  id: '/buddies/chat/$id',
+  path: '/buddies/chat/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuddiesBookIdRoute = BuddiesBookIdRouteImport.update({
+  id: '/buddies/book/$id',
+  path: '/buddies/book/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
+  '/buddies/$id': typeof BuddiesIdRoute
+  '/buddies/about': typeof BuddiesAboutRoute
+  '/buddies/browse': typeof BuddiesBrowseRoute
+  '/buddies/emergency': typeof BuddiesEmergencyRoute
+  '/buddies/groups': typeof BuddiesGroupsRoute
+  '/buddies/history': typeof BuddiesHistoryRoute
+  '/buddies/psychologists': typeof BuddiesPsychologistsRoute
+  '/buddies/settings': typeof BuddiesSettingsRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
   '/gratitude/tree': typeof GratitudeTreeRoute
@@ -252,11 +344,17 @@ export interface FileRoutesByFullPath {
   '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/settings': typeof ScreeningSettingsRoute
   '/breathe/': typeof BreatheIndexRoute
+  '/buddies/': typeof BuddiesIndexRoute
   '/focus/': typeof FocusIndexRoute
   '/gratitude/': typeof GratitudeIndexRoute
   '/journal/': typeof JournalIndexRoute
   '/peacebot/': typeof PeacebotIndexRoute
   '/screening/': typeof ScreeningIndexRoute
+  '/buddies/book/$id': typeof BuddiesBookIdRoute
+  '/buddies/chat/$id': typeof BuddiesChatIdRoute
+  '/buddies/feedback/$id': typeof BuddiesFeedbackIdRoute
+  '/buddies/guidelines/$id': typeof BuddiesGuidelinesIdRoute
+  '/buddies/safety/$id': typeof BuddiesSafetyIdRoute
   '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
@@ -270,6 +368,14 @@ export interface FileRoutesByTo {
   '/community': typeof CommunityRoute
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
+  '/buddies/$id': typeof BuddiesIdRoute
+  '/buddies/about': typeof BuddiesAboutRoute
+  '/buddies/browse': typeof BuddiesBrowseRoute
+  '/buddies/emergency': typeof BuddiesEmergencyRoute
+  '/buddies/groups': typeof BuddiesGroupsRoute
+  '/buddies/history': typeof BuddiesHistoryRoute
+  '/buddies/psychologists': typeof BuddiesPsychologistsRoute
+  '/buddies/settings': typeof BuddiesSettingsRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
   '/gratitude/tree': typeof GratitudeTreeRoute
@@ -290,11 +396,17 @@ export interface FileRoutesByTo {
   '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/settings': typeof ScreeningSettingsRoute
   '/breathe': typeof BreatheIndexRoute
+  '/buddies': typeof BuddiesIndexRoute
   '/focus': typeof FocusIndexRoute
   '/gratitude': typeof GratitudeIndexRoute
   '/journal': typeof JournalIndexRoute
   '/peacebot': typeof PeacebotIndexRoute
   '/screening': typeof ScreeningIndexRoute
+  '/buddies/book/$id': typeof BuddiesBookIdRoute
+  '/buddies/chat/$id': typeof BuddiesChatIdRoute
+  '/buddies/feedback/$id': typeof BuddiesFeedbackIdRoute
+  '/buddies/guidelines/$id': typeof BuddiesGuidelinesIdRoute
+  '/buddies/safety/$id': typeof BuddiesSafetyIdRoute
   '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
@@ -309,6 +421,14 @@ export interface FileRoutesById {
   '/community': typeof CommunityRoute
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
+  '/buddies/$id': typeof BuddiesIdRoute
+  '/buddies/about': typeof BuddiesAboutRoute
+  '/buddies/browse': typeof BuddiesBrowseRoute
+  '/buddies/emergency': typeof BuddiesEmergencyRoute
+  '/buddies/groups': typeof BuddiesGroupsRoute
+  '/buddies/history': typeof BuddiesHistoryRoute
+  '/buddies/psychologists': typeof BuddiesPsychologistsRoute
+  '/buddies/settings': typeof BuddiesSettingsRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
   '/gratitude/tree': typeof GratitudeTreeRoute
@@ -329,11 +449,17 @@ export interface FileRoutesById {
   '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/settings': typeof ScreeningSettingsRoute
   '/breathe/': typeof BreatheIndexRoute
+  '/buddies/': typeof BuddiesIndexRoute
   '/focus/': typeof FocusIndexRoute
   '/gratitude/': typeof GratitudeIndexRoute
   '/journal/': typeof JournalIndexRoute
   '/peacebot/': typeof PeacebotIndexRoute
   '/screening/': typeof ScreeningIndexRoute
+  '/buddies/book/$id': typeof BuddiesBookIdRoute
+  '/buddies/chat/$id': typeof BuddiesChatIdRoute
+  '/buddies/feedback/$id': typeof BuddiesFeedbackIdRoute
+  '/buddies/guidelines/$id': typeof BuddiesGuidelinesIdRoute
+  '/buddies/safety/$id': typeof BuddiesSafetyIdRoute
   '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
@@ -349,6 +475,14 @@ export interface FileRouteTypes {
     | '/community'
     | '/api/chat'
     | '/breathe/stats'
+    | '/buddies/$id'
+    | '/buddies/about'
+    | '/buddies/browse'
+    | '/buddies/emergency'
+    | '/buddies/groups'
+    | '/buddies/history'
+    | '/buddies/psychologists'
+    | '/buddies/settings'
     | '/gratitude/forest'
     | '/gratitude/history'
     | '/gratitude/tree'
@@ -369,11 +503,17 @@ export interface FileRouteTypes {
     | '/screening/resources'
     | '/screening/settings'
     | '/breathe/'
+    | '/buddies/'
     | '/focus/'
     | '/gratitude/'
     | '/journal/'
     | '/peacebot/'
     | '/screening/'
+    | '/buddies/book/$id'
+    | '/buddies/chat/$id'
+    | '/buddies/feedback/$id'
+    | '/buddies/guidelines/$id'
+    | '/buddies/safety/$id'
     | '/peacebot/c/$id'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
@@ -387,6 +527,14 @@ export interface FileRouteTypes {
     | '/community'
     | '/api/chat'
     | '/breathe/stats'
+    | '/buddies/$id'
+    | '/buddies/about'
+    | '/buddies/browse'
+    | '/buddies/emergency'
+    | '/buddies/groups'
+    | '/buddies/history'
+    | '/buddies/psychologists'
+    | '/buddies/settings'
     | '/gratitude/forest'
     | '/gratitude/history'
     | '/gratitude/tree'
@@ -407,11 +555,17 @@ export interface FileRouteTypes {
     | '/screening/resources'
     | '/screening/settings'
     | '/breathe'
+    | '/buddies'
     | '/focus'
     | '/gratitude'
     | '/journal'
     | '/peacebot'
     | '/screening'
+    | '/buddies/book/$id'
+    | '/buddies/chat/$id'
+    | '/buddies/feedback/$id'
+    | '/buddies/guidelines/$id'
+    | '/buddies/safety/$id'
     | '/peacebot/c/$id'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
@@ -425,6 +579,14 @@ export interface FileRouteTypes {
     | '/community'
     | '/api/chat'
     | '/breathe/stats'
+    | '/buddies/$id'
+    | '/buddies/about'
+    | '/buddies/browse'
+    | '/buddies/emergency'
+    | '/buddies/groups'
+    | '/buddies/history'
+    | '/buddies/psychologists'
+    | '/buddies/settings'
     | '/gratitude/forest'
     | '/gratitude/history'
     | '/gratitude/tree'
@@ -445,11 +607,17 @@ export interface FileRouteTypes {
     | '/screening/resources'
     | '/screening/settings'
     | '/breathe/'
+    | '/buddies/'
     | '/focus/'
     | '/gratitude/'
     | '/journal/'
     | '/peacebot/'
     | '/screening/'
+    | '/buddies/book/$id'
+    | '/buddies/chat/$id'
+    | '/buddies/feedback/$id'
+    | '/buddies/guidelines/$id'
+    | '/buddies/safety/$id'
     | '/peacebot/c/$id'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
@@ -464,6 +632,14 @@ export interface RootRouteChildren {
   CommunityRoute: typeof CommunityRoute
   ApiChatRoute: typeof ApiChatRoute
   BreatheStatsRoute: typeof BreatheStatsRoute
+  BuddiesIdRoute: typeof BuddiesIdRoute
+  BuddiesAboutRoute: typeof BuddiesAboutRoute
+  BuddiesBrowseRoute: typeof BuddiesBrowseRoute
+  BuddiesEmergencyRoute: typeof BuddiesEmergencyRoute
+  BuddiesGroupsRoute: typeof BuddiesGroupsRoute
+  BuddiesHistoryRoute: typeof BuddiesHistoryRoute
+  BuddiesPsychologistsRoute: typeof BuddiesPsychologistsRoute
+  BuddiesSettingsRoute: typeof BuddiesSettingsRoute
   GratitudeForestRoute: typeof GratitudeForestRoute
   GratitudeHistoryRoute: typeof GratitudeHistoryRoute
   GratitudeTreeRoute: typeof GratitudeTreeRoute
@@ -484,11 +660,17 @@ export interface RootRouteChildren {
   ScreeningResourcesRoute: typeof ScreeningResourcesRoute
   ScreeningSettingsRoute: typeof ScreeningSettingsRoute
   BreatheIndexRoute: typeof BreatheIndexRoute
+  BuddiesIndexRoute: typeof BuddiesIndexRoute
   FocusIndexRoute: typeof FocusIndexRoute
   GratitudeIndexRoute: typeof GratitudeIndexRoute
   JournalIndexRoute: typeof JournalIndexRoute
   PeacebotIndexRoute: typeof PeacebotIndexRoute
   ScreeningIndexRoute: typeof ScreeningIndexRoute
+  BuddiesBookIdRoute: typeof BuddiesBookIdRoute
+  BuddiesChatIdRoute: typeof BuddiesChatIdRoute
+  BuddiesFeedbackIdRoute: typeof BuddiesFeedbackIdRoute
+  BuddiesGuidelinesIdRoute: typeof BuddiesGuidelinesIdRoute
+  BuddiesSafetyIdRoute: typeof BuddiesSafetyIdRoute
   PeacebotCIdRoute: typeof PeacebotCIdRoute
   ScreeningAssessmentIdRoute: typeof ScreeningAssessmentIdRoute
   ScreeningConsentIdRoute: typeof ScreeningConsentIdRoute
@@ -547,6 +729,13 @@ declare module '@tanstack/react-router' {
       path: '/focus'
       fullPath: '/focus/'
       preLoaderRoute: typeof FocusIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buddies/': {
+      id: '/buddies/'
+      path: '/buddies'
+      fullPath: '/buddies/'
+      preLoaderRoute: typeof BuddiesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/breathe/': {
@@ -689,6 +878,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GratitudeForestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/buddies/settings': {
+      id: '/buddies/settings'
+      path: '/buddies/settings'
+      fullPath: '/buddies/settings'
+      preLoaderRoute: typeof BuddiesSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buddies/psychologists': {
+      id: '/buddies/psychologists'
+      path: '/buddies/psychologists'
+      fullPath: '/buddies/psychologists'
+      preLoaderRoute: typeof BuddiesPsychologistsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buddies/history': {
+      id: '/buddies/history'
+      path: '/buddies/history'
+      fullPath: '/buddies/history'
+      preLoaderRoute: typeof BuddiesHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buddies/groups': {
+      id: '/buddies/groups'
+      path: '/buddies/groups'
+      fullPath: '/buddies/groups'
+      preLoaderRoute: typeof BuddiesGroupsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buddies/emergency': {
+      id: '/buddies/emergency'
+      path: '/buddies/emergency'
+      fullPath: '/buddies/emergency'
+      preLoaderRoute: typeof BuddiesEmergencyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buddies/browse': {
+      id: '/buddies/browse'
+      path: '/buddies/browse'
+      fullPath: '/buddies/browse'
+      preLoaderRoute: typeof BuddiesBrowseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buddies/about': {
+      id: '/buddies/about'
+      path: '/buddies/about'
+      fullPath: '/buddies/about'
+      preLoaderRoute: typeof BuddiesAboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buddies/$id': {
+      id: '/buddies/$id'
+      path: '/buddies/$id'
+      fullPath: '/buddies/$id'
+      preLoaderRoute: typeof BuddiesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/breathe/stats': {
       id: '/breathe/stats'
       path: '/breathe/stats'
@@ -752,6 +997,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PeacebotCIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/buddies/safety/$id': {
+      id: '/buddies/safety/$id'
+      path: '/buddies/safety/$id'
+      fullPath: '/buddies/safety/$id'
+      preLoaderRoute: typeof BuddiesSafetyIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buddies/guidelines/$id': {
+      id: '/buddies/guidelines/$id'
+      path: '/buddies/guidelines/$id'
+      fullPath: '/buddies/guidelines/$id'
+      preLoaderRoute: typeof BuddiesGuidelinesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buddies/feedback/$id': {
+      id: '/buddies/feedback/$id'
+      path: '/buddies/feedback/$id'
+      fullPath: '/buddies/feedback/$id'
+      preLoaderRoute: typeof BuddiesFeedbackIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buddies/chat/$id': {
+      id: '/buddies/chat/$id'
+      path: '/buddies/chat/$id'
+      fullPath: '/buddies/chat/$id'
+      preLoaderRoute: typeof BuddiesChatIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buddies/book/$id': {
+      id: '/buddies/book/$id'
+      path: '/buddies/book/$id'
+      fullPath: '/buddies/book/$id'
+      preLoaderRoute: typeof BuddiesBookIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -760,6 +1040,14 @@ const rootRouteChildren: RootRouteChildren = {
   CommunityRoute: CommunityRoute,
   ApiChatRoute: ApiChatRoute,
   BreatheStatsRoute: BreatheStatsRoute,
+  BuddiesIdRoute: BuddiesIdRoute,
+  BuddiesAboutRoute: BuddiesAboutRoute,
+  BuddiesBrowseRoute: BuddiesBrowseRoute,
+  BuddiesEmergencyRoute: BuddiesEmergencyRoute,
+  BuddiesGroupsRoute: BuddiesGroupsRoute,
+  BuddiesHistoryRoute: BuddiesHistoryRoute,
+  BuddiesPsychologistsRoute: BuddiesPsychologistsRoute,
+  BuddiesSettingsRoute: BuddiesSettingsRoute,
   GratitudeForestRoute: GratitudeForestRoute,
   GratitudeHistoryRoute: GratitudeHistoryRoute,
   GratitudeTreeRoute: GratitudeTreeRoute,
@@ -780,11 +1068,17 @@ const rootRouteChildren: RootRouteChildren = {
   ScreeningResourcesRoute: ScreeningResourcesRoute,
   ScreeningSettingsRoute: ScreeningSettingsRoute,
   BreatheIndexRoute: BreatheIndexRoute,
+  BuddiesIndexRoute: BuddiesIndexRoute,
   FocusIndexRoute: FocusIndexRoute,
   GratitudeIndexRoute: GratitudeIndexRoute,
   JournalIndexRoute: JournalIndexRoute,
   PeacebotIndexRoute: PeacebotIndexRoute,
   ScreeningIndexRoute: ScreeningIndexRoute,
+  BuddiesBookIdRoute: BuddiesBookIdRoute,
+  BuddiesChatIdRoute: BuddiesChatIdRoute,
+  BuddiesFeedbackIdRoute: BuddiesFeedbackIdRoute,
+  BuddiesGuidelinesIdRoute: BuddiesGuidelinesIdRoute,
+  BuddiesSafetyIdRoute: BuddiesSafetyIdRoute,
   PeacebotCIdRoute: PeacebotCIdRoute,
   ScreeningAssessmentIdRoute: ScreeningAssessmentIdRoute,
   ScreeningConsentIdRoute: ScreeningConsentIdRoute,
