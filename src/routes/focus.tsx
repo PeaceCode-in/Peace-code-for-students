@@ -147,6 +147,19 @@ function FocusPage() {
     return () => clearInterval(t);
   }, [breathOn]);
 
+  // ─ cinema (fullscreen) mode ─
+  const [cinema, setCinema] = useState(false);
+  useEffect(() => {
+    if (!cinema) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setCinema(false);
+      if (e.key === " ") { e.preventDefault(); setRunning(r => !r); }
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
+  }, [cinema]);
+
   return (
     <AppShell>
       <div className="w-full font-sans relative" style={{ color: ink }}>
