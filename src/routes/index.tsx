@@ -41,7 +41,7 @@ const navGroups = [
   {
     label: "Community & Resources",
     items: [
-      { icon: Users, label: "Community" },
+      { icon: Users, label: "Community", to: "/community" },
       { icon: BookOpen, label: "Resources" },
     ],
   },
