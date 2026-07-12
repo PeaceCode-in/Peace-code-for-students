@@ -22,6 +22,7 @@ import { Route as ScreeningResourcesRouteImport } from './routes/screening.resou
 import { Route as ScreeningLibraryRouteImport } from './routes/screening.library'
 import { Route as ScreeningHistoryRouteImport } from './routes/screening.history'
 import { Route as PeacebotVoiceRouteImport } from './routes/peacebot.voice'
+import { Route as PeacebotMemoryRouteImport } from './routes/peacebot.memory'
 import { Route as JournalVoiceRouteImport } from './routes/journal.voice'
 import { Route as JournalMemoriesRouteImport } from './routes/journal.memories'
 import { Route as JournalIdRouteImport } from './routes/journal.$id'
@@ -102,6 +103,11 @@ const ScreeningHistoryRoute = ScreeningHistoryRouteImport.update({
 const PeacebotVoiceRoute = PeacebotVoiceRouteImport.update({
   id: '/peacebot/voice',
   path: '/peacebot/voice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeacebotMemoryRoute = PeacebotMemoryRouteImport.update({
+  id: '/peacebot/memory',
+  path: '/peacebot/memory',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JournalVoiceRoute = JournalVoiceRouteImport.update({
@@ -197,6 +203,7 @@ export interface FileRoutesByFullPath {
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
+  '/peacebot/memory': typeof PeacebotMemoryRoute
   '/peacebot/voice': typeof PeacebotVoiceRoute
   '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
@@ -228,6 +235,7 @@ export interface FileRoutesByTo {
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
+  '/peacebot/memory': typeof PeacebotMemoryRoute
   '/peacebot/voice': typeof PeacebotVoiceRoute
   '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
@@ -260,6 +268,7 @@ export interface FileRoutesById {
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
+  '/peacebot/memory': typeof PeacebotMemoryRoute
   '/peacebot/voice': typeof PeacebotVoiceRoute
   '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
@@ -293,6 +302,7 @@ export interface FileRouteTypes {
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
+    | '/peacebot/memory'
     | '/peacebot/voice'
     | '/screening/history'
     | '/screening/library'
@@ -324,6 +334,7 @@ export interface FileRouteTypes {
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
+    | '/peacebot/memory'
     | '/peacebot/voice'
     | '/screening/history'
     | '/screening/library'
@@ -355,6 +366,7 @@ export interface FileRouteTypes {
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
+    | '/peacebot/memory'
     | '/peacebot/voice'
     | '/screening/history'
     | '/screening/library'
@@ -387,6 +399,7 @@ export interface RootRouteChildren {
   JournalIdRoute: typeof JournalIdRoute
   JournalMemoriesRoute: typeof JournalMemoriesRoute
   JournalVoiceRoute: typeof JournalVoiceRoute
+  PeacebotMemoryRoute: typeof PeacebotMemoryRoute
   PeacebotVoiceRoute: typeof PeacebotVoiceRoute
   ScreeningHistoryRoute: typeof ScreeningHistoryRoute
   ScreeningLibraryRoute: typeof ScreeningLibraryRoute
@@ -498,6 +511,13 @@ declare module '@tanstack/react-router' {
       path: '/peacebot/voice'
       fullPath: '/peacebot/voice'
       preLoaderRoute: typeof PeacebotVoiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/peacebot/memory': {
+      id: '/peacebot/memory'
+      path: '/peacebot/memory'
+      fullPath: '/peacebot/memory'
+      preLoaderRoute: typeof PeacebotMemoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/journal/voice': {
@@ -627,6 +647,7 @@ const rootRouteChildren: RootRouteChildren = {
   JournalIdRoute: JournalIdRoute,
   JournalMemoriesRoute: JournalMemoriesRoute,
   JournalVoiceRoute: JournalVoiceRoute,
+  PeacebotMemoryRoute: PeacebotMemoryRoute,
   PeacebotVoiceRoute: PeacebotVoiceRoute,
   ScreeningHistoryRoute: ScreeningHistoryRoute,
   ScreeningLibraryRoute: ScreeningLibraryRoute,
