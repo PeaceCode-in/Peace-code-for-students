@@ -728,9 +728,16 @@ function ThreadDetail({ thread, onBack, onVote, saved, onSave }: any) {
             </div>
             <p className="mt-2 text-[13.5px] leading-relaxed" style={{ color: ink }}>{c.text}</p>
             <div className="mt-3 flex items-center gap-4 text-[11.5px]" style={{ color: muted }}>
-              <button className="flex items-center gap-1"><ArrowUp className="w-3.5 h-3.5" strokeWidth={1.6}/> {c.votes}</button>
-              <button className="flex items-center gap-1"><Heart className="w-3.5 h-3.5" strokeWidth={1.6}/> hold</button>
-              <button>reply</button>
+              <button onClick={() => setComments(comments.map((x, j) => j === i ? { ...x, votes: x.votes + 1 } : x))}
+                      className="flex items-center gap-1 transition hover:text-[color:var(--i)]" style={{ ["--i" as any]: ink }}>
+                <ArrowUp className="w-3.5 h-3.5" strokeWidth={1.6}/> {c.votes}
+              </button>
+              <button onClick={() => setComments(comments.map((x, j) => j === i ? { ...x, held: !(x as any).held, votes: (x as any).held ? x.votes - 1 : x.votes + 1 } : x))}
+                      className="flex items-center gap-1 transition"
+                      style={{ color: (c as any).held ? "#EF6B6B" : muted }}>
+                <Heart className="w-3.5 h-3.5" strokeWidth={1.6} fill={(c as any).held ? "#EF6B6B" : "none"}/> hold
+              </button>
+              <button onClick={() => setReply(`@${c.who} `)} className="transition hover:text-[color:var(--i)]" style={{ ["--i" as any]: ink }}>reply</button>
             </div>
           </div>
         ))}
