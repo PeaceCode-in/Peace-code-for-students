@@ -345,13 +345,24 @@ function GratitudePage() {
             <div className="text-[11px] opacity-60 mt-0.5" style={{ color: muted }}>defaults & identity</div>
           </button>
 
-          <div className="rounded-3xl p-5" style={{ background: surface, border: `1px solid ${border}` }}>
+          <button onClick={enableNotifications}
+                  disabled={notifPerm === "unsupported" || notifPerm === "denied"}
+                  className="rounded-3xl p-5 text-left transition hover:-translate-y-0.5 disabled:opacity-60"
+                  style={{ background: surface, border: `1px solid ${border}` }}>
             <div className="flex items-center gap-2 text-[10px] tracking-[0.28em] uppercase" style={{ color: muted }}>
-              <Bell className="w-3.5 h-3.5" /> notifications
+              {notifPerm === "granted" ? <Bell className="w-3.5 h-3.5" /> : <BellOff className="w-3.5 h-3.5" />} notifications
             </div>
-            <div className="mt-2 font-serif italic text-lg" style={{ color: ink, fontFamily: "'Fraunces', serif" }}>{[prefs.notifyDaily, prefs.notifyStreak, prefs.notifyBloom, prefs.notifyWeekly].filter(Boolean).length}/4</div>
-            <div className="text-[11px] opacity-60 mt-0.5" style={{ color: muted }}>gentle reminders</div>
-          </div>
+            <div className="mt-2 font-serif italic text-lg" style={{ color: ink, fontFamily: "'Fraunces', serif" }}>
+              {notifPerm === "granted"
+                ? `${[prefs.notifyDaily, prefs.notifyStreak, prefs.notifyBloom, prefs.notifyWeekly].filter(Boolean).length}/4 on`
+                : notifPerm === "denied" ? "blocked"
+                : notifPerm === "unsupported" ? "not available"
+                : "enable"}
+            </div>
+            <div className="text-[11px] opacity-60 mt-0.5" style={{ color: muted }}>
+              {notifPerm === "granted" ? "gentle reminders" : notifPerm === "denied" ? "allow in browser settings" : "tap to allow"}
+            </div>
+          </button>
         </section>
 
         {/* ─── quote ─── */}
