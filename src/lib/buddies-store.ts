@@ -260,12 +260,11 @@ export function upsertSession(s: Session) {
 }
 export function createSession(partial: Partial<Session> & { buddyId: string }): Session {
   const s: Session = {
-    id: `sess_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`,
-    buddyId: partial.buddyId,
-    status: partial.status ?? "waiting",
-    createdAt: Date.now(),
+    status: "waiting",
     messages: [],
     ...partial,
+    id: `sess_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`,
+    createdAt: Date.now(),
   };
   upsertSession(s);
   return s;
