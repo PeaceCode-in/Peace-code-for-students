@@ -409,9 +409,11 @@ function FocusPage() {
           })()}
         </section>
       </main>
-    </div>
+      </div>
+    </AppShell>
   );
 }
+
 
 function bestHourFrom(sessions: FocusSession[]): string {
   if (!sessions.length) return "—";
