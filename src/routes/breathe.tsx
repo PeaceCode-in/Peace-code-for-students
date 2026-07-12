@@ -388,6 +388,8 @@ function BreathePage() {
           >
             <Maximize2 size={15} />
           </button>
+        </div>
+      </header>
 
       {/* hero + orb */}
       <section className="max-w-6xl mx-auto px-4 sm:px-8">
