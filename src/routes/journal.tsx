@@ -41,6 +41,7 @@ function JournalHome() {
   const [reflection, setReflection] = useState<string>("");
   const [reflectLoading, setReflectLoading] = useState(false);
   const [modal, setModal] = useState<ModalKind>(null);
+  const [showArchived, setShowArchived] = useState(false);
 
   useEffect(() => {
     setEntries(loadEntries());
