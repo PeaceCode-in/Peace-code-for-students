@@ -1842,7 +1842,7 @@ function TodayBrief({ accent, ink, bg, border, surface, surface2, muted }: Brief
     return () => clearInterval(id);
   }, []);
 
-  const hour = time.getHours();
+  const hour = (time ?? new Date(2024, 0, 1, 9, 0)).getHours();
   const salutation =
     hour < 5 ? "still up" :
     hour < 12 ? "good morning" :
