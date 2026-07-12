@@ -4,12 +4,15 @@ import { Bookmark, BookmarkCheck, Clock, Heart, PlayCircle, CheckCircle2, BadgeC
 import {
   type Resource, FORMAT_LABELS, heroBg, store, useResourceStore, authorById,
 } from "@/lib/resources-store";
+import { useLang, tCached, FORMAT_HI } from "@/lib/resources-i18n";
 
 export function FormatBadge({ format }: { format: Resource["format"] }) {
+  const [lang] = useLang();
+  const label = lang === "hi" ? FORMAT_HI[format] : FORMAT_LABELS[format];
   return (
     <span className="px-2 py-0.5 rounded-full text-[10px] tracking-[0.16em] uppercase font-medium"
       style={{ background: "var(--pc-surface2)", color: "var(--pc-muted)" }}>
-      {FORMAT_LABELS[format]}
+      {label}
     </span>
   );
 }
