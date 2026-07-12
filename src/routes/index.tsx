@@ -1883,7 +1883,7 @@ function TodayBrief({ accent, ink, bg, border, surface, surface2, muted }: Brief
             today's composure
           </div>
           <div className="text-[10px] tracking-[0.28em] uppercase opacity-55 tabular-nums">
-            {time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+            {time ? time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "\u00a0"}
           </div>
         </div>
 
