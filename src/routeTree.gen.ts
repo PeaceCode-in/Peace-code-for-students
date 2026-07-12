@@ -36,6 +36,7 @@ import { Route as ScreeningProcessingIdRouteImport } from './routes/screening.pr
 import { Route as ScreeningInstructionsIdRouteImport } from './routes/screening.instructions.$id'
 import { Route as ScreeningConsentIdRouteImport } from './routes/screening.consent.$id'
 import { Route as ScreeningAssessmentIdRouteImport } from './routes/screening.assessment.$id'
+import { Route as PeacebotCIdRouteImport } from './routes/peacebot.c.$id'
 
 const CommunityRoute = CommunityRouteImport.update({
   id: '/community',
@@ -172,6 +173,11 @@ const ScreeningAssessmentIdRoute = ScreeningAssessmentIdRouteImport.update({
   path: '/screening/assessment/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PeacebotCIdRoute = PeacebotCIdRouteImport.update({
+  id: '/peacebot/c/$id',
+  path: '/peacebot/c/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -195,6 +201,7 @@ export interface FileRoutesByFullPath {
   '/journal/': typeof JournalIndexRoute
   '/peacebot/': typeof PeacebotIndexRoute
   '/screening/': typeof ScreeningIndexRoute
+  '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -224,6 +231,7 @@ export interface FileRoutesByTo {
   '/journal': typeof JournalIndexRoute
   '/peacebot': typeof PeacebotIndexRoute
   '/screening': typeof ScreeningIndexRoute
+  '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -254,6 +262,7 @@ export interface FileRoutesById {
   '/journal/': typeof JournalIndexRoute
   '/peacebot/': typeof PeacebotIndexRoute
   '/screening/': typeof ScreeningIndexRoute
+  '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -285,6 +294,7 @@ export interface FileRouteTypes {
     | '/journal/'
     | '/peacebot/'
     | '/screening/'
+    | '/peacebot/c/$id'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -314,6 +324,7 @@ export interface FileRouteTypes {
     | '/journal'
     | '/peacebot'
     | '/screening'
+    | '/peacebot/c/$id'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -343,6 +354,7 @@ export interface FileRouteTypes {
     | '/journal/'
     | '/peacebot/'
     | '/screening/'
+    | '/peacebot/c/$id'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -373,6 +385,7 @@ export interface RootRouteChildren {
   JournalIndexRoute: typeof JournalIndexRoute
   PeacebotIndexRoute: typeof PeacebotIndexRoute
   ScreeningIndexRoute: typeof ScreeningIndexRoute
+  PeacebotCIdRoute: typeof PeacebotCIdRoute
   ScreeningAssessmentIdRoute: typeof ScreeningAssessmentIdRoute
   ScreeningConsentIdRoute: typeof ScreeningConsentIdRoute
   ScreeningInstructionsIdRoute: typeof ScreeningInstructionsIdRoute
@@ -572,6 +585,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScreeningAssessmentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/peacebot/c/$id': {
+      id: '/peacebot/c/$id'
+      path: '/peacebot/c/$id'
+      fullPath: '/peacebot/c/$id'
+      preLoaderRoute: typeof PeacebotCIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -597,6 +617,7 @@ const rootRouteChildren: RootRouteChildren = {
   JournalIndexRoute: JournalIndexRoute,
   PeacebotIndexRoute: PeacebotIndexRoute,
   ScreeningIndexRoute: ScreeningIndexRoute,
+  PeacebotCIdRoute: PeacebotCIdRoute,
   ScreeningAssessmentIdRoute: ScreeningAssessmentIdRoute,
   ScreeningConsentIdRoute: ScreeningConsentIdRoute,
   ScreeningInstructionsIdRoute: ScreeningInstructionsIdRoute,
