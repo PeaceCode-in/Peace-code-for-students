@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, TrendingUp, Award, Clock, Target, Sparkles } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
+import { AppShell } from "@/components/AppShell";
 import { loadSessions, type BreathSession, type BreathTechniqueKey } from "@/lib/breathe-store";
 
 export const Route = createFileRoute("/breathe/stats")({ component: BreatheStatsPage });
