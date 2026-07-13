@@ -498,10 +498,6 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
             <Link to="/settings" className="pc-nav-item mt-6 flex items-center gap-3 h-12 px-3 rounded-2xl text-[14px]" style={{ background: "rgba(255,255,255,0.55)", color: ink }}>
               <Settings className="pc-nav-icon w-4 h-4" strokeWidth={1.5}/> Settings
             </Link>
-            <button onClick={toggleTheme} className="pc-nav-item mt-2 flex items-center gap-3 h-12 px-3 rounded-2xl text-[14px]" style={{ background: "rgba(255,255,255,0.55)", color: ink }} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
-              {theme === "dark" ? <Sun className="pc-nav-icon w-4 h-4" strokeWidth={1.5}/> : <Moon className="pc-nav-icon w-4 h-4" strokeWidth={1.5}/>}
-              {theme === "dark" ? "Light mode" : "Dark mode"}
-            </button>
           </div>
         </div>
       )}
