@@ -50,4 +50,3 @@ function Bookmarks() {
     </div>
   );
 }
-export const _ = ink;

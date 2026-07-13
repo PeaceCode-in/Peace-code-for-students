@@ -117,4 +117,3 @@ function History() {
     </div>
   );
 }
-export const _p = primary;
