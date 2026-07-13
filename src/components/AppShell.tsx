@@ -72,7 +72,10 @@ type NavGroup = { label: string; items: NavItem[] };
 const navGroups: NavGroup[] = [
   {
     label: "Home",
-    items: [{ icon: Home, label: "Today", to: "/" }],
+    items: [
+      { icon: Home, label: "Today", to: "/" },
+      { icon: Search, label: "Search", to: "/search" },
+    ],
   },
   {
     label: "Core Care",
@@ -118,7 +121,17 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
     window.addEventListener("scroll", onScroll);
     // Apply persisted appearance/accessibility once per mount.
     try { const s = loadSettings(); applyAppearance(s); applyAccessibility(s); } catch {}
-    return () => window.removeEventListener("scroll", onScroll);
+    // Global ⌘K / Ctrl+K → Search Center
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && (e.key === "k" || e.key === "K")) {
+        e.preventDefault();
+        if (typeof window !== "undefined" && window.location.pathname !== "/search") {
+          window.location.href = "/search";
+        }
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("keydown", onKey); };
   }, []);
 
   // close drawer on route change
@@ -230,10 +243,10 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
                 <div className="text-[7.5px] tracking-[0.3em] uppercase mt-1 opacity-50 truncate">a soft place</div>
               </div>
             </Link>
-            <div className="hidden xs:flex items-center gap-2 rounded-full px-3 py-1.5 mx-1 min-w-0" style={{ background: surface, border: `1px solid ${border}` }}>
+            <Link to="/search" className="hidden xs:flex items-center gap-2 rounded-full px-3 py-1.5 mx-1 min-w-0" style={{ background: surface, border: `1px solid ${border}` }} aria-label="Open search">
               <Search className="w-3 h-3 opacity-40 shrink-0"/>
-              <input placeholder="search…" className="bg-transparent outline-none text-[11px] w-full placeholder:opacity-40" aria-label="search"/>
-            </div>
+              <span className="text-[11px] opacity-40 truncate">search…</span>
+            </Link>
             <div className="flex items-center gap-1.5 shrink-0">
               <div className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px]" style={{ background: surface2, color: primary }}>
                 <Flame className="w-3 h-3" strokeWidth={1.5}/> 12
