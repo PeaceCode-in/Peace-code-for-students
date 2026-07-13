@@ -81,6 +81,7 @@ import { Route as PeacebotMemoryRouteImport } from './routes/peacebot.memory'
 import { Route as PeacebotInsightsRouteImport } from './routes/peacebot.insights'
 import { Route as PeacebotAvatarRouteImport } from './routes/peacebot.avatar'
 import { Route as NotificationsInboxRouteImport } from './routes/notifications.inbox'
+import { Route as NotificationsHistoryRouteImport } from './routes/notifications.history'
 import { Route as NotificationsBookmarksRouteImport } from './routes/notifications.bookmarks'
 import { Route as NotificationsArchiveRouteImport } from './routes/notifications.archive'
 import { Route as NotificationsIdRouteImport } from './routes/notifications.$id'
@@ -509,6 +510,11 @@ const NotificationsInboxRoute = NotificationsInboxRouteImport.update({
   path: '/inbox',
   getParentRoute: () => NotificationsRoute,
 } as any)
+const NotificationsHistoryRoute = NotificationsHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => NotificationsRoute,
+} as any)
 const NotificationsBookmarksRoute = NotificationsBookmarksRouteImport.update({
   id: '/bookmarks',
   path: '/bookmarks',
@@ -893,6 +899,7 @@ export interface FileRoutesByFullPath {
   '/notifications/$id': typeof NotificationsIdRoute
   '/notifications/archive': typeof NotificationsArchiveRoute
   '/notifications/bookmarks': typeof NotificationsBookmarksRoute
+  '/notifications/history': typeof NotificationsHistoryRoute
   '/notifications/inbox': typeof NotificationsInboxRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
   '/peacebot/insights': typeof PeacebotInsightsRoute
@@ -1028,6 +1035,7 @@ export interface FileRoutesByTo {
   '/notifications/$id': typeof NotificationsIdRoute
   '/notifications/archive': typeof NotificationsArchiveRoute
   '/notifications/bookmarks': typeof NotificationsBookmarksRoute
+  '/notifications/history': typeof NotificationsHistoryRoute
   '/notifications/inbox': typeof NotificationsInboxRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
   '/peacebot/insights': typeof PeacebotInsightsRoute
@@ -1170,6 +1178,7 @@ export interface FileRoutesById {
   '/notifications/$id': typeof NotificationsIdRoute
   '/notifications/archive': typeof NotificationsArchiveRoute
   '/notifications/bookmarks': typeof NotificationsBookmarksRoute
+  '/notifications/history': typeof NotificationsHistoryRoute
   '/notifications/inbox': typeof NotificationsInboxRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
   '/peacebot/insights': typeof PeacebotInsightsRoute
@@ -1313,6 +1322,7 @@ export interface FileRouteTypes {
     | '/notifications/$id'
     | '/notifications/archive'
     | '/notifications/bookmarks'
+    | '/notifications/history'
     | '/notifications/inbox'
     | '/peacebot/avatar'
     | '/peacebot/insights'
@@ -1448,6 +1458,7 @@ export interface FileRouteTypes {
     | '/notifications/$id'
     | '/notifications/archive'
     | '/notifications/bookmarks'
+    | '/notifications/history'
     | '/notifications/inbox'
     | '/peacebot/avatar'
     | '/peacebot/insights'
@@ -1589,6 +1600,7 @@ export interface FileRouteTypes {
     | '/notifications/$id'
     | '/notifications/archive'
     | '/notifications/bookmarks'
+    | '/notifications/history'
     | '/notifications/inbox'
     | '/peacebot/avatar'
     | '/peacebot/insights'
@@ -2263,6 +2275,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotificationsInboxRouteImport
       parentRoute: typeof NotificationsRoute
     }
+    '/notifications/history': {
+      id: '/notifications/history'
+      path: '/history'
+      fullPath: '/notifications/history'
+      preLoaderRoute: typeof NotificationsHistoryRouteImport
+      parentRoute: typeof NotificationsRoute
+    }
     '/notifications/bookmarks': {
       id: '/notifications/bookmarks'
       path: '/bookmarks'
@@ -2820,6 +2839,7 @@ interface NotificationsRouteChildren {
   NotificationsIdRoute: typeof NotificationsIdRoute
   NotificationsArchiveRoute: typeof NotificationsArchiveRoute
   NotificationsBookmarksRoute: typeof NotificationsBookmarksRoute
+  NotificationsHistoryRoute: typeof NotificationsHistoryRoute
   NotificationsInboxRoute: typeof NotificationsInboxRoute
   NotificationsIndexRoute: typeof NotificationsIndexRoute
 }
@@ -2828,6 +2848,7 @@ const NotificationsRouteChildren: NotificationsRouteChildren = {
   NotificationsIdRoute: NotificationsIdRoute,
   NotificationsArchiveRoute: NotificationsArchiveRoute,
   NotificationsBookmarksRoute: NotificationsBookmarksRoute,
+  NotificationsHistoryRoute: NotificationsHistoryRoute,
   NotificationsInboxRoute: NotificationsInboxRoute,
   NotificationsIndexRoute: NotificationsIndexRoute,
 }
