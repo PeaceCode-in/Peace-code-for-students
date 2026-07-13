@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { AppShell, palette } from "@/components/AppShell";
+import { palette } from "@/components/AppShell";
 import { useState } from "react";
 import { AlertTriangle, X } from "lucide-react";
 
