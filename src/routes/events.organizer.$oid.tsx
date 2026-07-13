@@ -124,6 +124,3 @@ export const Route = createFileRoute("/events/organizer/$oid")({
   },
   component: OrgProfile,
 });
-
-// silence unused
-void Chip;
