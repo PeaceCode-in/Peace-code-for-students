@@ -41,6 +41,7 @@ import { Route as FocusIndexRouteImport } from './routes/focus.index'
 import { Route as EventsIndexRouteImport } from './routes/events.index'
 import { Route as EmergencyIndexRouteImport } from './routes/emergency.index'
 import { Route as CounsellingIndexRouteImport } from './routes/counselling.index'
+import { Route as CommunityIndexRouteImport } from './routes/community.index'
 import { Route as BuddiesIndexRouteImport } from './routes/buddies.index'
 import { Route as BreatheIndexRouteImport } from './routes/breathe.index'
 import { Route as SettingsSupportRouteImport } from './routes/settings.support'
@@ -368,6 +369,11 @@ const CounsellingIndexRoute = CounsellingIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => CounsellingRoute,
+} as any)
+const CommunityIndexRoute = CommunityIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CommunityRoute,
 } as any)
 const BuddiesIndexRoute = BuddiesIndexRouteImport.update({
   id: '/buddies/',
@@ -1208,7 +1214,7 @@ const BuddiesBookIdRoute = BuddiesBookIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/breathe': typeof BreatheRouteWithChildren
-  '/community': typeof CommunityRoute
+  '/community': typeof CommunityRouteWithChildren
   '/counselling': typeof CounsellingRouteWithChildren
   '/emergency': typeof EmergencyRouteWithChildren
   '/events': typeof EventsRouteWithChildren
@@ -1349,6 +1355,7 @@ export interface FileRoutesByFullPath {
   '/settings/support': typeof SettingsSupportRoute
   '/breathe/': typeof BreatheIndexRoute
   '/buddies/': typeof BuddiesIndexRoute
+  '/community/': typeof CommunityIndexRoute
   '/counselling/': typeof CounsellingIndexRoute
   '/emergency/': typeof EmergencyIndexRoute
   '/events/': typeof EventsIndexRoute
@@ -1408,7 +1415,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/community': typeof CommunityRoute
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/buddies/$id': typeof BuddiesIdRoute
@@ -1534,6 +1540,7 @@ export interface FileRoutesByTo {
   '/settings/support': typeof SettingsSupportRoute
   '/breathe': typeof BreatheIndexRoute
   '/buddies': typeof BuddiesIndexRoute
+  '/community': typeof CommunityIndexRoute
   '/counselling': typeof CounsellingIndexRoute
   '/emergency': typeof EmergencyIndexRoute
   '/events': typeof EventsIndexRoute
@@ -1595,7 +1602,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/breathe': typeof BreatheRouteWithChildren
-  '/community': typeof CommunityRoute
+  '/community': typeof CommunityRouteWithChildren
   '/counselling': typeof CounsellingRouteWithChildren
   '/emergency': typeof EmergencyRouteWithChildren
   '/events': typeof EventsRouteWithChildren
@@ -1736,6 +1743,7 @@ export interface FileRoutesById {
   '/settings/support': typeof SettingsSupportRoute
   '/breathe/': typeof BreatheIndexRoute
   '/buddies/': typeof BuddiesIndexRoute
+  '/community/': typeof CommunityIndexRoute
   '/counselling/': typeof CounsellingIndexRoute
   '/emergency/': typeof EmergencyIndexRoute
   '/events/': typeof EventsIndexRoute
@@ -1939,6 +1947,7 @@ export interface FileRouteTypes {
     | '/settings/support'
     | '/breathe/'
     | '/buddies/'
+    | '/community/'
     | '/counselling/'
     | '/emergency/'
     | '/events/'
@@ -1998,7 +2007,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/community'
     | '/api/chat'
     | '/breathe/stats'
     | '/buddies/$id'
@@ -2124,6 +2132,7 @@ export interface FileRouteTypes {
     | '/settings/support'
     | '/breathe'
     | '/buddies'
+    | '/community'
     | '/counselling'
     | '/emergency'
     | '/events'
@@ -2325,6 +2334,7 @@ export interface FileRouteTypes {
     | '/settings/support'
     | '/breathe/'
     | '/buddies/'
+    | '/community/'
     | '/counselling/'
     | '/emergency/'
     | '/events/'
@@ -2386,7 +2396,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BreatheRoute: typeof BreatheRouteWithChildren
-  CommunityRoute: typeof CommunityRoute
+  CommunityRoute: typeof CommunityRouteWithChildren
   CounsellingRoute: typeof CounsellingRouteWithChildren
   EmergencyRoute: typeof EmergencyRouteWithChildren
   EventsRoute: typeof EventsRouteWithChildren
@@ -2654,6 +2664,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/counselling/'
       preLoaderRoute: typeof CounsellingIndexRouteImport
       parentRoute: typeof CounsellingRoute
+    }
+    '/community/': {
+      id: '/community/'
+      path: '/'
+      fullPath: '/community/'
+      preLoaderRoute: typeof CommunityIndexRouteImport
+      parentRoute: typeof CommunityRoute
     }
     '/buddies/': {
       id: '/buddies/'
@@ -3840,6 +3857,18 @@ const BreatheRouteChildren: BreatheRouteChildren = {
 const BreatheRouteWithChildren =
   BreatheRoute._addFileChildren(BreatheRouteChildren)
 
+interface CommunityRouteChildren {
+  CommunityIndexRoute: typeof CommunityIndexRoute
+}
+
+const CommunityRouteChildren: CommunityRouteChildren = {
+  CommunityIndexRoute: CommunityIndexRoute,
+}
+
+const CommunityRouteWithChildren = CommunityRoute._addFileChildren(
+  CommunityRouteChildren,
+)
+
 interface CounsellingRouteChildren {
   CounsellingAssessmentsRoute: typeof CounsellingAssessmentsRoute
   CounsellingBillingRoute: typeof CounsellingBillingRoute
@@ -4321,7 +4350,7 @@ const SettingsRouteWithChildren = SettingsRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BreatheRoute: BreatheRouteWithChildren,
-  CommunityRoute: CommunityRoute,
+  CommunityRoute: CommunityRouteWithChildren,
   CounsellingRoute: CounsellingRouteWithChildren,
   EmergencyRoute: EmergencyRouteWithChildren,
   EventsRoute: EventsRouteWithChildren,
