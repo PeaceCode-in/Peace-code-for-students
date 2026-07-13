@@ -17,6 +17,7 @@ import { Route as CounsellingRouteImport } from './routes/counselling'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
+import { Route as SearchIndexRouteImport } from './routes/search.index'
 import { Route as ScreeningIndexRouteImport } from './routes/screening.index'
 import { Route as ResourcesIndexRouteImport } from './routes/resources.index'
 import { Route as ProfileIndexRouteImport } from './routes/profile.index'
@@ -179,6 +180,11 @@ const SettingsIndexRoute = SettingsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => SettingsRoute,
+} as any)
+const SearchIndexRoute = SearchIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SearchRoute,
 } as any)
 const ScreeningIndexRoute = ScreeningIndexRouteImport.update({
   id: '/screening/',
@@ -797,7 +803,7 @@ export interface FileRoutesByFullPath {
   '/counselling': typeof CounsellingRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
-  '/search': typeof SearchRoute
+  '/search': typeof SearchRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
@@ -893,6 +899,7 @@ export interface FileRoutesByFullPath {
   '/profile/': typeof ProfileIndexRoute
   '/resources/': typeof ResourcesIndexRoute
   '/screening/': typeof ScreeningIndexRoute
+  '/search/': typeof SearchIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/buddies/book/$id': typeof BuddiesBookIdRoute
   '/buddies/chat/$id': typeof BuddiesChatIdRoute
@@ -926,7 +933,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
-  '/search': typeof SearchRoute
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/buddies/$id': typeof BuddiesIdRoute
@@ -1021,6 +1027,7 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileIndexRoute
   '/resources': typeof ResourcesIndexRoute
   '/screening': typeof ScreeningIndexRoute
+  '/search': typeof SearchIndexRoute
   '/settings': typeof SettingsIndexRoute
   '/buddies/book/$id': typeof BuddiesBookIdRoute
   '/buddies/chat/$id': typeof BuddiesChatIdRoute
@@ -1058,7 +1065,7 @@ export interface FileRoutesById {
   '/counselling': typeof CounsellingRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
-  '/search': typeof SearchRoute
+  '/search': typeof SearchRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
@@ -1154,6 +1161,7 @@ export interface FileRoutesById {
   '/profile/': typeof ProfileIndexRoute
   '/resources/': typeof ResourcesIndexRoute
   '/screening/': typeof ScreeningIndexRoute
+  '/search/': typeof SearchIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/buddies/book/$id': typeof BuddiesBookIdRoute
   '/buddies/chat/$id': typeof BuddiesChatIdRoute
@@ -1288,6 +1296,7 @@ export interface FileRouteTypes {
     | '/profile/'
     | '/resources/'
     | '/screening/'
+    | '/search/'
     | '/settings/'
     | '/buddies/book/$id'
     | '/buddies/chat/$id'
@@ -1321,7 +1330,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/community'
-    | '/search'
     | '/api/chat'
     | '/breathe/stats'
     | '/buddies/$id'
@@ -1416,6 +1424,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/resources'
     | '/screening'
+    | '/search'
     | '/settings'
     | '/buddies/book/$id'
     | '/buddies/chat/$id'
@@ -1548,6 +1557,7 @@ export interface FileRouteTypes {
     | '/profile/'
     | '/resources/'
     | '/screening/'
+    | '/search/'
     | '/settings/'
     | '/buddies/book/$id'
     | '/buddies/chat/$id'
@@ -1585,7 +1595,7 @@ export interface RootRouteChildren {
   CounsellingRoute: typeof CounsellingRouteWithChildren
   MindgymRoute: typeof MindgymRouteWithChildren
   ProfileRoute: typeof ProfileRouteWithChildren
-  SearchRoute: typeof SearchRoute
+  SearchRoute: typeof SearchRouteWithChildren
   SettingsRoute: typeof SettingsRouteWithChildren
   ApiChatRoute: typeof ApiChatRoute
   BreatheStatsRoute: typeof BreatheStatsRoute
@@ -1709,6 +1719,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/settings/'
       preLoaderRoute: typeof SettingsIndexRouteImport
       parentRoute: typeof SettingsRoute
+    }
+    '/search/': {
+      id: '/search/'
+      path: '/'
+      fullPath: '/search/'
+      preLoaderRoute: typeof SearchIndexRouteImport
+      parentRoute: typeof SearchRoute
     }
     '/screening/': {
       id: '/screening/'
@@ -2679,6 +2696,17 @@ const ProfileRouteChildren: ProfileRouteChildren = {
 const ProfileRouteWithChildren =
   ProfileRoute._addFileChildren(ProfileRouteChildren)
 
+interface SearchRouteChildren {
+  SearchIndexRoute: typeof SearchIndexRoute
+}
+
+const SearchRouteChildren: SearchRouteChildren = {
+  SearchIndexRoute: SearchIndexRoute,
+}
+
+const SearchRouteWithChildren =
+  SearchRoute._addFileChildren(SearchRouteChildren)
+
 interface SettingsRouteChildren {
   SettingsAboutRoute: typeof SettingsAboutRoute
   SettingsAccessibilityRoute: typeof SettingsAccessibilityRoute
@@ -2731,7 +2759,7 @@ const rootRouteChildren: RootRouteChildren = {
   CounsellingRoute: CounsellingRouteWithChildren,
   MindgymRoute: MindgymRouteWithChildren,
   ProfileRoute: ProfileRouteWithChildren,
-  SearchRoute: SearchRoute,
+  SearchRoute: SearchRouteWithChildren,
   SettingsRoute: SettingsRouteWithChildren,
   ApiChatRoute: ApiChatRoute,
   BreatheStatsRoute: BreatheStatsRoute,
