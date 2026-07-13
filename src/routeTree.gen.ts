@@ -14,6 +14,7 @@ import { Route as SearchRouteImport } from './routes/search'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as MindgymRouteImport } from './routes/mindgym'
+import { Route as EmergencyRouteImport } from './routes/emergency'
 import { Route as CounsellingRouteImport } from './routes/counselling'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as IndexRouteImport } from './routes/index'
@@ -28,6 +29,7 @@ import { Route as MindgymIndexRouteImport } from './routes/mindgym.index'
 import { Route as JournalIndexRouteImport } from './routes/journal.index'
 import { Route as GratitudeIndexRouteImport } from './routes/gratitude.index'
 import { Route as FocusIndexRouteImport } from './routes/focus.index'
+import { Route as EmergencyIndexRouteImport } from './routes/emergency.index'
 import { Route as CounsellingIndexRouteImport } from './routes/counselling.index'
 import { Route as BuddiesIndexRouteImport } from './routes/buddies.index'
 import { Route as BreatheIndexRouteImport } from './routes/breathe.index'
@@ -97,6 +99,14 @@ import { Route as GratitudeWallRouteImport } from './routes/gratitude.wall'
 import { Route as GratitudeTreeRouteImport } from './routes/gratitude.tree'
 import { Route as GratitudeHistoryRouteImport } from './routes/gratitude.history'
 import { Route as GratitudeForestRouteImport } from './routes/gratitude.forest'
+import { Route as EmergencyHumanRouteImport } from './routes/emergency.human'
+import { Route as EmergencyHelplinesRouteImport } from './routes/emergency.helplines'
+import { Route as EmergencyGroundingRouteImport } from './routes/emergency.grounding'
+import { Route as EmergencyContactsRouteImport } from './routes/emergency.contacts'
+import { Route as EmergencyCheckinRouteImport } from './routes/emergency.checkin'
+import { Route as EmergencyCalmRouteImport } from './routes/emergency.calm'
+import { Route as EmergencyBreatheRouteImport } from './routes/emergency.breathe'
+import { Route as EmergencyAffirmationsRouteImport } from './routes/emergency.affirmations'
 import { Route as CounsellingWellnessRouteImport } from './routes/counselling.wellness'
 import { Route as CounsellingUpcomingRouteImport } from './routes/counselling.upcoming'
 import { Route as CounsellingSettingsRouteImport } from './routes/counselling.settings'
@@ -176,6 +186,11 @@ const MindgymRoute = MindgymRouteImport.update({
   path: '/mindgym',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmergencyRoute = EmergencyRouteImport.update({
+  id: '/emergency',
+  path: '/emergency',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CounsellingRoute = CounsellingRouteImport.update({
   id: '/counselling',
   path: '/counselling',
@@ -245,6 +260,11 @@ const FocusIndexRoute = FocusIndexRouteImport.update({
   id: '/focus/',
   path: '/focus/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const EmergencyIndexRoute = EmergencyIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EmergencyRoute,
 } as any)
 const CounsellingIndexRoute = CounsellingIndexRouteImport.update({
   id: '/',
@@ -591,6 +611,46 @@ const GratitudeForestRoute = GratitudeForestRouteImport.update({
   path: '/gratitude/forest',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmergencyHumanRoute = EmergencyHumanRouteImport.update({
+  id: '/human',
+  path: '/human',
+  getParentRoute: () => EmergencyRoute,
+} as any)
+const EmergencyHelplinesRoute = EmergencyHelplinesRouteImport.update({
+  id: '/helplines',
+  path: '/helplines',
+  getParentRoute: () => EmergencyRoute,
+} as any)
+const EmergencyGroundingRoute = EmergencyGroundingRouteImport.update({
+  id: '/grounding',
+  path: '/grounding',
+  getParentRoute: () => EmergencyRoute,
+} as any)
+const EmergencyContactsRoute = EmergencyContactsRouteImport.update({
+  id: '/contacts',
+  path: '/contacts',
+  getParentRoute: () => EmergencyRoute,
+} as any)
+const EmergencyCheckinRoute = EmergencyCheckinRouteImport.update({
+  id: '/checkin',
+  path: '/checkin',
+  getParentRoute: () => EmergencyRoute,
+} as any)
+const EmergencyCalmRoute = EmergencyCalmRouteImport.update({
+  id: '/calm',
+  path: '/calm',
+  getParentRoute: () => EmergencyRoute,
+} as any)
+const EmergencyBreatheRoute = EmergencyBreatheRouteImport.update({
+  id: '/breathe',
+  path: '/breathe',
+  getParentRoute: () => EmergencyRoute,
+} as any)
+const EmergencyAffirmationsRoute = EmergencyAffirmationsRouteImport.update({
+  id: '/affirmations',
+  path: '/affirmations',
+  getParentRoute: () => EmergencyRoute,
+} as any)
 const CounsellingWellnessRoute = CounsellingWellnessRouteImport.update({
   id: '/wellness',
   path: '/wellness',
@@ -861,6 +921,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
+  '/emergency': typeof EmergencyRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
   '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
@@ -891,6 +952,14 @@ export interface FileRoutesByFullPath {
   '/counselling/settings': typeof CounsellingSettingsRoute
   '/counselling/upcoming': typeof CounsellingUpcomingRoute
   '/counselling/wellness': typeof CounsellingWellnessRoute
+  '/emergency/affirmations': typeof EmergencyAffirmationsRoute
+  '/emergency/breathe': typeof EmergencyBreatheRoute
+  '/emergency/calm': typeof EmergencyCalmRoute
+  '/emergency/checkin': typeof EmergencyCheckinRoute
+  '/emergency/contacts': typeof EmergencyContactsRoute
+  '/emergency/grounding': typeof EmergencyGroundingRoute
+  '/emergency/helplines': typeof EmergencyHelplinesRoute
+  '/emergency/human': typeof EmergencyHumanRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
   '/gratitude/tree': typeof GratitudeTreeRoute
@@ -960,6 +1029,7 @@ export interface FileRoutesByFullPath {
   '/breathe/': typeof BreatheIndexRoute
   '/buddies/': typeof BuddiesIndexRoute
   '/counselling/': typeof CounsellingIndexRoute
+  '/emergency/': typeof EmergencyIndexRoute
   '/focus/': typeof FocusIndexRoute
   '/gratitude/': typeof GratitudeIndexRoute
   '/journal/': typeof JournalIndexRoute
@@ -1028,6 +1098,14 @@ export interface FileRoutesByTo {
   '/counselling/settings': typeof CounsellingSettingsRoute
   '/counselling/upcoming': typeof CounsellingUpcomingRoute
   '/counselling/wellness': typeof CounsellingWellnessRoute
+  '/emergency/affirmations': typeof EmergencyAffirmationsRoute
+  '/emergency/breathe': typeof EmergencyBreatheRoute
+  '/emergency/calm': typeof EmergencyCalmRoute
+  '/emergency/checkin': typeof EmergencyCheckinRoute
+  '/emergency/contacts': typeof EmergencyContactsRoute
+  '/emergency/grounding': typeof EmergencyGroundingRoute
+  '/emergency/helplines': typeof EmergencyHelplinesRoute
+  '/emergency/human': typeof EmergencyHumanRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
   '/gratitude/tree': typeof GratitudeTreeRoute
@@ -1097,6 +1175,7 @@ export interface FileRoutesByTo {
   '/breathe': typeof BreatheIndexRoute
   '/buddies': typeof BuddiesIndexRoute
   '/counselling': typeof CounsellingIndexRoute
+  '/emergency': typeof EmergencyIndexRoute
   '/focus': typeof FocusIndexRoute
   '/gratitude': typeof GratitudeIndexRoute
   '/journal': typeof JournalIndexRoute
@@ -1142,6 +1221,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
+  '/emergency': typeof EmergencyRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
   '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
@@ -1172,6 +1252,14 @@ export interface FileRoutesById {
   '/counselling/settings': typeof CounsellingSettingsRoute
   '/counselling/upcoming': typeof CounsellingUpcomingRoute
   '/counselling/wellness': typeof CounsellingWellnessRoute
+  '/emergency/affirmations': typeof EmergencyAffirmationsRoute
+  '/emergency/breathe': typeof EmergencyBreatheRoute
+  '/emergency/calm': typeof EmergencyCalmRoute
+  '/emergency/checkin': typeof EmergencyCheckinRoute
+  '/emergency/contacts': typeof EmergencyContactsRoute
+  '/emergency/grounding': typeof EmergencyGroundingRoute
+  '/emergency/helplines': typeof EmergencyHelplinesRoute
+  '/emergency/human': typeof EmergencyHumanRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
   '/gratitude/tree': typeof GratitudeTreeRoute
@@ -1241,6 +1329,7 @@ export interface FileRoutesById {
   '/breathe/': typeof BreatheIndexRoute
   '/buddies/': typeof BuddiesIndexRoute
   '/counselling/': typeof CounsellingIndexRoute
+  '/emergency/': typeof EmergencyIndexRoute
   '/focus/': typeof FocusIndexRoute
   '/gratitude/': typeof GratitudeIndexRoute
   '/journal/': typeof JournalIndexRoute
@@ -1287,6 +1376,7 @@ export interface FileRouteTypes {
     | '/'
     | '/community'
     | '/counselling'
+    | '/emergency'
     | '/mindgym'
     | '/notifications'
     | '/profile'
@@ -1317,6 +1407,14 @@ export interface FileRouteTypes {
     | '/counselling/settings'
     | '/counselling/upcoming'
     | '/counselling/wellness'
+    | '/emergency/affirmations'
+    | '/emergency/breathe'
+    | '/emergency/calm'
+    | '/emergency/checkin'
+    | '/emergency/contacts'
+    | '/emergency/grounding'
+    | '/emergency/helplines'
+    | '/emergency/human'
     | '/gratitude/forest'
     | '/gratitude/history'
     | '/gratitude/tree'
@@ -1386,6 +1484,7 @@ export interface FileRouteTypes {
     | '/breathe/'
     | '/buddies/'
     | '/counselling/'
+    | '/emergency/'
     | '/focus/'
     | '/gratitude/'
     | '/journal/'
@@ -1454,6 +1553,14 @@ export interface FileRouteTypes {
     | '/counselling/settings'
     | '/counselling/upcoming'
     | '/counselling/wellness'
+    | '/emergency/affirmations'
+    | '/emergency/breathe'
+    | '/emergency/calm'
+    | '/emergency/checkin'
+    | '/emergency/contacts'
+    | '/emergency/grounding'
+    | '/emergency/helplines'
+    | '/emergency/human'
     | '/gratitude/forest'
     | '/gratitude/history'
     | '/gratitude/tree'
@@ -1523,6 +1630,7 @@ export interface FileRouteTypes {
     | '/breathe'
     | '/buddies'
     | '/counselling'
+    | '/emergency'
     | '/focus'
     | '/gratitude'
     | '/journal'
@@ -1567,6 +1675,7 @@ export interface FileRouteTypes {
     | '/'
     | '/community'
     | '/counselling'
+    | '/emergency'
     | '/mindgym'
     | '/notifications'
     | '/profile'
@@ -1597,6 +1706,14 @@ export interface FileRouteTypes {
     | '/counselling/settings'
     | '/counselling/upcoming'
     | '/counselling/wellness'
+    | '/emergency/affirmations'
+    | '/emergency/breathe'
+    | '/emergency/calm'
+    | '/emergency/checkin'
+    | '/emergency/contacts'
+    | '/emergency/grounding'
+    | '/emergency/helplines'
+    | '/emergency/human'
     | '/gratitude/forest'
     | '/gratitude/history'
     | '/gratitude/tree'
@@ -1666,6 +1783,7 @@ export interface FileRouteTypes {
     | '/breathe/'
     | '/buddies/'
     | '/counselling/'
+    | '/emergency/'
     | '/focus/'
     | '/gratitude/'
     | '/journal/'
@@ -1711,6 +1829,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CommunityRoute: typeof CommunityRoute
   CounsellingRoute: typeof CounsellingRouteWithChildren
+  EmergencyRoute: typeof EmergencyRouteWithChildren
   MindgymRoute: typeof MindgymRouteWithChildren
   NotificationsRoute: typeof NotificationsRouteWithChildren
   ProfileRoute: typeof ProfileRouteWithChildren
@@ -1818,6 +1937,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MindgymRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/emergency': {
+      id: '/emergency'
+      path: '/emergency'
+      fullPath: '/emergency'
+      preLoaderRoute: typeof EmergencyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/counselling': {
       id: '/counselling'
       path: '/counselling'
@@ -1915,6 +2041,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/focus/'
       preLoaderRoute: typeof FocusIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/emergency/': {
+      id: '/emergency/'
+      path: '/'
+      fullPath: '/emergency/'
+      preLoaderRoute: typeof EmergencyIndexRouteImport
+      parentRoute: typeof EmergencyRoute
     }
     '/counselling/': {
       id: '/counselling/'
@@ -2399,6 +2532,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GratitudeForestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/emergency/human': {
+      id: '/emergency/human'
+      path: '/human'
+      fullPath: '/emergency/human'
+      preLoaderRoute: typeof EmergencyHumanRouteImport
+      parentRoute: typeof EmergencyRoute
+    }
+    '/emergency/helplines': {
+      id: '/emergency/helplines'
+      path: '/helplines'
+      fullPath: '/emergency/helplines'
+      preLoaderRoute: typeof EmergencyHelplinesRouteImport
+      parentRoute: typeof EmergencyRoute
+    }
+    '/emergency/grounding': {
+      id: '/emergency/grounding'
+      path: '/grounding'
+      fullPath: '/emergency/grounding'
+      preLoaderRoute: typeof EmergencyGroundingRouteImport
+      parentRoute: typeof EmergencyRoute
+    }
+    '/emergency/contacts': {
+      id: '/emergency/contacts'
+      path: '/contacts'
+      fullPath: '/emergency/contacts'
+      preLoaderRoute: typeof EmergencyContactsRouteImport
+      parentRoute: typeof EmergencyRoute
+    }
+    '/emergency/checkin': {
+      id: '/emergency/checkin'
+      path: '/checkin'
+      fullPath: '/emergency/checkin'
+      preLoaderRoute: typeof EmergencyCheckinRouteImport
+      parentRoute: typeof EmergencyRoute
+    }
+    '/emergency/calm': {
+      id: '/emergency/calm'
+      path: '/calm'
+      fullPath: '/emergency/calm'
+      preLoaderRoute: typeof EmergencyCalmRouteImport
+      parentRoute: typeof EmergencyRoute
+    }
+    '/emergency/breathe': {
+      id: '/emergency/breathe'
+      path: '/breathe'
+      fullPath: '/emergency/breathe'
+      preLoaderRoute: typeof EmergencyBreatheRouteImport
+      parentRoute: typeof EmergencyRoute
+    }
+    '/emergency/affirmations': {
+      id: '/emergency/affirmations'
+      path: '/affirmations'
+      fullPath: '/emergency/affirmations'
+      preLoaderRoute: typeof EmergencyAffirmationsRouteImport
+      parentRoute: typeof EmergencyRoute
+    }
     '/counselling/wellness': {
       id: '/counselling/wellness'
       path: '/wellness'
@@ -2825,6 +3014,34 @@ const CounsellingRouteWithChildren = CounsellingRoute._addFileChildren(
   CounsellingRouteChildren,
 )
 
+interface EmergencyRouteChildren {
+  EmergencyAffirmationsRoute: typeof EmergencyAffirmationsRoute
+  EmergencyBreatheRoute: typeof EmergencyBreatheRoute
+  EmergencyCalmRoute: typeof EmergencyCalmRoute
+  EmergencyCheckinRoute: typeof EmergencyCheckinRoute
+  EmergencyContactsRoute: typeof EmergencyContactsRoute
+  EmergencyGroundingRoute: typeof EmergencyGroundingRoute
+  EmergencyHelplinesRoute: typeof EmergencyHelplinesRoute
+  EmergencyHumanRoute: typeof EmergencyHumanRoute
+  EmergencyIndexRoute: typeof EmergencyIndexRoute
+}
+
+const EmergencyRouteChildren: EmergencyRouteChildren = {
+  EmergencyAffirmationsRoute: EmergencyAffirmationsRoute,
+  EmergencyBreatheRoute: EmergencyBreatheRoute,
+  EmergencyCalmRoute: EmergencyCalmRoute,
+  EmergencyCheckinRoute: EmergencyCheckinRoute,
+  EmergencyContactsRoute: EmergencyContactsRoute,
+  EmergencyGroundingRoute: EmergencyGroundingRoute,
+  EmergencyHelplinesRoute: EmergencyHelplinesRoute,
+  EmergencyHumanRoute: EmergencyHumanRoute,
+  EmergencyIndexRoute: EmergencyIndexRoute,
+}
+
+const EmergencyRouteWithChildren = EmergencyRoute._addFileChildren(
+  EmergencyRouteChildren,
+)
+
 interface MindgymRouteChildren {
   MindgymBrainDnaRoute: typeof MindgymBrainDnaRoute
   MindgymLibraryRoute: typeof MindgymLibraryRoute
@@ -2974,6 +3191,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CommunityRoute: CommunityRoute,
   CounsellingRoute: CounsellingRouteWithChildren,
+  EmergencyRoute: EmergencyRouteWithChildren,
   MindgymRoute: MindgymRouteWithChildren,
   NotificationsRoute: NotificationsRouteWithChildren,
   ProfileRoute: ProfileRouteWithChildren,
