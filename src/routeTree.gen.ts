@@ -102,6 +102,7 @@ import { Route as GratitudeTreeRouteImport } from './routes/gratitude.tree'
 import { Route as GratitudeHistoryRouteImport } from './routes/gratitude.history'
 import { Route as GratitudeForestRouteImport } from './routes/gratitude.forest'
 import { Route as EventsMyRouteImport } from './routes/events.my'
+import { Route as EventsCategoriesRouteImport } from './routes/events.categories'
 import { Route as EventsCalendarRouteImport } from './routes/events.calendar'
 import { Route as EventsBrowseRouteImport } from './routes/events.browse'
 import { Route as EventsBookmarksRouteImport } from './routes/events.bookmarks'
@@ -652,6 +653,11 @@ const EventsMyRoute = EventsMyRouteImport.update({
   path: '/my',
   getParentRoute: () => EventsRoute,
 } as any)
+const EventsCategoriesRoute = EventsCategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => EventsRoute,
+} as any)
 const EventsCalendarRoute = EventsCalendarRouteImport.update({
   id: '/calendar',
   path: '/calendar',
@@ -1131,6 +1137,7 @@ export interface FileRoutesByFullPath {
   '/events/bookmarks': typeof EventsBookmarksRoute
   '/events/browse': typeof EventsBrowseRoute
   '/events/calendar': typeof EventsCalendarRoute
+  '/events/categories': typeof EventsCategoriesRoute
   '/events/my': typeof EventsMyRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
@@ -1301,6 +1308,7 @@ export interface FileRoutesByTo {
   '/events/bookmarks': typeof EventsBookmarksRoute
   '/events/browse': typeof EventsBrowseRoute
   '/events/calendar': typeof EventsCalendarRoute
+  '/events/categories': typeof EventsCategoriesRoute
   '/events/my': typeof EventsMyRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
@@ -1481,6 +1489,7 @@ export interface FileRoutesById {
   '/events/bookmarks': typeof EventsBookmarksRoute
   '/events/browse': typeof EventsBrowseRoute
   '/events/calendar': typeof EventsCalendarRoute
+  '/events/categories': typeof EventsCategoriesRoute
   '/events/my': typeof EventsMyRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
@@ -1662,6 +1671,7 @@ export interface FileRouteTypes {
     | '/events/bookmarks'
     | '/events/browse'
     | '/events/calendar'
+    | '/events/categories'
     | '/events/my'
     | '/gratitude/forest'
     | '/gratitude/history'
@@ -1832,6 +1842,7 @@ export interface FileRouteTypes {
     | '/events/bookmarks'
     | '/events/browse'
     | '/events/calendar'
+    | '/events/categories'
     | '/events/my'
     | '/gratitude/forest'
     | '/gratitude/history'
@@ -2011,6 +2022,7 @@ export interface FileRouteTypes {
     | '/events/bookmarks'
     | '/events/browse'
     | '/events/calendar'
+    | '/events/categories'
     | '/events/my'
     | '/gratitude/forest'
     | '/gratitude/history'
@@ -2862,6 +2874,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventsMyRouteImport
       parentRoute: typeof EventsRoute
     }
+    '/events/categories': {
+      id: '/events/categories'
+      path: '/categories'
+      fullPath: '/events/categories'
+      preLoaderRoute: typeof EventsCategoriesRouteImport
+      parentRoute: typeof EventsRoute
+    }
     '/events/calendar': {
       id: '/events/calendar'
       path: '/calendar'
@@ -3583,6 +3602,7 @@ interface EventsRouteChildren {
   EventsBookmarksRoute: typeof EventsBookmarksRoute
   EventsBrowseRoute: typeof EventsBrowseRoute
   EventsCalendarRoute: typeof EventsCalendarRoute
+  EventsCategoriesRoute: typeof EventsCategoriesRoute
   EventsMyRoute: typeof EventsMyRoute
   EventsIndexRoute: typeof EventsIndexRoute
   EventsOrganizerOidRoute: typeof EventsOrganizerOidRoute
@@ -3594,6 +3614,7 @@ const EventsRouteChildren: EventsRouteChildren = {
   EventsBookmarksRoute: EventsBookmarksRoute,
   EventsBrowseRoute: EventsBrowseRoute,
   EventsCalendarRoute: EventsCalendarRoute,
+  EventsCategoriesRoute: EventsCategoriesRoute,
   EventsMyRoute: EventsMyRoute,
   EventsIndexRoute: EventsIndexRoute,
   EventsOrganizerOidRoute: EventsOrganizerOidRoute,
