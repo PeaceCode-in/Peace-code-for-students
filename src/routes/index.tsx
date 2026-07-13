@@ -81,7 +81,7 @@ function DashboardInner() {
     return Math.round(Math.min(100, base * 0.7 + streakBoost + act)) || 50;
   }, [overall, mg.streak.current, data.breatheStreak, data.journalWeek, data.breatheToday]);
 
-  const goalPct = Math.min(100, Math.round(((week.sessions || 0) / 5) * 100));
+  const goalPct = Math.min(100, Math.round(((week.count || 0) / 5) * 100));
   const habitPct = Math.min(100, Math.round(((mg.streak.current || 0) / 21) * 100)) || 24;
   const projectAlloc = Math.min(100, Math.round(((data.focusWeekMin || 0) / 300) * 100)) || 50;
   const emoStability = Math.round(50 + (peace - 50) * 0.6);
