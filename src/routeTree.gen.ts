@@ -158,6 +158,7 @@ import { Route as CounsellingEmergencyRouteImport } from './routes/counselling.e
 import { Route as CounsellingDocumentsRouteImport } from './routes/counselling.documents'
 import { Route as CounsellingBillingRouteImport } from './routes/counselling.billing'
 import { Route as CounsellingAssessmentsRouteImport } from './routes/counselling.assessments'
+import { Route as CommunityCirclesRouteImport } from './routes/community.circles'
 import { Route as BuddiesSettingsRouteImport } from './routes/buddies.settings'
 import { Route as BuddiesPsychologistsRouteImport } from './routes/buddies.psychologists'
 import { Route as BuddiesHistoryRouteImport } from './routes/buddies.history'
@@ -955,6 +956,11 @@ const CounsellingAssessmentsRoute = CounsellingAssessmentsRouteImport.update({
   path: '/assessments',
   getParentRoute: () => CounsellingRoute,
 } as any)
+const CommunityCirclesRoute = CommunityCirclesRouteImport.update({
+  id: '/circles',
+  path: '/circles',
+  getParentRoute: () => CommunityRoute,
+} as any)
 const BuddiesSettingsRoute = BuddiesSettingsRouteImport.update({
   id: '/buddies/settings',
   path: '/buddies/settings',
@@ -1239,6 +1245,7 @@ export interface FileRoutesByFullPath {
   '/buddies/history': typeof BuddiesHistoryRoute
   '/buddies/psychologists': typeof BuddiesPsychologistsRoute
   '/buddies/settings': typeof BuddiesSettingsRoute
+  '/community/circles': typeof CommunityCirclesRoute
   '/counselling/assessments': typeof CounsellingAssessmentsRoute
   '/counselling/billing': typeof CounsellingBillingRoute
   '/counselling/documents': typeof CounsellingDocumentsRoute
@@ -1425,6 +1432,7 @@ export interface FileRoutesByTo {
   '/buddies/history': typeof BuddiesHistoryRoute
   '/buddies/psychologists': typeof BuddiesPsychologistsRoute
   '/buddies/settings': typeof BuddiesSettingsRoute
+  '/community/circles': typeof CommunityCirclesRoute
   '/counselling/assessments': typeof CounsellingAssessmentsRoute
   '/counselling/billing': typeof CounsellingBillingRoute
   '/counselling/documents': typeof CounsellingDocumentsRoute
@@ -1627,6 +1635,7 @@ export interface FileRoutesById {
   '/buddies/history': typeof BuddiesHistoryRoute
   '/buddies/psychologists': typeof BuddiesPsychologistsRoute
   '/buddies/settings': typeof BuddiesSettingsRoute
+  '/community/circles': typeof CommunityCirclesRoute
   '/counselling/assessments': typeof CounsellingAssessmentsRoute
   '/counselling/billing': typeof CounsellingBillingRoute
   '/counselling/documents': typeof CounsellingDocumentsRoute
@@ -1831,6 +1840,7 @@ export interface FileRouteTypes {
     | '/buddies/history'
     | '/buddies/psychologists'
     | '/buddies/settings'
+    | '/community/circles'
     | '/counselling/assessments'
     | '/counselling/billing'
     | '/counselling/documents'
@@ -2017,6 +2027,7 @@ export interface FileRouteTypes {
     | '/buddies/history'
     | '/buddies/psychologists'
     | '/buddies/settings'
+    | '/community/circles'
     | '/counselling/assessments'
     | '/counselling/billing'
     | '/counselling/documents'
@@ -2218,6 +2229,7 @@ export interface FileRouteTypes {
     | '/buddies/history'
     | '/buddies/psychologists'
     | '/buddies/settings'
+    | '/community/circles'
     | '/counselling/assessments'
     | '/counselling/billing'
     | '/counselling/documents'
@@ -3484,6 +3496,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CounsellingAssessmentsRouteImport
       parentRoute: typeof CounsellingRoute
     }
+    '/community/circles': {
+      id: '/community/circles'
+      path: '/circles'
+      fullPath: '/community/circles'
+      preLoaderRoute: typeof CommunityCirclesRouteImport
+      parentRoute: typeof CommunityRoute
+    }
     '/buddies/settings': {
       id: '/buddies/settings'
       path: '/buddies/settings'
@@ -3858,10 +3877,12 @@ const BreatheRouteWithChildren =
   BreatheRoute._addFileChildren(BreatheRouteChildren)
 
 interface CommunityRouteChildren {
+  CommunityCirclesRoute: typeof CommunityCirclesRoute
   CommunityIndexRoute: typeof CommunityIndexRoute
 }
 
 const CommunityRouteChildren: CommunityRouteChildren = {
+  CommunityCirclesRoute: CommunityCirclesRoute,
   CommunityIndexRoute: CommunityIndexRoute,
 }
 
