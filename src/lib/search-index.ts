@@ -213,17 +213,23 @@ function collectAll(): SearchItem[] {
   }
 
   // Resources
+  const AUDIO_FMTS = new Set(["podcast", "audiobook", "meditation", "sleep-story"]);
+  const VIDEO_FMTS = new Set(["video", "short-video"]);
   RESOURCES.forEach((r) => {
+    const kind: SearchKind =
+      VIDEO_FMTS.has(r.format) ? "video" :
+      AUDIO_FMTS.has(r.format) ? "audio" :
+      r.format === "worksheet" ? "worksheet" : "resource";
     out.push({
       id: `res_${r.id}`,
-      kind: r.format === "video" ? "video" : r.format === "audio" || r.format === "podcast" ? "audio" : r.format === "worksheet" ? "worksheet" : "resource",
+      kind,
       module: "Resources",
       title: r.title,
-      subtitle: `${FORMAT_LABELS[r.format]} · ${r.duration ?? ""}`,
+      subtitle: `${FORMAT_LABELS[r.format]} · ${r.minutes} min`,
       description: r.description,
       to: `/resources/r/${r.slug}`,
       tags: r.tags,
-      duration: r.duration,
+      duration: r.minutes,
       icon: "BookOpen",
       keywords: `${r.description ?? ""} ${(r.tags ?? []).join(" ")}`,
     });
