@@ -3,11 +3,12 @@
 // glance at one module: collapsed → expanded → open full page.
 
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
   ChevronRight, ChevronDown, Sparkles, Flame, Heart, Wind, Feather,
   Users, BookOpen, Brain, CalendarCheck, UserCheck, TreePine, Trophy,
   Bot, Clock, ArrowRight, AlertCircle, Play, TrendingUp, Leaf, Moon, PenLine,
+  ClipboardList,
 } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 
@@ -18,6 +19,7 @@ import * as focus from "@/lib/focus-store";
 import * as counselling from "@/lib/counselling-store";
 import * as buddies from "@/lib/buddies-store";
 import * as screening from "@/lib/screening-store";
+import * as peacebot from "@/lib/peacebot-store";
 import { useMindGym, ensureBootstrapped, brainOverall, weeklyStats, recommendNext, EXERCISES } from "@/lib/mindgym-store";
 
 export const Route = createFileRoute("/")({
@@ -47,6 +49,7 @@ function useDashboardData() {
       const hw = counselling.listHomework();
       const bSess = buddies.listSessions();
       const scrSess = screening.loadSessions();
+      const pbConvs = peacebot.loadConvs().sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0));
       setD({
         journal: {
           entries: jEntries,
@@ -54,7 +57,8 @@ function useDashboardData() {
           weekTrend: journal.weekMoodTrend(jEntries),
           top: journal.topEmotions(jEntries).slice(0, 3),
           last: jEntries[0],
-          weekCount: jEntries.filter(e => Date.now() - new Date(e.updatedAt || e.createdAt).getTime() < 7 * 864e5).length,
+          draft: jEntries.find(e => e.status === "draft"),
+          weekCount: jEntries.filter(e => e.status === "saved" && Date.now() - new Date(e.updatedAt || e.createdAt).getTime() < 7 * 864e5).length,
         },
         gratitude: {
           entries: gEntries,
@@ -65,6 +69,7 @@ function useDashboardData() {
         },
         breathe: {
           sessions: bSessions,
+          last: bSessions[0],
           streak: breathe.computeStreak(bSessions),
           today: bSessions.filter(s => breathe.dayKey(s.completedAt) === breathe.dayKey(new Date())).length,
         },
@@ -86,7 +91,11 @@ function useDashboardData() {
         },
         screening: {
           last: scrSess.sort((a, b) => (b.completedAt ?? 0) - (a.completedAt ?? 0))[0],
+          inProgress: scrSess.find(s => s.status === "in_progress"),
           overall: screening.overallWellness(scrSess),
+        },
+        peacebot: {
+          lastConv: pbConvs[0],
         },
       });
     } catch {
@@ -487,16 +496,87 @@ function DashboardInner() {
           icon={TrendingUp}
         />
 
-        {/* CONTINUE */}
+        {/* CONTINUE — real, one-click resume of unfinished work */}
         <Section
           span="lg:col-span-12"
           title="Continue where you left off"
           preview={
-            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              <ContinueCard to="/journal" icon={Feather} title="Finish yesterday's entry" hint={data.journal?.last?.title || "Draft waiting"} />
-              <ContinueCard to="/breathe" icon={Wind} title="Resume box breathing" hint="paused at cycle 3" />
-              <ContinueCard to={nextEx ? `/mindgym/exercise/${nextEx.id}` : "/mindgym"} icon={Brain} title={nextEx?.name || "Today's rep"} hint={`${nextEx?.minutes ?? 5} min`} />
-              <ContinueCard to="/peacebot" icon={Bot} title="Continue chat" hint="last: 20 min ago" />
+            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+              {(() => {
+                const cards: Array<{ to: any; params?: any; icon: any; title: string; hint: string; live?: boolean }> = [];
+
+                // Journal — draft or last entry
+                if (data.journal?.draft) {
+                  const d = data.journal.draft;
+                  cards.push({
+                    to: "/journal/$id", params: { id: d.id }, icon: Feather,
+                    title: "Finish your draft",
+                    hint: (d.title || d.body?.slice(0, 42) || "Untitled") + (d.body && d.body.length > 42 ? "…" : ""),
+                    live: true,
+                  });
+                } else if (data.journal?.last) {
+                  cards.push({
+                    to: "/journal", icon: Feather,
+                    title: "Write today's entry",
+                    hint: `Last entry ${formatIn(new Date(data.journal.last.updatedAt || data.journal.last.createdAt).getTime())}`,
+                  });
+                } else {
+                  cards.push({ to: "/journal", icon: Feather, title: "Start your journal", hint: "One line is enough" });
+                }
+
+                // Breathe — resume last technique
+                if (data.breathe?.last) {
+                  const label = data.breathe.last.technique?.replace(/[-_]/g, " ") ?? "box breath";
+                  cards.push({
+                    to: "/breathe", icon: Wind,
+                    title: `Resume ${label}`,
+                    hint: `Last session ${formatIn(new Date(data.breathe.last.completedAt).getTime())}`,
+                    live: true,
+                  });
+                } else {
+                  cards.push({ to: "/breathe", icon: Wind, title: "Start a 3-min breath", hint: "Slow the day" });
+                }
+
+                // Screening — in-progress assessment
+                if (data.screening?.inProgress) {
+                  const sp = data.screening.inProgress;
+                  cards.push({
+                    to: "/screening/test/$id", params: { id: sp.testId }, icon: ClipboardList,
+                    title: "Continue assessment",
+                    hint: `${sp.testId?.toUpperCase()} · question ${(sp.currentIndex ?? 0) + 1}`,
+                    live: true,
+                  });
+                } else {
+                  cards.push({ to: "/screening", icon: ClipboardList, title: "Weekly check-in", hint: "3–5 min · gentle" });
+                }
+
+                // Mind Gym — recommended next rep
+                if (nextEx) {
+                  cards.push({
+                    to: "/mindgym/exercise/$id", params: { id: nextEx.id }, icon: Brain,
+                    title: nextEx.name,
+                    hint: `${nextEx.minutes} min · ${nextEx.difficulty}`,
+                    live: mg.sessions.length > 0,
+                  });
+                }
+
+                // Peace Bot — last conversation
+                if (data.peacebot?.lastConv) {
+                  const c = data.peacebot.lastConv;
+                  cards.push({
+                    to: "/peacebot/c/$id", params: { id: c.id }, icon: Bot,
+                    title: "Continue chat",
+                    hint: `${c.title || "with Peace Bot"} · ${formatIn(c.updatedAt)}`,
+                    live: true,
+                  });
+                } else {
+                  cards.push({ to: "/peacebot", icon: Bot, title: "Talk to Peace Bot", hint: "Anytime, any thought" });
+                }
+
+                return cards.map((c, i) => (
+                  <ContinueCard key={i} to={c.to} params={c.params} icon={c.icon} title={c.title} hint={c.hint} live={c.live} index={i} />
+                ));
+              })()}
             </div>
           }
         />
@@ -525,12 +605,13 @@ function DashboardInner() {
 
 // ─── Reusable Section ───────────────────────────────────────────────
 function Section({
-  title, preview, expanded, to, cta, span = "", icon: Icon, hint,
+  title, preview, expanded, to, cta, span = "", icon: Icon, hint, params,
 }: {
   title: string;
   preview?: ReactNode;
   expanded?: ReactNode;
-  to?: string;
+  to?: any;
+  params?: any;
   cta?: string;
   span?: string;
   icon?: any;
@@ -538,7 +619,7 @@ function Section({
 }) {
   const [open, setOpen] = useState(false);
   return (
-    <section className={`${span} rounded-3xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 group relative overflow-hidden`}
+    <section className={`${span} rounded-3xl p-4 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 group relative overflow-hidden`}
       style={{
         background: "var(--pc-surface)",
         border: "1px solid var(--pc-border)",
@@ -546,8 +627,8 @@ function Section({
       }}>
       <header className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-2 min-w-0">
-          {Icon && <Icon className="w-3.5 h-3.5 opacity-50" style={{ color: "var(--pc-muted)" }} />}
-          <div className="text-[10px] tracking-[0.3em] uppercase" style={{ color: "var(--pc-muted)" }}>{title}</div>
+          {Icon && <Icon className="w-3.5 h-3.5 opacity-50 shrink-0" style={{ color: "var(--pc-muted)" }} />}
+          <div className="text-[10px] tracking-[0.3em] uppercase truncate" style={{ color: "var(--pc-muted)" }}>{title}</div>
         </div>
         {hint}
       </header>
@@ -556,10 +637,18 @@ function Section({
 
       {expanded && (
         <div
-          className="overflow-hidden transition-[grid-template-rows,opacity] duration-300 grid"
+          className="overflow-hidden transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] grid motion-reduce:transition-none"
           style={{ gridTemplateRows: open ? "1fr" : "0fr", opacity: open ? 1 : 0 }}
+          aria-hidden={!open}
         >
-          <div className="min-h-0">{expanded}</div>
+          <div className="min-h-0">
+            <div
+              className="transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+              style={{ transform: open ? "translateY(0)" : "translateY(-6px)", opacity: open ? 1 : 0 }}
+            >
+              {expanded}
+            </div>
+          </div>
         </div>
       )}
 
@@ -567,15 +656,19 @@ function Section({
         style={{ borderTop: "1px solid var(--pc-border)" }}>
         {expanded ? (
           <button onClick={() => setOpen(v => !v)}
-            className="inline-flex items-center gap-1 tracking-[0.2em] uppercase transition hover:opacity-70"
-            style={{ color: "var(--pc-muted)" }}>
-            {open ? "Less" : "More"} {open ? <ChevronDown className="w-3 h-3" /> : <ChevronRight className="w-3 h-3" />}
+            className="inline-flex items-center gap-1 tracking-[0.2em] uppercase transition hover:opacity-70 active:scale-95"
+            style={{ color: "var(--pc-muted)" }}
+            aria-expanded={open}
+          >
+            {open ? "Less" : "More"}
+            <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
           </button>
         ) : <span />}
         {to && (
-          <Link to={to} className="inline-flex items-center gap-1 font-medium tracking-[0.14em] uppercase transition hover:opacity-70"
+          <Link to={to} params={params}
+            className="inline-flex items-center gap-1 font-medium tracking-[0.14em] uppercase transition hover:opacity-70 hover:gap-2"
             style={{ color: "var(--pc-primary)" }}>
-            {cta ?? "Open"} <ArrowRight className="w-3 h-3" />
+            {cta ?? "Open"} <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
           </Link>
         )}
       </footer>
@@ -583,28 +676,56 @@ function Section({
   );
 }
 
+// ─── count-up hook (used by Stat / Ring) ────────────────────────────
+function useCountUp(target: number, duration = 900) {
+  const [v, setV] = useState(0);
+  const startRef = useRef<number | null>(null);
+  const fromRef = useRef(0);
+  useEffect(() => {
+    fromRef.current = v;
+    startRef.current = null;
+    let raf = 0;
+    const tick = (t: number) => {
+      if (startRef.current == null) startRef.current = t;
+      const p = Math.min(1, (t - startRef.current) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setV(fromRef.current + (target - fromRef.current) * eased);
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [target]);
+  return v;
+}
+
 // ─── Small building blocks ──────────────────────────────────────────
 function Stat({ kicker, value, suffix }: { kicker: string; value: string; suffix?: string }) {
+  const numeric = Number((value || "").toString().replace(/[^\d.-]/g, ""));
+  const animate = Number.isFinite(numeric) && numeric !== 0 && !value.includes("/");
+  const shown = useCountUp(animate ? numeric : 0);
+  const display = animate ? Math.round(shown).toString() : value;
   return (
-    <div className="rounded-2xl p-3" style={{ background: "var(--pc-surface2)" }}>
+    <div className="rounded-2xl p-3 transition-transform duration-300 hover:-translate-y-0.5" style={{ background: "var(--pc-surface2)" }}>
       <div className="text-[9px] tracking-[0.22em] uppercase" style={{ color: "var(--pc-muted)" }}>{kicker}</div>
-      <div className="font-serif text-[22px] mt-1 leading-none" style={{ color: "var(--pc-ink)" }}>
-        {value}<span className="text-[12px] opacity-60">{suffix}</span>
+      <div className="font-serif text-[22px] mt-1 leading-none tabular-nums" style={{ color: "var(--pc-ink)" }}>
+        {display}<span className="text-[12px] opacity-60">{suffix}</span>
       </div>
     </div>
   );
 }
 
 function Ring({ value, label }: { value: number; label: string }) {
-  const r = 22, c = 2 * Math.PI * r, dash = c * (value / 100);
+  const anim = useCountUp(value);
+  const rounded = Math.round(anim);
+  const r = 22, c = 2 * Math.PI * r, dash = c * (anim / 100);
   return (
     <div className="flex items-center gap-2.5">
       <svg viewBox="0 0 60 60" className="w-14 h-14">
         <circle cx="30" cy="30" r={r} stroke="var(--pc-border)" strokeWidth="4" fill="none" />
         <circle cx="30" cy="30" r={r} stroke="var(--pc-primary)" strokeWidth="4" fill="none"
-          strokeLinecap="round" strokeDasharray={`${dash} ${c}`} transform="rotate(-90 30 30)"
-          style={{ transition: "stroke-dasharray 800ms ease-out" }} />
-        <text x="30" y="34" textAnchor="middle" fontSize="14" fontFamily="Fraunces, serif" fill="var(--pc-ink)">{value}</text>
+          strokeLinecap="round" strokeDasharray={`${dash} ${c}`} transform="rotate(-90 30 30)" />
+        <text x="30" y="34" textAnchor="middle" fontSize="14" fontFamily="Fraunces, serif" fill="var(--pc-ink)">{rounded}</text>
       </svg>
       <div className="text-[10px] tracking-[0.24em] uppercase leading-tight" style={{ color: "var(--pc-muted)" }}>
         {label}
@@ -713,17 +834,38 @@ function UpcomingRow({ when, label, tone }: { when: number; label: string; tone:
   );
 }
 
-function ContinueCard({ to, icon: Icon, title, hint }: { to: string; icon: any; title: string; hint: string }) {
+function ContinueCard({
+  to, params, icon: Icon, title, hint, live, index = 0,
+}: {
+  to: any; params?: any; icon: any; title: string; hint: string; live?: boolean; index?: number;
+}) {
   return (
-    <Link to={to} className="rounded-2xl p-4 flex flex-col gap-3 transition hover:-translate-y-0.5 group"
-      style={{ background: "var(--pc-surface2)", border: "1px solid var(--pc-border)" }}>
+    <Link
+      to={to} params={params}
+      className="rounded-2xl p-4 flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-25px_rgba(29,42,68,0.25)] group animate-fade-in relative overflow-hidden"
+      style={{
+        background: "var(--pc-surface2)",
+        border: "1px solid var(--pc-border)",
+        animationDelay: `${index * 60}ms`,
+        animationFillMode: "both",
+      }}
+    >
       <div className="flex items-center justify-between">
-        <Icon className="w-4 h-4 opacity-60" />
-        <Play className="w-3.5 h-3.5 opacity-0 group-hover:opacity-80 transition" style={{ color: "var(--pc-primary)" }} />
+        <Icon className="w-4 h-4 opacity-60 transition-transform duration-300 group-hover:scale-110" />
+        <div className="flex items-center gap-1.5">
+          {live && (
+            <span className="inline-flex items-center gap-1 text-[9px] tracking-[0.18em] uppercase" style={{ color: "var(--pc-primary)" }}>
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "var(--pc-primary)" }} />
+              live
+            </span>
+          )}
+          <Play className="w-3.5 h-3.5 opacity-0 group-hover:opacity-90 transition-all duration-300 -translate-x-1 group-hover:translate-x-0"
+            style={{ color: "var(--pc-primary)" }} />
+        </div>
       </div>
-      <div>
-        <div className="font-serif text-[15px] leading-tight" style={{ color: "var(--pc-ink)" }}>{title}</div>
-        <div className="text-[11px] mt-0.5" style={{ color: "var(--pc-muted)" }}>{hint}</div>
+      <div className="min-w-0">
+        <div className="font-serif text-[15px] leading-tight truncate" style={{ color: "var(--pc-ink)" }}>{title}</div>
+        <div className="text-[11px] mt-0.5 line-clamp-2" style={{ color: "var(--pc-muted)" }}>{hint}</div>
       </div>
     </Link>
   );
