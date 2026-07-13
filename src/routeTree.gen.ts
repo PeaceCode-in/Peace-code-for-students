@@ -16,6 +16,7 @@ import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as MindgymRouteImport } from './routes/mindgym'
+import { Route as JournalRouteImport } from './routes/journal'
 import { Route as HubRouteImport } from './routes/hub'
 import { Route as GratitudeRouteImport } from './routes/gratitude'
 import { Route as FocusRouteImport } from './routes/focus'
@@ -243,6 +244,11 @@ const MindgymRoute = MindgymRouteImport.update({
   path: '/mindgym',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JournalRoute = JournalRouteImport.update({
+  id: '/journal',
+  path: '/journal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HubRoute = HubRouteImport.update({
   id: '/hub',
   path: '/hub',
@@ -329,9 +335,9 @@ const MindgymIndexRoute = MindgymIndexRouteImport.update({
   getParentRoute: () => MindgymRoute,
 } as any)
 const JournalIndexRoute = JournalIndexRouteImport.update({
-  id: '/journal/',
-  path: '/journal/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => JournalRoute,
 } as any)
 const HubIndexRoute = HubIndexRouteImport.update({
   id: '/',
@@ -669,19 +675,19 @@ const MindgymBrainDnaRoute = MindgymBrainDnaRouteImport.update({
   getParentRoute: () => MindgymRoute,
 } as any)
 const JournalVoiceRoute = JournalVoiceRouteImport.update({
-  id: '/journal/voice',
-  path: '/journal/voice',
-  getParentRoute: () => rootRouteImport,
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => JournalRoute,
 } as any)
 const JournalMemoriesRoute = JournalMemoriesRouteImport.update({
-  id: '/journal/memories',
-  path: '/journal/memories',
-  getParentRoute: () => rootRouteImport,
+  id: '/memories',
+  path: '/memories',
+  getParentRoute: () => JournalRoute,
 } as any)
 const JournalIdRoute = JournalIdRouteImport.update({
-  id: '/journal/$id',
-  path: '/journal/$id',
-  getParentRoute: () => rootRouteImport,
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => JournalRoute,
 } as any)
 const HubWhatsNewRoute = HubWhatsNewRouteImport.update({
   id: '/whats-new',
@@ -1209,6 +1215,7 @@ export interface FileRoutesByFullPath {
   '/focus': typeof FocusRouteWithChildren
   '/gratitude': typeof GratitudeRouteWithChildren
   '/hub': typeof HubRouteWithChildren
+  '/journal': typeof JournalRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
   '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
@@ -1595,6 +1602,7 @@ export interface FileRoutesById {
   '/focus': typeof FocusRouteWithChildren
   '/gratitude': typeof GratitudeRouteWithChildren
   '/hub': typeof HubRouteWithChildren
+  '/journal': typeof JournalRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
   '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
@@ -1797,6 +1805,7 @@ export interface FileRouteTypes {
     | '/focus'
     | '/gratitude'
     | '/hub'
+    | '/journal'
     | '/mindgym'
     | '/notifications'
     | '/profile'
@@ -2182,6 +2191,7 @@ export interface FileRouteTypes {
     | '/focus'
     | '/gratitude'
     | '/hub'
+    | '/journal'
     | '/mindgym'
     | '/notifications'
     | '/profile'
@@ -2383,6 +2393,7 @@ export interface RootRouteChildren {
   FocusRoute: typeof FocusRouteWithChildren
   GratitudeRoute: typeof GratitudeRouteWithChildren
   HubRoute: typeof HubRouteWithChildren
+  JournalRoute: typeof JournalRouteWithChildren
   MindgymRoute: typeof MindgymRouteWithChildren
   NotificationsRoute: typeof NotificationsRouteWithChildren
   ProfileRoute: typeof ProfileRouteWithChildren
@@ -2399,9 +2410,6 @@ export interface RootRouteChildren {
   BuddiesHistoryRoute: typeof BuddiesHistoryRoute
   BuddiesPsychologistsRoute: typeof BuddiesPsychologistsRoute
   BuddiesSettingsRoute: typeof BuddiesSettingsRoute
-  JournalIdRoute: typeof JournalIdRoute
-  JournalMemoriesRoute: typeof JournalMemoriesRoute
-  JournalVoiceRoute: typeof JournalVoiceRoute
   PeacebotAvatarRoute: typeof PeacebotAvatarRoute
   PeacebotInsightsRoute: typeof PeacebotInsightsRoute
   PeacebotMemoryRoute: typeof PeacebotMemoryRoute
@@ -2411,7 +2419,6 @@ export interface RootRouteChildren {
   PeacebotToolsRoute: typeof PeacebotToolsRoute
   PeacebotVoiceRoute: typeof PeacebotVoiceRoute
   BuddiesIndexRoute: typeof BuddiesIndexRoute
-  JournalIndexRoute: typeof JournalIndexRoute
   PeacebotIndexRoute: typeof PeacebotIndexRoute
   BuddiesBookIdRoute: typeof BuddiesBookIdRoute
   BuddiesChatIdRoute: typeof BuddiesChatIdRoute
@@ -2471,6 +2478,13 @@ declare module '@tanstack/react-router' {
       path: '/mindgym'
       fullPath: '/mindgym'
       preLoaderRoute: typeof MindgymRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/journal': {
+      id: '/journal'
+      path: '/journal'
+      fullPath: '/journal'
+      preLoaderRoute: typeof JournalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hub': {
@@ -2594,10 +2608,10 @@ declare module '@tanstack/react-router' {
     }
     '/journal/': {
       id: '/journal/'
-      path: '/journal'
+      path: '/'
       fullPath: '/journal/'
       preLoaderRoute: typeof JournalIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof JournalRoute
     }
     '/hub/': {
       id: '/hub/'
@@ -3070,24 +3084,24 @@ declare module '@tanstack/react-router' {
     }
     '/journal/voice': {
       id: '/journal/voice'
-      path: '/journal/voice'
+      path: '/voice'
       fullPath: '/journal/voice'
       preLoaderRoute: typeof JournalVoiceRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof JournalRoute
     }
     '/journal/memories': {
       id: '/journal/memories'
-      path: '/journal/memories'
+      path: '/memories'
       fullPath: '/journal/memories'
       preLoaderRoute: typeof JournalMemoriesRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof JournalRoute
     }
     '/journal/$id': {
       id: '/journal/$id'
-      path: '/journal/$id'
+      path: '/$id'
       fullPath: '/journal/$id'
       preLoaderRoute: typeof JournalIdRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof JournalRoute
     }
     '/hub/whats-new': {
       id: '/hub/whats-new'
@@ -4072,6 +4086,23 @@ const HubRouteChildren: HubRouteChildren = {
 
 const HubRouteWithChildren = HubRoute._addFileChildren(HubRouteChildren)
 
+interface JournalRouteChildren {
+  JournalIdRoute: typeof JournalIdRoute
+  JournalMemoriesRoute: typeof JournalMemoriesRoute
+  JournalVoiceRoute: typeof JournalVoiceRoute
+  JournalIndexRoute: typeof JournalIndexRoute
+}
+
+const JournalRouteChildren: JournalRouteChildren = {
+  JournalIdRoute: JournalIdRoute,
+  JournalMemoriesRoute: JournalMemoriesRoute,
+  JournalVoiceRoute: JournalVoiceRoute,
+  JournalIndexRoute: JournalIndexRoute,
+}
+
+const JournalRouteWithChildren =
+  JournalRoute._addFileChildren(JournalRouteChildren)
+
 interface MindgymRouteChildren {
   MindgymBrainDnaRoute: typeof MindgymBrainDnaRoute
   MindgymLibraryRoute: typeof MindgymLibraryRoute
@@ -4297,6 +4328,7 @@ const rootRouteChildren: RootRouteChildren = {
   FocusRoute: FocusRouteWithChildren,
   GratitudeRoute: GratitudeRouteWithChildren,
   HubRoute: HubRouteWithChildren,
+  JournalRoute: JournalRouteWithChildren,
   MindgymRoute: MindgymRouteWithChildren,
   NotificationsRoute: NotificationsRouteWithChildren,
   ProfileRoute: ProfileRouteWithChildren,
@@ -4313,9 +4345,6 @@ const rootRouteChildren: RootRouteChildren = {
   BuddiesHistoryRoute: BuddiesHistoryRoute,
   BuddiesPsychologistsRoute: BuddiesPsychologistsRoute,
   BuddiesSettingsRoute: BuddiesSettingsRoute,
-  JournalIdRoute: JournalIdRoute,
-  JournalMemoriesRoute: JournalMemoriesRoute,
-  JournalVoiceRoute: JournalVoiceRoute,
   PeacebotAvatarRoute: PeacebotAvatarRoute,
   PeacebotInsightsRoute: PeacebotInsightsRoute,
   PeacebotMemoryRoute: PeacebotMemoryRoute,
@@ -4325,7 +4354,6 @@ const rootRouteChildren: RootRouteChildren = {
   PeacebotToolsRoute: PeacebotToolsRoute,
   PeacebotVoiceRoute: PeacebotVoiceRoute,
   BuddiesIndexRoute: BuddiesIndexRoute,
-  JournalIndexRoute: JournalIndexRoute,
   PeacebotIndexRoute: PeacebotIndexRoute,
   BuddiesBookIdRoute: BuddiesBookIdRoute,
   BuddiesChatIdRoute: BuddiesChatIdRoute,
