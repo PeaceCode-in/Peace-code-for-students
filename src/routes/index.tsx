@@ -81,7 +81,7 @@ function useDashboardData() {
           homeworkTotal: hw.length,
         },
         buddy: {
-          nextSession: bSess.find(s => (s.status === "confirmed" || s.status === "pending") && s.scheduledFor && s.scheduledFor > Date.now()),
+          nextSession: bSess.find(s => (s.status === "accepted" || s.status === "waiting") && s.scheduledFor && s.scheduledFor > Date.now()),
           lastChat: bSess.sort((a, b) => (b.messages?.slice(-1)[0]?.ts ?? 0) - (a.messages?.slice(-1)[0]?.ts ?? 0))[0],
         },
         screening: {
