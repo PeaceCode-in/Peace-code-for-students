@@ -1,11 +1,12 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import {
-  BookOpen, Moon, Sun, Settings, Bell, Flame, Users, Feather, Wind, Search,
+  BookOpen, Moon, Sun, Settings, Bell, Flame, Users, Wind, Search,
   Heart, PenLine, Bot, CalendarCheck, UserCheck, ClipboardList, Target, Activity, Brain,
   Menu, X, Home,
 } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
+import { loadSettings, applyAppearance, applyAccessibility } from "@/lib/settings-store";
 
 // ─── Themeable palette — every value is a CSS variable so light/dark ────
 // can be swapped globally by toggling `.dark` on <html>. Tokens live in
@@ -115,6 +116,8 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     window.addEventListener("scroll", onScroll);
+    // Apply persisted appearance/accessibility once per mount.
+    try { const s = loadSettings(); applyAppearance(s); applyAccessibility(s); } catch {}
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -192,10 +195,10 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
               {theme === "dark" ? "Light mode" : "Dark mode"}
             </span>
           </button>
-          <button className="flex items-center h-10 rounded-2xl transition" style={{ color: muted }} aria-label="Settings">
+          <Link to="/settings" className="flex items-center h-10 rounded-2xl transition" style={{ color: muted }} aria-label="Settings">
             <span className="w-[56px] shrink-0 flex justify-center"><Settings className="w-[19px] h-[19px]" strokeWidth={1.4}/></span>
             <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">Settings</span>
-          </button>
+          </Link>
           <div className="mt-2 rounded-2xl flex items-center h-14" style={{ background: surface2 }}>
             <span className="w-[56px] shrink-0 flex justify-center">
               <span className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: soft }}>
@@ -292,7 +295,10 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
                 </div>
               ))}
             </nav>
-            <button onClick={toggleTheme} className="mt-6 flex items-center gap-3 h-11 px-3 rounded-2xl text-[13px]" style={{ background: surface2, color: ink }} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
+            <Link to="/settings" className="mt-6 flex items-center gap-3 h-11 px-3 rounded-2xl text-[13px]" style={{ background: surface2, color: ink }}>
+              <Settings className="w-4 h-4" strokeWidth={1.5}/> Settings
+            </Link>
+            <button onClick={toggleTheme} className="mt-2 flex items-center gap-3 h-11 px-3 rounded-2xl text-[13px]" style={{ background: surface2, color: ink }} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
               {theme === "dark" ? <Sun className="w-4 h-4" strokeWidth={1.5}/> : <Moon className="w-4 h-4" strokeWidth={1.5}/>}
               {theme === "dark" ? "Light mode" : "Dark mode"}
             </button>

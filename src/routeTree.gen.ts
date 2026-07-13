@@ -9,10 +9,12 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as MindgymRouteImport } from './routes/mindgym'
 import { Route as CounsellingRouteImport } from './routes/counselling'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as ScreeningIndexRouteImport } from './routes/screening.index'
 import { Route as ResourcesIndexRouteImport } from './routes/resources.index'
 import { Route as PeacebotIndexRouteImport } from './routes/peacebot.index'
@@ -23,6 +25,23 @@ import { Route as FocusIndexRouteImport } from './routes/focus.index'
 import { Route as CounsellingIndexRouteImport } from './routes/counselling.index'
 import { Route as BuddiesIndexRouteImport } from './routes/buddies.index'
 import { Route as BreatheIndexRouteImport } from './routes/breathe.index'
+import { Route as SettingsSupportRouteImport } from './routes/settings.support'
+import { Route as SettingsResourcesRouteImport } from './routes/settings.resources'
+import { Route as SettingsProfileRouteImport } from './routes/settings.profile'
+import { Route as SettingsPrivacyRouteImport } from './routes/settings.privacy'
+import { Route as SettingsPeacebotRouteImport } from './routes/settings.peacebot'
+import { Route as SettingsNotificationsRouteImport } from './routes/settings.notifications'
+import { Route as SettingsLogoutRouteImport } from './routes/settings.logout'
+import { Route as SettingsJournalRouteImport } from './routes/settings.journal'
+import { Route as SettingsEmergencyRouteImport } from './routes/settings.emergency'
+import { Route as SettingsDeleteRouteImport } from './routes/settings.delete'
+import { Route as SettingsDataRouteImport } from './routes/settings.data'
+import { Route as SettingsConnectedRouteImport } from './routes/settings.connected'
+import { Route as SettingsCommunityRouteImport } from './routes/settings.community'
+import { Route as SettingsBreathingRouteImport } from './routes/settings.breathing'
+import { Route as SettingsAppearanceRouteImport } from './routes/settings.appearance'
+import { Route as SettingsAccessibilityRouteImport } from './routes/settings.accessibility'
+import { Route as SettingsAboutRouteImport } from './routes/settings.about'
 import { Route as ScreeningSettingsRouteImport } from './routes/screening.settings'
 import { Route as ScreeningResourcesRouteImport } from './routes/screening.resources'
 import { Route as ScreeningLibraryRouteImport } from './routes/screening.library'
@@ -108,6 +127,11 @@ import { Route as BuddiesFeedbackIdRouteImport } from './routes/buddies.feedback
 import { Route as BuddiesChatIdRouteImport } from './routes/buddies.chat.$id'
 import { Route as BuddiesBookIdRouteImport } from './routes/buddies.book.$id'
 
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MindgymRoute = MindgymRouteImport.update({
   id: '/mindgym',
   path: '/mindgym',
@@ -127,6 +151,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsIndexRoute = SettingsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SettingsRoute,
 } as any)
 const ScreeningIndexRoute = ScreeningIndexRouteImport.update({
   id: '/screening/',
@@ -177,6 +206,91 @@ const BreatheIndexRoute = BreatheIndexRouteImport.update({
   id: '/breathe/',
   path: '/breathe/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsSupportRoute = SettingsSupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsResourcesRoute = SettingsResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsProfileRoute = SettingsProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsPrivacyRoute = SettingsPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsPeacebotRoute = SettingsPeacebotRouteImport.update({
+  id: '/peacebot',
+  path: '/peacebot',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsNotificationsRoute = SettingsNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsLogoutRoute = SettingsLogoutRouteImport.update({
+  id: '/logout',
+  path: '/logout',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsJournalRoute = SettingsJournalRouteImport.update({
+  id: '/journal',
+  path: '/journal',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsEmergencyRoute = SettingsEmergencyRouteImport.update({
+  id: '/emergency',
+  path: '/emergency',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsDeleteRoute = SettingsDeleteRouteImport.update({
+  id: '/delete',
+  path: '/delete',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsDataRoute = SettingsDataRouteImport.update({
+  id: '/data',
+  path: '/data',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsConnectedRoute = SettingsConnectedRouteImport.update({
+  id: '/connected',
+  path: '/connected',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsCommunityRoute = SettingsCommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsBreathingRoute = SettingsBreathingRouteImport.update({
+  id: '/breathing',
+  path: '/breathing',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsAppearanceRoute = SettingsAppearanceRouteImport.update({
+  id: '/appearance',
+  path: '/appearance',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsAccessibilityRoute = SettingsAccessibilityRouteImport.update({
+  id: '/accessibility',
+  path: '/accessibility',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsAboutRoute = SettingsAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => SettingsRoute,
 } as any)
 const ScreeningSettingsRoute = ScreeningSettingsRouteImport.update({
   id: '/screening/settings',
@@ -604,6 +718,7 @@ export interface FileRoutesByFullPath {
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
+  '/settings': typeof SettingsRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/buddies/$id': typeof BuddiesIdRoute
@@ -660,6 +775,23 @@ export interface FileRoutesByFullPath {
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/settings': typeof ScreeningSettingsRoute
+  '/settings/about': typeof SettingsAboutRoute
+  '/settings/accessibility': typeof SettingsAccessibilityRoute
+  '/settings/appearance': typeof SettingsAppearanceRoute
+  '/settings/breathing': typeof SettingsBreathingRoute
+  '/settings/community': typeof SettingsCommunityRoute
+  '/settings/connected': typeof SettingsConnectedRoute
+  '/settings/data': typeof SettingsDataRoute
+  '/settings/delete': typeof SettingsDeleteRoute
+  '/settings/emergency': typeof SettingsEmergencyRoute
+  '/settings/journal': typeof SettingsJournalRoute
+  '/settings/logout': typeof SettingsLogoutRoute
+  '/settings/notifications': typeof SettingsNotificationsRoute
+  '/settings/peacebot': typeof SettingsPeacebotRoute
+  '/settings/privacy': typeof SettingsPrivacyRoute
+  '/settings/profile': typeof SettingsProfileRoute
+  '/settings/resources': typeof SettingsResourcesRoute
+  '/settings/support': typeof SettingsSupportRoute
   '/breathe/': typeof BreatheIndexRoute
   '/buddies/': typeof BuddiesIndexRoute
   '/counselling/': typeof CounsellingIndexRoute
@@ -670,6 +802,7 @@ export interface FileRoutesByFullPath {
   '/peacebot/': typeof PeacebotIndexRoute
   '/resources/': typeof ResourcesIndexRoute
   '/screening/': typeof ScreeningIndexRoute
+  '/settings/': typeof SettingsIndexRoute
   '/buddies/book/$id': typeof BuddiesBookIdRoute
   '/buddies/chat/$id': typeof BuddiesChatIdRoute
   '/buddies/feedback/$id': typeof BuddiesFeedbackIdRoute
@@ -758,6 +891,23 @@ export interface FileRoutesByTo {
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/settings': typeof ScreeningSettingsRoute
+  '/settings/about': typeof SettingsAboutRoute
+  '/settings/accessibility': typeof SettingsAccessibilityRoute
+  '/settings/appearance': typeof SettingsAppearanceRoute
+  '/settings/breathing': typeof SettingsBreathingRoute
+  '/settings/community': typeof SettingsCommunityRoute
+  '/settings/connected': typeof SettingsConnectedRoute
+  '/settings/data': typeof SettingsDataRoute
+  '/settings/delete': typeof SettingsDeleteRoute
+  '/settings/emergency': typeof SettingsEmergencyRoute
+  '/settings/journal': typeof SettingsJournalRoute
+  '/settings/logout': typeof SettingsLogoutRoute
+  '/settings/notifications': typeof SettingsNotificationsRoute
+  '/settings/peacebot': typeof SettingsPeacebotRoute
+  '/settings/privacy': typeof SettingsPrivacyRoute
+  '/settings/profile': typeof SettingsProfileRoute
+  '/settings/resources': typeof SettingsResourcesRoute
+  '/settings/support': typeof SettingsSupportRoute
   '/breathe': typeof BreatheIndexRoute
   '/buddies': typeof BuddiesIndexRoute
   '/counselling': typeof CounsellingIndexRoute
@@ -768,6 +918,7 @@ export interface FileRoutesByTo {
   '/peacebot': typeof PeacebotIndexRoute
   '/resources': typeof ResourcesIndexRoute
   '/screening': typeof ScreeningIndexRoute
+  '/settings': typeof SettingsIndexRoute
   '/buddies/book/$id': typeof BuddiesBookIdRoute
   '/buddies/chat/$id': typeof BuddiesChatIdRoute
   '/buddies/feedback/$id': typeof BuddiesFeedbackIdRoute
@@ -803,6 +954,7 @@ export interface FileRoutesById {
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
+  '/settings': typeof SettingsRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/buddies/$id': typeof BuddiesIdRoute
@@ -859,6 +1011,23 @@ export interface FileRoutesById {
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/settings': typeof ScreeningSettingsRoute
+  '/settings/about': typeof SettingsAboutRoute
+  '/settings/accessibility': typeof SettingsAccessibilityRoute
+  '/settings/appearance': typeof SettingsAppearanceRoute
+  '/settings/breathing': typeof SettingsBreathingRoute
+  '/settings/community': typeof SettingsCommunityRoute
+  '/settings/connected': typeof SettingsConnectedRoute
+  '/settings/data': typeof SettingsDataRoute
+  '/settings/delete': typeof SettingsDeleteRoute
+  '/settings/emergency': typeof SettingsEmergencyRoute
+  '/settings/journal': typeof SettingsJournalRoute
+  '/settings/logout': typeof SettingsLogoutRoute
+  '/settings/notifications': typeof SettingsNotificationsRoute
+  '/settings/peacebot': typeof SettingsPeacebotRoute
+  '/settings/privacy': typeof SettingsPrivacyRoute
+  '/settings/profile': typeof SettingsProfileRoute
+  '/settings/resources': typeof SettingsResourcesRoute
+  '/settings/support': typeof SettingsSupportRoute
   '/breathe/': typeof BreatheIndexRoute
   '/buddies/': typeof BuddiesIndexRoute
   '/counselling/': typeof CounsellingIndexRoute
@@ -869,6 +1038,7 @@ export interface FileRoutesById {
   '/peacebot/': typeof PeacebotIndexRoute
   '/resources/': typeof ResourcesIndexRoute
   '/screening/': typeof ScreeningIndexRoute
+  '/settings/': typeof SettingsIndexRoute
   '/buddies/book/$id': typeof BuddiesBookIdRoute
   '/buddies/chat/$id': typeof BuddiesChatIdRoute
   '/buddies/feedback/$id': typeof BuddiesFeedbackIdRoute
@@ -905,6 +1075,7 @@ export interface FileRouteTypes {
     | '/community'
     | '/counselling'
     | '/mindgym'
+    | '/settings'
     | '/api/chat'
     | '/breathe/stats'
     | '/buddies/$id'
@@ -961,6 +1132,23 @@ export interface FileRouteTypes {
     | '/screening/library'
     | '/screening/resources'
     | '/screening/settings'
+    | '/settings/about'
+    | '/settings/accessibility'
+    | '/settings/appearance'
+    | '/settings/breathing'
+    | '/settings/community'
+    | '/settings/connected'
+    | '/settings/data'
+    | '/settings/delete'
+    | '/settings/emergency'
+    | '/settings/journal'
+    | '/settings/logout'
+    | '/settings/notifications'
+    | '/settings/peacebot'
+    | '/settings/privacy'
+    | '/settings/profile'
+    | '/settings/resources'
+    | '/settings/support'
     | '/breathe/'
     | '/buddies/'
     | '/counselling/'
@@ -971,6 +1159,7 @@ export interface FileRouteTypes {
     | '/peacebot/'
     | '/resources/'
     | '/screening/'
+    | '/settings/'
     | '/buddies/book/$id'
     | '/buddies/chat/$id'
     | '/buddies/feedback/$id'
@@ -1059,6 +1248,23 @@ export interface FileRouteTypes {
     | '/screening/library'
     | '/screening/resources'
     | '/screening/settings'
+    | '/settings/about'
+    | '/settings/accessibility'
+    | '/settings/appearance'
+    | '/settings/breathing'
+    | '/settings/community'
+    | '/settings/connected'
+    | '/settings/data'
+    | '/settings/delete'
+    | '/settings/emergency'
+    | '/settings/journal'
+    | '/settings/logout'
+    | '/settings/notifications'
+    | '/settings/peacebot'
+    | '/settings/privacy'
+    | '/settings/profile'
+    | '/settings/resources'
+    | '/settings/support'
     | '/breathe'
     | '/buddies'
     | '/counselling'
@@ -1069,6 +1275,7 @@ export interface FileRouteTypes {
     | '/peacebot'
     | '/resources'
     | '/screening'
+    | '/settings'
     | '/buddies/book/$id'
     | '/buddies/chat/$id'
     | '/buddies/feedback/$id'
@@ -1103,6 +1310,7 @@ export interface FileRouteTypes {
     | '/community'
     | '/counselling'
     | '/mindgym'
+    | '/settings'
     | '/api/chat'
     | '/breathe/stats'
     | '/buddies/$id'
@@ -1159,6 +1367,23 @@ export interface FileRouteTypes {
     | '/screening/library'
     | '/screening/resources'
     | '/screening/settings'
+    | '/settings/about'
+    | '/settings/accessibility'
+    | '/settings/appearance'
+    | '/settings/breathing'
+    | '/settings/community'
+    | '/settings/connected'
+    | '/settings/data'
+    | '/settings/delete'
+    | '/settings/emergency'
+    | '/settings/journal'
+    | '/settings/logout'
+    | '/settings/notifications'
+    | '/settings/peacebot'
+    | '/settings/privacy'
+    | '/settings/profile'
+    | '/settings/resources'
+    | '/settings/support'
     | '/breathe/'
     | '/buddies/'
     | '/counselling/'
@@ -1169,6 +1394,7 @@ export interface FileRouteTypes {
     | '/peacebot/'
     | '/resources/'
     | '/screening/'
+    | '/settings/'
     | '/buddies/book/$id'
     | '/buddies/chat/$id'
     | '/buddies/feedback/$id'
@@ -1204,6 +1430,7 @@ export interface RootRouteChildren {
   CommunityRoute: typeof CommunityRoute
   CounsellingRoute: typeof CounsellingRouteWithChildren
   MindgymRoute: typeof MindgymRouteWithChildren
+  SettingsRoute: typeof SettingsRouteWithChildren
   ApiChatRoute: typeof ApiChatRoute
   BreatheStatsRoute: typeof BreatheStatsRoute
   BuddiesIdRoute: typeof BuddiesIdRoute
@@ -1271,6 +1498,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mindgym': {
       id: '/mindgym'
       path: '/mindgym'
@@ -1298,6 +1532,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/settings/': {
+      id: '/settings/'
+      path: '/'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof SettingsIndexRouteImport
+      parentRoute: typeof SettingsRoute
     }
     '/screening/': {
       id: '/screening/'
@@ -1368,6 +1609,125 @@ declare module '@tanstack/react-router' {
       fullPath: '/breathe/'
       preLoaderRoute: typeof BreatheIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/settings/support': {
+      id: '/settings/support'
+      path: '/support'
+      fullPath: '/settings/support'
+      preLoaderRoute: typeof SettingsSupportRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/resources': {
+      id: '/settings/resources'
+      path: '/resources'
+      fullPath: '/settings/resources'
+      preLoaderRoute: typeof SettingsResourcesRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/profile': {
+      id: '/settings/profile'
+      path: '/profile'
+      fullPath: '/settings/profile'
+      preLoaderRoute: typeof SettingsProfileRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/privacy': {
+      id: '/settings/privacy'
+      path: '/privacy'
+      fullPath: '/settings/privacy'
+      preLoaderRoute: typeof SettingsPrivacyRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/peacebot': {
+      id: '/settings/peacebot'
+      path: '/peacebot'
+      fullPath: '/settings/peacebot'
+      preLoaderRoute: typeof SettingsPeacebotRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/notifications': {
+      id: '/settings/notifications'
+      path: '/notifications'
+      fullPath: '/settings/notifications'
+      preLoaderRoute: typeof SettingsNotificationsRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/logout': {
+      id: '/settings/logout'
+      path: '/logout'
+      fullPath: '/settings/logout'
+      preLoaderRoute: typeof SettingsLogoutRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/journal': {
+      id: '/settings/journal'
+      path: '/journal'
+      fullPath: '/settings/journal'
+      preLoaderRoute: typeof SettingsJournalRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/emergency': {
+      id: '/settings/emergency'
+      path: '/emergency'
+      fullPath: '/settings/emergency'
+      preLoaderRoute: typeof SettingsEmergencyRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/delete': {
+      id: '/settings/delete'
+      path: '/delete'
+      fullPath: '/settings/delete'
+      preLoaderRoute: typeof SettingsDeleteRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/data': {
+      id: '/settings/data'
+      path: '/data'
+      fullPath: '/settings/data'
+      preLoaderRoute: typeof SettingsDataRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/connected': {
+      id: '/settings/connected'
+      path: '/connected'
+      fullPath: '/settings/connected'
+      preLoaderRoute: typeof SettingsConnectedRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/community': {
+      id: '/settings/community'
+      path: '/community'
+      fullPath: '/settings/community'
+      preLoaderRoute: typeof SettingsCommunityRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/breathing': {
+      id: '/settings/breathing'
+      path: '/breathing'
+      fullPath: '/settings/breathing'
+      preLoaderRoute: typeof SettingsBreathingRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/appearance': {
+      id: '/settings/appearance'
+      path: '/appearance'
+      fullPath: '/settings/appearance'
+      preLoaderRoute: typeof SettingsAppearanceRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/accessibility': {
+      id: '/settings/accessibility'
+      path: '/accessibility'
+      fullPath: '/settings/accessibility'
+      preLoaderRoute: typeof SettingsAccessibilityRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/about': {
+      id: '/settings/about'
+      path: '/about'
+      fullPath: '/settings/about'
+      preLoaderRoute: typeof SettingsAboutRouteImport
+      parentRoute: typeof SettingsRoute
     }
     '/screening/settings': {
       id: '/screening/settings'
@@ -2041,11 +2401,58 @@ const MindgymRouteChildren: MindgymRouteChildren = {
 const MindgymRouteWithChildren =
   MindgymRoute._addFileChildren(MindgymRouteChildren)
 
+interface SettingsRouteChildren {
+  SettingsAboutRoute: typeof SettingsAboutRoute
+  SettingsAccessibilityRoute: typeof SettingsAccessibilityRoute
+  SettingsAppearanceRoute: typeof SettingsAppearanceRoute
+  SettingsBreathingRoute: typeof SettingsBreathingRoute
+  SettingsCommunityRoute: typeof SettingsCommunityRoute
+  SettingsConnectedRoute: typeof SettingsConnectedRoute
+  SettingsDataRoute: typeof SettingsDataRoute
+  SettingsDeleteRoute: typeof SettingsDeleteRoute
+  SettingsEmergencyRoute: typeof SettingsEmergencyRoute
+  SettingsJournalRoute: typeof SettingsJournalRoute
+  SettingsLogoutRoute: typeof SettingsLogoutRoute
+  SettingsNotificationsRoute: typeof SettingsNotificationsRoute
+  SettingsPeacebotRoute: typeof SettingsPeacebotRoute
+  SettingsPrivacyRoute: typeof SettingsPrivacyRoute
+  SettingsProfileRoute: typeof SettingsProfileRoute
+  SettingsResourcesRoute: typeof SettingsResourcesRoute
+  SettingsSupportRoute: typeof SettingsSupportRoute
+  SettingsIndexRoute: typeof SettingsIndexRoute
+}
+
+const SettingsRouteChildren: SettingsRouteChildren = {
+  SettingsAboutRoute: SettingsAboutRoute,
+  SettingsAccessibilityRoute: SettingsAccessibilityRoute,
+  SettingsAppearanceRoute: SettingsAppearanceRoute,
+  SettingsBreathingRoute: SettingsBreathingRoute,
+  SettingsCommunityRoute: SettingsCommunityRoute,
+  SettingsConnectedRoute: SettingsConnectedRoute,
+  SettingsDataRoute: SettingsDataRoute,
+  SettingsDeleteRoute: SettingsDeleteRoute,
+  SettingsEmergencyRoute: SettingsEmergencyRoute,
+  SettingsJournalRoute: SettingsJournalRoute,
+  SettingsLogoutRoute: SettingsLogoutRoute,
+  SettingsNotificationsRoute: SettingsNotificationsRoute,
+  SettingsPeacebotRoute: SettingsPeacebotRoute,
+  SettingsPrivacyRoute: SettingsPrivacyRoute,
+  SettingsProfileRoute: SettingsProfileRoute,
+  SettingsResourcesRoute: SettingsResourcesRoute,
+  SettingsSupportRoute: SettingsSupportRoute,
+  SettingsIndexRoute: SettingsIndexRoute,
+}
+
+const SettingsRouteWithChildren = SettingsRoute._addFileChildren(
+  SettingsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CommunityRoute: CommunityRoute,
   CounsellingRoute: CounsellingRouteWithChildren,
   MindgymRoute: MindgymRouteWithChildren,
+  SettingsRoute: SettingsRouteWithChildren,
   ApiChatRoute: ApiChatRoute,
   BreatheStatsRoute: BreatheStatsRoute,
   BuddiesIdRoute: BuddiesIdRoute,
