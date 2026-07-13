@@ -9,7 +9,7 @@ export const Route = createFileRoute("/profile/bookmarks")({
   component: BookmarksPage,
 });
 
-const ICONS: Record<Bookmark["kind"], React.ComponentType<{ className?: string }>> = {
+const ICONS: Record<Bookmark["kind"], React.ComponentType<{ className?: string; style?: React.CSSProperties }>> = {
   article: BookOpen, video: Play, meditation: Feather, exercise: Feather, post: MessageCircle,
 };
 
