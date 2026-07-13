@@ -727,12 +727,9 @@ html[data-pc-resources] .pc-glass-sidebar {
   50%      { opacity: 0.55; }
 }
 
-.pc-glass-sidebar::after {
-  animation:
-    pc-grain-drift 14s ease-in-out infinite,
-    pc-grain-flicker 6s ease-in-out infinite;
-  will-change: transform, opacity;
-}
+/* Grain is static — no animation. Keeps sidebar feeling alive without per-frame cost. */
+.pc-glass-sidebar::after { animation: none !important; will-change: auto; }
+
 
 /* Nav items — premium lift + soft glow, GPU-only transforms */
 .pc-nav-item {
