@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   ArrowLeft, Play, Pause, RotateCcw, SkipForward, Plus, Check,
   CloudRain, Coffee, Waves, Wind, VolumeX, Volume2, Timer, Target,
@@ -200,7 +201,7 @@ function FocusPage() {
         {/* MAIN GRID: timer + right column */}
         <section className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-6 mb-8">
           {/* Timer card */}
-          <div className="relative overflow-hidden rounded-[26px] sm:rounded-[32px] p-4 sm:p-8 lg:p-12"
+          <div className="no-glass relative overflow-hidden rounded-[26px] sm:rounded-[32px] p-4 sm:p-8 lg:p-12"
                style={{ background: `linear-gradient(160deg, ${surface} 0%, ${surface2} 100%)`, border: `1px solid ${border}` }}>
             <div className="absolute -top-24 -right-16 w-80 h-80 rounded-full blur-3xl opacity-60 pointer-events-none"
                  style={{ background: `radial-gradient(circle, ${currentMode.color}, transparent 70%)` }}/>
@@ -431,9 +432,9 @@ function FocusPage() {
       </main>
       </div>
 
-      {/* ── CINEMA MODE ─────────────────────────────────── */}
-      {cinema && (
-        <div className="fixed inset-0 z-[100] font-sans" style={{ color: "#F7FAFF" }} role="dialog" aria-modal="true">
+      {/* ── CINEMA MODE (portaled to body to escape `main` glass scope) ── */}
+      {cinema && typeof document !== "undefined" && createPortal(
+        <div className="no-glass fixed inset-0 z-[100] font-sans" style={{ color: "#F7FAFF" }} role="dialog" aria-modal="true">
           {/* backdrop */}
           <div className="absolute inset-0" style={{
             background: `radial-gradient(1200px 600px at 50% 0%, ${currentMode.color}22, transparent 60%), radial-gradient(900px 500px at 50% 100%, ${primary}22, transparent 60%), #0B1226`,
@@ -546,7 +547,8 @@ function FocusPage() {
           </div>
 
           <style>{`@keyframes cinemaPulse { 0%,100% { transform: scale(0.95); opacity: 0.35 } 50% { transform: scale(1.08); opacity: 0.55 } }`}</style>
-        </div>
+        </div>,
+        document.body
       )}
     </AppShell>
   );
