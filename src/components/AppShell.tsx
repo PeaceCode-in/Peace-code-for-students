@@ -116,6 +116,8 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     window.addEventListener("scroll", onScroll);
+    // Apply persisted appearance/accessibility once per mount.
+    try { const s = loadSettings(); applyAppearance(s); applyAccessibility(s); } catch {}
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
