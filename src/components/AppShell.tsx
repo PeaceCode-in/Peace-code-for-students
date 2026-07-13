@@ -118,7 +118,17 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
     window.addEventListener("scroll", onScroll);
     // Apply persisted appearance/accessibility once per mount.
     try { const s = loadSettings(); applyAppearance(s); applyAccessibility(s); } catch {}
-    return () => window.removeEventListener("scroll", onScroll);
+    // Global ⌘K / Ctrl+K → Search Center
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && (e.key === "k" || e.key === "K")) {
+        e.preventDefault();
+        if (typeof window !== "undefined" && window.location.pathname !== "/search") {
+          window.location.href = "/search";
+        }
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("keydown", onKey); };
   }, []);
 
   // close drawer on route change
