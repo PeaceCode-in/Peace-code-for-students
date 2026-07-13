@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
   User, Bell, Shield, Palette, Accessibility, Bot, PenLine, Wind,
-  Users, BookOpen, Database, Link2, LifeBuoy, HelpCircle, Info, LogOut, ChevronRight, Clock,
+  Users, BookOpen, Database, Link2, LifeBuoy, HelpCircle, Info, LogOut, ChevronRight, Clock, Sparkles,
 } from "lucide-react";
 import { palette } from "@/components/AppShell";
 import { SettingsSearch } from "@/components/settings/primitives";
