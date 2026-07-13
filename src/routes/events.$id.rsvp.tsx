@@ -17,7 +17,7 @@ const OPTIONS = [
 function Rsvp() {
   const { id } = Route.useParams();
   const e = eventById(id);
-  const [current, setCurrent] = useState(() => rsvpFor(id)?.status);
+  const [current, setCurrent] = useState<"attend" | "maybe" | "not_interested" | "waitlist" | undefined>(() => rsvpFor(id)?.status);
   const [confirmed, setConfirmed] = useState(false);
   useEffect(() => { setCurrent(rsvpFor(id)?.status); }, [id]);
 
