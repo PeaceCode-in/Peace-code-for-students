@@ -201,7 +201,7 @@ function FocusPage() {
         {/* MAIN GRID: timer + right column */}
         <section className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-6 mb-8">
           {/* Timer card */}
-          <div className="relative overflow-hidden rounded-[26px] sm:rounded-[32px] p-4 sm:p-8 lg:p-12"
+          <div className="no-glass relative overflow-hidden rounded-[26px] sm:rounded-[32px] p-4 sm:p-8 lg:p-12"
                style={{ background: `linear-gradient(160deg, ${surface} 0%, ${surface2} 100%)`, border: `1px solid ${border}` }}>
             <div className="absolute -top-24 -right-16 w-80 h-80 rounded-full blur-3xl opacity-60 pointer-events-none"
                  style={{ background: `radial-gradient(circle, ${currentMode.color}, transparent 70%)` }}/>
