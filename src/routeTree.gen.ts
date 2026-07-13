@@ -164,6 +164,7 @@ import { Route as MindgymResultsSidRouteImport } from './routes/mindgym.results.
 import { Route as MindgymPathSlugRouteImport } from './routes/mindgym.path.$slug'
 import { Route as MindgymExerciseIdRouteImport } from './routes/mindgym.exercise.$id'
 import { Route as EventsIdRsvpRouteImport } from './routes/events.$id.rsvp'
+import { Route as EventsIdChatRouteImport } from './routes/events.$id.chat'
 import { Route as CounsellingSummaryAidRouteImport } from './routes/counselling.summary.$aid'
 import { Route as CounsellingSessionAidRouteImport } from './routes/counselling.session.$aid'
 import { Route as CounsellingExpertIdRouteImport } from './routes/counselling.expert.$id'
@@ -951,6 +952,11 @@ const EventsIdRsvpRoute = EventsIdRsvpRouteImport.update({
   path: '/rsvp',
   getParentRoute: () => EventsIdRoute,
 } as any)
+const EventsIdChatRoute = EventsIdChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => EventsIdRoute,
+} as any)
 const CounsellingSummaryAidRoute = CounsellingSummaryAidRouteImport.update({
   id: '/summary/$aid',
   path: '/summary/$aid',
@@ -1155,6 +1161,7 @@ export interface FileRoutesByFullPath {
   '/counselling/expert/$id': typeof CounsellingExpertIdRoute
   '/counselling/session/$aid': typeof CounsellingSessionAidRoute
   '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
+  '/events/$id/chat': typeof EventsIdChatRoute
   '/events/$id/rsvp': typeof EventsIdRsvpRoute
   '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
   '/mindgym/path/$slug': typeof MindgymPathSlugRoute
@@ -1314,6 +1321,7 @@ export interface FileRoutesByTo {
   '/counselling/expert/$id': typeof CounsellingExpertIdRoute
   '/counselling/session/$aid': typeof CounsellingSessionAidRoute
   '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
+  '/events/$id/chat': typeof EventsIdChatRoute
   '/events/$id/rsvp': typeof EventsIdRsvpRoute
   '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
   '/mindgym/path/$slug': typeof MindgymPathSlugRoute
@@ -1483,6 +1491,7 @@ export interface FileRoutesById {
   '/counselling/expert/$id': typeof CounsellingExpertIdRoute
   '/counselling/session/$aid': typeof CounsellingSessionAidRoute
   '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
+  '/events/$id/chat': typeof EventsIdChatRoute
   '/events/$id/rsvp': typeof EventsIdRsvpRoute
   '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
   '/mindgym/path/$slug': typeof MindgymPathSlugRoute
@@ -1653,6 +1662,7 @@ export interface FileRouteTypes {
     | '/counselling/expert/$id'
     | '/counselling/session/$aid'
     | '/counselling/summary/$aid'
+    | '/events/$id/chat'
     | '/events/$id/rsvp'
     | '/mindgym/exercise/$id'
     | '/mindgym/path/$slug'
@@ -1812,6 +1822,7 @@ export interface FileRouteTypes {
     | '/counselling/expert/$id'
     | '/counselling/session/$aid'
     | '/counselling/summary/$aid'
+    | '/events/$id/chat'
     | '/events/$id/rsvp'
     | '/mindgym/exercise/$id'
     | '/mindgym/path/$slug'
@@ -1980,6 +1991,7 @@ export interface FileRouteTypes {
     | '/counselling/expert/$id'
     | '/counselling/session/$aid'
     | '/counselling/summary/$aid'
+    | '/events/$id/chat'
     | '/events/$id/rsvp'
     | '/mindgym/exercise/$id'
     | '/mindgym/path/$slug'
@@ -3164,6 +3176,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventsIdRsvpRouteImport
       parentRoute: typeof EventsIdRoute
     }
+    '/events/$id/chat': {
+      id: '/events/$id/chat'
+      path: '/chat'
+      fullPath: '/events/$id/chat'
+      preLoaderRoute: typeof EventsIdChatRouteImport
+      parentRoute: typeof EventsIdRoute
+    }
     '/counselling/summary/$aid': {
       id: '/counselling/summary/$aid'
       path: '/summary/$aid'
@@ -3343,11 +3362,13 @@ const EmergencyRouteWithChildren = EmergencyRoute._addFileChildren(
 )
 
 interface EventsIdRouteChildren {
+  EventsIdChatRoute: typeof EventsIdChatRoute
   EventsIdRsvpRoute: typeof EventsIdRsvpRoute
   EventsIdIndexRoute: typeof EventsIdIndexRoute
 }
 
 const EventsIdRouteChildren: EventsIdRouteChildren = {
+  EventsIdChatRoute: EventsIdChatRoute,
   EventsIdRsvpRoute: EventsIdRsvpRoute,
   EventsIdIndexRoute: EventsIdIndexRoute,
 }
