@@ -333,7 +333,7 @@ function write(s: StoreShape) {
 
 export function useResourceStore() {
   // small hook returning live snapshot
-  const { useState, useEffect } = require("react") as typeof import("react");
+  // react imported at top of file
   const [snap, setSnap] = useState<StoreShape>(() => read());
   useEffect(() => {
     const sync = () => setSnap(read());
