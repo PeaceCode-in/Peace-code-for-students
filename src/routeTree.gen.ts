@@ -100,6 +100,7 @@ import { Route as GratitudeTreeRouteImport } from './routes/gratitude.tree'
 import { Route as GratitudeHistoryRouteImport } from './routes/gratitude.history'
 import { Route as GratitudeForestRouteImport } from './routes/gratitude.forest'
 import { Route as EmergencySosRouteImport } from './routes/emergency.sos'
+import { Route as EmergencyLocationRouteImport } from './routes/emergency.location'
 import { Route as EmergencyHumanRouteImport } from './routes/emergency.human'
 import { Route as EmergencyHelplinesRouteImport } from './routes/emergency.helplines'
 import { Route as EmergencyGroundingRouteImport } from './routes/emergency.grounding'
@@ -617,6 +618,11 @@ const EmergencySosRoute = EmergencySosRouteImport.update({
   path: '/sos',
   getParentRoute: () => EmergencyRoute,
 } as any)
+const EmergencyLocationRoute = EmergencyLocationRouteImport.update({
+  id: '/location',
+  path: '/location',
+  getParentRoute: () => EmergencyRoute,
+} as any)
 const EmergencyHumanRoute = EmergencyHumanRouteImport.update({
   id: '/human',
   path: '/human',
@@ -966,6 +972,7 @@ export interface FileRoutesByFullPath {
   '/emergency/grounding': typeof EmergencyGroundingRoute
   '/emergency/helplines': typeof EmergencyHelplinesRoute
   '/emergency/human': typeof EmergencyHumanRoute
+  '/emergency/location': typeof EmergencyLocationRoute
   '/emergency/sos': typeof EmergencySosRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
@@ -1113,6 +1120,7 @@ export interface FileRoutesByTo {
   '/emergency/grounding': typeof EmergencyGroundingRoute
   '/emergency/helplines': typeof EmergencyHelplinesRoute
   '/emergency/human': typeof EmergencyHumanRoute
+  '/emergency/location': typeof EmergencyLocationRoute
   '/emergency/sos': typeof EmergencySosRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
@@ -1268,6 +1276,7 @@ export interface FileRoutesById {
   '/emergency/grounding': typeof EmergencyGroundingRoute
   '/emergency/helplines': typeof EmergencyHelplinesRoute
   '/emergency/human': typeof EmergencyHumanRoute
+  '/emergency/location': typeof EmergencyLocationRoute
   '/emergency/sos': typeof EmergencySosRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
@@ -1424,6 +1433,7 @@ export interface FileRouteTypes {
     | '/emergency/grounding'
     | '/emergency/helplines'
     | '/emergency/human'
+    | '/emergency/location'
     | '/emergency/sos'
     | '/gratitude/forest'
     | '/gratitude/history'
@@ -1571,6 +1581,7 @@ export interface FileRouteTypes {
     | '/emergency/grounding'
     | '/emergency/helplines'
     | '/emergency/human'
+    | '/emergency/location'
     | '/emergency/sos'
     | '/gratitude/forest'
     | '/gratitude/history'
@@ -1725,6 +1736,7 @@ export interface FileRouteTypes {
     | '/emergency/grounding'
     | '/emergency/helplines'
     | '/emergency/human'
+    | '/emergency/location'
     | '/emergency/sos'
     | '/gratitude/forest'
     | '/gratitude/history'
@@ -2551,6 +2563,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmergencySosRouteImport
       parentRoute: typeof EmergencyRoute
     }
+    '/emergency/location': {
+      id: '/emergency/location'
+      path: '/location'
+      fullPath: '/emergency/location'
+      preLoaderRoute: typeof EmergencyLocationRouteImport
+      parentRoute: typeof EmergencyRoute
+    }
     '/emergency/human': {
       id: '/emergency/human'
       path: '/human'
@@ -3042,6 +3061,7 @@ interface EmergencyRouteChildren {
   EmergencyGroundingRoute: typeof EmergencyGroundingRoute
   EmergencyHelplinesRoute: typeof EmergencyHelplinesRoute
   EmergencyHumanRoute: typeof EmergencyHumanRoute
+  EmergencyLocationRoute: typeof EmergencyLocationRoute
   EmergencySosRoute: typeof EmergencySosRoute
   EmergencyIndexRoute: typeof EmergencyIndexRoute
 }
@@ -3055,6 +3075,7 @@ const EmergencyRouteChildren: EmergencyRouteChildren = {
   EmergencyGroundingRoute: EmergencyGroundingRoute,
   EmergencyHelplinesRoute: EmergencyHelplinesRoute,
   EmergencyHumanRoute: EmergencyHumanRoute,
+  EmergencyLocationRoute: EmergencyLocationRoute,
   EmergencySosRoute: EmergencySosRoute,
   EmergencyIndexRoute: EmergencyIndexRoute,
 }
