@@ -1,6 +1,7 @@
 // PeaceCode Resource Library — local-first store
 // Seeded content, bookmarks, history, notes, highlights, playlists, downloads,
 // achievements, learning streak, and recommendation logic. No SSR access.
+import { useState, useEffect } from "react";
 
 export type ResourceFormat =
   | "article" | "short-read" | "long-read" | "research"
@@ -333,7 +334,7 @@ function write(s: StoreShape) {
 
 export function useResourceStore() {
   // small hook returning live snapshot
-  const { useState, useEffect } = require("react") as typeof import("react");
+  // react imported at top of file
   const [snap, setSnap] = useState<StoreShape>(() => read());
   useEffect(() => {
     const sync = () => setSnap(read());
