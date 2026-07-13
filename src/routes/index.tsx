@@ -1,14 +1,13 @@
-// PeaceCode — Dashboard (Wellness Command Center).
-// A narrative summary of the whole ecosystem. Each section is a quiet
-// glance at one module: collapsed → expanded → open full page.
+// PeaceCode — Dashboard Overview.
+// Minimal editorial mental-wellness dashboard inspired by SentiQ,
+// re-cast in the PeaceCode blue → lavender gradient. Every card opens
+// into its dedicated module while sharing one calm visual language.
 
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
-  ChevronRight, ChevronDown, Sparkles, Flame, Heart, Wind, Feather,
-  Users, BookOpen, Brain, CalendarCheck, UserCheck, TreePine, Trophy,
-  Bot, Clock, ArrowRight, AlertCircle, Play, TrendingUp, Leaf, Moon, PenLine,
-  ClipboardList,
+  ArrowUpRight, Bell, ChevronLeft, ChevronRight, Maximize2,
+  MoreHorizontal, Search, Sparkles, TrendingUp,
 } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 
@@ -17,878 +16,487 @@ import * as gratitude from "@/lib/gratitude-store";
 import * as breathe from "@/lib/breathe-store";
 import * as focus from "@/lib/focus-store";
 import * as counselling from "@/lib/counselling-store";
-import * as buddies from "@/lib/buddies-store";
 import * as screening from "@/lib/screening-store";
-import * as peacebot from "@/lib/peacebot-store";
-import { useMindGym, ensureBootstrapped, brainOverall, weeklyStats, recommendNext, EXERCISES } from "@/lib/mindgym-store";
+import { useMindGym, ensureBootstrapped, brainOverall, weeklyStats } from "@/lib/mindgym-store";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Today — PeaceCode" },
-      { name: "description", content: "Your daily wellness command center — a calm, intelligent summary of how you're doing today." },
-      { property: "og:title", content: "Today — PeaceCode" },
-      { property: "og:description", content: "A quiet, intelligent view of your mind, day, and next step." },
+      { title: "Dashboard Overview — PeaceCode" },
+      { name: "description", content: "Your calm, minimal mental wellness dashboard — mood, focus, streaks and emotional trends at a glance." },
+      { property: "og:title", content: "Dashboard Overview — PeaceCode" },
+      { property: "og:description", content: "A quiet overview of your mind, day, and next step." },
     ],
   }),
-  component: Dashboard,
+  component: () => (<AppShell><DashboardInner /></AppShell>),
 });
 
-// ─── data helpers (client only) ─────────────────────────────────────
-function useDashboardData() {
-  const [ready, setReady] = useState(false);
-  const [d, setD] = useState<any>({});
+// ─── data ────────────────────────────────────────────────────────────
+function useData() {
+  const [d, setD] = useState<any>({ ready: false });
   useEffect(() => {
     try {
-      const jEntries = journal.loadEntries();
-      const gEntries = gratitude.loadEntries();
-      const gCommunity = gratitude.loadCommunity();
-      const bSessions = breathe.loadSessions();
-      const fSessions = focus.loadSessions();
-      const appts = counselling.listAppointments().sort((a, b) => a.scheduledFor - b.scheduledFor);
-      const hw = counselling.listHomework();
-      const bSess = buddies.listSessions();
-      const scrSess = screening.loadSessions();
-      const pbConvs = peacebot.loadConvs().sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0));
+      const j = journal.loadEntries();
+      const g = gratitude.loadEntries();
+      const b = breathe.loadSessions();
+      const f = focus.loadSessions();
+      const scr = screening.loadSessions();
+      const appts = counselling.listAppointments().sort((a,b) => a.scheduledFor - b.scheduledFor);
       setD({
-        journal: {
-          entries: jEntries,
-          streak: journal.computeStreak(jEntries),
-          weekTrend: journal.weekMoodTrend(jEntries),
-          top: journal.topEmotions(jEntries).slice(0, 3),
-          last: jEntries[0],
-          draft: jEntries.find(e => e.status === "draft"),
-          weekCount: jEntries.filter(e => e.status === "saved" && Date.now() - new Date(e.updatedAt || e.createdAt).getTime() < 7 * 864e5).length,
-        },
-        gratitude: {
-          entries: gEntries,
-          streak: gratitude.computeStreak(gEntries),
-          today: gratitude.todayCount(gEntries),
-          tree: gratitude.computeTree(gEntries),
-          communityToday: gCommunity.filter(c => Date.now() - new Date(c.createdAt).getTime() < 864e5).length,
-        },
-        breathe: {
-          sessions: bSessions,
-          last: bSessions[0],
-          streak: breathe.computeStreak(bSessions),
-          today: bSessions.filter(s => breathe.dayKey(s.completedAt) === breathe.dayKey(new Date())).length,
-        },
-        focus: {
-          sessions: fSessions,
-          streak: focus.computeStreaks(fSessions),
-          weekMinutes: fSessions
-            .filter(s => Date.now() - new Date(s.completedAt).getTime() < 7 * 864e5)
-            .reduce((a, s) => a + (s.planned || 0) / 60, 0),
-        },
-        counselling: {
-          next: appts.find(a => a.status !== "cancelled" && a.scheduledFor > Date.now()),
-          homeworkDone: hw.filter(h => h.done).length,
-          homeworkTotal: hw.length,
-        },
-        buddy: {
-          nextSession: bSess.find(s => (s.status === "accepted" || s.status === "waiting") && s.scheduledFor && s.scheduledFor > Date.now()),
-          lastChat: bSess.sort((a, b) => (b.messages?.slice(-1)[0]?.ts ?? 0) - (a.messages?.slice(-1)[0]?.ts ?? 0))[0],
-        },
-        screening: {
-          last: scrSess.sort((a, b) => (b.completedAt ?? 0) - (a.completedAt ?? 0))[0],
-          inProgress: scrSess.find(s => s.status === "in_progress"),
-          overall: screening.overallWellness(scrSess),
-        },
-        peacebot: {
-          lastConv: pbConvs[0],
-        },
+        ready: true,
+        journalStreak: journal.computeStreak(j).current,
+        journalWeek: j.filter((e:any)=>e.status==="saved" && Date.now()-new Date(e.updatedAt||e.createdAt).getTime()<7*864e5).length,
+        moodTrend: journal.weekMoodTrend(j), // array of 7
+        gratitudeStreak: gratitude.computeStreak(g).current,
+        gratitudeToday: gratitude.todayCount(g),
+        breatheStreak: breathe.computeStreak(b).current,
+        breatheToday: b.filter((s:any)=>breathe.dayKey(s.completedAt)===breathe.dayKey(new Date())).length,
+        focusWeekMin: Math.round(f.filter((s:any)=>Date.now()-new Date(s.completedAt).getTime()<7*864e5).reduce((a:number,s:any)=>a+(s.planned||0)/60,0)),
+        focusStreak: focus.computeStreaks(f).current,
+        nextAppt: appts.find(a=>a.status!=="cancelled" && a.scheduledFor>Date.now()),
+        wellness: screening.overallWellness(scr),
       });
-    } catch {
-      /* silent — first load */
-    }
-    setReady(true);
+    } catch { setD({ ready: true }); }
   }, []);
-  return { ready, ...d };
+  return d;
 }
 
-// ─── Dashboard ──────────────────────────────────────────────────────
-function Dashboard() {
-  return (
-    <AppShell>
-      <DashboardInner />
-    </AppShell>
-  );
-}
-
+// ─── Dashboard ───────────────────────────────────────────────────────
 function DashboardInner() {
-  const data = useDashboardData();
+  const data = useData();
   const mg = useMindGym();
   useEffect(() => { ensureBootstrapped(); }, []);
 
   const hour = new Date().getHours();
-  const greet = hour < 5 ? "still awake" : hour < 12 ? "good morning" : hour < 17 ? "good afternoon" : hour < 21 ? "good evening" : "quiet night";
+  const greet = hour < 5 ? "Still Awake" : hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : hour < 21 ? "Good Evening" : "Quiet Night";
 
   const overall = brainOverall(mg.brain);
   const week = weeklyStats();
-  const nextEx = recommendNext();
 
-  // Peace Score = weighted blend of brain overall + streaks + activity
+  // Derived stats
   const peace = useMemo(() => {
     const base = overall;
-    const streakBoost = Math.min(10, (mg.streak.current + (data.breathe?.streak?.current ?? 0)) / 2);
-    const activity = Math.min(10, ((data.journal?.weekCount ?? 0) + (data.breathe?.today ?? 0)) * 2);
-    return Math.round(Math.min(100, base * 0.7 + streakBoost + activity));
-  }, [overall, mg.streak.current, data.breathe, data.journal]);
+    const streakBoost = Math.min(12, ((mg.streak.current||0) + (data.breatheStreak||0)));
+    const act = Math.min(10, ((data.journalWeek||0) + (data.breatheToday||0)) * 2);
+    return Math.round(Math.min(100, base * 0.7 + streakBoost + act)) || 50;
+  }, [overall, mg.streak.current, data.breatheStreak, data.journalWeek, data.breatheToday]);
 
-  // The one AI-flavoured attention line
-  const attention = useMemo(() => {
-    if (!data.ready) return "Warming up your day…";
-    if (data.counselling?.next && data.counselling.next.scheduledFor - Date.now() < 864e5) {
-      return "You have counselling within 24 hours — set aside a quiet 10 minutes before.";
-    }
-    if ((data.breathe?.today ?? 0) === 0 && hour < 20) {
-      return "You haven't breathed yet today. A three-minute box breath would set the tone.";
-    }
-    if ((data.journal?.weekCount ?? 0) < 2) {
-      return "Your week feels unwritten. One line in the journal is enough.";
-    }
-    if (mg.streak.current >= 3) {
-      return `You're on a ${mg.streak.current}-day Mind Gym streak. Protect it with a short rep.`;
-    }
-    return "Nothing urgent — a small kindness to yourself would still be a win today.";
-  }, [data, hour, mg.streak.current]);
+  const goalPct = Math.min(100, Math.round(((week.count || 0) / 5) * 100));
+  const habitPct = Math.min(100, Math.round(((mg.streak.current || 0) / 21) * 100)) || 24;
+  const projectAlloc = Math.min(100, Math.round(((data.focusWeekMin || 0) / 300) * 100)) || 50;
+  const emoStability = Math.round(50 + (peace - 50) * 0.6);
+  const focusedMind = Math.min(95, 40 + Math.round((data.focusStreak || 0) * 4));
+  const freeMind = 100 - focusedMind;
+
+  const goodMood = (data.moodTrend || []).filter((v:number)=>v>=0.5).length * 14 || 60;
+  const badMood = (data.moodTrend || []).filter((v:number)=>v<0.3).length * 14 || 20;
+  const controlMood = 100 - goodMood - badMood;
+
+  const [dayIdx, setDayIdx] = useState(0);
+  const daysAgo = new Date(Date.now() - dayIdx * 864e5);
+  const dayLabel = `Day ${String(dayIdx+1).padStart(2,"0")} — ${daysAgo.toLocaleDateString("en-US",{weekday:"long"})}`;
 
   return (
-    <main className="max-w-[1280px] mx-auto px-4 sm:px-6 py-6 sm:py-10 relative z-10">
-      {/* ── HERO ─────────────────────────────────────────────────── */}
-      <section className="mb-8 sm:mb-10">
-        <div className="text-[10px] tracking-[0.32em] uppercase mb-2" style={{ color: "var(--pc-muted)" }}>
-          {new Date().toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long" })}
+    <main className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      {/* Ambient dots */}
+      <AmbientDots />
+
+      {/* Header row */}
+      <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 mb-6 sm:mb-8">
+        <div className="min-w-0">
+          <div className="text-[10px] tracking-[0.32em] uppercase mb-1" style={{color:"var(--pc-muted)"}}>Overview</div>
+          <h1 className="font-serif text-[26px] sm:text-[38px] leading-[1.05] truncate" style={{color:"var(--pc-ink)", letterSpacing:"-0.02em"}}>
+            Dashboard Overview
+          </h1>
         </div>
-        <h1 className="font-serif text-[32px] sm:text-[46px] leading-[1.05]" style={{ color: "var(--pc-ink)", letterSpacing: "-0.02em" }}>
-          {greet}. <span style={{ color: "var(--pc-muted)" }}>Here's your day.</span>
-        </h1>
-        <p className="mt-3 max-w-[620px] text-[14px] sm:text-[15px] leading-relaxed" style={{ color: "var(--pc-navy-soft, var(--pc-muted))" }}>
-          <Sparkles className="inline w-3.5 h-3.5 mr-1.5 opacity-70" />{attention}
-        </p>
+        <div className="flex items-center gap-2 shrink-0">
+          <button className="hidden md:flex items-center gap-2 h-10 px-4 rounded-full text-[12px] transition hover:bg-[var(--pc-surface2)]"
+            style={{background:"var(--pc-surface)", border:"1px solid var(--pc-border)", color:"var(--pc-ink)"}}>
+            Monthly <ChevronRight className="w-3.5 h-3.5 rotate-90"/>
+          </button>
+          <Link to="/focus" className="group flex items-center gap-2 h-10 px-4 sm:px-5 rounded-full text-[13px] font-medium text-white transition hover:shadow-lg hover:-translate-y-[1px]"
+            style={{background:"linear-gradient(135deg,var(--pc-primary),var(--pc-lavender))"}}>
+            Start Session <ArrowUpRight className="w-4 h-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5"/>
+          </Link>
+        </div>
+      </header>
+
+      {/* Row 1 — Greeting + Mindful score + Mood + Focus */}
+      <section className="grid grid-cols-12 gap-4 sm:gap-5">
+        {/* Greeting + streak (spans wide) */}
+        <Card as={Link} to="/peacebot" className="col-span-12 lg:col-span-6 relative overflow-hidden group">
+          <BlurDot className="top-[-40px] right-[-30px]" size={220} />
+          <div className="text-[10px] tracking-[0.32em] uppercase mb-4" style={{color:"var(--pc-muted)"}}>Today</div>
+          <div className="font-serif text-[38px] sm:text-[54px] leading-[1.02]" style={{color:"var(--pc-ink)", letterSpacing:"-0.025em"}}>
+            {greet},<br/><span className="italic opacity-90">Jai.</span>
+          </div>
+          <div className="mt-8">
+            <div className="h-1.5 rounded-full overflow-hidden" style={{background:"var(--pc-surface2)"}}>
+              <div className="h-full rounded-full transition-all duration-700"
+                style={{width:`${Math.min(100, ((mg.streak.current||0)/7)*100)}%`, background:"linear-gradient(90deg,var(--pc-primary),var(--pc-lavender))"}}/>
+            </div>
+            <div className="mt-3 text-[13px]" style={{color:"var(--pc-muted)"}}>
+              You're on a <span style={{color:"var(--pc-ink)", fontWeight:500}}>{mg.streak.current || 0}-day streak</span> of mindful focus — keep it soft.
+            </div>
+          </div>
+          <ArrowOpen/>
+        </Card>
+
+        {/* Daily Mindful Score — gradient hero card */}
+        <Link to="/mindgym" className="col-span-12 sm:col-span-6 lg:col-span-3 relative rounded-3xl p-6 overflow-hidden text-white transition hover:-translate-y-[2px] hover:shadow-xl"
+          style={{background:"linear-gradient(150deg,var(--pc-primary) 0%,var(--pc-lavender) 100%)"}}>
+          <BlurDot className="top-[-20px] right-[-20px]" size={160} color="rgba(255,255,255,0.35)"/>
+          <BlurDot className="bottom-[-30px] left-[-20px]" size={140} color="rgba(255,255,255,0.18)"/>
+          <div className="relative">
+            <div className="text-[11px] tracking-[0.28em] uppercase opacity-85">Daily Mindful</div>
+            <div className="text-[11px] tracking-[0.28em] uppercase opacity-85">Score</div>
+            <div className="mt-10 font-serif text-[52px] leading-none flex items-baseline gap-1">
+              {peace}<span className="text-[24px]">%</span>
+              <TrendingUp className="w-4 h-4 ml-1 opacity-90"/>
+            </div>
+            <div className="mt-2 text-[12px] opacity-90">Mind-Productivity</div>
+          </div>
+        </Link>
+
+        {/* Focus Session Progress */}
+        <Card as={Link} to="/focus" className="col-span-12 sm:col-span-6 lg:col-span-3 group">
+          <div className="flex items-start justify-between">
+            <div className="text-[13px] font-medium" style={{color:"var(--pc-ink)"}}>Focus Session Progress</div>
+            <div className="flex items-center gap-1 opacity-60">
+              <Maximize2 className="w-3.5 h-3.5"/>
+              <MoreHorizontal className="w-3.5 h-3.5"/>
+            </div>
+          </div>
+          <div className="mt-5 font-serif text-[40px] leading-none" style={{color:"var(--pc-ink)"}}>{goalPct}%</div>
+          <div className="text-[11px] mt-1" style={{color:"var(--pc-muted)"}}>Positivity Growth</div>
+          <div className="mt-5 h-1.5 rounded-full overflow-hidden" style={{background:"var(--pc-surface2)"}}>
+            <div className="h-full rounded-full transition-all duration-700"
+              style={{width:`${goalPct}%`, background:"linear-gradient(90deg,var(--pc-primary),var(--pc-lavender))"}}/>
+          </div>
+          <div className="mt-5 pt-4 border-t text-[13px] font-medium" style={{borderColor:"var(--pc-border)", color:"var(--pc-ink)"}}>App Engagement</div>
+          <div className="text-[11px] mt-1" style={{color:"var(--pc-muted)"}}>
+            <span style={{color:"var(--pc-ink)", fontWeight:500}}>{Math.min(99, 40+((mg.streak.current||0)*3))}%</span> of sessions inside productive tools
+          </div>
+          <div className="mt-3 flex items-center gap-1.5">
+            {["🧘","📓","🌱","🫁"].map((e,i)=>(
+              <div key={i} className="w-7 h-7 rounded-lg flex items-center justify-center text-[13px]"
+                style={{background:"var(--pc-surface2)", border:"1px solid var(--pc-border)"}}>{e}</div>
+            ))}
+            <div className="w-7 h-7 rounded-lg flex items-center justify-center text-[10px]"
+              style={{background:"var(--pc-surface2)", border:"1px solid var(--pc-border)", color:"var(--pc-muted)"}}>+14</div>
+          </div>
+        </Card>
       </section>
 
-      {/* ── TWO-COLUMN GRID ──────────────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5">
+      {/* Row 2 — Day pill + Mood + habit/goal/allocation + emotional trend */}
+      <section className="mt-4 sm:mt-5 grid grid-cols-12 gap-4 sm:gap-5">
+        {/* Day selector + Mood overview */}
+        <Card className="col-span-12 lg:col-span-4 relative overflow-hidden">
+          <div className="flex items-center justify-between rounded-full h-9 px-3"
+            style={{background:"var(--pc-surface2)"}}>
+            <button onClick={()=>setDayIdx(i=>Math.min(6,i+1))} className="opacity-60 hover:opacity-100 transition">
+              <ChevronLeft className="w-4 h-4"/>
+            </button>
+            <div className="text-[12px]" style={{color:"var(--pc-ink)"}}>{dayLabel}</div>
+            <button onClick={()=>setDayIdx(i=>Math.max(0,i-1))} className="opacity-60 hover:opacity-100 transition">
+              <ChevronRight className="w-4 h-4"/>
+            </button>
+          </div>
 
-        {/* SNAPSHOT — hero-width */}
-        <Section
-          span="lg:col-span-12"
-          title="Today's snapshot"
-          hint={<Ring value={peace} label="Peace Score" />}
-          preview={
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mt-1">
-              <Stat kicker="Peace" value={String(peace)} suffix="/100" />
-              <Stat kicker="Streak" value={String(mg.streak.current || data.breathe?.streak?.current || 0)} suffix=" days" />
-              <Stat kicker="Focus" value={`${Math.round(mg.brain?.focus ?? 62)}`} suffix="%" />
-              <Stat kicker="Calm" value={`${Math.round(mg.brain?.calm ?? 58)}`} suffix="%" />
-              <Stat kicker="Sleep" value={data.journal?.last?.mood ? `${data.journal.last.mood}/10` : "—"} />
+          <Link to="/journal" className="mt-5 flex items-start justify-between group">
+            <div>
+              <div className="text-[15px] font-medium" style={{color:"var(--pc-ink)"}}>Mood Overview</div>
+              <div className="text-[11px] mt-0.5" style={{color:"var(--pc-muted)"}}>Tap to log a moment</div>
             </div>
-          }
-          expanded={
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-              <MiniBars label="This week — brain load" bars={[54, 62, 71, 66, 74, 82, peace]} />
-              <MiniBars label="Breath minutes" bars={(data.breathe?.sessions ?? []).slice(0, 7).map((s: any) => Math.min(100, (s.actualSeconds || 60) / 4)).reverse()} tone="lavender" />
+            <Maximize2 className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition"/>
+          </Link>
+
+          <div className="mt-6">
+            <div className="text-[12px]" style={{color:"var(--pc-ink)"}}>Control Mood</div>
+            <div className="text-[11px]" style={{color:"var(--pc-muted)"}}>Middle</div>
+            <div className="mt-3 h-2 rounded-full overflow-hidden flex" style={{background:"var(--pc-surface2)"}}>
+              <div style={{width:`${controlMood}%`, background:"var(--pc-soft)"}}/>
+              <div style={{width:`${goodMood}%`, background:"linear-gradient(90deg,var(--pc-primary),var(--pc-lavender))"}}/>
+              <div style={{width:`${badMood}%`, background:"var(--pc-border)"}}/>
             </div>
-          }
-          to="/screening"
-          cta="Open trends"
-        />
-
-        {/* JOURNEY */}
-        <Section
-          span="lg:col-span-7"
-          title="Today's journey"
-          preview={<JourneyTimeline data={data} nextEx={nextEx} />}
-          expanded={
-            <div className="mt-4 grid grid-cols-7 gap-1.5">
-              {Array.from({ length: 7 }).map((_, i) => (
-                <div key={i} className="rounded-lg p-2 text-center" style={{ background: "var(--pc-surface2)" }}>
-                  <div className="text-[9px] tracking-[0.2em] uppercase" style={{ color: "var(--pc-muted)" }}>
-                    {["M", "T", "W", "T", "F", "S", "S"][i]}
-                  </div>
-                  <div className="mt-1 h-8 flex items-end justify-center gap-0.5">
-                    {Array.from({ length: 3 }).map((_, j) => (
-                      <div key={j} className="w-1 rounded-full" style={{
-                        height: `${20 + ((i * 3 + j) % 6) * 8}%`,
-                        background: j === (i % 3) ? "var(--pc-primary)" : "var(--pc-border)"
-                      }} />
-                    ))}
-                  </div>
-                </div>
-              ))}
+            <div className="mt-4 flex items-center gap-5 text-[11px]" style={{color:"var(--pc-muted)"}}>
+              <span className="flex items-center gap-1.5"><Dot color="linear-gradient(90deg,var(--pc-primary),var(--pc-lavender))"/> Good Mood <b className="ml-1" style={{color:"var(--pc-ink)"}}>{goodMood}%</b></span>
+              <span className="flex items-center gap-1.5"><Dot color="var(--pc-border)"/> Bad Mood <b className="ml-1" style={{color:"var(--pc-ink)"}}>{badMood}%</b></span>
             </div>
-          }
-          to="/counselling/upcoming"
-          cta="Open week"
-        />
+          </div>
+        </Card>
 
-        {/* PEACEBOT INSIGHT */}
-        <Section
-          span="lg:col-span-5"
-          title="Peace Bot insight"
-          preview={
-            <div className="mt-2">
-              <blockquote className="font-serif italic text-[17px] leading-[1.4]" style={{ color: "var(--pc-ink)" }}>
-                "{attention}"
-              </blockquote>
-              <p className="mt-3 text-[12px]" style={{ color: "var(--pc-muted)" }}>Based on your sleep, journal, and last three sessions.</p>
+        {/* Positive Habit Streak — half donut */}
+        <Card as={Link} to="/breathe" className="col-span-6 lg:col-span-2 flex flex-col">
+          <div className="text-[13px] font-medium" style={{color:"var(--pc-ink)"}}>Positive Habit<br/>Streak</div>
+          <div className="mt-auto flex flex-col items-center">
+            <HalfDonut pct={Math.max(habitPct, 34)} label={`${Math.max(habitPct,34)}%`} sub="Positivity Growth"/>
+          </div>
+        </Card>
+
+        {/* Goal Completion */}
+        <Card as={Link} to="/mindgym" className="col-span-6 lg:col-span-2 flex flex-col">
+          <div className="text-[13px] font-medium" style={{color:"var(--pc-ink)"}}>Goal Completion<br/>Rate</div>
+          <div className="mt-auto flex flex-col items-center">
+            <FullDonut pct={goalPct||64} label={`${goalPct||64}%`} sub="Weekly Goal"/>
+            <div className="mt-3 flex items-center gap-3 text-[10px]" style={{color:"var(--pc-muted)"}}>
+              <span className="flex items-center gap-1"><Dot color="var(--pc-border)"/> Missed {100-(goalPct||64)}%</span>
+              <span className="flex items-center gap-1"><Dot color="linear-gradient(90deg,var(--pc-primary),var(--pc-lavender))"/> Done {goalPct||64}%</span>
             </div>
-          }
-          expanded={
-            <div className="mt-4 text-[13px] leading-relaxed" style={{ color: "var(--pc-navy-soft, var(--pc-muted))" }}>
-              <p className="mb-2"><b style={{ color: "var(--pc-ink)" }}>Why this:</b> your brain map shows {overall}/100, with the biggest dip in {Object.entries(mg.brain || {}).sort((a: any, b: any) => a[1] - b[1])[0]?.[0] ?? "calm"}.</p>
-              <p><b style={{ color: "var(--pc-ink)" }}>Try next:</b> a 3-minute breath, then one line in your journal. Small reps, real change.</p>
-            </div>
-          }
-          to="/peacebot"
-          cta="Continue chat"
-        />
+          </div>
+        </Card>
 
-        {/* MIND OVERVIEW */}
-        <Section
-          span="lg:col-span-6"
-          title="Mind overview"
-          preview={<BrainBars brain={mg.brain} />}
-          expanded={
-            <p className="mt-4 text-[13px]" style={{ color: "var(--pc-muted)" }}>
-              You've trained {week.count} reps this week. Strongest thread: <b style={{ color: "var(--pc-ink)" }}>{week.top}</b>.
-            </p>
-          }
-          to="/mindgym/brain-dna"
-          cta="See Brain DNA"
-        />
-
-        {/* JOURNAL */}
-        <Section
-          span="lg:col-span-6"
-          title="Journal"
-          preview={
-            <div className="mt-2">
-              <p className="text-[14px]" style={{ color: "var(--pc-ink)" }}>
-                {data.journal?.weekCount
-                  ? `You wrote ${data.journal.weekCount} entr${data.journal.weekCount === 1 ? "y" : "ies"} this week.`
-                  : "Your journal is quiet this week."}
-              </p>
-              {data.journal?.last && (
-                <div className="mt-3 rounded-2xl p-3" style={{ background: "var(--pc-surface2)" }}>
-                  <div className="text-[10px] tracking-[0.25em] uppercase mb-1" style={{ color: "var(--pc-muted)" }}>Last entry</div>
-                  <div className="font-serif text-[15px] line-clamp-2" style={{ color: "var(--pc-ink)" }}>{data.journal.last.title || data.journal.last.body?.slice(0, 80) || "Untitled"}</div>
-                </div>
-              )}
-            </div>
-          }
-          expanded={
-            <div className="mt-3">
-              <div className="flex flex-wrap gap-1.5">
-                {(data.journal?.top ?? []).map((e: any) => (
-                  <span key={e.emotion} className="text-[11px] px-2.5 py-1 rounded-full" style={{ background: "var(--pc-lavender)33", color: "var(--pc-ink)" }}>
-                    {e.emotion} · {e.count}
-                  </span>
-                ))}
-              </div>
-              <p className="mt-3 text-[12px] italic" style={{ color: "var(--pc-muted)" }}>Try tonight: "One thing today that surprised me was…"</p>
-            </div>
-          }
-          to="/journal"
-          cta="Open journal"
-          icon={PenLine}
-        />
-
-        {/* COMMUNITY */}
-        <Section
-          span="lg:col-span-4"
-          title="Community pulse"
-          preview={
-            <div className="mt-2 space-y-2">
-              <PulseRow label="Students supported today" value={String(38 + (data.gratitude?.communityToday ?? 0))} />
-              <PulseRow label="Positive posts" value={String(24 + (data.gratitude?.communityToday ?? 0))} />
-              <PulseRow label="Trending" value="Exam breath" muted />
-            </div>
-          }
-          to="/community"
-          cta="Enter community"
-          icon={Users}
-        />
-
-        {/* GRATITUDE */}
-        <Section
-          span="lg:col-span-4"
-          title="Gratitude garden"
-          preview={
-            <div className="mt-2 flex items-center gap-4">
-              <TreeGlyph stage={data.gratitude?.tree?.stage ?? 1} />
-              <div>
-                <div className="font-serif text-[26px] leading-none" style={{ color: "var(--pc-ink)" }}>
-                  {data.gratitude?.tree?.name ?? "Seed"}
-                </div>
-                <div className="text-[11px] mt-1" style={{ color: "var(--pc-muted)" }}>
-                  {data.gratitude?.today ?? 0} today · {data.gratitude?.streak?.current ?? 0}-day streak
-                </div>
-              </div>
-            </div>
-          }
-          to="/gratitude"
-          cta="Add gratitude"
-          icon={Leaf}
-        />
-
-        {/* PEACE BUDDY */}
-        <Section
-          span="lg:col-span-4"
-          title="Peace Buddy"
-          preview={
-            <div className="mt-2">
-              {data.buddy?.nextSession ? (
-                <p className="text-[14px]" style={{ color: "var(--pc-ink)" }}>
-                  Session in {formatIn(data.buddy.nextSession.scheduledFor)} with your buddy.
-                </p>
-              ) : data.buddy?.lastChat ? (
-                <p className="text-[14px]" style={{ color: "var(--pc-ink)" }}>Your buddy replied recently — pick up where you left off.</p>
-              ) : (
-                <p className="text-[14px]" style={{ color: "var(--pc-ink)" }}>No buddy yet. Find someone who gets you.</p>
-              )}
-            </div>
-          }
-          to="/buddies"
-          cta="Open Peace Buddy"
-          icon={UserCheck}
-        />
-
-        {/* COUNSELLING */}
-        <Section
-          span="lg:col-span-6"
-          title="Counselling"
-          preview={
-            <div className="mt-2">
-              {data.counselling?.next ? (
-                <>
-                  <p className="text-[14px]" style={{ color: "var(--pc-ink)" }}>
-                    Next session <b>{formatIn(data.counselling.next.scheduledFor)}</b>
-                    {data.counselling.next.mode ? ` · ${data.counselling.next.mode}` : ""}.
-                  </p>
-                  <div className="mt-2 text-[12px]" style={{ color: "var(--pc-muted)" }}>
-                    Homework · {data.counselling.homeworkDone}/{data.counselling.homeworkTotal || 0} complete
-                  </div>
-                  <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: "var(--pc-surface2)" }}>
-                    <div className="h-full rounded-full transition-all" style={{
-                      width: `${data.counselling.homeworkTotal ? (data.counselling.homeworkDone / data.counselling.homeworkTotal) * 100 : 0}%`,
-                      background: "var(--pc-primary)"
-                    }} />
-                  </div>
-                </>
-              ) : (
-                <p className="text-[14px]" style={{ color: "var(--pc-ink)" }}>No upcoming counselling. Book if you'd like to talk.</p>
-              )}
-            </div>
-          }
-          to="/counselling"
-          cta="Open counselling"
-          icon={CalendarCheck}
-        />
-
-        {/* RESOURCE RECOMMENDATION */}
-        <Section
-          span="lg:col-span-6"
-          title="Resource for you"
-          preview={
-            <div className="mt-2">
-              <div className="text-[10px] tracking-[0.25em] uppercase mb-2" style={{ color: "var(--pc-muted)" }}>
-                Recommended because {data.screening?.last ? `you completed ${data.screening.last.testId?.toUpperCase()}` : "your calm score dipped this week"}
-              </div>
-              <div className="rounded-2xl p-3.5" style={{ background: "linear-gradient(135deg,var(--pc-lavender)44,var(--pc-surface))", border: "1px solid var(--pc-border)" }}>
-                <div className="font-serif text-[17px] leading-[1.25]" style={{ color: "var(--pc-ink)" }}>
-                  The quiet science of a slow exhale
-                </div>
-                <div className="text-[11px] mt-1" style={{ color: "var(--pc-muted)" }}>Article · 6 min read · Anxiety</div>
-              </div>
-            </div>
-          }
-          to="/resources"
-          cta="Open library"
-          icon={BookOpen}
-        />
-
-        {/* MIND GYM */}
-        <Section
-          span="lg:col-span-6"
-          title="Mind Gym"
-          preview={
-            <div className="mt-2 grid grid-cols-3 gap-3">
-              <Stat kicker="Brain" value={String(overall)} suffix="/100" />
-              <Stat kicker="Level" value={String(mg.level)} />
-              <Stat kicker="XP" value={mg.xp.toLocaleString()} />
-            </div>
-          }
-          expanded={
-            <div className="mt-4 rounded-2xl p-3" style={{ background: "var(--pc-surface2)" }}>
-              <div className="text-[10px] tracking-[0.25em] uppercase" style={{ color: "var(--pc-muted)" }}>Today's rep</div>
-              <div className="font-serif text-[15px] mt-1" style={{ color: "var(--pc-ink)" }}>{nextEx.name}</div>
-              <div className="text-[11px]" style={{ color: "var(--pc-muted)" }}>{nextEx.minutes} min · {nextEx.difficulty}</div>
-            </div>
-          }
-          to="/mindgym"
-          cta="Enter gym"
-          icon={Brain}
-        />
-
-        {/* ACHIEVEMENTS */}
-        <Section
-          span="lg:col-span-6"
-          title="Achievements"
-          preview={
-            <div className="mt-2 flex items-center gap-3">
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl"
-                style={{ background: "linear-gradient(135deg,var(--pc-lavender)77,var(--pc-soft)44)" }}>
-                🏅
-              </div>
-              <div className="min-w-0">
-                <div className="font-serif text-[16px]" style={{ color: "var(--pc-ink)" }}>
-                  {Object.values(mg.achievements || {}).find((a: any) => a.unlockedAt)?.name || "First seed"}
-                </div>
-                <div className="text-[11px]" style={{ color: "var(--pc-muted)" }}>
-                  {Object.values(mg.achievements || {}).filter((a: any) => a.unlockedAt).length} unlocked
-                </div>
-              </div>
-            </div>
-          }
-          to="/mindgym/achievements"
-          cta="See all"
-          icon={Trophy}
-        />
-
-        {/* UPCOMING */}
-        <Section
-          span="lg:col-span-6"
-          title="Upcoming"
-          preview={
-            <div className="mt-2 space-y-2">
-              {data.counselling?.next && (
-                <UpcomingRow when={data.counselling.next.scheduledFor} label="Counselling session" tone="primary" />
-              )}
-              {data.buddy?.nextSession && (
-                <UpcomingRow when={data.buddy.nextSession.scheduledFor} label="Peace Buddy meet" tone="lavender" />
-              )}
-              <UpcomingRow when={Date.now() + 3600e3 * 2} label="Evening breath reminder" tone="muted" />
-              {!data.counselling?.next && !data.buddy?.nextSession && (
-                <p className="text-[13px]" style={{ color: "var(--pc-muted)" }}>Only reminders today. A softer day.</p>
-              )}
-            </div>
-          }
-          to="/counselling/upcoming"
-          cta="Full calendar"
-          icon={Clock}
-        />
-
-        {/* WEEKLY REFLECTION */}
-        <Section
-          span="lg:col-span-6"
-          title="This week, in one paragraph"
-          preview={
-            <p className="font-serif italic text-[16px] leading-[1.55] mt-2" style={{ color: "var(--pc-ink)" }}>
-              You completed <b>{(data.breathe?.sessions?.length ?? 0) + week.count}</b> reps, wrote <b>{data.journal?.weekCount ?? 0}</b> journal
-              {(data.journal?.weekCount ?? 0) === 1 ? " entry" : " entries"}, and kept your streak alive for <b>{mg.streak.current}</b> days.
-              Quietly, you're becoming steadier.
-            </p>
-          }
-          to="/mindgym/streak"
-          cta="Weekly report"
-          icon={TrendingUp}
-        />
-
-        {/* CONTINUE — real, one-click resume of unfinished work */}
-        <Section
-          span="lg:col-span-12"
-          title="Continue where you left off"
-          preview={
-            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-              {(() => {
-                const cards: Array<{ to: any; params?: any; icon: any; title: string; hint: string; live?: boolean }> = [];
-
-                // Journal — draft or last entry
-                if (data.journal?.draft) {
-                  const d = data.journal.draft;
-                  cards.push({
-                    to: "/journal/$id", params: { id: d.id }, icon: Feather,
-                    title: "Finish your draft",
-                    hint: (d.title || d.body?.slice(0, 42) || "Untitled") + (d.body && d.body.length > 42 ? "…" : ""),
-                    live: true,
-                  });
-                } else if (data.journal?.last) {
-                  cards.push({
-                    to: "/journal", icon: Feather,
-                    title: "Write today's entry",
-                    hint: `Last entry ${formatIn(new Date(data.journal.last.updatedAt || data.journal.last.createdAt).getTime())}`,
-                  });
-                } else {
-                  cards.push({ to: "/journal", icon: Feather, title: "Start your journal", hint: "One line is enough" });
-                }
-
-                // Breathe — resume last technique
-                if (data.breathe?.last) {
-                  const label = data.breathe.last.technique?.replace(/[-_]/g, " ") ?? "box breath";
-                  cards.push({
-                    to: "/breathe", icon: Wind,
-                    title: `Resume ${label}`,
-                    hint: `Last session ${formatIn(new Date(data.breathe.last.completedAt).getTime())}`,
-                    live: true,
-                  });
-                } else {
-                  cards.push({ to: "/breathe", icon: Wind, title: "Start a 3-min breath", hint: "Slow the day" });
-                }
-
-                // Screening — in-progress assessment
-                if (data.screening?.inProgress) {
-                  const sp = data.screening.inProgress;
-                  cards.push({
-                    to: "/screening/test/$id", params: { id: sp.testId }, icon: ClipboardList,
-                    title: "Continue assessment",
-                    hint: `${sp.testId?.toUpperCase()} · question ${(sp.currentIndex ?? 0) + 1}`,
-                    live: true,
-                  });
-                } else {
-                  cards.push({ to: "/screening", icon: ClipboardList, title: "Weekly check-in", hint: "3–5 min · gentle" });
-                }
-
-                // Mind Gym — recommended next rep
-                if (nextEx) {
-                  cards.push({
-                    to: "/mindgym/exercise/$id", params: { id: nextEx.id }, icon: Brain,
-                    title: nextEx.name,
-                    hint: `${nextEx.minutes} min · ${nextEx.difficulty}`,
-                    live: mg.sessions.length > 0,
-                  });
-                }
-
-                // Peace Bot — last conversation
-                if (data.peacebot?.lastConv) {
-                  const c = data.peacebot.lastConv;
-                  cards.push({
-                    to: "/peacebot/c/$id", params: { id: c.id }, icon: Bot,
-                    title: "Continue chat",
-                    hint: `${c.title || "with Peace Bot"} · ${formatIn(c.updatedAt)}`,
-                    live: true,
-                  });
-                } else {
-                  cards.push({ to: "/peacebot", icon: Bot, title: "Talk to Peace Bot", hint: "Anytime, any thought" });
-                }
-
-                return cards.map((c, i) => (
-                  <ContinueCard key={i} to={c.to} params={c.params} icon={c.icon} title={c.title} hint={c.hint} live={c.live} index={i} />
-                ));
-              })()}
-            </div>
-          }
-        />
-      </div>
-
-      {/* ── EMERGENCY (quiet footer) ─────────────────────────────── */}
-      <section className="mt-10 rounded-3xl p-4 sm:p-5 flex flex-wrap items-center gap-3 sm:gap-6"
-        style={{ background: "var(--pc-surface)", border: "1px solid var(--pc-border)" }}>
-        <div className="flex items-center gap-2 text-[12px]" style={{ color: "var(--pc-ink)" }}>
-          <AlertCircle className="w-4 h-4" style={{ color: "var(--pc-primary)" }} />
-          <span className="font-medium">If you need someone now</span>
-        </div>
-        <div className="flex flex-wrap gap-2 ml-auto">
-          <SmallBtn to="/counselling/emergency" label="Emergency help" />
-          <SmallBtn to="/peacebot" label="Talk to Peace Bot" />
-          <SmallBtn to="/buddies/emergency" label="Campus counsellor" />
-        </div>
+        {/* Personal Project Allocation */}
+        <Card as={Link} to="/gratitude" className="col-span-12 lg:col-span-4 relative overflow-hidden">
+          <BlurDot className="bottom-[-40px] right-[-30px]" size={180}/>
+          <div className="flex items-center justify-between">
+            <div className="text-[13px] font-medium" style={{color:"var(--pc-ink)"}}>Personal Project<br/>Allocation</div>
+            <Maximize2 className="w-3.5 h-3.5 opacity-60"/>
+          </div>
+          <div className="mt-6 font-serif text-[52px] leading-none" style={{color:"var(--pc-ink)"}}>{projectAlloc}%</div>
+          <div className="mt-3 text-[12px] max-w-[240px]" style={{color:"var(--pc-muted)"}}>
+            Time spent on self-growth vs external commitments
+          </div>
+          <div className="mt-5 flex items-center gap-1.5">
+            {Array.from({length:20}).map((_,i)=>{
+              const active = i < Math.round(projectAlloc/5);
+              return <div key={i} className="h-6 flex-1 rounded-full transition"
+                style={{background: active ? "linear-gradient(180deg,var(--pc-primary),var(--pc-lavender))" : "var(--pc-surface2)"}}/>;
+            })}
+          </div>
+        </Card>
       </section>
 
-      <p className="mt-6 text-center text-[11px] tracking-[0.28em] uppercase" style={{ color: "var(--pc-muted)" }}>
-        one small kindness — every day
-      </p>
+      {/* Row 3 — Emotional Trend + Mindspace + peripheral cards */}
+      <section className="mt-4 sm:mt-5 grid grid-cols-12 gap-4 sm:gap-5">
+        {/* Emotional Trend Report — bar chart */}
+        <Card as={Link} to="/screening" className="col-span-12 lg:col-span-8">
+          <div className="flex items-start justify-between">
+            <div>
+              <div className="text-[15px] font-medium" style={{color:"var(--pc-ink)"}}>Emotional Trend Report</div>
+              <div className="text-[11px] mt-0.5" style={{color:"var(--pc-muted)"}}>Wellness across the week</div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-8 px-3 rounded-full text-[11px] flex items-center gap-1"
+                style={{background:"var(--pc-surface2)", color:"var(--pc-muted)"}}>Monthly <ChevronRight className="w-3 h-3 rotate-90"/></div>
+              <Maximize2 className="w-3.5 h-3.5 opacity-60"/>
+            </div>
+          </div>
+
+          <div className="mt-4 flex items-end gap-6">
+            <div>
+              <div className="font-serif text-[44px] leading-none flex items-baseline gap-2" style={{color:"var(--pc-ink)"}}>
+                {emoStability}%
+                <span className="text-[11px] font-sans" style={{color:"var(--pc-muted)"}}>Average</span>
+              </div>
+              <div className="text-[11px] mt-1" style={{color:"var(--pc-muted)"}}>Emotional stability</div>
+            </div>
+          </div>
+
+          <TrendChart peace={emoStability} />
+        </Card>
+
+        {/* Mindspace Usage */}
+        <Card as={Link} to="/focus" className="col-span-12 lg:col-span-4">
+          <div className="flex items-center justify-between">
+            <div className="text-[15px] font-medium" style={{color:"var(--pc-ink)"}}>Mindspace Usage</div>
+            <Maximize2 className="w-3.5 h-3.5 opacity-60"/>
+          </div>
+          <div className="mt-6 flex items-center justify-center">
+            <SplitRing focused={focusedMind} free={freeMind}/>
+          </div>
+          <div className="mt-5 grid grid-cols-2 gap-3 text-[11px]">
+            <div>
+              <div className="flex items-center gap-1.5" style={{color:"var(--pc-muted)"}}><Dot color="var(--pc-border)"/> Focused Mind</div>
+              <div className="mt-0.5 text-[15px] font-medium" style={{color:"var(--pc-ink)"}}>{focusedMind}%</div>
+            </div>
+            <div>
+              <div className="flex items-center gap-1.5" style={{color:"var(--pc-muted)"}}><Dot color="linear-gradient(90deg,var(--pc-primary),var(--pc-lavender))"/> Free Mindspace</div>
+              <div className="mt-0.5 text-[15px] font-medium" style={{color:"var(--pc-ink)"}}>{freeMind}%</div>
+            </div>
+          </div>
+          <div className="mt-4 text-[11px] flex items-center gap-1" style={{color:"var(--pc-muted)"}}>
+            <TrendingUp className="w-3 h-3 rotate-180"/> Decrease 5%
+          </div>
+        </Card>
+      </section>
+
+      {/* Row 4 — quick module cards */}
+      <section className="mt-4 sm:mt-5 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+        <QuickCard to="/journal" title="Journal" value={`${data.journalStreak ?? 0}d`} sub="streak"/>
+        <QuickCard to="/gratitude" title="Gratitude" value={`${data.gratitudeToday ?? 0}`} sub="today"/>
+        <QuickCard to="/breathe" title="Breathe" value={`${data.breatheStreak ?? 0}d`} sub="streak"/>
+        <QuickCard to="/buddies" title="Peace Buddies" value="12" sub="online"/>
+        <QuickCard to="/counselling" title="Counselling" value={data.nextAppt ? "1" : "0"} sub={data.nextAppt ? "upcoming" : "none"}/>
+        <QuickCard to="/resources" title="Resources" value="200+" sub="pieces"/>
+      </section>
+
+      <footer className="mt-10 mb-4 flex items-center justify-between text-[11px]" style={{color:"var(--pc-muted)"}}>
+        <span>Softly, quietly — that's how growth happens.</span>
+        <span className="flex items-center gap-1.5"><Sparkles className="w-3 h-3"/> PeaceCode</span>
+      </footer>
     </main>
   );
 }
 
-// ─── Reusable Section ───────────────────────────────────────────────
-function Section({
-  title, preview, expanded, to, cta, span = "", icon: Icon, hint, params,
-}: {
-  title: string;
-  preview?: ReactNode;
-  expanded?: ReactNode;
-  to?: any;
-  params?: any;
-  cta?: string;
-  span?: string;
-  icon?: any;
-  hint?: ReactNode;
-}) {
-  const [open, setOpen] = useState(false);
+// ─── Reusable primitives ─────────────────────────────────────────────
+
+function Card({ as: As = "div" as any, className = "", children, ...rest }: any) {
   return (
-    <section className={`${span} rounded-3xl p-4 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 group relative overflow-hidden`}
-      style={{
-        background: "var(--pc-surface)",
-        border: "1px solid var(--pc-border)",
-        boxShadow: "0 1px 2px rgba(29,42,68,0.03), 0 20px 40px -30px rgba(29,42,68,0.08)",
-      }}>
-      <header className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-2 min-w-0">
-          {Icon && <Icon className="w-3.5 h-3.5 opacity-50 shrink-0" style={{ color: "var(--pc-muted)" }} />}
-          <div className="text-[10px] tracking-[0.3em] uppercase truncate" style={{ color: "var(--pc-muted)" }}>{title}</div>
-        </div>
-        {hint}
-      </header>
-
-      <div>{preview}</div>
-
-      {expanded && (
-        <div
-          className="overflow-hidden transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] grid motion-reduce:transition-none"
-          style={{ gridTemplateRows: open ? "1fr" : "0fr", opacity: open ? 1 : 0 }}
-          aria-hidden={!open}
-        >
-          <div className="min-h-0">
-            <div
-              className="transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
-              style={{ transform: open ? "translateY(0)" : "translateY(-6px)", opacity: open ? 1 : 0 }}
-            >
-              {expanded}
-            </div>
-          </div>
-        </div>
-      )}
-
-      <footer className="mt-4 pt-3 flex items-center justify-between gap-2 text-[11px]"
-        style={{ borderTop: "1px solid var(--pc-border)" }}>
-        {expanded ? (
-          <button onClick={() => setOpen(v => !v)}
-            className="inline-flex items-center gap-1 tracking-[0.2em] uppercase transition hover:opacity-70 active:scale-95"
-            style={{ color: "var(--pc-muted)" }}
-            aria-expanded={open}
-          >
-            {open ? "Less" : "More"}
-            <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
-          </button>
-        ) : <span />}
-        {to && (
-          <Link to={to} params={params}
-            className="inline-flex items-center gap-1 font-medium tracking-[0.14em] uppercase transition hover:opacity-70 hover:gap-2"
-            style={{ color: "var(--pc-primary)" }}>
-            {cta ?? "Open"} <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
-          </Link>
-        )}
-      </footer>
-    </section>
-  );
-}
-
-// ─── count-up hook (used by Stat / Ring) ────────────────────────────
-function useCountUp(target: number, duration = 900) {
-  const [v, setV] = useState(0);
-  const startRef = useRef<number | null>(null);
-  const fromRef = useRef(0);
-  useEffect(() => {
-    fromRef.current = v;
-    startRef.current = null;
-    let raf = 0;
-    const tick = (t: number) => {
-      if (startRef.current == null) startRef.current = t;
-      const p = Math.min(1, (t - startRef.current) / duration);
-      const eased = 1 - Math.pow(1 - p, 3);
-      setV(fromRef.current + (target - fromRef.current) * eased);
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target]);
-  return v;
-}
-
-// ─── Small building blocks ──────────────────────────────────────────
-function Stat({ kicker, value, suffix }: { kicker: string; value: string; suffix?: string }) {
-  const numeric = Number((value || "").toString().replace(/[^\d.-]/g, ""));
-  const animate = Number.isFinite(numeric) && numeric !== 0 && !value.includes("/");
-  const shown = useCountUp(animate ? numeric : 0);
-  const display = animate ? Math.round(shown).toString() : value;
-  return (
-    <div className="rounded-2xl p-3 transition-transform duration-300 hover:-translate-y-0.5" style={{ background: "var(--pc-surface2)" }}>
-      <div className="text-[9px] tracking-[0.22em] uppercase" style={{ color: "var(--pc-muted)" }}>{kicker}</div>
-      <div className="font-serif text-[22px] mt-1 leading-none tabular-nums" style={{ color: "var(--pc-ink)" }}>
-        {display}<span className="text-[12px] opacity-60">{suffix}</span>
-      </div>
-    </div>
-  );
-}
-
-function Ring({ value, label }: { value: number; label: string }) {
-  const anim = useCountUp(value);
-  const rounded = Math.round(anim);
-  const r = 22, c = 2 * Math.PI * r, dash = c * (anim / 100);
-  return (
-    <div className="flex items-center gap-2.5">
-      <svg viewBox="0 0 60 60" className="w-14 h-14">
-        <circle cx="30" cy="30" r={r} stroke="var(--pc-border)" strokeWidth="4" fill="none" />
-        <circle cx="30" cy="30" r={r} stroke="var(--pc-primary)" strokeWidth="4" fill="none"
-          strokeLinecap="round" strokeDasharray={`${dash} ${c}`} transform="rotate(-90 30 30)" />
-        <text x="30" y="34" textAnchor="middle" fontSize="14" fontFamily="Fraunces, serif" fill="var(--pc-ink)">{rounded}</text>
-      </svg>
-      <div className="text-[10px] tracking-[0.24em] uppercase leading-tight" style={{ color: "var(--pc-muted)" }}>
-        {label}
-      </div>
-    </div>
-  );
-}
-
-function MiniBars({ label, bars, tone = "primary" }: { label: string; bars: number[]; tone?: "primary" | "lavender" }) {
-  const color = tone === "lavender" ? "var(--pc-lavender)" : "var(--pc-primary)";
-  const safe = (bars.length ? bars : [30, 40, 55, 42, 61, 70, 68]).slice(-7);
-  const max = Math.max(...safe, 100);
-  return (
-    <div className="rounded-2xl p-4" style={{ background: "var(--pc-surface2)" }}>
-      <div className="text-[10px] tracking-[0.22em] uppercase mb-3" style={{ color: "var(--pc-muted)" }}>{label}</div>
-      <div className="flex items-end gap-1.5 h-16">
-        {safe.map((v, i) => (
-          <div key={i} className="flex-1 rounded-t-md transition-[height] duration-700"
-            style={{ height: `${(v / max) * 100}%`, background: color, opacity: 0.35 + (i / safe.length) * 0.65 }} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function BrainBars({ brain }: { brain: Record<string, number> }) {
-  const skills = Object.entries(brain || {}).slice(0, 5);
-  return (
-    <div className="mt-3 space-y-2.5">
-      {skills.map(([k, v]) => (
-        <div key={k}>
-          <div className="flex items-center justify-between text-[11px] mb-1">
-            <span className="tracking-[0.18em] uppercase" style={{ color: "var(--pc-muted)" }}>{k}</span>
-            <span style={{ color: "var(--pc-ink)" }}>{Math.round(v)}</span>
-          </div>
-          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "var(--pc-surface2)" }}>
-            <div className="h-full rounded-full transition-[width] duration-1000" style={{ width: `${v}%`, background: "var(--pc-primary)" }} />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function JourneyTimeline({ data, nextEx }: { data: any; nextEx: any }) {
-  const items = [
-    { time: "07:30", label: "Morning breath", done: (data.breathe?.today ?? 0) > 0, icon: Wind },
-    { time: "09:00", label: "Class begins", done: true, icon: Clock },
-    { time: "12:00", label: "Midday check-in", done: false, icon: Heart },
-    { time: "16:00", label: data.counselling?.next ? "Counselling session" : "Focus block", done: false, icon: CalendarCheck },
-    { time: "19:30", label: "Evening gratitude", done: (data.gratitude?.today ?? 0) > 0, icon: Leaf },
-    { time: "20:30", label: `Mind Gym · ${nextEx?.name ?? "rep"}`, done: false, icon: Brain },
-    { time: "22:30", label: "Wind down", done: false, icon: Moon },
-  ];
-  return (
-    <ol className="mt-3 relative pl-4 sm:pl-6">
-      <span className="absolute left-1.5 sm:left-2.5 top-2 bottom-2 w-px" style={{ background: "var(--pc-border)" }} />
-      {items.map((it, i) => (
-        <li key={i} className="relative py-1.5 flex items-center gap-3">
-          <span className="absolute -left-[2px] sm:-left-[3px] w-2.5 h-2.5 rounded-full ring-4"
-            style={{
-              background: it.done ? "var(--pc-primary)" : "var(--pc-surface)",
-              boxShadow: `0 0 0 1px ${it.done ? "var(--pc-primary)" : "var(--pc-border)"}`,
-              ["--tw-ring-color" as any]: "var(--pc-surface)",
-            }} />
-          <span className="ml-3 text-[11px] w-12 tabular-nums" style={{ color: "var(--pc-muted)" }}>{it.time}</span>
-          <it.icon className="w-3.5 h-3.5 opacity-60" />
-          <span className="text-[13px]" style={{ color: it.done ? "var(--pc-muted)" : "var(--pc-ink)", textDecoration: it.done ? "line-through" : "none" }}>
-            {it.label}
-          </span>
-        </li>
-      ))}
-    </ol>
-  );
-}
-
-function TreeGlyph({ stage }: { stage: number }) {
-  const s = Math.max(1, Math.min(5, stage));
-  return (
-    <svg viewBox="0 0 60 60" className="w-14 h-14">
-      <line x1="30" y1="55" x2="30" y2={55 - s * 5} stroke="var(--pc-muted)" strokeWidth="2" strokeLinecap="round" />
-      <circle cx="30" cy={40 - s * 4} r={4 + s * 3} fill="var(--pc-moss, #CDEBD9)" opacity="0.9" />
-      <circle cx="24" cy={44 - s * 3} r={3 + s * 2} fill="var(--pc-lavender)" opacity="0.7" />
-      <circle cx="36" cy={44 - s * 3} r={3 + s * 2} fill="var(--pc-soft)" opacity="0.6" />
-    </svg>
-  );
-}
-
-function PulseRow({ label, value, muted }: { label: string; value: string; muted?: boolean }) {
-  return (
-    <div className="flex items-center justify-between">
-      <span className="text-[12px]" style={{ color: "var(--pc-muted)" }}>{label}</span>
-      <span className={`font-serif text-[16px] tabular-nums`} style={{ color: muted ? "var(--pc-muted)" : "var(--pc-ink)" }}>{value}</span>
-    </div>
-  );
-}
-
-function UpcomingRow({ when, label, tone }: { when: number; label: string; tone: "primary" | "lavender" | "muted" }) {
-  const dot = tone === "primary" ? "var(--pc-primary)" : tone === "lavender" ? "var(--pc-lavender)" : "var(--pc-muted)";
-  return (
-    <div className="flex items-center gap-3">
-      <span className="w-1.5 h-1.5 rounded-full" style={{ background: dot }} />
-      <span className="text-[13px] flex-1 truncate" style={{ color: "var(--pc-ink)" }}>{label}</span>
-      <span className="text-[11px] tabular-nums" style={{ color: "var(--pc-muted)" }}>{formatIn(when)}</span>
-    </div>
-  );
-}
-
-function ContinueCard({
-  to, params, icon: Icon, title, hint, live, index = 0,
-}: {
-  to: any; params?: any; icon: any; title: string; hint: string; live?: boolean; index?: number;
-}) {
-  return (
-    <Link
-      to={to} params={params}
-      className="rounded-2xl p-4 flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-25px_rgba(29,42,68,0.25)] group animate-fade-in relative overflow-hidden"
-      style={{
-        background: "var(--pc-surface2)",
-        border: "1px solid var(--pc-border)",
-        animationDelay: `${index * 60}ms`,
-        animationFillMode: "both",
-      }}
+    <As
+      {...rest}
+      className={`relative rounded-3xl p-5 sm:p-6 transition duration-200 hover:-translate-y-[2px] hover:shadow-[0_10px_30px_-18px_rgba(75,108,183,0.35)] ${className}`}
+      style={{background:"var(--pc-surface)", border:"1px solid var(--pc-border)"}}
     >
-      <div className="flex items-center justify-between">
-        <Icon className="w-4 h-4 opacity-60 transition-transform duration-300 group-hover:scale-110" />
-        <div className="flex items-center gap-1.5">
-          {live && (
-            <span className="inline-flex items-center gap-1 text-[9px] tracking-[0.18em] uppercase" style={{ color: "var(--pc-primary)" }}>
-              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "var(--pc-primary)" }} />
-              live
-            </span>
-          )}
-          <Play className="w-3.5 h-3.5 opacity-0 group-hover:opacity-90 transition-all duration-300 -translate-x-1 group-hover:translate-x-0"
-            style={{ color: "var(--pc-primary)" }} />
-        </div>
-      </div>
-      <div className="min-w-0">
-        <div className="font-serif text-[15px] leading-tight truncate" style={{ color: "var(--pc-ink)" }}>{title}</div>
-        <div className="text-[11px] mt-0.5 line-clamp-2" style={{ color: "var(--pc-muted)" }}>{hint}</div>
-      </div>
-    </Link>
+      {children}
+    </As>
   );
 }
 
-function SmallBtn({ to, label }: { to: string; label: string }) {
+function ArrowOpen() {
   return (
-    <Link to={to} className="text-[11px] px-3 py-1.5 rounded-full tracking-[0.1em] uppercase transition hover:opacity-80"
-      style={{ background: "var(--pc-surface2)", border: "1px solid var(--pc-border)", color: "var(--pc-ink)" }}>
-      {label}
-    </Link>
+    <div className="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition"
+      style={{color:"var(--pc-muted)"}}>
+      <ArrowUpRight className="w-4 h-4"/>
+    </div>
   );
 }
 
-function formatIn(ts?: number) {
-  if (!ts) return "—";
-  const diff = ts - Date.now();
-  const abs = Math.abs(diff);
-  const past = diff < 0;
-  const h = Math.round(abs / 3600e3);
-  const d = Math.round(abs / 864e5);
-  if (abs < 60 * 60e3) return past ? "just now" : "soon";
-  if (abs < 24 * 3600e3) return past ? `${h}h ago` : `in ${h}h`;
-  if (abs < 7 * 864e5) return past ? `${d}d ago` : `in ${d}d`;
-  return new Date(ts).toLocaleDateString("en-IN", { day: "numeric", month: "short" });
+function BlurDot({ className = "", size = 180, color = "var(--pc-lavender)" }: { className?: string; size?: number; color?: string }) {
+  return (
+    <div aria-hidden className={`absolute rounded-full pointer-events-none ${className}`}
+      style={{width:size, height:size, background:color, filter:"blur(48px)", opacity:0.55}}/>
+  );
+}
+
+function Dot({ color }: { color: string }) {
+  return <span className="inline-block w-2 h-2 rounded-full" style={{background: color}}/>;
+}
+
+function AmbientDots() {
+  return (
+    <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+      <div className="absolute rounded-full" style={{top:"5%", left:"-8%", width:340, height:340, background:"var(--pc-lavender)", filter:"blur(90px)", opacity:0.45}}/>
+      <div className="absolute rounded-full" style={{top:"40%", right:"-10%", width:420, height:420, background:"var(--pc-soft)", filter:"blur(110px)", opacity:0.35}}/>
+      <div className="absolute rounded-full" style={{bottom:"-10%", left:"30%", width:300, height:300, background:"var(--pc-primary)", filter:"blur(120px)", opacity:0.15}}/>
+    </div>
+  );
+}
+
+// Half donut (like Positive Habit Streak)
+function HalfDonut({ pct, label, sub }: { pct: number; label: string; sub: string }) {
+  const r = 44, c = Math.PI * r;
+  const dash = (pct/100) * c;
+  return (
+    <div className="relative w-[128px] h-[80px]">
+      <svg viewBox="0 0 120 70" className="w-full h-full">
+        <defs>
+          <linearGradient id="hd" x1="0" x2="1"><stop offset="0" stopColor="var(--pc-primary)"/><stop offset="1" stopColor="var(--pc-lavender)"/></linearGradient>
+        </defs>
+        <path d="M10 60 A50 50 0 0 1 110 60" fill="none" stroke="var(--pc-surface2)" strokeWidth="10" strokeLinecap="round"/>
+        <path d="M10 60 A50 50 0 0 1 110 60" fill="none" stroke="url(#hd)" strokeWidth="10" strokeLinecap="round"
+          strokeDasharray={`${dash} ${c}`}/>
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-end pb-1">
+        <div className="font-serif text-[22px] leading-none" style={{color:"var(--pc-ink)"}}>{label}</div>
+        <div className="text-[9px] mt-1" style={{color:"var(--pc-muted)"}}>{sub}</div>
+      </div>
+    </div>
+  );
+}
+
+// Full donut
+function FullDonut({ pct, label, sub }: { pct: number; label: string; sub: string }) {
+  const r = 34, c = 2 * Math.PI * r;
+  const dash = (pct/100) * c;
+  return (
+    <div className="relative w-[110px] h-[110px]">
+      <svg viewBox="0 0 90 90" className="w-full h-full -rotate-90">
+        <defs>
+          <linearGradient id="fd" x1="0" x2="1"><stop offset="0" stopColor="var(--pc-primary)"/><stop offset="1" stopColor="var(--pc-lavender)"/></linearGradient>
+        </defs>
+        <circle cx="45" cy="45" r={r} fill="none" stroke="var(--pc-surface2)" strokeWidth="8"/>
+        <circle cx="45" cy="45" r={r} fill="none" stroke="url(#fd)" strokeWidth="8" strokeLinecap="round"
+          strokeDasharray={`${dash} ${c}`}/>
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div className="font-serif text-[20px] leading-none" style={{color:"var(--pc-ink)"}}>{label}</div>
+        <div className="text-[9px] mt-0.5" style={{color:"var(--pc-muted)"}}>{sub}</div>
+      </div>
+    </div>
+  );
+}
+
+// Split ring (Mindspace Usage)
+function SplitRing({ focused, free }: { focused: number; free: number }) {
+  const r = 60, c = 2 * Math.PI * r;
+  const dFocus = (focused/100) * c;
+  const dFree = (free/100) * c;
+  return (
+    <div className="relative w-[180px] h-[180px]">
+      <svg viewBox="0 0 160 160" className="w-full h-full -rotate-90">
+        <defs>
+          <linearGradient id="sr" x1="0" x2="1"><stop offset="0" stopColor="var(--pc-primary)"/><stop offset="1" stopColor="var(--pc-lavender)"/></linearGradient>
+        </defs>
+        <circle cx="80" cy="80" r={r} fill="none" stroke="var(--pc-border)" strokeWidth="14" strokeDasharray={`${dFocus} ${c}`} strokeLinecap="round"/>
+        <circle cx="80" cy="80" r={r} fill="none" stroke="url(#sr)" strokeWidth="14"
+          strokeDasharray={`${dFree} ${c}`} strokeDashoffset={`-${dFocus + 8}`} strokeLinecap="round"/>
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div className="font-serif text-[28px] leading-none" style={{color:"var(--pc-ink)"}}>{focused}%</div>
+        <div className="text-[10px] mt-1" style={{color:"var(--pc-muted)"}}>Focused</div>
+      </div>
+    </div>
+  );
+}
+
+// Bar chart for Emotional Trend
+function TrendChart({ peace }: { peace: number }) {
+  const bars = useMemo(() => {
+    const seed = peace;
+    return Array.from({length: 40}).map((_,i) => {
+      const t = i/40;
+      const base = 30 + Math.sin(i*0.6 + seed*0.05) * 18 + Math.cos(i*0.3) * 8;
+      return Math.max(12, Math.min(100, base + (t*30)));
+    });
+  }, [peace]);
+  const peakIdx = bars.indexOf(Math.max(...bars));
+  return (
+    <div className="mt-6">
+      <div className="h-[160px] flex items-end gap-[3px]">
+        {bars.map((h,i) => {
+          const isPeak = i === peakIdx;
+          return (
+            <div key={i} className="flex-1 rounded-full transition-all duration-500"
+              style={{
+                height: `${h}%`,
+                background: isPeak
+                  ? "linear-gradient(180deg,var(--pc-primary),var(--pc-lavender))"
+                  : i < peakIdx
+                    ? "var(--pc-surface2)"
+                    : "var(--pc-border)",
+                opacity: isPeak ? 1 : (0.6 + (i/bars.length)*0.3),
+              }}/>
+          );
+        })}
+      </div>
+      <div className="mt-2 flex items-center justify-end gap-2 text-[10px]">
+        <span className="px-2 py-0.5 rounded-full font-medium text-white"
+          style={{background:"linear-gradient(90deg,var(--pc-primary),var(--pc-lavender))"}}>+20%</span>
+        <span style={{color:"var(--pc-muted)"}}>{Math.min(99, peace+7)}% Emotional stability</span>
+      </div>
+    </div>
+  );
+}
+
+function QuickCard({ to, title, value, sub }: { to: string; title: string; value: string; sub: string }) {
+  return (
+    <Link to={to} className="group relative rounded-2xl p-4 transition hover:-translate-y-[2px] hover:shadow-[0_8px_24px_-16px_rgba(75,108,183,0.35)]"
+      style={{background:"var(--pc-surface)", border:"1px solid var(--pc-border)"}}>
+      <div className="text-[11px]" style={{color:"var(--pc-muted)"}}>{title}</div>
+      <div className="mt-2 font-serif text-[24px] leading-none" style={{color:"var(--pc-ink)"}}>{value}</div>
+      <div className="text-[10px] mt-1" style={{color:"var(--pc-muted)"}}>{sub}</div>
+      <ArrowUpRight className="w-3.5 h-3.5 absolute top-3 right-3 opacity-0 group-hover:opacity-70 transition" style={{color:"var(--pc-muted)"}}/>
+    </Link>
+  );
 }
