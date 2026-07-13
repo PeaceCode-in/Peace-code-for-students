@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as MindgymRouteImport } from './routes/mindgym'
 import { Route as CounsellingRouteImport } from './routes/counselling'
 import { Route as CommunityRouteImport } from './routes/community'
@@ -130,6 +131,11 @@ import { Route as BuddiesBookIdRouteImport } from './routes/buddies.book.$id'
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MindgymRoute = MindgymRouteImport.update({
@@ -718,6 +724,7 @@ export interface FileRoutesByFullPath {
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
+  '/profile': typeof ProfileRoute
   '/settings': typeof SettingsRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
@@ -835,6 +842,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
+  '/profile': typeof ProfileRoute
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/buddies/$id': typeof BuddiesIdRoute
@@ -954,6 +962,7 @@ export interface FileRoutesById {
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
+  '/profile': typeof ProfileRoute
   '/settings': typeof SettingsRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
@@ -1075,6 +1084,7 @@ export interface FileRouteTypes {
     | '/community'
     | '/counselling'
     | '/mindgym'
+    | '/profile'
     | '/settings'
     | '/api/chat'
     | '/breathe/stats'
@@ -1192,6 +1202,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/community'
+    | '/profile'
     | '/api/chat'
     | '/breathe/stats'
     | '/buddies/$id'
@@ -1310,6 +1321,7 @@ export interface FileRouteTypes {
     | '/community'
     | '/counselling'
     | '/mindgym'
+    | '/profile'
     | '/settings'
     | '/api/chat'
     | '/breathe/stats'
@@ -1430,6 +1442,7 @@ export interface RootRouteChildren {
   CommunityRoute: typeof CommunityRoute
   CounsellingRoute: typeof CounsellingRouteWithChildren
   MindgymRoute: typeof MindgymRouteWithChildren
+  ProfileRoute: typeof ProfileRoute
   SettingsRoute: typeof SettingsRouteWithChildren
   ApiChatRoute: typeof ApiChatRoute
   BreatheStatsRoute: typeof BreatheStatsRoute
@@ -1503,6 +1516,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mindgym': {
@@ -2452,6 +2472,7 @@ const rootRouteChildren: RootRouteChildren = {
   CommunityRoute: CommunityRoute,
   CounsellingRoute: CounsellingRouteWithChildren,
   MindgymRoute: MindgymRouteWithChildren,
+  ProfileRoute: ProfileRoute,
   SettingsRoute: SettingsRouteWithChildren,
   ApiChatRoute: ApiChatRoute,
   BreatheStatsRoute: BreatheStatsRoute,
