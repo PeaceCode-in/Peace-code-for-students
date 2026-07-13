@@ -71,7 +71,9 @@ function useDashboardData() {
         focus: {
           sessions: fSessions,
           streak: focus.computeStreaks(fSessions),
-          weekMinutes: fSessions.filter(s => Date.now() - s.completedAt < 7 * 864e5).reduce((a, s) => a + (s.duration || 0) / 60, 0),
+          weekMinutes: fSessions
+            .filter(s => Date.now() - new Date(s.completedAt).getTime() < 7 * 864e5)
+            .reduce((a, s) => a + (s.planned || 0) / 60, 0),
         },
         counselling: {
           next: appts.find(a => a.status !== "cancelled" && a.scheduledFor > Date.now()),
