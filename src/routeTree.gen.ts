@@ -166,6 +166,7 @@ import { Route as MindgymShareSessionRouteImport } from './routes/mindgym.share.
 import { Route as MindgymResultsSidRouteImport } from './routes/mindgym.results.$sid'
 import { Route as MindgymPathSlugRouteImport } from './routes/mindgym.path.$slug'
 import { Route as MindgymExerciseIdRouteImport } from './routes/mindgym.exercise.$id'
+import { Route as EventsOrganizerOidRouteImport } from './routes/events.organizer.$oid'
 import { Route as EventsIdTimelineRouteImport } from './routes/events.$id.timeline'
 import { Route as EventsIdRsvpRouteImport } from './routes/events.$id.rsvp'
 import { Route as EventsIdLiveRouteImport } from './routes/events.$id.live'
@@ -970,6 +971,11 @@ const MindgymExerciseIdRoute = MindgymExerciseIdRouteImport.update({
   path: '/exercise/$id',
   getParentRoute: () => MindgymRoute,
 } as any)
+const EventsOrganizerOidRoute = EventsOrganizerOidRouteImport.update({
+  id: '/organizer/$oid',
+  path: '/organizer/$oid',
+  getParentRoute: () => EventsRoute,
+} as any)
 const EventsIdTimelineRoute = EventsIdTimelineRouteImport.update({
   id: '/timeline',
   path: '/timeline',
@@ -1219,6 +1225,7 @@ export interface FileRoutesByFullPath {
   '/events/$id/live': typeof EventsIdLiveRoute
   '/events/$id/rsvp': typeof EventsIdRsvpRoute
   '/events/$id/timeline': typeof EventsIdTimelineRoute
+  '/events/organizer/$oid': typeof EventsOrganizerOidRoute
   '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
   '/mindgym/path/$slug': typeof MindgymPathSlugRoute
   '/mindgym/results/$sid': typeof MindgymResultsSidRoute
@@ -1387,6 +1394,7 @@ export interface FileRoutesByTo {
   '/events/$id/live': typeof EventsIdLiveRoute
   '/events/$id/rsvp': typeof EventsIdRsvpRoute
   '/events/$id/timeline': typeof EventsIdTimelineRoute
+  '/events/organizer/$oid': typeof EventsOrganizerOidRoute
   '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
   '/mindgym/path/$slug': typeof MindgymPathSlugRoute
   '/mindgym/results/$sid': typeof MindgymResultsSidRoute
@@ -1565,6 +1573,7 @@ export interface FileRoutesById {
   '/events/$id/live': typeof EventsIdLiveRoute
   '/events/$id/rsvp': typeof EventsIdRsvpRoute
   '/events/$id/timeline': typeof EventsIdTimelineRoute
+  '/events/organizer/$oid': typeof EventsOrganizerOidRoute
   '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
   '/mindgym/path/$slug': typeof MindgymPathSlugRoute
   '/mindgym/results/$sid': typeof MindgymResultsSidRoute
@@ -1744,6 +1753,7 @@ export interface FileRouteTypes {
     | '/events/$id/live'
     | '/events/$id/rsvp'
     | '/events/$id/timeline'
+    | '/events/organizer/$oid'
     | '/mindgym/exercise/$id'
     | '/mindgym/path/$slug'
     | '/mindgym/results/$sid'
@@ -1912,6 +1922,7 @@ export interface FileRouteTypes {
     | '/events/$id/live'
     | '/events/$id/rsvp'
     | '/events/$id/timeline'
+    | '/events/organizer/$oid'
     | '/mindgym/exercise/$id'
     | '/mindgym/path/$slug'
     | '/mindgym/results/$sid'
@@ -2089,6 +2100,7 @@ export interface FileRouteTypes {
     | '/events/$id/live'
     | '/events/$id/rsvp'
     | '/events/$id/timeline'
+    | '/events/organizer/$oid'
     | '/mindgym/exercise/$id'
     | '/mindgym/path/$slug'
     | '/mindgym/results/$sid'
@@ -3286,6 +3298,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MindgymExerciseIdRouteImport
       parentRoute: typeof MindgymRoute
     }
+    '/events/organizer/$oid': {
+      id: '/events/organizer/$oid'
+      path: '/organizer/$oid'
+      fullPath: '/events/organizer/$oid'
+      preLoaderRoute: typeof EventsOrganizerOidRouteImport
+      parentRoute: typeof EventsRoute
+    }
     '/events/$id/timeline': {
       id: '/events/$id/timeline'
       path: '/timeline'
@@ -3546,6 +3565,7 @@ interface EventsRouteChildren {
   EventsCalendarRoute: typeof EventsCalendarRoute
   EventsMyRoute: typeof EventsMyRoute
   EventsIndexRoute: typeof EventsIndexRoute
+  EventsOrganizerOidRoute: typeof EventsOrganizerOidRoute
 }
 
 const EventsRouteChildren: EventsRouteChildren = {
@@ -3555,6 +3575,7 @@ const EventsRouteChildren: EventsRouteChildren = {
   EventsCalendarRoute: EventsCalendarRoute,
   EventsMyRoute: EventsMyRoute,
   EventsIndexRoute: EventsIndexRoute,
+  EventsOrganizerOidRoute: EventsOrganizerOidRoute,
 }
 
 const EventsRouteWithChildren =

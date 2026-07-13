@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { Users, Mail, Star, CalendarDays, Building2, UserPlus, Check, Sparkles } from "lucide-react";
 import { palette } from "@/components/AppShell";
-import { Page, BackBar, PageTitle, Card, Chip, EventCard, EmptyState, PrimaryBtn, GhostBtn, StatPill, SectionHead } from "@/components/events/primitives";
+import { Page, BackBar, Card, EventCard, EmptyState, PrimaryBtn, GhostBtn, StatPill, SectionHead } from "@/components/events/primitives";
 import { organizerById, organizers, events, statusOf, isFollowingOrg, toggleFollowOrg } from "@/lib/events-store";
 
 const { border, muted, ink, soft, primary, surface2 } = palette;
