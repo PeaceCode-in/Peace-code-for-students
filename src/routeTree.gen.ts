@@ -102,6 +102,7 @@ import { Route as GratitudeTreeRouteImport } from './routes/gratitude.tree'
 import { Route as GratitudeHistoryRouteImport } from './routes/gratitude.history'
 import { Route as GratitudeForestRouteImport } from './routes/gratitude.forest'
 import { Route as EventsMyRouteImport } from './routes/events.my'
+import { Route as EventsCalendarRouteImport } from './routes/events.calendar'
 import { Route as EventsBrowseRouteImport } from './routes/events.browse'
 import { Route as EventsIdRouteImport } from './routes/events.$id'
 import { Route as EmergencyToolkitRouteImport } from './routes/emergency.toolkit'
@@ -648,6 +649,11 @@ const EventsMyRoute = EventsMyRouteImport.update({
   path: '/my',
   getParentRoute: () => EventsRoute,
 } as any)
+const EventsCalendarRoute = EventsCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => EventsRoute,
+} as any)
 const EventsBrowseRoute = EventsBrowseRouteImport.update({
   id: '/browse',
   path: '/browse',
@@ -1104,6 +1110,7 @@ export interface FileRoutesByFullPath {
   '/emergency/toolkit': typeof EmergencyToolkitRoute
   '/events/$id': typeof EventsIdRouteWithChildren
   '/events/browse': typeof EventsBrowseRoute
+  '/events/calendar': typeof EventsCalendarRoute
   '/events/my': typeof EventsMyRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
@@ -1270,6 +1277,7 @@ export interface FileRoutesByTo {
   '/emergency/sos': typeof EmergencySosRoute
   '/emergency/toolkit': typeof EmergencyToolkitRoute
   '/events/browse': typeof EventsBrowseRoute
+  '/events/calendar': typeof EventsCalendarRoute
   '/events/my': typeof EventsMyRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
@@ -1446,6 +1454,7 @@ export interface FileRoutesById {
   '/emergency/toolkit': typeof EmergencyToolkitRoute
   '/events/$id': typeof EventsIdRouteWithChildren
   '/events/browse': typeof EventsBrowseRoute
+  '/events/calendar': typeof EventsCalendarRoute
   '/events/my': typeof EventsMyRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
@@ -1623,6 +1632,7 @@ export interface FileRouteTypes {
     | '/emergency/toolkit'
     | '/events/$id'
     | '/events/browse'
+    | '/events/calendar'
     | '/events/my'
     | '/gratitude/forest'
     | '/gratitude/history'
@@ -1789,6 +1799,7 @@ export interface FileRouteTypes {
     | '/emergency/sos'
     | '/emergency/toolkit'
     | '/events/browse'
+    | '/events/calendar'
     | '/events/my'
     | '/gratitude/forest'
     | '/gratitude/history'
@@ -1964,6 +1975,7 @@ export interface FileRouteTypes {
     | '/emergency/toolkit'
     | '/events/$id'
     | '/events/browse'
+    | '/events/calendar'
     | '/events/my'
     | '/gratitude/forest'
     | '/gratitude/history'
@@ -2814,6 +2826,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventsMyRouteImport
       parentRoute: typeof EventsRoute
     }
+    '/events/calendar': {
+      id: '/events/calendar'
+      path: '/calendar'
+      fullPath: '/events/calendar'
+      preLoaderRoute: typeof EventsCalendarRouteImport
+      parentRoute: typeof EventsRoute
+    }
     '/events/browse': {
       id: '/events/browse'
       path: '/browse'
@@ -3504,6 +3523,7 @@ const EventsIdRouteWithChildren = EventsIdRoute._addFileChildren(
 interface EventsRouteChildren {
   EventsIdRoute: typeof EventsIdRouteWithChildren
   EventsBrowseRoute: typeof EventsBrowseRoute
+  EventsCalendarRoute: typeof EventsCalendarRoute
   EventsMyRoute: typeof EventsMyRoute
   EventsIndexRoute: typeof EventsIndexRoute
 }
@@ -3511,6 +3531,7 @@ interface EventsRouteChildren {
 const EventsRouteChildren: EventsRouteChildren = {
   EventsIdRoute: EventsIdRouteWithChildren,
   EventsBrowseRoute: EventsBrowseRoute,
+  EventsCalendarRoute: EventsCalendarRoute,
   EventsMyRoute: EventsMyRoute,
   EventsIndexRoute: EventsIndexRoute,
 }

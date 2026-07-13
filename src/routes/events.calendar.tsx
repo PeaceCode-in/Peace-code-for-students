@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
-import { ChevronLeft, ChevronRight, CalendarDays, Clock, ExternalLink } from "lucide-react";
+import { ChevronLeft, ChevronRight, Clock, ExternalLink } from "lucide-react";
 import { palette } from "@/components/AppShell";
 import { Page, PageTitle, Card, Chip, EventCard, GhostBtn, EmptyState } from "@/components/events/primitives";
 import { events, eventById } from "@/lib/events-store";
