@@ -16,11 +16,15 @@ import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as MindgymRouteImport } from './routes/mindgym'
+import { Route as JournalRouteImport } from './routes/journal'
 import { Route as HubRouteImport } from './routes/hub'
+import { Route as GratitudeRouteImport } from './routes/gratitude'
+import { Route as FocusRouteImport } from './routes/focus'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as EmergencyRouteImport } from './routes/emergency'
 import { Route as CounsellingRouteImport } from './routes/counselling'
 import { Route as CommunityRouteImport } from './routes/community'
+import { Route as BreatheRouteImport } from './routes/breathe'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as SearchIndexRouteImport } from './routes/search.index'
@@ -240,9 +244,24 @@ const MindgymRoute = MindgymRouteImport.update({
   path: '/mindgym',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JournalRoute = JournalRouteImport.update({
+  id: '/journal',
+  path: '/journal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HubRoute = HubRouteImport.update({
   id: '/hub',
   path: '/hub',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GratitudeRoute = GratitudeRouteImport.update({
+  id: '/gratitude',
+  path: '/gratitude',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FocusRoute = FocusRouteImport.update({
+  id: '/focus',
+  path: '/focus',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventsRoute = EventsRouteImport.update({
@@ -263,6 +282,11 @@ const CounsellingRoute = CounsellingRouteImport.update({
 const CommunityRoute = CommunityRouteImport.update({
   id: '/community',
   path: '/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BreatheRoute = BreatheRouteImport.update({
+  id: '/breathe',
+  path: '/breathe',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -311,9 +335,9 @@ const MindgymIndexRoute = MindgymIndexRouteImport.update({
   getParentRoute: () => MindgymRoute,
 } as any)
 const JournalIndexRoute = JournalIndexRouteImport.update({
-  id: '/journal/',
-  path: '/journal/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => JournalRoute,
 } as any)
 const HubIndexRoute = HubIndexRouteImport.update({
   id: '/',
@@ -321,14 +345,14 @@ const HubIndexRoute = HubIndexRouteImport.update({
   getParentRoute: () => HubRoute,
 } as any)
 const GratitudeIndexRoute = GratitudeIndexRouteImport.update({
-  id: '/gratitude/',
-  path: '/gratitude/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => GratitudeRoute,
 } as any)
 const FocusIndexRoute = FocusIndexRouteImport.update({
-  id: '/focus/',
-  path: '/focus/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => FocusRoute,
 } as any)
 const EventsIndexRoute = EventsIndexRouteImport.update({
   id: '/',
@@ -351,9 +375,9 @@ const BuddiesIndexRoute = BuddiesIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const BreatheIndexRoute = BreatheIndexRouteImport.update({
-  id: '/breathe/',
-  path: '/breathe/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => BreatheRoute,
 } as any)
 const SettingsSupportRoute = SettingsSupportRouteImport.update({
   id: '/support',
@@ -651,19 +675,19 @@ const MindgymBrainDnaRoute = MindgymBrainDnaRouteImport.update({
   getParentRoute: () => MindgymRoute,
 } as any)
 const JournalVoiceRoute = JournalVoiceRouteImport.update({
-  id: '/journal/voice',
-  path: '/journal/voice',
-  getParentRoute: () => rootRouteImport,
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => JournalRoute,
 } as any)
 const JournalMemoriesRoute = JournalMemoriesRouteImport.update({
-  id: '/journal/memories',
-  path: '/journal/memories',
-  getParentRoute: () => rootRouteImport,
+  id: '/memories',
+  path: '/memories',
+  getParentRoute: () => JournalRoute,
 } as any)
 const JournalIdRoute = JournalIdRouteImport.update({
-  id: '/journal/$id',
-  path: '/journal/$id',
-  getParentRoute: () => rootRouteImport,
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => JournalRoute,
 } as any)
 const HubWhatsNewRoute = HubWhatsNewRouteImport.update({
   id: '/whats-new',
@@ -711,24 +735,24 @@ const HubAnnouncementsRoute = HubAnnouncementsRouteImport.update({
   getParentRoute: () => HubRoute,
 } as any)
 const GratitudeWallRoute = GratitudeWallRouteImport.update({
-  id: '/gratitude/wall',
-  path: '/gratitude/wall',
-  getParentRoute: () => rootRouteImport,
+  id: '/wall',
+  path: '/wall',
+  getParentRoute: () => GratitudeRoute,
 } as any)
 const GratitudeTreeRoute = GratitudeTreeRouteImport.update({
-  id: '/gratitude/tree',
-  path: '/gratitude/tree',
-  getParentRoute: () => rootRouteImport,
+  id: '/tree',
+  path: '/tree',
+  getParentRoute: () => GratitudeRoute,
 } as any)
 const GratitudeHistoryRoute = GratitudeHistoryRouteImport.update({
-  id: '/gratitude/history',
-  path: '/gratitude/history',
-  getParentRoute: () => rootRouteImport,
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => GratitudeRoute,
 } as any)
 const GratitudeForestRoute = GratitudeForestRouteImport.update({
-  id: '/gratitude/forest',
-  path: '/gratitude/forest',
-  getParentRoute: () => rootRouteImport,
+  id: '/forest',
+  path: '/forest',
+  getParentRoute: () => GratitudeRoute,
 } as any)
 const EventsMyRoute = EventsMyRouteImport.update({
   id: '/my',
@@ -966,9 +990,9 @@ const BuddiesIdRoute = BuddiesIdRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const BreatheStatsRoute = BreatheStatsRouteImport.update({
-  id: '/breathe/stats',
-  path: '/breathe/stats',
-  getParentRoute: () => rootRouteImport,
+  id: '/stats',
+  path: '/stats',
+  getParentRoute: () => BreatheRoute,
 } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
@@ -1183,11 +1207,15 @@ const BuddiesBookIdRoute = BuddiesBookIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
   '/emergency': typeof EmergencyRouteWithChildren
   '/events': typeof EventsRouteWithChildren
+  '/focus': typeof FocusRouteWithChildren
+  '/gratitude': typeof GratitudeRouteWithChildren
   '/hub': typeof HubRouteWithChildren
+  '/journal': typeof JournalRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
   '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
@@ -1566,11 +1594,15 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
   '/emergency': typeof EmergencyRouteWithChildren
   '/events': typeof EventsRouteWithChildren
+  '/focus': typeof FocusRouteWithChildren
+  '/gratitude': typeof GratitudeRouteWithChildren
   '/hub': typeof HubRouteWithChildren
+  '/journal': typeof JournalRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
   '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
@@ -1765,11 +1797,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/breathe'
     | '/community'
     | '/counselling'
     | '/emergency'
     | '/events'
+    | '/focus'
+    | '/gratitude'
     | '/hub'
+    | '/journal'
     | '/mindgym'
     | '/notifications'
     | '/profile'
@@ -2147,11 +2183,15 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/breathe'
     | '/community'
     | '/counselling'
     | '/emergency'
     | '/events'
+    | '/focus'
+    | '/gratitude'
     | '/hub'
+    | '/journal'
     | '/mindgym'
     | '/notifications'
     | '/profile'
@@ -2345,11 +2385,15 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BreatheRoute: typeof BreatheRouteWithChildren
   CommunityRoute: typeof CommunityRoute
   CounsellingRoute: typeof CounsellingRouteWithChildren
   EmergencyRoute: typeof EmergencyRouteWithChildren
   EventsRoute: typeof EventsRouteWithChildren
+  FocusRoute: typeof FocusRouteWithChildren
+  GratitudeRoute: typeof GratitudeRouteWithChildren
   HubRoute: typeof HubRouteWithChildren
+  JournalRoute: typeof JournalRouteWithChildren
   MindgymRoute: typeof MindgymRouteWithChildren
   NotificationsRoute: typeof NotificationsRouteWithChildren
   ProfileRoute: typeof ProfileRouteWithChildren
@@ -2358,7 +2402,6 @@ export interface RootRouteChildren {
   SearchRoute: typeof SearchRouteWithChildren
   SettingsRoute: typeof SettingsRouteWithChildren
   ApiChatRoute: typeof ApiChatRoute
-  BreatheStatsRoute: typeof BreatheStatsRoute
   BuddiesIdRoute: typeof BuddiesIdRoute
   BuddiesAboutRoute: typeof BuddiesAboutRoute
   BuddiesBrowseRoute: typeof BuddiesBrowseRoute
@@ -2367,13 +2410,6 @@ export interface RootRouteChildren {
   BuddiesHistoryRoute: typeof BuddiesHistoryRoute
   BuddiesPsychologistsRoute: typeof BuddiesPsychologistsRoute
   BuddiesSettingsRoute: typeof BuddiesSettingsRoute
-  GratitudeForestRoute: typeof GratitudeForestRoute
-  GratitudeHistoryRoute: typeof GratitudeHistoryRoute
-  GratitudeTreeRoute: typeof GratitudeTreeRoute
-  GratitudeWallRoute: typeof GratitudeWallRoute
-  JournalIdRoute: typeof JournalIdRoute
-  JournalMemoriesRoute: typeof JournalMemoriesRoute
-  JournalVoiceRoute: typeof JournalVoiceRoute
   PeacebotAvatarRoute: typeof PeacebotAvatarRoute
   PeacebotInsightsRoute: typeof PeacebotInsightsRoute
   PeacebotMemoryRoute: typeof PeacebotMemoryRoute
@@ -2382,11 +2418,7 @@ export interface RootRouteChildren {
   PeacebotSettingsRoute: typeof PeacebotSettingsRoute
   PeacebotToolsRoute: typeof PeacebotToolsRoute
   PeacebotVoiceRoute: typeof PeacebotVoiceRoute
-  BreatheIndexRoute: typeof BreatheIndexRoute
   BuddiesIndexRoute: typeof BuddiesIndexRoute
-  FocusIndexRoute: typeof FocusIndexRoute
-  GratitudeIndexRoute: typeof GratitudeIndexRoute
-  JournalIndexRoute: typeof JournalIndexRoute
   PeacebotIndexRoute: typeof PeacebotIndexRoute
   BuddiesBookIdRoute: typeof BuddiesBookIdRoute
   BuddiesChatIdRoute: typeof BuddiesChatIdRoute
@@ -2448,11 +2480,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MindgymRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/journal': {
+      id: '/journal'
+      path: '/journal'
+      fullPath: '/journal'
+      preLoaderRoute: typeof JournalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/hub': {
       id: '/hub'
       path: '/hub'
       fullPath: '/hub'
       preLoaderRoute: typeof HubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gratitude': {
+      id: '/gratitude'
+      path: '/gratitude'
+      fullPath: '/gratitude'
+      preLoaderRoute: typeof GratitudeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/focus': {
+      id: '/focus'
+      path: '/focus'
+      fullPath: '/focus'
+      preLoaderRoute: typeof FocusRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/events': {
@@ -2481,6 +2534,13 @@ declare module '@tanstack/react-router' {
       path: '/community'
       fullPath: '/community'
       preLoaderRoute: typeof CommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/breathe': {
+      id: '/breathe'
+      path: '/breathe'
+      fullPath: '/breathe'
+      preLoaderRoute: typeof BreatheRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -2548,10 +2608,10 @@ declare module '@tanstack/react-router' {
     }
     '/journal/': {
       id: '/journal/'
-      path: '/journal'
+      path: '/'
       fullPath: '/journal/'
       preLoaderRoute: typeof JournalIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof JournalRoute
     }
     '/hub/': {
       id: '/hub/'
@@ -2562,17 +2622,17 @@ declare module '@tanstack/react-router' {
     }
     '/gratitude/': {
       id: '/gratitude/'
-      path: '/gratitude'
+      path: '/'
       fullPath: '/gratitude/'
       preLoaderRoute: typeof GratitudeIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GratitudeRoute
     }
     '/focus/': {
       id: '/focus/'
-      path: '/focus'
+      path: '/'
       fullPath: '/focus/'
       preLoaderRoute: typeof FocusIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof FocusRoute
     }
     '/events/': {
       id: '/events/'
@@ -2604,10 +2664,10 @@ declare module '@tanstack/react-router' {
     }
     '/breathe/': {
       id: '/breathe/'
-      path: '/breathe'
+      path: '/'
       fullPath: '/breathe/'
       preLoaderRoute: typeof BreatheIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof BreatheRoute
     }
     '/settings/support': {
       id: '/settings/support'
@@ -3024,24 +3084,24 @@ declare module '@tanstack/react-router' {
     }
     '/journal/voice': {
       id: '/journal/voice'
-      path: '/journal/voice'
+      path: '/voice'
       fullPath: '/journal/voice'
       preLoaderRoute: typeof JournalVoiceRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof JournalRoute
     }
     '/journal/memories': {
       id: '/journal/memories'
-      path: '/journal/memories'
+      path: '/memories'
       fullPath: '/journal/memories'
       preLoaderRoute: typeof JournalMemoriesRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof JournalRoute
     }
     '/journal/$id': {
       id: '/journal/$id'
-      path: '/journal/$id'
+      path: '/$id'
       fullPath: '/journal/$id'
       preLoaderRoute: typeof JournalIdRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof JournalRoute
     }
     '/hub/whats-new': {
       id: '/hub/whats-new'
@@ -3108,31 +3168,31 @@ declare module '@tanstack/react-router' {
     }
     '/gratitude/wall': {
       id: '/gratitude/wall'
-      path: '/gratitude/wall'
+      path: '/wall'
       fullPath: '/gratitude/wall'
       preLoaderRoute: typeof GratitudeWallRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GratitudeRoute
     }
     '/gratitude/tree': {
       id: '/gratitude/tree'
-      path: '/gratitude/tree'
+      path: '/tree'
       fullPath: '/gratitude/tree'
       preLoaderRoute: typeof GratitudeTreeRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GratitudeRoute
     }
     '/gratitude/history': {
       id: '/gratitude/history'
-      path: '/gratitude/history'
+      path: '/history'
       fullPath: '/gratitude/history'
       preLoaderRoute: typeof GratitudeHistoryRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GratitudeRoute
     }
     '/gratitude/forest': {
       id: '/gratitude/forest'
-      path: '/gratitude/forest'
+      path: '/forest'
       fullPath: '/gratitude/forest'
       preLoaderRoute: typeof GratitudeForestRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GratitudeRoute
     }
     '/events/my': {
       id: '/events/my'
@@ -3465,10 +3525,10 @@ declare module '@tanstack/react-router' {
     }
     '/breathe/stats': {
       id: '/breathe/stats'
-      path: '/breathe/stats'
+      path: '/stats'
       fullPath: '/breathe/stats'
       preLoaderRoute: typeof BreatheStatsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof BreatheRoute
     }
     '/api/chat': {
       id: '/api/chat'
@@ -3767,6 +3827,19 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface BreatheRouteChildren {
+  BreatheStatsRoute: typeof BreatheStatsRoute
+  BreatheIndexRoute: typeof BreatheIndexRoute
+}
+
+const BreatheRouteChildren: BreatheRouteChildren = {
+  BreatheStatsRoute: BreatheStatsRoute,
+  BreatheIndexRoute: BreatheIndexRoute,
+}
+
+const BreatheRouteWithChildren =
+  BreatheRoute._addFileChildren(BreatheRouteChildren)
+
 interface CounsellingRouteChildren {
   CounsellingAssessmentsRoute: typeof CounsellingAssessmentsRoute
   CounsellingBillingRoute: typeof CounsellingBillingRoute
@@ -3918,6 +3991,36 @@ const EventsRouteChildren: EventsRouteChildren = {
 const EventsRouteWithChildren =
   EventsRoute._addFileChildren(EventsRouteChildren)
 
+interface FocusRouteChildren {
+  FocusIndexRoute: typeof FocusIndexRoute
+}
+
+const FocusRouteChildren: FocusRouteChildren = {
+  FocusIndexRoute: FocusIndexRoute,
+}
+
+const FocusRouteWithChildren = FocusRoute._addFileChildren(FocusRouteChildren)
+
+interface GratitudeRouteChildren {
+  GratitudeForestRoute: typeof GratitudeForestRoute
+  GratitudeHistoryRoute: typeof GratitudeHistoryRoute
+  GratitudeTreeRoute: typeof GratitudeTreeRoute
+  GratitudeWallRoute: typeof GratitudeWallRoute
+  GratitudeIndexRoute: typeof GratitudeIndexRoute
+}
+
+const GratitudeRouteChildren: GratitudeRouteChildren = {
+  GratitudeForestRoute: GratitudeForestRoute,
+  GratitudeHistoryRoute: GratitudeHistoryRoute,
+  GratitudeTreeRoute: GratitudeTreeRoute,
+  GratitudeWallRoute: GratitudeWallRoute,
+  GratitudeIndexRoute: GratitudeIndexRoute,
+}
+
+const GratitudeRouteWithChildren = GratitudeRoute._addFileChildren(
+  GratitudeRouteChildren,
+)
+
 interface HubFeatureRequestsRouteChildren {
   HubFeatureRequestsIdRoute: typeof HubFeatureRequestsIdRoute
 }
@@ -3982,6 +4085,23 @@ const HubRouteChildren: HubRouteChildren = {
 }
 
 const HubRouteWithChildren = HubRoute._addFileChildren(HubRouteChildren)
+
+interface JournalRouteChildren {
+  JournalIdRoute: typeof JournalIdRoute
+  JournalMemoriesRoute: typeof JournalMemoriesRoute
+  JournalVoiceRoute: typeof JournalVoiceRoute
+  JournalIndexRoute: typeof JournalIndexRoute
+}
+
+const JournalRouteChildren: JournalRouteChildren = {
+  JournalIdRoute: JournalIdRoute,
+  JournalMemoriesRoute: JournalMemoriesRoute,
+  JournalVoiceRoute: JournalVoiceRoute,
+  JournalIndexRoute: JournalIndexRoute,
+}
+
+const JournalRouteWithChildren =
+  JournalRoute._addFileChildren(JournalRouteChildren)
 
 interface MindgymRouteChildren {
   MindgymBrainDnaRoute: typeof MindgymBrainDnaRoute
@@ -4200,11 +4320,15 @@ const SettingsRouteWithChildren = SettingsRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BreatheRoute: BreatheRouteWithChildren,
   CommunityRoute: CommunityRoute,
   CounsellingRoute: CounsellingRouteWithChildren,
   EmergencyRoute: EmergencyRouteWithChildren,
   EventsRoute: EventsRouteWithChildren,
+  FocusRoute: FocusRouteWithChildren,
+  GratitudeRoute: GratitudeRouteWithChildren,
   HubRoute: HubRouteWithChildren,
+  JournalRoute: JournalRouteWithChildren,
   MindgymRoute: MindgymRouteWithChildren,
   NotificationsRoute: NotificationsRouteWithChildren,
   ProfileRoute: ProfileRouteWithChildren,
@@ -4213,7 +4337,6 @@ const rootRouteChildren: RootRouteChildren = {
   SearchRoute: SearchRouteWithChildren,
   SettingsRoute: SettingsRouteWithChildren,
   ApiChatRoute: ApiChatRoute,
-  BreatheStatsRoute: BreatheStatsRoute,
   BuddiesIdRoute: BuddiesIdRoute,
   BuddiesAboutRoute: BuddiesAboutRoute,
   BuddiesBrowseRoute: BuddiesBrowseRoute,
@@ -4222,13 +4345,6 @@ const rootRouteChildren: RootRouteChildren = {
   BuddiesHistoryRoute: BuddiesHistoryRoute,
   BuddiesPsychologistsRoute: BuddiesPsychologistsRoute,
   BuddiesSettingsRoute: BuddiesSettingsRoute,
-  GratitudeForestRoute: GratitudeForestRoute,
-  GratitudeHistoryRoute: GratitudeHistoryRoute,
-  GratitudeTreeRoute: GratitudeTreeRoute,
-  GratitudeWallRoute: GratitudeWallRoute,
-  JournalIdRoute: JournalIdRoute,
-  JournalMemoriesRoute: JournalMemoriesRoute,
-  JournalVoiceRoute: JournalVoiceRoute,
   PeacebotAvatarRoute: PeacebotAvatarRoute,
   PeacebotInsightsRoute: PeacebotInsightsRoute,
   PeacebotMemoryRoute: PeacebotMemoryRoute,
@@ -4237,11 +4353,7 @@ const rootRouteChildren: RootRouteChildren = {
   PeacebotSettingsRoute: PeacebotSettingsRoute,
   PeacebotToolsRoute: PeacebotToolsRoute,
   PeacebotVoiceRoute: PeacebotVoiceRoute,
-  BreatheIndexRoute: BreatheIndexRoute,
   BuddiesIndexRoute: BuddiesIndexRoute,
-  FocusIndexRoute: FocusIndexRoute,
-  GratitudeIndexRoute: GratitudeIndexRoute,
-  JournalIndexRoute: JournalIndexRoute,
   PeacebotIndexRoute: PeacebotIndexRoute,
   BuddiesBookIdRoute: BuddiesBookIdRoute,
   BuddiesChatIdRoute: BuddiesChatIdRoute,

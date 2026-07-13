@@ -1,6 +1,7 @@
 // Mind Gym layout — wraps every /mindgym/* page in the shared AppShell.
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
+import { GlassFX } from "@/components/GlassFX";
 
 export const Route = createFileRoute("/mindgym")({
   head: () => ({
@@ -11,5 +12,5 @@ export const Route = createFileRoute("/mindgym")({
       { property: "og:description", content: "Gym for your mind. Train the skills school never taught." },
     ],
   }),
-  component: () => <AppShell><Outlet /></AppShell>,
+  component: () => <AppShell><GlassFX /><Outlet /></AppShell>,
 });
