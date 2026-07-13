@@ -31,6 +31,7 @@ const CATEGORIES: { icon: React.ElementType; label: string; to: string; hint: st
   { icon: Link2, label: "Connected Accounts", to: "/settings/connected", hint: "Google, wearables, SSO" },
   { icon: LifeBuoy, label: "Emergency & Safety", to: "/settings/emergency", hint: "SOS, helplines, quick call" },
   { icon: HelpCircle, label: "Support", to: "/settings/support", hint: "Help centre, feedback" },
+  { icon: Sparkles, label: "Product Hub", to: "/hub", hint: "What's new, themes, integrations" },
   { icon: Info, label: "About PeaceCode", to: "/settings/about", hint: "Version, team, roadmap" },
 ];
 
