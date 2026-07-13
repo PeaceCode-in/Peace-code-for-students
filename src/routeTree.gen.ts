@@ -100,8 +100,12 @@ import { Route as JournalVoiceRouteImport } from './routes/journal.voice'
 import { Route as JournalMemoriesRouteImport } from './routes/journal.memories'
 import { Route as JournalIdRouteImport } from './routes/journal.$id'
 import { Route as HubWhatsNewRouteImport } from './routes/hub.whats-new'
+import { Route as HubThemesRouteImport } from './routes/hub.themes'
+import { Route as HubSearchRouteImport } from './routes/hub.search'
 import { Route as HubRoadmapRouteImport } from './routes/hub.roadmap'
+import { Route as HubIntegrationsRouteImport } from './routes/hub.integrations'
 import { Route as HubFeatureRequestsRouteImport } from './routes/hub.feature-requests'
+import { Route as HubCustomizeRouteImport } from './routes/hub.customize'
 import { Route as HubBetaRouteImport } from './routes/hub.beta'
 import { Route as HubAnnouncementsRouteImport } from './routes/hub.announcements'
 import { Route as GratitudeWallRouteImport } from './routes/gratitude.wall'
@@ -175,6 +179,8 @@ import { Route as MindgymShareSessionRouteImport } from './routes/mindgym.share.
 import { Route as MindgymResultsSidRouteImport } from './routes/mindgym.results.$sid'
 import { Route as MindgymPathSlugRouteImport } from './routes/mindgym.path.$slug'
 import { Route as MindgymExerciseIdRouteImport } from './routes/mindgym.exercise.$id'
+import { Route as HubThemesIdRouteImport } from './routes/hub.themes.$id'
+import { Route as HubIntegrationsIdRouteImport } from './routes/hub.integrations.$id'
 import { Route as HubFeatureRequestsIdRouteImport } from './routes/hub.feature-requests.$id'
 import { Route as HubChangelogVersionRouteImport } from './routes/hub.changelog.$version'
 import { Route as EventsOrganizerOidRouteImport } from './routes/events.organizer.$oid'
@@ -652,14 +658,34 @@ const HubWhatsNewRoute = HubWhatsNewRouteImport.update({
   path: '/whats-new',
   getParentRoute: () => HubRoute,
 } as any)
+const HubThemesRoute = HubThemesRouteImport.update({
+  id: '/themes',
+  path: '/themes',
+  getParentRoute: () => HubRoute,
+} as any)
+const HubSearchRoute = HubSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => HubRoute,
+} as any)
 const HubRoadmapRoute = HubRoadmapRouteImport.update({
   id: '/roadmap',
   path: '/roadmap',
   getParentRoute: () => HubRoute,
 } as any)
+const HubIntegrationsRoute = HubIntegrationsRouteImport.update({
+  id: '/integrations',
+  path: '/integrations',
+  getParentRoute: () => HubRoute,
+} as any)
 const HubFeatureRequestsRoute = HubFeatureRequestsRouteImport.update({
   id: '/feature-requests',
   path: '/feature-requests',
+  getParentRoute: () => HubRoute,
+} as any)
+const HubCustomizeRoute = HubCustomizeRouteImport.update({
+  id: '/customize',
+  path: '/customize',
   getParentRoute: () => HubRoute,
 } as any)
 const HubBetaRoute = HubBetaRouteImport.update({
@@ -1027,6 +1053,16 @@ const MindgymExerciseIdRoute = MindgymExerciseIdRouteImport.update({
   path: '/exercise/$id',
   getParentRoute: () => MindgymRoute,
 } as any)
+const HubThemesIdRoute = HubThemesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => HubThemesRoute,
+} as any)
+const HubIntegrationsIdRoute = HubIntegrationsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => HubIntegrationsRoute,
+} as any)
 const HubFeatureRequestsIdRoute = HubFeatureRequestsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -1200,8 +1236,12 @@ export interface FileRoutesByFullPath {
   '/gratitude/wall': typeof GratitudeWallRoute
   '/hub/announcements': typeof HubAnnouncementsRoute
   '/hub/beta': typeof HubBetaRoute
+  '/hub/customize': typeof HubCustomizeRoute
   '/hub/feature-requests': typeof HubFeatureRequestsRouteWithChildren
+  '/hub/integrations': typeof HubIntegrationsRouteWithChildren
   '/hub/roadmap': typeof HubRoadmapRoute
+  '/hub/search': typeof HubSearchRoute
+  '/hub/themes': typeof HubThemesRouteWithChildren
   '/hub/whats-new': typeof HubWhatsNewRoute
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
@@ -1303,6 +1343,8 @@ export interface FileRoutesByFullPath {
   '/events/organizer/$oid': typeof EventsOrganizerOidRoute
   '/hub/changelog/$version': typeof HubChangelogVersionRoute
   '/hub/feature-requests/$id': typeof HubFeatureRequestsIdRoute
+  '/hub/integrations/$id': typeof HubIntegrationsIdRoute
+  '/hub/themes/$id': typeof HubThemesIdRoute
   '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
   '/mindgym/path/$slug': typeof MindgymPathSlugRoute
   '/mindgym/results/$sid': typeof MindgymResultsSidRoute
@@ -1379,8 +1421,12 @@ export interface FileRoutesByTo {
   '/gratitude/wall': typeof GratitudeWallRoute
   '/hub/announcements': typeof HubAnnouncementsRoute
   '/hub/beta': typeof HubBetaRoute
+  '/hub/customize': typeof HubCustomizeRoute
   '/hub/feature-requests': typeof HubFeatureRequestsRouteWithChildren
+  '/hub/integrations': typeof HubIntegrationsRouteWithChildren
   '/hub/roadmap': typeof HubRoadmapRoute
+  '/hub/search': typeof HubSearchRoute
+  '/hub/themes': typeof HubThemesRouteWithChildren
   '/hub/whats-new': typeof HubWhatsNewRoute
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
@@ -1482,6 +1528,8 @@ export interface FileRoutesByTo {
   '/events/organizer/$oid': typeof EventsOrganizerOidRoute
   '/hub/changelog/$version': typeof HubChangelogVersionRoute
   '/hub/feature-requests/$id': typeof HubFeatureRequestsIdRoute
+  '/hub/integrations/$id': typeof HubIntegrationsIdRoute
+  '/hub/themes/$id': typeof HubThemesIdRoute
   '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
   '/mindgym/path/$slug': typeof MindgymPathSlugRoute
   '/mindgym/results/$sid': typeof MindgymResultsSidRoute
@@ -1569,8 +1617,12 @@ export interface FileRoutesById {
   '/gratitude/wall': typeof GratitudeWallRoute
   '/hub/announcements': typeof HubAnnouncementsRoute
   '/hub/beta': typeof HubBetaRoute
+  '/hub/customize': typeof HubCustomizeRoute
   '/hub/feature-requests': typeof HubFeatureRequestsRouteWithChildren
+  '/hub/integrations': typeof HubIntegrationsRouteWithChildren
   '/hub/roadmap': typeof HubRoadmapRoute
+  '/hub/search': typeof HubSearchRoute
+  '/hub/themes': typeof HubThemesRouteWithChildren
   '/hub/whats-new': typeof HubWhatsNewRoute
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
@@ -1672,6 +1724,8 @@ export interface FileRoutesById {
   '/events/organizer/$oid': typeof EventsOrganizerOidRoute
   '/hub/changelog/$version': typeof HubChangelogVersionRoute
   '/hub/feature-requests/$id': typeof HubFeatureRequestsIdRoute
+  '/hub/integrations/$id': typeof HubIntegrationsIdRoute
+  '/hub/themes/$id': typeof HubThemesIdRoute
   '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
   '/mindgym/path/$slug': typeof MindgymPathSlugRoute
   '/mindgym/results/$sid': typeof MindgymResultsSidRoute
@@ -1760,8 +1814,12 @@ export interface FileRouteTypes {
     | '/gratitude/wall'
     | '/hub/announcements'
     | '/hub/beta'
+    | '/hub/customize'
     | '/hub/feature-requests'
+    | '/hub/integrations'
     | '/hub/roadmap'
+    | '/hub/search'
+    | '/hub/themes'
     | '/hub/whats-new'
     | '/journal/$id'
     | '/journal/memories'
@@ -1863,6 +1921,8 @@ export interface FileRouteTypes {
     | '/events/organizer/$oid'
     | '/hub/changelog/$version'
     | '/hub/feature-requests/$id'
+    | '/hub/integrations/$id'
+    | '/hub/themes/$id'
     | '/mindgym/exercise/$id'
     | '/mindgym/path/$slug'
     | '/mindgym/results/$sid'
@@ -1939,8 +1999,12 @@ export interface FileRouteTypes {
     | '/gratitude/wall'
     | '/hub/announcements'
     | '/hub/beta'
+    | '/hub/customize'
     | '/hub/feature-requests'
+    | '/hub/integrations'
     | '/hub/roadmap'
+    | '/hub/search'
+    | '/hub/themes'
     | '/hub/whats-new'
     | '/journal/$id'
     | '/journal/memories'
@@ -2042,6 +2106,8 @@ export interface FileRouteTypes {
     | '/events/organizer/$oid'
     | '/hub/changelog/$version'
     | '/hub/feature-requests/$id'
+    | '/hub/integrations/$id'
+    | '/hub/themes/$id'
     | '/mindgym/exercise/$id'
     | '/mindgym/path/$slug'
     | '/mindgym/results/$sid'
@@ -2128,8 +2194,12 @@ export interface FileRouteTypes {
     | '/gratitude/wall'
     | '/hub/announcements'
     | '/hub/beta'
+    | '/hub/customize'
     | '/hub/feature-requests'
+    | '/hub/integrations'
     | '/hub/roadmap'
+    | '/hub/search'
+    | '/hub/themes'
     | '/hub/whats-new'
     | '/journal/$id'
     | '/journal/memories'
@@ -2231,6 +2301,8 @@ export interface FileRouteTypes {
     | '/events/organizer/$oid'
     | '/hub/changelog/$version'
     | '/hub/feature-requests/$id'
+    | '/hub/integrations/$id'
+    | '/hub/themes/$id'
     | '/mindgym/exercise/$id'
     | '/mindgym/path/$slug'
     | '/mindgym/results/$sid'
@@ -2967,6 +3039,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HubWhatsNewRouteImport
       parentRoute: typeof HubRoute
     }
+    '/hub/themes': {
+      id: '/hub/themes'
+      path: '/themes'
+      fullPath: '/hub/themes'
+      preLoaderRoute: typeof HubThemesRouteImport
+      parentRoute: typeof HubRoute
+    }
+    '/hub/search': {
+      id: '/hub/search'
+      path: '/search'
+      fullPath: '/hub/search'
+      preLoaderRoute: typeof HubSearchRouteImport
+      parentRoute: typeof HubRoute
+    }
     '/hub/roadmap': {
       id: '/hub/roadmap'
       path: '/roadmap'
@@ -2974,11 +3060,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HubRoadmapRouteImport
       parentRoute: typeof HubRoute
     }
+    '/hub/integrations': {
+      id: '/hub/integrations'
+      path: '/integrations'
+      fullPath: '/hub/integrations'
+      preLoaderRoute: typeof HubIntegrationsRouteImport
+      parentRoute: typeof HubRoute
+    }
     '/hub/feature-requests': {
       id: '/hub/feature-requests'
       path: '/feature-requests'
       fullPath: '/hub/feature-requests'
       preLoaderRoute: typeof HubFeatureRequestsRouteImport
+      parentRoute: typeof HubRoute
+    }
+    '/hub/customize': {
+      id: '/hub/customize'
+      path: '/customize'
+      fullPath: '/hub/customize'
+      preLoaderRoute: typeof HubCustomizeRouteImport
       parentRoute: typeof HubRoute
     }
     '/hub/beta': {
@@ -3492,6 +3592,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MindgymExerciseIdRouteImport
       parentRoute: typeof MindgymRoute
     }
+    '/hub/themes/$id': {
+      id: '/hub/themes/$id'
+      path: '/$id'
+      fullPath: '/hub/themes/$id'
+      preLoaderRoute: typeof HubThemesIdRouteImport
+      parentRoute: typeof HubThemesRoute
+    }
+    '/hub/integrations/$id': {
+      id: '/hub/integrations/$id'
+      path: '/$id'
+      fullPath: '/hub/integrations/$id'
+      preLoaderRoute: typeof HubIntegrationsIdRouteImport
+      parentRoute: typeof HubIntegrationsRoute
+    }
     '/hub/feature-requests/$id': {
       id: '/hub/feature-requests/$id'
       path: '/$id'
@@ -3804,11 +3918,39 @@ const HubFeatureRequestsRouteChildren: HubFeatureRequestsRouteChildren = {
 const HubFeatureRequestsRouteWithChildren =
   HubFeatureRequestsRoute._addFileChildren(HubFeatureRequestsRouteChildren)
 
+interface HubIntegrationsRouteChildren {
+  HubIntegrationsIdRoute: typeof HubIntegrationsIdRoute
+}
+
+const HubIntegrationsRouteChildren: HubIntegrationsRouteChildren = {
+  HubIntegrationsIdRoute: HubIntegrationsIdRoute,
+}
+
+const HubIntegrationsRouteWithChildren = HubIntegrationsRoute._addFileChildren(
+  HubIntegrationsRouteChildren,
+)
+
+interface HubThemesRouteChildren {
+  HubThemesIdRoute: typeof HubThemesIdRoute
+}
+
+const HubThemesRouteChildren: HubThemesRouteChildren = {
+  HubThemesIdRoute: HubThemesIdRoute,
+}
+
+const HubThemesRouteWithChildren = HubThemesRoute._addFileChildren(
+  HubThemesRouteChildren,
+)
+
 interface HubRouteChildren {
   HubAnnouncementsRoute: typeof HubAnnouncementsRoute
   HubBetaRoute: typeof HubBetaRoute
+  HubCustomizeRoute: typeof HubCustomizeRoute
   HubFeatureRequestsRoute: typeof HubFeatureRequestsRouteWithChildren
+  HubIntegrationsRoute: typeof HubIntegrationsRouteWithChildren
   HubRoadmapRoute: typeof HubRoadmapRoute
+  HubSearchRoute: typeof HubSearchRoute
+  HubThemesRoute: typeof HubThemesRouteWithChildren
   HubWhatsNewRoute: typeof HubWhatsNewRoute
   HubIndexRoute: typeof HubIndexRoute
   HubChangelogVersionRoute: typeof HubChangelogVersionRoute
@@ -3817,8 +3959,12 @@ interface HubRouteChildren {
 const HubRouteChildren: HubRouteChildren = {
   HubAnnouncementsRoute: HubAnnouncementsRoute,
   HubBetaRoute: HubBetaRoute,
+  HubCustomizeRoute: HubCustomizeRoute,
   HubFeatureRequestsRoute: HubFeatureRequestsRouteWithChildren,
+  HubIntegrationsRoute: HubIntegrationsRouteWithChildren,
   HubRoadmapRoute: HubRoadmapRoute,
+  HubSearchRoute: HubSearchRoute,
+  HubThemesRoute: HubThemesRouteWithChildren,
   HubWhatsNewRoute: HubWhatsNewRoute,
   HubIndexRoute: HubIndexRoute,
   HubChangelogVersionRoute: HubChangelogVersionRoute,
