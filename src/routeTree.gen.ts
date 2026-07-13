@@ -81,6 +81,7 @@ import { Route as PeacebotMemoryRouteImport } from './routes/peacebot.memory'
 import { Route as PeacebotInsightsRouteImport } from './routes/peacebot.insights'
 import { Route as PeacebotAvatarRouteImport } from './routes/peacebot.avatar'
 import { Route as NotificationsInboxRouteImport } from './routes/notifications.inbox'
+import { Route as NotificationsBookmarksRouteImport } from './routes/notifications.bookmarks'
 import { Route as NotificationsIdRouteImport } from './routes/notifications.$id'
 import { Route as MindgymStreakRouteImport } from './routes/mindgym.streak'
 import { Route as MindgymPathsRouteImport } from './routes/mindgym.paths'
@@ -507,6 +508,11 @@ const NotificationsInboxRoute = NotificationsInboxRouteImport.update({
   path: '/inbox',
   getParentRoute: () => NotificationsRoute,
 } as any)
+const NotificationsBookmarksRoute = NotificationsBookmarksRouteImport.update({
+  id: '/bookmarks',
+  path: '/bookmarks',
+  getParentRoute: () => NotificationsRoute,
+} as any)
 const NotificationsIdRoute = NotificationsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -879,6 +885,7 @@ export interface FileRoutesByFullPath {
   '/mindgym/paths': typeof MindgymPathsRoute
   '/mindgym/streak': typeof MindgymStreakRoute
   '/notifications/$id': typeof NotificationsIdRoute
+  '/notifications/bookmarks': typeof NotificationsBookmarksRoute
   '/notifications/inbox': typeof NotificationsInboxRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
   '/peacebot/insights': typeof PeacebotInsightsRoute
@@ -1012,6 +1019,7 @@ export interface FileRoutesByTo {
   '/mindgym/paths': typeof MindgymPathsRoute
   '/mindgym/streak': typeof MindgymStreakRoute
   '/notifications/$id': typeof NotificationsIdRoute
+  '/notifications/bookmarks': typeof NotificationsBookmarksRoute
   '/notifications/inbox': typeof NotificationsInboxRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
   '/peacebot/insights': typeof PeacebotInsightsRoute
@@ -1152,6 +1160,7 @@ export interface FileRoutesById {
   '/mindgym/paths': typeof MindgymPathsRoute
   '/mindgym/streak': typeof MindgymStreakRoute
   '/notifications/$id': typeof NotificationsIdRoute
+  '/notifications/bookmarks': typeof NotificationsBookmarksRoute
   '/notifications/inbox': typeof NotificationsInboxRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
   '/peacebot/insights': typeof PeacebotInsightsRoute
@@ -1293,6 +1302,7 @@ export interface FileRouteTypes {
     | '/mindgym/paths'
     | '/mindgym/streak'
     | '/notifications/$id'
+    | '/notifications/bookmarks'
     | '/notifications/inbox'
     | '/peacebot/avatar'
     | '/peacebot/insights'
@@ -1426,6 +1436,7 @@ export interface FileRouteTypes {
     | '/mindgym/paths'
     | '/mindgym/streak'
     | '/notifications/$id'
+    | '/notifications/bookmarks'
     | '/notifications/inbox'
     | '/peacebot/avatar'
     | '/peacebot/insights'
@@ -1565,6 +1576,7 @@ export interface FileRouteTypes {
     | '/mindgym/paths'
     | '/mindgym/streak'
     | '/notifications/$id'
+    | '/notifications/bookmarks'
     | '/notifications/inbox'
     | '/peacebot/avatar'
     | '/peacebot/insights'
@@ -2239,6 +2251,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotificationsInboxRouteImport
       parentRoute: typeof NotificationsRoute
     }
+    '/notifications/bookmarks': {
+      id: '/notifications/bookmarks'
+      path: '/bookmarks'
+      fullPath: '/notifications/bookmarks'
+      preLoaderRoute: typeof NotificationsBookmarksRouteImport
+      parentRoute: typeof NotificationsRoute
+    }
     '/notifications/$id': {
       id: '/notifications/$id'
       path: '/$id'
@@ -2780,12 +2799,14 @@ const MindgymRouteWithChildren =
 
 interface NotificationsRouteChildren {
   NotificationsIdRoute: typeof NotificationsIdRoute
+  NotificationsBookmarksRoute: typeof NotificationsBookmarksRoute
   NotificationsInboxRoute: typeof NotificationsInboxRoute
   NotificationsIndexRoute: typeof NotificationsIndexRoute
 }
 
 const NotificationsRouteChildren: NotificationsRouteChildren = {
   NotificationsIdRoute: NotificationsIdRoute,
+  NotificationsBookmarksRoute: NotificationsBookmarksRoute,
   NotificationsInboxRoute: NotificationsInboxRoute,
   NotificationsIndexRoute: NotificationsIndexRoute,
 }
