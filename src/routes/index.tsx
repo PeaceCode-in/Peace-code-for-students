@@ -834,17 +834,38 @@ function UpcomingRow({ when, label, tone }: { when: number; label: string; tone:
   );
 }
 
-function ContinueCard({ to, icon: Icon, title, hint }: { to: string; icon: any; title: string; hint: string }) {
+function ContinueCard({
+  to, params, icon: Icon, title, hint, live, index = 0,
+}: {
+  to: any; params?: any; icon: any; title: string; hint: string; live?: boolean; index?: number;
+}) {
   return (
-    <Link to={to} className="rounded-2xl p-4 flex flex-col gap-3 transition hover:-translate-y-0.5 group"
-      style={{ background: "var(--pc-surface2)", border: "1px solid var(--pc-border)" }}>
+    <Link
+      to={to} params={params}
+      className="rounded-2xl p-4 flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-25px_rgba(29,42,68,0.25)] group animate-fade-in relative overflow-hidden"
+      style={{
+        background: "var(--pc-surface2)",
+        border: "1px solid var(--pc-border)",
+        animationDelay: `${index * 60}ms`,
+        animationFillMode: "both",
+      }}
+    >
       <div className="flex items-center justify-between">
-        <Icon className="w-4 h-4 opacity-60" />
-        <Play className="w-3.5 h-3.5 opacity-0 group-hover:opacity-80 transition" style={{ color: "var(--pc-primary)" }} />
+        <Icon className="w-4 h-4 opacity-60 transition-transform duration-300 group-hover:scale-110" />
+        <div className="flex items-center gap-1.5">
+          {live && (
+            <span className="inline-flex items-center gap-1 text-[9px] tracking-[0.18em] uppercase" style={{ color: "var(--pc-primary)" }}>
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "var(--pc-primary)" }} />
+              live
+            </span>
+          )}
+          <Play className="w-3.5 h-3.5 opacity-0 group-hover:opacity-90 transition-all duration-300 -translate-x-1 group-hover:translate-x-0"
+            style={{ color: "var(--pc-primary)" }} />
+        </div>
       </div>
-      <div>
-        <div className="font-serif text-[15px] leading-tight" style={{ color: "var(--pc-ink)" }}>{title}</div>
-        <div className="text-[11px] mt-0.5" style={{ color: "var(--pc-muted)" }}>{hint}</div>
+      <div className="min-w-0">
+        <div className="font-serif text-[15px] leading-tight truncate" style={{ color: "var(--pc-ink)" }}>{title}</div>
+        <div className="text-[11px] mt-0.5 line-clamp-2" style={{ color: "var(--pc-muted)" }}>{hint}</div>
       </div>
     </Link>
   );
