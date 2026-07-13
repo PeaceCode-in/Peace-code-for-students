@@ -1,6 +1,7 @@
 // PeaceCode Resource Library — local-first store
 // Seeded content, bookmarks, history, notes, highlights, playlists, downloads,
 // achievements, learning streak, and recommendation logic. No SSR access.
+import { useState, useEffect } from "react";
 
 export type ResourceFormat =
   | "article" | "short-read" | "long-read" | "research"
