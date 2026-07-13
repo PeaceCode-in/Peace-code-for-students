@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as MindgymRouteImport } from './routes/mindgym'
@@ -213,6 +214,11 @@ const SearchRoute = SearchRouteImport.update({
   path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -274,9 +280,9 @@ const ScreeningIndexRoute = ScreeningIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResourcesIndexRoute = ResourcesIndexRouteImport.update({
-  id: '/resources/',
-  path: '/resources/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => ResourcesRoute,
 } as any)
 const ProfileIndexRoute = ProfileIndexRouteImport.update({
   id: '/',
@@ -459,44 +465,44 @@ const ScreeningHistoryRoute = ScreeningHistoryRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResourcesSearchRoute = ResourcesSearchRouteImport.update({
-  id: '/resources/search',
-  path: '/resources/search',
-  getParentRoute: () => rootRouteImport,
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => ResourcesRoute,
 } as any)
 const ResourcesPlaylistsRoute = ResourcesPlaylistsRouteImport.update({
-  id: '/resources/playlists',
-  path: '/resources/playlists',
-  getParentRoute: () => rootRouteImport,
+  id: '/playlists',
+  path: '/playlists',
+  getParentRoute: () => ResourcesRoute,
 } as any)
 const ResourcesLibraryRoute = ResourcesLibraryRouteImport.update({
-  id: '/resources/library',
-  path: '/resources/library',
-  getParentRoute: () => rootRouteImport,
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => ResourcesRoute,
 } as any)
 const ResourcesHistoryRoute = ResourcesHistoryRouteImport.update({
-  id: '/resources/history',
-  path: '/resources/history',
-  getParentRoute: () => rootRouteImport,
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => ResourcesRoute,
 } as any)
 const ResourcesDownloadsRoute = ResourcesDownloadsRouteImport.update({
-  id: '/resources/downloads',
-  path: '/resources/downloads',
-  getParentRoute: () => rootRouteImport,
+  id: '/downloads',
+  path: '/downloads',
+  getParentRoute: () => ResourcesRoute,
 } as any)
 const ResourcesCollectionsRoute = ResourcesCollectionsRouteImport.update({
-  id: '/resources/collections',
-  path: '/resources/collections',
-  getParentRoute: () => rootRouteImport,
+  id: '/collections',
+  path: '/collections',
+  getParentRoute: () => ResourcesRoute,
 } as any)
 const ResourcesCategoriesRoute = ResourcesCategoriesRouteImport.update({
-  id: '/resources/categories',
-  path: '/resources/categories',
-  getParentRoute: () => rootRouteImport,
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => ResourcesRoute,
 } as any)
 const ResourcesAchievementsRoute = ResourcesAchievementsRouteImport.update({
-  id: '/resources/achievements',
-  path: '/resources/achievements',
-  getParentRoute: () => rootRouteImport,
+  id: '/achievements',
+  path: '/achievements',
+  getParentRoute: () => ResourcesRoute,
 } as any)
 const ProfileThemesRoute = ProfileThemesRouteImport.update({
   id: '/themes',
@@ -999,29 +1005,29 @@ const ScreeningAssessmentIdRoute = ScreeningAssessmentIdRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResourcesRIdRoute = ResourcesRIdRouteImport.update({
-  id: '/resources/r/$id',
-  path: '/resources/r/$id',
-  getParentRoute: () => rootRouteImport,
+  id: '/r/$id',
+  path: '/r/$id',
+  getParentRoute: () => ResourcesRoute,
 } as any)
 const ResourcesPlaylistIdRoute = ResourcesPlaylistIdRouteImport.update({
-  id: '/resources/playlist/$id',
-  path: '/resources/playlist/$id',
-  getParentRoute: () => rootRouteImport,
+  id: '/playlist/$id',
+  path: '/playlist/$id',
+  getParentRoute: () => ResourcesRoute,
 } as any)
 const ResourcesCollectionSlugRoute = ResourcesCollectionSlugRouteImport.update({
-  id: '/resources/collection/$slug',
-  path: '/resources/collection/$slug',
-  getParentRoute: () => rootRouteImport,
+  id: '/collection/$slug',
+  path: '/collection/$slug',
+  getParentRoute: () => ResourcesRoute,
 } as any)
 const ResourcesCSlugRoute = ResourcesCSlugRouteImport.update({
-  id: '/resources/c/$slug',
-  path: '/resources/c/$slug',
-  getParentRoute: () => rootRouteImport,
+  id: '/c/$slug',
+  path: '/c/$slug',
+  getParentRoute: () => ResourcesRoute,
 } as any)
 const ResourcesAuthorIdRoute = ResourcesAuthorIdRouteImport.update({
-  id: '/resources/author/$id',
-  path: '/resources/author/$id',
-  getParentRoute: () => rootRouteImport,
+  id: '/author/$id',
+  path: '/author/$id',
+  getParentRoute: () => ResourcesRoute,
 } as any)
 const PeacebotCIdRoute = PeacebotCIdRouteImport.update({
   id: '/peacebot/c/$id',
@@ -1179,6 +1185,7 @@ export interface FileRoutesByFullPath {
   '/mindgym': typeof MindgymRouteWithChildren
   '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
+  '/resources': typeof ResourcesRouteWithChildren
   '/search': typeof SearchRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
   '/api/chat': typeof ApiChatRoute
@@ -1560,6 +1567,7 @@ export interface FileRoutesById {
   '/mindgym': typeof MindgymRouteWithChildren
   '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
+  '/resources': typeof ResourcesRouteWithChildren
   '/search': typeof SearchRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
   '/api/chat': typeof ApiChatRoute
@@ -1757,6 +1765,7 @@ export interface FileRouteTypes {
     | '/mindgym'
     | '/notifications'
     | '/profile'
+    | '/resources'
     | '/search'
     | '/settings'
     | '/api/chat'
@@ -2137,6 +2146,7 @@ export interface FileRouteTypes {
     | '/mindgym'
     | '/notifications'
     | '/profile'
+    | '/resources'
     | '/search'
     | '/settings'
     | '/api/chat'
@@ -2333,6 +2343,7 @@ export interface RootRouteChildren {
   MindgymRoute: typeof MindgymRouteWithChildren
   NotificationsRoute: typeof NotificationsRouteWithChildren
   ProfileRoute: typeof ProfileRouteWithChildren
+  ResourcesRoute: typeof ResourcesRouteWithChildren
   SearchRoute: typeof SearchRouteWithChildren
   SettingsRoute: typeof SettingsRouteWithChildren
   ApiChatRoute: typeof ApiChatRoute
@@ -2360,14 +2371,6 @@ export interface RootRouteChildren {
   PeacebotSettingsRoute: typeof PeacebotSettingsRoute
   PeacebotToolsRoute: typeof PeacebotToolsRoute
   PeacebotVoiceRoute: typeof PeacebotVoiceRoute
-  ResourcesAchievementsRoute: typeof ResourcesAchievementsRoute
-  ResourcesCategoriesRoute: typeof ResourcesCategoriesRoute
-  ResourcesCollectionsRoute: typeof ResourcesCollectionsRoute
-  ResourcesDownloadsRoute: typeof ResourcesDownloadsRoute
-  ResourcesHistoryRoute: typeof ResourcesHistoryRoute
-  ResourcesLibraryRoute: typeof ResourcesLibraryRoute
-  ResourcesPlaylistsRoute: typeof ResourcesPlaylistsRoute
-  ResourcesSearchRoute: typeof ResourcesSearchRoute
   ScreeningHistoryRoute: typeof ScreeningHistoryRoute
   ScreeningLibraryRoute: typeof ScreeningLibraryRoute
   ScreeningResourcesRoute: typeof ScreeningResourcesRoute
@@ -2378,7 +2381,6 @@ export interface RootRouteChildren {
   GratitudeIndexRoute: typeof GratitudeIndexRoute
   JournalIndexRoute: typeof JournalIndexRoute
   PeacebotIndexRoute: typeof PeacebotIndexRoute
-  ResourcesIndexRoute: typeof ResourcesIndexRoute
   ScreeningIndexRoute: typeof ScreeningIndexRoute
   BuddiesBookIdRoute: typeof BuddiesBookIdRoute
   BuddiesChatIdRoute: typeof BuddiesChatIdRoute
@@ -2387,11 +2389,6 @@ export interface RootRouteChildren {
   BuddiesRequestIdRoute: typeof BuddiesRequestIdRoute
   BuddiesSafetyIdRoute: typeof BuddiesSafetyIdRoute
   PeacebotCIdRoute: typeof PeacebotCIdRoute
-  ResourcesAuthorIdRoute: typeof ResourcesAuthorIdRoute
-  ResourcesCSlugRoute: typeof ResourcesCSlugRoute
-  ResourcesCollectionSlugRoute: typeof ResourcesCollectionSlugRoute
-  ResourcesPlaylistIdRoute: typeof ResourcesPlaylistIdRoute
-  ResourcesRIdRoute: typeof ResourcesRIdRoute
   ScreeningAssessmentIdRoute: typeof ScreeningAssessmentIdRoute
   ScreeningConsentIdRoute: typeof ScreeningConsentIdRoute
   ScreeningInstructionsIdRoute: typeof ScreeningInstructionsIdRoute
@@ -2414,6 +2411,13 @@ declare module '@tanstack/react-router' {
       path: '/search'
       fullPath: '/search'
       preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profile': {
@@ -2502,10 +2506,10 @@ declare module '@tanstack/react-router' {
     }
     '/resources/': {
       id: '/resources/'
-      path: '/resources'
+      path: '/'
       fullPath: '/resources/'
       preLoaderRoute: typeof ResourcesIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ResourcesRoute
     }
     '/profile/': {
       id: '/profile/'
@@ -2761,59 +2765,59 @@ declare module '@tanstack/react-router' {
     }
     '/resources/search': {
       id: '/resources/search'
-      path: '/resources/search'
+      path: '/search'
       fullPath: '/resources/search'
       preLoaderRoute: typeof ResourcesSearchRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ResourcesRoute
     }
     '/resources/playlists': {
       id: '/resources/playlists'
-      path: '/resources/playlists'
+      path: '/playlists'
       fullPath: '/resources/playlists'
       preLoaderRoute: typeof ResourcesPlaylistsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ResourcesRoute
     }
     '/resources/library': {
       id: '/resources/library'
-      path: '/resources/library'
+      path: '/library'
       fullPath: '/resources/library'
       preLoaderRoute: typeof ResourcesLibraryRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ResourcesRoute
     }
     '/resources/history': {
       id: '/resources/history'
-      path: '/resources/history'
+      path: '/history'
       fullPath: '/resources/history'
       preLoaderRoute: typeof ResourcesHistoryRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ResourcesRoute
     }
     '/resources/downloads': {
       id: '/resources/downloads'
-      path: '/resources/downloads'
+      path: '/downloads'
       fullPath: '/resources/downloads'
       preLoaderRoute: typeof ResourcesDownloadsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ResourcesRoute
     }
     '/resources/collections': {
       id: '/resources/collections'
-      path: '/resources/collections'
+      path: '/collections'
       fullPath: '/resources/collections'
       preLoaderRoute: typeof ResourcesCollectionsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ResourcesRoute
     }
     '/resources/categories': {
       id: '/resources/categories'
-      path: '/resources/categories'
+      path: '/categories'
       fullPath: '/resources/categories'
       preLoaderRoute: typeof ResourcesCategoriesRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ResourcesRoute
     }
     '/resources/achievements': {
       id: '/resources/achievements'
-      path: '/resources/achievements'
+      path: '/achievements'
       fullPath: '/resources/achievements'
       preLoaderRoute: typeof ResourcesAchievementsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ResourcesRoute
     }
     '/profile/themes': {
       id: '/profile/themes'
@@ -3517,38 +3521,38 @@ declare module '@tanstack/react-router' {
     }
     '/resources/r/$id': {
       id: '/resources/r/$id'
-      path: '/resources/r/$id'
+      path: '/r/$id'
       fullPath: '/resources/r/$id'
       preLoaderRoute: typeof ResourcesRIdRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ResourcesRoute
     }
     '/resources/playlist/$id': {
       id: '/resources/playlist/$id'
-      path: '/resources/playlist/$id'
+      path: '/playlist/$id'
       fullPath: '/resources/playlist/$id'
       preLoaderRoute: typeof ResourcesPlaylistIdRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ResourcesRoute
     }
     '/resources/collection/$slug': {
       id: '/resources/collection/$slug'
-      path: '/resources/collection/$slug'
+      path: '/collection/$slug'
       fullPath: '/resources/collection/$slug'
       preLoaderRoute: typeof ResourcesCollectionSlugRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ResourcesRoute
     }
     '/resources/c/$slug': {
       id: '/resources/c/$slug'
-      path: '/resources/c/$slug'
+      path: '/c/$slug'
       fullPath: '/resources/c/$slug'
       preLoaderRoute: typeof ResourcesCSlugRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ResourcesRoute
     }
     '/resources/author/$id': {
       id: '/resources/author/$id'
-      path: '/resources/author/$id'
+      path: '/author/$id'
       fullPath: '/resources/author/$id'
       preLoaderRoute: typeof ResourcesAuthorIdRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ResourcesRoute
     }
     '/peacebot/c/$id': {
       id: '/peacebot/c/$id'
@@ -4056,6 +4060,44 @@ const ProfileRouteChildren: ProfileRouteChildren = {
 const ProfileRouteWithChildren =
   ProfileRoute._addFileChildren(ProfileRouteChildren)
 
+interface ResourcesRouteChildren {
+  ResourcesAchievementsRoute: typeof ResourcesAchievementsRoute
+  ResourcesCategoriesRoute: typeof ResourcesCategoriesRoute
+  ResourcesCollectionsRoute: typeof ResourcesCollectionsRoute
+  ResourcesDownloadsRoute: typeof ResourcesDownloadsRoute
+  ResourcesHistoryRoute: typeof ResourcesHistoryRoute
+  ResourcesLibraryRoute: typeof ResourcesLibraryRoute
+  ResourcesPlaylistsRoute: typeof ResourcesPlaylistsRoute
+  ResourcesSearchRoute: typeof ResourcesSearchRoute
+  ResourcesIndexRoute: typeof ResourcesIndexRoute
+  ResourcesAuthorIdRoute: typeof ResourcesAuthorIdRoute
+  ResourcesCSlugRoute: typeof ResourcesCSlugRoute
+  ResourcesCollectionSlugRoute: typeof ResourcesCollectionSlugRoute
+  ResourcesPlaylistIdRoute: typeof ResourcesPlaylistIdRoute
+  ResourcesRIdRoute: typeof ResourcesRIdRoute
+}
+
+const ResourcesRouteChildren: ResourcesRouteChildren = {
+  ResourcesAchievementsRoute: ResourcesAchievementsRoute,
+  ResourcesCategoriesRoute: ResourcesCategoriesRoute,
+  ResourcesCollectionsRoute: ResourcesCollectionsRoute,
+  ResourcesDownloadsRoute: ResourcesDownloadsRoute,
+  ResourcesHistoryRoute: ResourcesHistoryRoute,
+  ResourcesLibraryRoute: ResourcesLibraryRoute,
+  ResourcesPlaylistsRoute: ResourcesPlaylistsRoute,
+  ResourcesSearchRoute: ResourcesSearchRoute,
+  ResourcesIndexRoute: ResourcesIndexRoute,
+  ResourcesAuthorIdRoute: ResourcesAuthorIdRoute,
+  ResourcesCSlugRoute: ResourcesCSlugRoute,
+  ResourcesCollectionSlugRoute: ResourcesCollectionSlugRoute,
+  ResourcesPlaylistIdRoute: ResourcesPlaylistIdRoute,
+  ResourcesRIdRoute: ResourcesRIdRoute,
+}
+
+const ResourcesRouteWithChildren = ResourcesRoute._addFileChildren(
+  ResourcesRouteChildren,
+)
+
 interface SearchRouteChildren {
   SearchHistoryRoute: typeof SearchHistoryRoute
   SearchSettingsRoute: typeof SearchSettingsRoute
@@ -4127,6 +4169,7 @@ const rootRouteChildren: RootRouteChildren = {
   MindgymRoute: MindgymRouteWithChildren,
   NotificationsRoute: NotificationsRouteWithChildren,
   ProfileRoute: ProfileRouteWithChildren,
+  ResourcesRoute: ResourcesRouteWithChildren,
   SearchRoute: SearchRouteWithChildren,
   SettingsRoute: SettingsRouteWithChildren,
   ApiChatRoute: ApiChatRoute,
@@ -4154,14 +4197,6 @@ const rootRouteChildren: RootRouteChildren = {
   PeacebotSettingsRoute: PeacebotSettingsRoute,
   PeacebotToolsRoute: PeacebotToolsRoute,
   PeacebotVoiceRoute: PeacebotVoiceRoute,
-  ResourcesAchievementsRoute: ResourcesAchievementsRoute,
-  ResourcesCategoriesRoute: ResourcesCategoriesRoute,
-  ResourcesCollectionsRoute: ResourcesCollectionsRoute,
-  ResourcesDownloadsRoute: ResourcesDownloadsRoute,
-  ResourcesHistoryRoute: ResourcesHistoryRoute,
-  ResourcesLibraryRoute: ResourcesLibraryRoute,
-  ResourcesPlaylistsRoute: ResourcesPlaylistsRoute,
-  ResourcesSearchRoute: ResourcesSearchRoute,
   ScreeningHistoryRoute: ScreeningHistoryRoute,
   ScreeningLibraryRoute: ScreeningLibraryRoute,
   ScreeningResourcesRoute: ScreeningResourcesRoute,
@@ -4172,7 +4207,6 @@ const rootRouteChildren: RootRouteChildren = {
   GratitudeIndexRoute: GratitudeIndexRoute,
   JournalIndexRoute: JournalIndexRoute,
   PeacebotIndexRoute: PeacebotIndexRoute,
-  ResourcesIndexRoute: ResourcesIndexRoute,
   ScreeningIndexRoute: ScreeningIndexRoute,
   BuddiesBookIdRoute: BuddiesBookIdRoute,
   BuddiesChatIdRoute: BuddiesChatIdRoute,
@@ -4181,11 +4215,6 @@ const rootRouteChildren: RootRouteChildren = {
   BuddiesRequestIdRoute: BuddiesRequestIdRoute,
   BuddiesSafetyIdRoute: BuddiesSafetyIdRoute,
   PeacebotCIdRoute: PeacebotCIdRoute,
-  ResourcesAuthorIdRoute: ResourcesAuthorIdRoute,
-  ResourcesCSlugRoute: ResourcesCSlugRoute,
-  ResourcesCollectionSlugRoute: ResourcesCollectionSlugRoute,
-  ResourcesPlaylistIdRoute: ResourcesPlaylistIdRoute,
-  ResourcesRIdRoute: ResourcesRIdRoute,
   ScreeningAssessmentIdRoute: ScreeningAssessmentIdRoute,
   ScreeningConsentIdRoute: ScreeningConsentIdRoute,
   ScreeningInstructionsIdRoute: ScreeningInstructionsIdRoute,
