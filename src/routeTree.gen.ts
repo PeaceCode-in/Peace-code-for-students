@@ -29,6 +29,7 @@ import { Route as PeacebotIndexRouteImport } from './routes/peacebot.index'
 import { Route as NotificationsIndexRouteImport } from './routes/notifications.index'
 import { Route as MindgymIndexRouteImport } from './routes/mindgym.index'
 import { Route as JournalIndexRouteImport } from './routes/journal.index'
+import { Route as HubIndexRouteImport } from './routes/hub.index'
 import { Route as GratitudeIndexRouteImport } from './routes/gratitude.index'
 import { Route as FocusIndexRouteImport } from './routes/focus.index'
 import { Route as EventsIndexRouteImport } from './routes/events.index'
@@ -288,6 +289,11 @@ const JournalIndexRoute = JournalIndexRouteImport.update({
   id: '/journal/',
   path: '/journal/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const HubIndexRoute = HubIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => HubRoute,
 } as any)
 const GratitudeIndexRoute = GratitudeIndexRouteImport.update({
   id: '/gratitude/',
@@ -1091,7 +1097,7 @@ export interface FileRoutesByFullPath {
   '/counselling': typeof CounsellingRouteWithChildren
   '/emergency': typeof EmergencyRouteWithChildren
   '/events': typeof EventsRouteWithChildren
-  '/hub': typeof HubRoute
+  '/hub': typeof HubRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
   '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
@@ -1219,6 +1225,7 @@ export interface FileRoutesByFullPath {
   '/events/': typeof EventsIndexRoute
   '/focus/': typeof FocusIndexRoute
   '/gratitude/': typeof GratitudeIndexRoute
+  '/hub/': typeof HubIndexRoute
   '/journal/': typeof JournalIndexRoute
   '/mindgym/': typeof MindgymIndexRoute
   '/notifications/': typeof NotificationsIndexRoute
@@ -1269,7 +1276,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
-  '/hub': typeof HubRoute
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/buddies/$id': typeof BuddiesIdRoute
@@ -1391,6 +1397,7 @@ export interface FileRoutesByTo {
   '/events': typeof EventsIndexRoute
   '/focus': typeof FocusIndexRoute
   '/gratitude': typeof GratitudeIndexRoute
+  '/hub': typeof HubIndexRoute
   '/journal': typeof JournalIndexRoute
   '/mindgym': typeof MindgymIndexRoute
   '/notifications': typeof NotificationsIndexRoute
@@ -1445,7 +1452,7 @@ export interface FileRoutesById {
   '/counselling': typeof CounsellingRouteWithChildren
   '/emergency': typeof EmergencyRouteWithChildren
   '/events': typeof EventsRouteWithChildren
-  '/hub': typeof HubRoute
+  '/hub': typeof HubRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
   '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
@@ -1573,6 +1580,7 @@ export interface FileRoutesById {
   '/events/': typeof EventsIndexRoute
   '/focus/': typeof FocusIndexRoute
   '/gratitude/': typeof GratitudeIndexRoute
+  '/hub/': typeof HubIndexRoute
   '/journal/': typeof JournalIndexRoute
   '/mindgym/': typeof MindgymIndexRoute
   '/notifications/': typeof NotificationsIndexRoute
@@ -1756,6 +1764,7 @@ export interface FileRouteTypes {
     | '/events/'
     | '/focus/'
     | '/gratitude/'
+    | '/hub/'
     | '/journal/'
     | '/mindgym/'
     | '/notifications/'
@@ -1806,7 +1815,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/community'
-    | '/hub'
     | '/api/chat'
     | '/breathe/stats'
     | '/buddies/$id'
@@ -1928,6 +1936,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/focus'
     | '/gratitude'
+    | '/hub'
     | '/journal'
     | '/mindgym'
     | '/notifications'
@@ -2109,6 +2118,7 @@ export interface FileRouteTypes {
     | '/events/'
     | '/focus/'
     | '/gratitude/'
+    | '/hub/'
     | '/journal/'
     | '/mindgym/'
     | '/notifications/'
@@ -2163,7 +2173,7 @@ export interface RootRouteChildren {
   CounsellingRoute: typeof CounsellingRouteWithChildren
   EmergencyRoute: typeof EmergencyRouteWithChildren
   EventsRoute: typeof EventsRouteWithChildren
-  HubRoute: typeof HubRoute
+  HubRoute: typeof HubRouteWithChildren
   MindgymRoute: typeof MindgymRouteWithChildren
   NotificationsRoute: typeof NotificationsRouteWithChildren
   ProfileRoute: typeof ProfileRouteWithChildren
@@ -2375,6 +2385,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/journal/'
       preLoaderRoute: typeof JournalIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/hub/': {
+      id: '/hub/'
+      path: '/'
+      fullPath: '/hub/'
+      preLoaderRoute: typeof HubIndexRouteImport
+      parentRoute: typeof HubRoute
     }
     '/gratitude/': {
       id: '/gratitude/'
@@ -3643,6 +3660,16 @@ const EventsRouteChildren: EventsRouteChildren = {
 const EventsRouteWithChildren =
   EventsRoute._addFileChildren(EventsRouteChildren)
 
+interface HubRouteChildren {
+  HubIndexRoute: typeof HubIndexRoute
+}
+
+const HubRouteChildren: HubRouteChildren = {
+  HubIndexRoute: HubIndexRoute,
+}
+
+const HubRouteWithChildren = HubRoute._addFileChildren(HubRouteChildren)
+
 interface MindgymRouteChildren {
   MindgymBrainDnaRoute: typeof MindgymBrainDnaRoute
   MindgymLibraryRoute: typeof MindgymLibraryRoute
@@ -3794,7 +3821,7 @@ const rootRouteChildren: RootRouteChildren = {
   CounsellingRoute: CounsellingRouteWithChildren,
   EmergencyRoute: EmergencyRouteWithChildren,
   EventsRoute: EventsRouteWithChildren,
-  HubRoute: HubRoute,
+  HubRoute: HubRouteWithChildren,
   MindgymRoute: MindgymRouteWithChildren,
   NotificationsRoute: NotificationsRouteWithChildren,
   ProfileRoute: ProfileRouteWithChildren,
