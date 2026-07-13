@@ -17,6 +17,7 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as MindgymRouteImport } from './routes/mindgym'
 import { Route as HubRouteImport } from './routes/hub'
+import { Route as FocusRouteImport } from './routes/focus'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as EmergencyRouteImport } from './routes/emergency'
 import { Route as CounsellingRouteImport } from './routes/counselling'
@@ -246,6 +247,11 @@ const HubRoute = HubRouteImport.update({
   path: '/hub',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FocusRoute = FocusRouteImport.update({
+  id: '/focus',
+  path: '/focus',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EventsRoute = EventsRouteImport.update({
   id: '/events',
   path: '/events',
@@ -332,9 +338,9 @@ const GratitudeIndexRoute = GratitudeIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const FocusIndexRoute = FocusIndexRouteImport.update({
-  id: '/focus/',
-  path: '/focus/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => FocusRoute,
 } as any)
 const EventsIndexRoute = EventsIndexRouteImport.update({
   id: '/',
@@ -1194,6 +1200,7 @@ export interface FileRoutesByFullPath {
   '/counselling': typeof CounsellingRouteWithChildren
   '/emergency': typeof EmergencyRouteWithChildren
   '/events': typeof EventsRouteWithChildren
+  '/focus': typeof FocusRouteWithChildren
   '/hub': typeof HubRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
   '/notifications': typeof NotificationsRouteWithChildren
@@ -1578,6 +1585,7 @@ export interface FileRoutesById {
   '/counselling': typeof CounsellingRouteWithChildren
   '/emergency': typeof EmergencyRouteWithChildren
   '/events': typeof EventsRouteWithChildren
+  '/focus': typeof FocusRouteWithChildren
   '/hub': typeof HubRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
   '/notifications': typeof NotificationsRouteWithChildren
@@ -1778,6 +1786,7 @@ export interface FileRouteTypes {
     | '/counselling'
     | '/emergency'
     | '/events'
+    | '/focus'
     | '/hub'
     | '/mindgym'
     | '/notifications'
@@ -2161,6 +2170,7 @@ export interface FileRouteTypes {
     | '/counselling'
     | '/emergency'
     | '/events'
+    | '/focus'
     | '/hub'
     | '/mindgym'
     | '/notifications'
@@ -2360,6 +2370,7 @@ export interface RootRouteChildren {
   CounsellingRoute: typeof CounsellingRouteWithChildren
   EmergencyRoute: typeof EmergencyRouteWithChildren
   EventsRoute: typeof EventsRouteWithChildren
+  FocusRoute: typeof FocusRouteWithChildren
   HubRoute: typeof HubRouteWithChildren
   MindgymRoute: typeof MindgymRouteWithChildren
   NotificationsRoute: typeof NotificationsRouteWithChildren
@@ -2393,7 +2404,6 @@ export interface RootRouteChildren {
   PeacebotToolsRoute: typeof PeacebotToolsRoute
   PeacebotVoiceRoute: typeof PeacebotVoiceRoute
   BuddiesIndexRoute: typeof BuddiesIndexRoute
-  FocusIndexRoute: typeof FocusIndexRoute
   GratitudeIndexRoute: typeof GratitudeIndexRoute
   JournalIndexRoute: typeof JournalIndexRoute
   PeacebotIndexRoute: typeof PeacebotIndexRoute
@@ -2462,6 +2472,13 @@ declare module '@tanstack/react-router' {
       path: '/hub'
       fullPath: '/hub'
       preLoaderRoute: typeof HubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/focus': {
+      id: '/focus'
+      path: '/focus'
+      fullPath: '/focus'
+      preLoaderRoute: typeof FocusRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/events': {
@@ -2585,10 +2602,10 @@ declare module '@tanstack/react-router' {
     }
     '/focus/': {
       id: '/focus/'
-      path: '/focus'
+      path: '/'
       fullPath: '/focus/'
       preLoaderRoute: typeof FocusIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof FocusRoute
     }
     '/events/': {
       id: '/events/'
@@ -3947,6 +3964,16 @@ const EventsRouteChildren: EventsRouteChildren = {
 const EventsRouteWithChildren =
   EventsRoute._addFileChildren(EventsRouteChildren)
 
+interface FocusRouteChildren {
+  FocusIndexRoute: typeof FocusIndexRoute
+}
+
+const FocusRouteChildren: FocusRouteChildren = {
+  FocusIndexRoute: FocusIndexRoute,
+}
+
+const FocusRouteWithChildren = FocusRoute._addFileChildren(FocusRouteChildren)
+
 interface HubFeatureRequestsRouteChildren {
   HubFeatureRequestsIdRoute: typeof HubFeatureRequestsIdRoute
 }
@@ -4234,6 +4261,7 @@ const rootRouteChildren: RootRouteChildren = {
   CounsellingRoute: CounsellingRouteWithChildren,
   EmergencyRoute: EmergencyRouteWithChildren,
   EventsRoute: EventsRouteWithChildren,
+  FocusRoute: FocusRouteWithChildren,
   HubRoute: HubRouteWithChildren,
   MindgymRoute: MindgymRouteWithChildren,
   NotificationsRoute: NotificationsRouteWithChildren,
@@ -4267,7 +4295,6 @@ const rootRouteChildren: RootRouteChildren = {
   PeacebotToolsRoute: PeacebotToolsRoute,
   PeacebotVoiceRoute: PeacebotVoiceRoute,
   BuddiesIndexRoute: BuddiesIndexRoute,
-  FocusIndexRoute: FocusIndexRoute,
   GratitudeIndexRoute: GratitudeIndexRoute,
   JournalIndexRoute: JournalIndexRoute,
   PeacebotIndexRoute: PeacebotIndexRoute,
