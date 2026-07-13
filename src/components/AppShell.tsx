@@ -1,11 +1,12 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import {
-  BookOpen, Moon, Sun, Settings, Bell, Flame, Users, Feather, Wind, Search,
+  BookOpen, Moon, Sun, Settings, Bell, Flame, Users, Wind, Search,
   Heart, PenLine, Bot, CalendarCheck, UserCheck, ClipboardList, Target, Activity, Brain,
   Menu, X, Home,
 } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
+import { loadSettings, applyAppearance, applyAccessibility } from "@/lib/settings-store";
 
 // ─── Themeable palette — every value is a CSS variable so light/dark ────
 // can be swapped globally by toggling `.dark` on <html>. Tokens live in
