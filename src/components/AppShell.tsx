@@ -447,13 +447,13 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
             <nav className="flex flex-col gap-5">
               {navGroups.map((group) => (
                 <div key={group.label}>
-                  <div className="text-[9px] tracking-[0.3em] uppercase opacity-50 mb-2 px-1" style={{ color: muted }}>{group.label}</div>
+                  <div className="text-[9px] tracking-[0.3em] uppercase mb-2 px-1" style={{ color: "#0f2540", opacity: 0.65 }}>{group.label}</div>
                   <div className="flex flex-col gap-1">
                     {group.items.map((item) => {
                       const Icon = item.icon;
                       const active = isActive(item.to);
                       const cls = "pc-nav-item flex items-center gap-3 h-12 px-3 rounded-2xl text-[14px]";
-                      const style = active ? { background: "rgba(255,255,255,0.6)", color: ink } : { color: muted };
+                      const style = active ? { background: "rgba(255,255,255,0.6)", color: "#0f2540", fontWeight: 600 } : { color: "#0f2540" };
                       return item.to ? (
                         <Link key={item.label} to={item.to} className={cls} style={style}>
                           <Icon className="pc-nav-icon w-4 h-4" strokeWidth={1.5}/> <span className="pc-nav-label opacity-100">{item.label}</span>
