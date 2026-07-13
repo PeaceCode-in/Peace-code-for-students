@@ -46,6 +46,7 @@ import { Route as SettingsBreathingRouteImport } from './routes/settings.breathi
 import { Route as SettingsAppearanceRouteImport } from './routes/settings.appearance'
 import { Route as SettingsAccessibilityRouteImport } from './routes/settings.accessibility'
 import { Route as SettingsAboutRouteImport } from './routes/settings.about'
+import { Route as SearchHistoryRouteImport } from './routes/search.history'
 import { Route as ScreeningSettingsRouteImport } from './routes/screening.settings'
 import { Route as ScreeningResourcesRouteImport } from './routes/screening.resources'
 import { Route as ScreeningLibraryRouteImport } from './routes/screening.library'
@@ -325,6 +326,11 @@ const SettingsAboutRoute = SettingsAboutRouteImport.update({
   id: '/about',
   path: '/about',
   getParentRoute: () => SettingsRoute,
+} as any)
+const SearchHistoryRoute = SearchHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => SearchRoute,
 } as any)
 const ScreeningSettingsRoute = ScreeningSettingsRouteImport.update({
   id: '/screening/settings',
@@ -871,6 +877,7 @@ export interface FileRoutesByFullPath {
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/settings': typeof ScreeningSettingsRoute
+  '/search/history': typeof SearchHistoryRoute
   '/settings/about': typeof SettingsAboutRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
   '/settings/appearance': typeof SettingsAppearanceRoute
@@ -999,6 +1006,7 @@ export interface FileRoutesByTo {
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/settings': typeof ScreeningSettingsRoute
+  '/search/history': typeof SearchHistoryRoute
   '/settings/about': typeof SettingsAboutRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
   '/settings/appearance': typeof SettingsAppearanceRoute
@@ -1133,6 +1141,7 @@ export interface FileRoutesById {
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/settings': typeof ScreeningSettingsRoute
+  '/search/history': typeof SearchHistoryRoute
   '/settings/about': typeof SettingsAboutRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
   '/settings/appearance': typeof SettingsAppearanceRoute
@@ -1268,6 +1277,7 @@ export interface FileRouteTypes {
     | '/screening/library'
     | '/screening/resources'
     | '/screening/settings'
+    | '/search/history'
     | '/settings/about'
     | '/settings/accessibility'
     | '/settings/appearance'
@@ -1396,6 +1406,7 @@ export interface FileRouteTypes {
     | '/screening/library'
     | '/screening/resources'
     | '/screening/settings'
+    | '/search/history'
     | '/settings/about'
     | '/settings/accessibility'
     | '/settings/appearance'
@@ -1529,6 +1540,7 @@ export interface FileRouteTypes {
     | '/screening/library'
     | '/screening/resources'
     | '/screening/settings'
+    | '/search/history'
     | '/settings/about'
     | '/settings/accessibility'
     | '/settings/appearance'
@@ -1922,6 +1934,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/settings/about'
       preLoaderRoute: typeof SettingsAboutRouteImport
       parentRoute: typeof SettingsRoute
+    }
+    '/search/history': {
+      id: '/search/history'
+      path: '/history'
+      fullPath: '/search/history'
+      preLoaderRoute: typeof SearchHistoryRouteImport
+      parentRoute: typeof SearchRoute
     }
     '/screening/settings': {
       id: '/screening/settings'
@@ -2697,10 +2716,12 @@ const ProfileRouteWithChildren =
   ProfileRoute._addFileChildren(ProfileRouteChildren)
 
 interface SearchRouteChildren {
+  SearchHistoryRoute: typeof SearchHistoryRoute
   SearchIndexRoute: typeof SearchIndexRoute
 }
 
 const SearchRouteChildren: SearchRouteChildren = {
+  SearchHistoryRoute: SearchHistoryRoute,
   SearchIndexRoute: SearchIndexRoute,
 }
 
