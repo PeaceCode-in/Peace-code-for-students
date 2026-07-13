@@ -164,6 +164,7 @@ import { Route as MindgymResultsSidRouteImport } from './routes/mindgym.results.
 import { Route as MindgymPathSlugRouteImport } from './routes/mindgym.path.$slug'
 import { Route as MindgymExerciseIdRouteImport } from './routes/mindgym.exercise.$id'
 import { Route as EventsIdRsvpRouteImport } from './routes/events.$id.rsvp'
+import { Route as EventsIdLiveRouteImport } from './routes/events.$id.live'
 import { Route as EventsIdChatRouteImport } from './routes/events.$id.chat'
 import { Route as CounsellingSummaryAidRouteImport } from './routes/counselling.summary.$aid'
 import { Route as CounsellingSessionAidRouteImport } from './routes/counselling.session.$aid'
@@ -952,6 +953,11 @@ const EventsIdRsvpRoute = EventsIdRsvpRouteImport.update({
   path: '/rsvp',
   getParentRoute: () => EventsIdRoute,
 } as any)
+const EventsIdLiveRoute = EventsIdLiveRouteImport.update({
+  id: '/live',
+  path: '/live',
+  getParentRoute: () => EventsIdRoute,
+} as any)
 const EventsIdChatRoute = EventsIdChatRouteImport.update({
   id: '/chat',
   path: '/chat',
@@ -1162,6 +1168,7 @@ export interface FileRoutesByFullPath {
   '/counselling/session/$aid': typeof CounsellingSessionAidRoute
   '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
   '/events/$id/chat': typeof EventsIdChatRoute
+  '/events/$id/live': typeof EventsIdLiveRoute
   '/events/$id/rsvp': typeof EventsIdRsvpRoute
   '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
   '/mindgym/path/$slug': typeof MindgymPathSlugRoute
@@ -1322,6 +1329,7 @@ export interface FileRoutesByTo {
   '/counselling/session/$aid': typeof CounsellingSessionAidRoute
   '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
   '/events/$id/chat': typeof EventsIdChatRoute
+  '/events/$id/live': typeof EventsIdLiveRoute
   '/events/$id/rsvp': typeof EventsIdRsvpRoute
   '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
   '/mindgym/path/$slug': typeof MindgymPathSlugRoute
@@ -1492,6 +1500,7 @@ export interface FileRoutesById {
   '/counselling/session/$aid': typeof CounsellingSessionAidRoute
   '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
   '/events/$id/chat': typeof EventsIdChatRoute
+  '/events/$id/live': typeof EventsIdLiveRoute
   '/events/$id/rsvp': typeof EventsIdRsvpRoute
   '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
   '/mindgym/path/$slug': typeof MindgymPathSlugRoute
@@ -1663,6 +1672,7 @@ export interface FileRouteTypes {
     | '/counselling/session/$aid'
     | '/counselling/summary/$aid'
     | '/events/$id/chat'
+    | '/events/$id/live'
     | '/events/$id/rsvp'
     | '/mindgym/exercise/$id'
     | '/mindgym/path/$slug'
@@ -1823,6 +1833,7 @@ export interface FileRouteTypes {
     | '/counselling/session/$aid'
     | '/counselling/summary/$aid'
     | '/events/$id/chat'
+    | '/events/$id/live'
     | '/events/$id/rsvp'
     | '/mindgym/exercise/$id'
     | '/mindgym/path/$slug'
@@ -1992,6 +2003,7 @@ export interface FileRouteTypes {
     | '/counselling/session/$aid'
     | '/counselling/summary/$aid'
     | '/events/$id/chat'
+    | '/events/$id/live'
     | '/events/$id/rsvp'
     | '/mindgym/exercise/$id'
     | '/mindgym/path/$slug'
@@ -3176,6 +3188,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventsIdRsvpRouteImport
       parentRoute: typeof EventsIdRoute
     }
+    '/events/$id/live': {
+      id: '/events/$id/live'
+      path: '/live'
+      fullPath: '/events/$id/live'
+      preLoaderRoute: typeof EventsIdLiveRouteImport
+      parentRoute: typeof EventsIdRoute
+    }
     '/events/$id/chat': {
       id: '/events/$id/chat'
       path: '/chat'
@@ -3363,12 +3382,14 @@ const EmergencyRouteWithChildren = EmergencyRoute._addFileChildren(
 
 interface EventsIdRouteChildren {
   EventsIdChatRoute: typeof EventsIdChatRoute
+  EventsIdLiveRoute: typeof EventsIdLiveRoute
   EventsIdRsvpRoute: typeof EventsIdRsvpRoute
   EventsIdIndexRoute: typeof EventsIdIndexRoute
 }
 
 const EventsIdRouteChildren: EventsIdRouteChildren = {
   EventsIdChatRoute: EventsIdChatRoute,
+  EventsIdLiveRoute: EventsIdLiveRoute,
   EventsIdRsvpRoute: EventsIdRsvpRoute,
   EventsIdIndexRoute: EventsIdIndexRoute,
 }
