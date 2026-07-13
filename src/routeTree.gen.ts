@@ -104,6 +104,7 @@ import { Route as GratitudeForestRouteImport } from './routes/gratitude.forest'
 import { Route as EventsMyRouteImport } from './routes/events.my'
 import { Route as EventsCalendarRouteImport } from './routes/events.calendar'
 import { Route as EventsBrowseRouteImport } from './routes/events.browse'
+import { Route as EventsBookmarksRouteImport } from './routes/events.bookmarks'
 import { Route as EventsIdRouteImport } from './routes/events.$id'
 import { Route as EmergencyToolkitRouteImport } from './routes/emergency.toolkit'
 import { Route as EmergencySosRouteImport } from './routes/emergency.sos'
@@ -659,6 +660,11 @@ const EventsBrowseRoute = EventsBrowseRouteImport.update({
   path: '/browse',
   getParentRoute: () => EventsRoute,
 } as any)
+const EventsBookmarksRoute = EventsBookmarksRouteImport.update({
+  id: '/bookmarks',
+  path: '/bookmarks',
+  getParentRoute: () => EventsRoute,
+} as any)
 const EventsIdRoute = EventsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -1109,6 +1115,7 @@ export interface FileRoutesByFullPath {
   '/emergency/sos': typeof EmergencySosRoute
   '/emergency/toolkit': typeof EmergencyToolkitRoute
   '/events/$id': typeof EventsIdRouteWithChildren
+  '/events/bookmarks': typeof EventsBookmarksRoute
   '/events/browse': typeof EventsBrowseRoute
   '/events/calendar': typeof EventsCalendarRoute
   '/events/my': typeof EventsMyRoute
@@ -1276,6 +1283,7 @@ export interface FileRoutesByTo {
   '/emergency/settings': typeof EmergencySettingsRoute
   '/emergency/sos': typeof EmergencySosRoute
   '/emergency/toolkit': typeof EmergencyToolkitRoute
+  '/events/bookmarks': typeof EventsBookmarksRoute
   '/events/browse': typeof EventsBrowseRoute
   '/events/calendar': typeof EventsCalendarRoute
   '/events/my': typeof EventsMyRoute
@@ -1453,6 +1461,7 @@ export interface FileRoutesById {
   '/emergency/sos': typeof EmergencySosRoute
   '/emergency/toolkit': typeof EmergencyToolkitRoute
   '/events/$id': typeof EventsIdRouteWithChildren
+  '/events/bookmarks': typeof EventsBookmarksRoute
   '/events/browse': typeof EventsBrowseRoute
   '/events/calendar': typeof EventsCalendarRoute
   '/events/my': typeof EventsMyRoute
@@ -1631,6 +1640,7 @@ export interface FileRouteTypes {
     | '/emergency/sos'
     | '/emergency/toolkit'
     | '/events/$id'
+    | '/events/bookmarks'
     | '/events/browse'
     | '/events/calendar'
     | '/events/my'
@@ -1798,6 +1808,7 @@ export interface FileRouteTypes {
     | '/emergency/settings'
     | '/emergency/sos'
     | '/emergency/toolkit'
+    | '/events/bookmarks'
     | '/events/browse'
     | '/events/calendar'
     | '/events/my'
@@ -1974,6 +1985,7 @@ export interface FileRouteTypes {
     | '/emergency/sos'
     | '/emergency/toolkit'
     | '/events/$id'
+    | '/events/bookmarks'
     | '/events/browse'
     | '/events/calendar'
     | '/events/my'
@@ -2840,6 +2852,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventsBrowseRouteImport
       parentRoute: typeof EventsRoute
     }
+    '/events/bookmarks': {
+      id: '/events/bookmarks'
+      path: '/bookmarks'
+      fullPath: '/events/bookmarks'
+      preLoaderRoute: typeof EventsBookmarksRouteImport
+      parentRoute: typeof EventsRoute
+    }
     '/events/$id': {
       id: '/events/$id'
       path: '/$id'
@@ -3522,6 +3541,7 @@ const EventsIdRouteWithChildren = EventsIdRoute._addFileChildren(
 
 interface EventsRouteChildren {
   EventsIdRoute: typeof EventsIdRouteWithChildren
+  EventsBookmarksRoute: typeof EventsBookmarksRoute
   EventsBrowseRoute: typeof EventsBrowseRoute
   EventsCalendarRoute: typeof EventsCalendarRoute
   EventsMyRoute: typeof EventsMyRoute
@@ -3530,6 +3550,7 @@ interface EventsRouteChildren {
 
 const EventsRouteChildren: EventsRouteChildren = {
   EventsIdRoute: EventsIdRouteWithChildren,
+  EventsBookmarksRoute: EventsBookmarksRoute,
   EventsBrowseRoute: EventsBrowseRoute,
   EventsCalendarRoute: EventsCalendarRoute,
   EventsMyRoute: EventsMyRoute,
