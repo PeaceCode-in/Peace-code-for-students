@@ -111,6 +111,7 @@ import { Route as EmergencyHistoryRouteImport } from './routes/emergency.history
 import { Route as EmergencyHelplinesRouteImport } from './routes/emergency.helplines'
 import { Route as EmergencyGroundingRouteImport } from './routes/emergency.grounding'
 import { Route as EmergencyContactsRouteImport } from './routes/emergency.contacts'
+import { Route as EmergencyConfirmRouteImport } from './routes/emergency.confirm'
 import { Route as EmergencyCheckinRouteImport } from './routes/emergency.checkin'
 import { Route as EmergencyCalmRouteImport } from './routes/emergency.calm'
 import { Route as EmergencyBreatheRouteImport } from './routes/emergency.breathe'
@@ -679,6 +680,11 @@ const EmergencyContactsRoute = EmergencyContactsRouteImport.update({
   path: '/contacts',
   getParentRoute: () => EmergencyRoute,
 } as any)
+const EmergencyConfirmRoute = EmergencyConfirmRouteImport.update({
+  id: '/confirm',
+  path: '/confirm',
+  getParentRoute: () => EmergencyRoute,
+} as any)
 const EmergencyCheckinRoute = EmergencyCheckinRouteImport.update({
   id: '/checkin',
   path: '/checkin',
@@ -1004,6 +1010,7 @@ export interface FileRoutesByFullPath {
   '/emergency/breathe': typeof EmergencyBreatheRoute
   '/emergency/calm': typeof EmergencyCalmRoute
   '/emergency/checkin': typeof EmergencyCheckinRoute
+  '/emergency/confirm': typeof EmergencyConfirmRoute
   '/emergency/contacts': typeof EmergencyContactsRoute
   '/emergency/grounding': typeof EmergencyGroundingRoute
   '/emergency/helplines': typeof EmergencyHelplinesRoute
@@ -1158,6 +1165,7 @@ export interface FileRoutesByTo {
   '/emergency/breathe': typeof EmergencyBreatheRoute
   '/emergency/calm': typeof EmergencyCalmRoute
   '/emergency/checkin': typeof EmergencyCheckinRoute
+  '/emergency/confirm': typeof EmergencyConfirmRoute
   '/emergency/contacts': typeof EmergencyContactsRoute
   '/emergency/grounding': typeof EmergencyGroundingRoute
   '/emergency/helplines': typeof EmergencyHelplinesRoute
@@ -1320,6 +1328,7 @@ export interface FileRoutesById {
   '/emergency/breathe': typeof EmergencyBreatheRoute
   '/emergency/calm': typeof EmergencyCalmRoute
   '/emergency/checkin': typeof EmergencyCheckinRoute
+  '/emergency/confirm': typeof EmergencyConfirmRoute
   '/emergency/contacts': typeof EmergencyContactsRoute
   '/emergency/grounding': typeof EmergencyGroundingRoute
   '/emergency/helplines': typeof EmergencyHelplinesRoute
@@ -1483,6 +1492,7 @@ export interface FileRouteTypes {
     | '/emergency/breathe'
     | '/emergency/calm'
     | '/emergency/checkin'
+    | '/emergency/confirm'
     | '/emergency/contacts'
     | '/emergency/grounding'
     | '/emergency/helplines'
@@ -1637,6 +1647,7 @@ export interface FileRouteTypes {
     | '/emergency/breathe'
     | '/emergency/calm'
     | '/emergency/checkin'
+    | '/emergency/confirm'
     | '/emergency/contacts'
     | '/emergency/grounding'
     | '/emergency/helplines'
@@ -1798,6 +1809,7 @@ export interface FileRouteTypes {
     | '/emergency/breathe'
     | '/emergency/calm'
     | '/emergency/checkin'
+    | '/emergency/confirm'
     | '/emergency/contacts'
     | '/emergency/grounding'
     | '/emergency/helplines'
@@ -2712,6 +2724,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmergencyContactsRouteImport
       parentRoute: typeof EmergencyRoute
     }
+    '/emergency/confirm': {
+      id: '/emergency/confirm'
+      path: '/confirm'
+      fullPath: '/emergency/confirm'
+      preLoaderRoute: typeof EmergencyConfirmRouteImport
+      parentRoute: typeof EmergencyRoute
+    }
     '/emergency/checkin': {
       id: '/emergency/checkin'
       path: '/checkin'
@@ -3171,6 +3190,7 @@ interface EmergencyRouteChildren {
   EmergencyBreatheRoute: typeof EmergencyBreatheRoute
   EmergencyCalmRoute: typeof EmergencyCalmRoute
   EmergencyCheckinRoute: typeof EmergencyCheckinRoute
+  EmergencyConfirmRoute: typeof EmergencyConfirmRoute
   EmergencyContactsRoute: typeof EmergencyContactsRoute
   EmergencyGroundingRoute: typeof EmergencyGroundingRoute
   EmergencyHelplinesRoute: typeof EmergencyHelplinesRoute
@@ -3191,6 +3211,7 @@ const EmergencyRouteChildren: EmergencyRouteChildren = {
   EmergencyBreatheRoute: EmergencyBreatheRoute,
   EmergencyCalmRoute: EmergencyCalmRoute,
   EmergencyCheckinRoute: EmergencyCheckinRoute,
+  EmergencyConfirmRoute: EmergencyConfirmRoute,
   EmergencyContactsRoute: EmergencyContactsRoute,
   EmergencyGroundingRoute: EmergencyGroundingRoute,
   EmergencyHelplinesRoute: EmergencyHelplinesRoute,
