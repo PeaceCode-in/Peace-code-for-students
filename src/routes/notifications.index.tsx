@@ -139,7 +139,7 @@ function NotificationsHome() {
               </div>
               <div className="flex flex-wrap gap-1.5 mt-4">
                 {Array.from(categoryCounts.entries()).slice(0, 6).map(([cat, count]) => (
-                  <Link key={cat} to="/notifications/inbox" search={{ cat }}
+                  <Link key={cat} to="/notifications/inbox"
                         className="inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full text-[10.5px]"
                         style={{ background: surface2, color: muted, border: `1px solid ${border}` }}>
                     <Icon name={CATEGORY_META[cat].icon} className="w-3 h-3" />
@@ -222,7 +222,7 @@ function NotificationsHome() {
               const meta = CATEGORY_META[cat];
               const count = active.filter((n) => n.category === cat).length;
               return (
-                <Link key={cat} to="/notifications/inbox" search={{ cat }}
+                <Link key={cat} to="/notifications/inbox"
                       className="p-3.5 rounded-2xl flex items-center gap-3 transition hover:-translate-y-[1px]"
                       style={{ background: surface, border: `1px solid ${border}` }}>
                   <span className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: soft }}>

@@ -23,6 +23,7 @@ import { Route as ScreeningIndexRouteImport } from './routes/screening.index'
 import { Route as ResourcesIndexRouteImport } from './routes/resources.index'
 import { Route as ProfileIndexRouteImport } from './routes/profile.index'
 import { Route as PeacebotIndexRouteImport } from './routes/peacebot.index'
+import { Route as NotificationsIndexRouteImport } from './routes/notifications.index'
 import { Route as MindgymIndexRouteImport } from './routes/mindgym.index'
 import { Route as JournalIndexRouteImport } from './routes/journal.index'
 import { Route as GratitudeIndexRouteImport } from './routes/gratitude.index'
@@ -213,6 +214,11 @@ const PeacebotIndexRoute = PeacebotIndexRouteImport.update({
   id: '/peacebot/',
   path: '/peacebot/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsIndexRoute = NotificationsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => NotificationsRoute,
 } as any)
 const MindgymIndexRoute = MindgymIndexRouteImport.update({
   id: '/',
@@ -820,7 +826,7 @@ export interface FileRoutesByFullPath {
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
-  '/notifications': typeof NotificationsRoute
+  '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
   '/search': typeof SearchRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
@@ -916,6 +922,7 @@ export interface FileRoutesByFullPath {
   '/gratitude/': typeof GratitudeIndexRoute
   '/journal/': typeof JournalIndexRoute
   '/mindgym/': typeof MindgymIndexRoute
+  '/notifications/': typeof NotificationsIndexRoute
   '/peacebot/': typeof PeacebotIndexRoute
   '/profile/': typeof ProfileIndexRoute
   '/resources/': typeof ResourcesIndexRoute
@@ -954,7 +961,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
-  '/notifications': typeof NotificationsRoute
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/buddies/$id': typeof BuddiesIdRoute
@@ -1047,6 +1053,7 @@ export interface FileRoutesByTo {
   '/gratitude': typeof GratitudeIndexRoute
   '/journal': typeof JournalIndexRoute
   '/mindgym': typeof MindgymIndexRoute
+  '/notifications': typeof NotificationsIndexRoute
   '/peacebot': typeof PeacebotIndexRoute
   '/profile': typeof ProfileIndexRoute
   '/resources': typeof ResourcesIndexRoute
@@ -1088,7 +1095,7 @@ export interface FileRoutesById {
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
-  '/notifications': typeof NotificationsRoute
+  '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
   '/search': typeof SearchRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
@@ -1184,6 +1191,7 @@ export interface FileRoutesById {
   '/gratitude/': typeof GratitudeIndexRoute
   '/journal/': typeof JournalIndexRoute
   '/mindgym/': typeof MindgymIndexRoute
+  '/notifications/': typeof NotificationsIndexRoute
   '/peacebot/': typeof PeacebotIndexRoute
   '/profile/': typeof ProfileIndexRoute
   '/resources/': typeof ResourcesIndexRoute
@@ -1322,6 +1330,7 @@ export interface FileRouteTypes {
     | '/gratitude/'
     | '/journal/'
     | '/mindgym/'
+    | '/notifications/'
     | '/peacebot/'
     | '/profile/'
     | '/resources/'
@@ -1360,7 +1369,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/community'
-    | '/notifications'
     | '/api/chat'
     | '/breathe/stats'
     | '/buddies/$id'
@@ -1453,6 +1461,7 @@ export interface FileRouteTypes {
     | '/gratitude'
     | '/journal'
     | '/mindgym'
+    | '/notifications'
     | '/peacebot'
     | '/profile'
     | '/resources'
@@ -1589,6 +1598,7 @@ export interface FileRouteTypes {
     | '/gratitude/'
     | '/journal/'
     | '/mindgym/'
+    | '/notifications/'
     | '/peacebot/'
     | '/profile/'
     | '/resources/'
@@ -1630,7 +1640,7 @@ export interface RootRouteChildren {
   CommunityRoute: typeof CommunityRoute
   CounsellingRoute: typeof CounsellingRouteWithChildren
   MindgymRoute: typeof MindgymRouteWithChildren
-  NotificationsRoute: typeof NotificationsRoute
+  NotificationsRoute: typeof NotificationsRouteWithChildren
   ProfileRoute: typeof ProfileRouteWithChildren
   SearchRoute: typeof SearchRouteWithChildren
   SettingsRoute: typeof SettingsRouteWithChildren
@@ -1798,6 +1808,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/peacebot/'
       preLoaderRoute: typeof PeacebotIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/notifications/': {
+      id: '/notifications/'
+      path: '/'
+      fullPath: '/notifications/'
+      preLoaderRoute: typeof NotificationsIndexRouteImport
+      parentRoute: typeof NotificationsRoute
     }
     '/mindgym/': {
       id: '/mindgym/'
@@ -2723,6 +2740,18 @@ const MindgymRouteChildren: MindgymRouteChildren = {
 const MindgymRouteWithChildren =
   MindgymRoute._addFileChildren(MindgymRouteChildren)
 
+interface NotificationsRouteChildren {
+  NotificationsIndexRoute: typeof NotificationsIndexRoute
+}
+
+const NotificationsRouteChildren: NotificationsRouteChildren = {
+  NotificationsIndexRoute: NotificationsIndexRoute,
+}
+
+const NotificationsRouteWithChildren = NotificationsRoute._addFileChildren(
+  NotificationsRouteChildren,
+)
+
 interface ProfileRouteChildren {
   ProfileAchievementsRoute: typeof ProfileAchievementsRoute
   ProfileActivityRoute: typeof ProfileActivityRoute
@@ -2820,7 +2849,7 @@ const rootRouteChildren: RootRouteChildren = {
   CommunityRoute: CommunityRoute,
   CounsellingRoute: CounsellingRouteWithChildren,
   MindgymRoute: MindgymRouteWithChildren,
-  NotificationsRoute: NotificationsRoute,
+  NotificationsRoute: NotificationsRouteWithChildren,
   ProfileRoute: ProfileRouteWithChildren,
   SearchRoute: SearchRouteWithChildren,
   SettingsRoute: SettingsRouteWithChildren,
