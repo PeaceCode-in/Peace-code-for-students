@@ -313,7 +313,8 @@ function ConversationPage() {
           <input ref={fileRef} type="file" accept="image/*,application/pdf,.doc,.docx,.ppt,.pptx,.csv,.txt" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleAttach(f); }}/>
         </div>
       </div>
-    </div>
+      </div>
+    </AppShell>
   );
 }
 
