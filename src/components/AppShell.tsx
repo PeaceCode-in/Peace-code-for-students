@@ -72,7 +72,10 @@ type NavGroup = { label: string; items: NavItem[] };
 const navGroups: NavGroup[] = [
   {
     label: "Home",
-    items: [{ icon: Home, label: "Today", to: "/" }],
+    items: [
+      { icon: Home, label: "Today", to: "/" },
+      { icon: Search, label: "Search", to: "/search" },
+    ],
   },
   {
     label: "Core Care",
