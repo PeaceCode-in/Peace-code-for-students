@@ -496,16 +496,87 @@ function DashboardInner() {
           icon={TrendingUp}
         />
 
-        {/* CONTINUE */}
+        {/* CONTINUE — real, one-click resume of unfinished work */}
         <Section
           span="lg:col-span-12"
           title="Continue where you left off"
           preview={
-            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              <ContinueCard to="/journal" icon={Feather} title="Finish yesterday's entry" hint={data.journal?.last?.title || "Draft waiting"} />
-              <ContinueCard to="/breathe" icon={Wind} title="Resume box breathing" hint="paused at cycle 3" />
-              <ContinueCard to={nextEx ? `/mindgym/exercise/${nextEx.id}` : "/mindgym"} icon={Brain} title={nextEx?.name || "Today's rep"} hint={`${nextEx?.minutes ?? 5} min`} />
-              <ContinueCard to="/peacebot" icon={Bot} title="Continue chat" hint="last: 20 min ago" />
+            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+              {(() => {
+                const cards: Array<{ to: any; params?: any; icon: any; title: string; hint: string; live?: boolean }> = [];
+
+                // Journal — draft or last entry
+                if (data.journal?.draft) {
+                  const d = data.journal.draft;
+                  cards.push({
+                    to: "/journal/$id", params: { id: d.id }, icon: Feather,
+                    title: "Finish your draft",
+                    hint: (d.title || d.body?.slice(0, 42) || "Untitled") + (d.body && d.body.length > 42 ? "…" : ""),
+                    live: true,
+                  });
+                } else if (data.journal?.last) {
+                  cards.push({
+                    to: "/journal", icon: Feather,
+                    title: "Write today's entry",
+                    hint: `Last entry ${formatIn(new Date(data.journal.last.updatedAt || data.journal.last.createdAt).getTime())}`,
+                  });
+                } else {
+                  cards.push({ to: "/journal", icon: Feather, title: "Start your journal", hint: "One line is enough" });
+                }
+
+                // Breathe — resume last technique
+                if (data.breathe?.last) {
+                  const label = data.breathe.last.technique?.replace(/[-_]/g, " ") ?? "box breath";
+                  cards.push({
+                    to: "/breathe", icon: Wind,
+                    title: `Resume ${label}`,
+                    hint: `Last session ${formatIn(new Date(data.breathe.last.completedAt).getTime())}`,
+                    live: true,
+                  });
+                } else {
+                  cards.push({ to: "/breathe", icon: Wind, title: "Start a 3-min breath", hint: "Slow the day" });
+                }
+
+                // Screening — in-progress assessment
+                if (data.screening?.inProgress) {
+                  const sp = data.screening.inProgress;
+                  cards.push({
+                    to: "/screening/test/$id", params: { id: sp.testId }, icon: ClipboardList,
+                    title: "Continue assessment",
+                    hint: `${sp.testId?.toUpperCase()} · question ${(sp.currentIndex ?? 0) + 1}`,
+                    live: true,
+                  });
+                } else {
+                  cards.push({ to: "/screening", icon: ClipboardList, title: "Weekly check-in", hint: "3–5 min · gentle" });
+                }
+
+                // Mind Gym — recommended next rep
+                if (nextEx) {
+                  cards.push({
+                    to: "/mindgym/exercise/$id", params: { id: nextEx.id }, icon: Brain,
+                    title: nextEx.name,
+                    hint: `${nextEx.minutes} min · ${nextEx.difficulty}`,
+                    live: mg.sessions.length > 0,
+                  });
+                }
+
+                // Peace Bot — last conversation
+                if (data.peacebot?.lastConv) {
+                  const c = data.peacebot.lastConv;
+                  cards.push({
+                    to: "/peacebot/c/$id", params: { id: c.id }, icon: Bot,
+                    title: "Continue chat",
+                    hint: `${c.title || "with Peace Bot"} · ${formatIn(c.updatedAt)}`,
+                    live: true,
+                  });
+                } else {
+                  cards.push({ to: "/peacebot", icon: Bot, title: "Talk to Peace Bot", hint: "Anytime, any thought" });
+                }
+
+                return cards.map((c, i) => (
+                  <ContinueCard key={i} to={c.to} params={c.params} icon={c.icon} title={c.title} hint={c.hint} live={c.live} index={i} />
+                ));
+              })()}
             </div>
           }
         />
