@@ -419,12 +419,22 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
         </header>
       )}
 
-      {/* mobile drawer */}
-      {mobileOpen && (
+      {/* mobile drawer (mounted while open OR during edge-swipe open) */}
+      {(mobileOpen || dragging) && (
         <div className="lg:hidden fixed inset-0 z-50" role="dialog" aria-modal="true">
-          <div className="pc-mobile-scrim absolute inset-0" onClick={() => setMobileOpen(false)} />
+          <div
+            ref={scrimRef}
+            className="pc-mobile-scrim absolute inset-0"
+            onClick={() => setMobileOpen(false)}
+            style={dragging && !mobileOpen ? { opacity: 0 } : undefined}
+          />
 
-          <div className="pc-mobile-drawer absolute top-0 right-0 bottom-0 w-[86%] max-w-sm p-5 flex flex-col overflow-y-auto overscroll-contain">
+          <div
+            ref={drawerRef}
+            className="pc-mobile-drawer absolute top-0 right-0 bottom-0 w-[86%] max-w-sm p-5 flex flex-col overflow-y-auto overscroll-contain will-change-transform"
+            style={dragging && !mobileOpen ? { transform: "translate3d(100%,0,0)" } : undefined}
+          >
+
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-2"><Mark className="w-7 h-7"/>
                 <div>
