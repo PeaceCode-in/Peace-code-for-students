@@ -166,6 +166,7 @@ import { Route as MindgymExerciseIdRouteImport } from './routes/mindgym.exercise
 import { Route as EventsIdTimelineRouteImport } from './routes/events.$id.timeline'
 import { Route as EventsIdRsvpRouteImport } from './routes/events.$id.rsvp'
 import { Route as EventsIdLiveRouteImport } from './routes/events.$id.live'
+import { Route as EventsIdFeedbackRouteImport } from './routes/events.$id.feedback'
 import { Route as EventsIdChatRouteImport } from './routes/events.$id.chat'
 import { Route as EventsIdAttendanceRouteImport } from './routes/events.$id.attendance'
 import { Route as CounsellingSummaryAidRouteImport } from './routes/counselling.summary.$aid'
@@ -965,6 +966,11 @@ const EventsIdLiveRoute = EventsIdLiveRouteImport.update({
   path: '/live',
   getParentRoute: () => EventsIdRoute,
 } as any)
+const EventsIdFeedbackRoute = EventsIdFeedbackRouteImport.update({
+  id: '/feedback',
+  path: '/feedback',
+  getParentRoute: () => EventsIdRoute,
+} as any)
 const EventsIdChatRoute = EventsIdChatRouteImport.update({
   id: '/chat',
   path: '/chat',
@@ -1181,6 +1187,7 @@ export interface FileRoutesByFullPath {
   '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
   '/events/$id/attendance': typeof EventsIdAttendanceRoute
   '/events/$id/chat': typeof EventsIdChatRoute
+  '/events/$id/feedback': typeof EventsIdFeedbackRoute
   '/events/$id/live': typeof EventsIdLiveRoute
   '/events/$id/rsvp': typeof EventsIdRsvpRoute
   '/events/$id/timeline': typeof EventsIdTimelineRoute
@@ -1344,6 +1351,7 @@ export interface FileRoutesByTo {
   '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
   '/events/$id/attendance': typeof EventsIdAttendanceRoute
   '/events/$id/chat': typeof EventsIdChatRoute
+  '/events/$id/feedback': typeof EventsIdFeedbackRoute
   '/events/$id/live': typeof EventsIdLiveRoute
   '/events/$id/rsvp': typeof EventsIdRsvpRoute
   '/events/$id/timeline': typeof EventsIdTimelineRoute
@@ -1517,6 +1525,7 @@ export interface FileRoutesById {
   '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
   '/events/$id/attendance': typeof EventsIdAttendanceRoute
   '/events/$id/chat': typeof EventsIdChatRoute
+  '/events/$id/feedback': typeof EventsIdFeedbackRoute
   '/events/$id/live': typeof EventsIdLiveRoute
   '/events/$id/rsvp': typeof EventsIdRsvpRoute
   '/events/$id/timeline': typeof EventsIdTimelineRoute
@@ -1691,6 +1700,7 @@ export interface FileRouteTypes {
     | '/counselling/summary/$aid'
     | '/events/$id/attendance'
     | '/events/$id/chat'
+    | '/events/$id/feedback'
     | '/events/$id/live'
     | '/events/$id/rsvp'
     | '/events/$id/timeline'
@@ -1854,6 +1864,7 @@ export interface FileRouteTypes {
     | '/counselling/summary/$aid'
     | '/events/$id/attendance'
     | '/events/$id/chat'
+    | '/events/$id/feedback'
     | '/events/$id/live'
     | '/events/$id/rsvp'
     | '/events/$id/timeline'
@@ -2026,6 +2037,7 @@ export interface FileRouteTypes {
     | '/counselling/summary/$aid'
     | '/events/$id/attendance'
     | '/events/$id/chat'
+    | '/events/$id/feedback'
     | '/events/$id/live'
     | '/events/$id/rsvp'
     | '/events/$id/timeline'
@@ -3226,6 +3238,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventsIdLiveRouteImport
       parentRoute: typeof EventsIdRoute
     }
+    '/events/$id/feedback': {
+      id: '/events/$id/feedback'
+      path: '/feedback'
+      fullPath: '/events/$id/feedback'
+      preLoaderRoute: typeof EventsIdFeedbackRouteImport
+      parentRoute: typeof EventsIdRoute
+    }
     '/events/$id/chat': {
       id: '/events/$id/chat'
       path: '/chat'
@@ -3421,6 +3440,7 @@ const EmergencyRouteWithChildren = EmergencyRoute._addFileChildren(
 interface EventsIdRouteChildren {
   EventsIdAttendanceRoute: typeof EventsIdAttendanceRoute
   EventsIdChatRoute: typeof EventsIdChatRoute
+  EventsIdFeedbackRoute: typeof EventsIdFeedbackRoute
   EventsIdLiveRoute: typeof EventsIdLiveRoute
   EventsIdRsvpRoute: typeof EventsIdRsvpRoute
   EventsIdTimelineRoute: typeof EventsIdTimelineRoute
@@ -3430,6 +3450,7 @@ interface EventsIdRouteChildren {
 const EventsIdRouteChildren: EventsIdRouteChildren = {
   EventsIdAttendanceRoute: EventsIdAttendanceRoute,
   EventsIdChatRoute: EventsIdChatRoute,
+  EventsIdFeedbackRoute: EventsIdFeedbackRoute,
   EventsIdLiveRoute: EventsIdLiveRoute,
   EventsIdRsvpRoute: EventsIdRsvpRoute,
   EventsIdTimelineRoute: EventsIdTimelineRoute,
