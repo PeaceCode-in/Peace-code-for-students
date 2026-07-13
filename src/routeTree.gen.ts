@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as MindgymRouteImport } from './routes/mindgym'
 import { Route as CounsellingRouteImport } from './routes/counselling'
 import { Route as CommunityRouteImport } from './routes/community'
@@ -156,6 +157,11 @@ const SearchRoute = SearchRouteImport.update({
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MindgymRoute = MindgymRouteImport.update({
@@ -814,6 +820,7 @@ export interface FileRoutesByFullPath {
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
+  '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRouteWithChildren
   '/search': typeof SearchRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
@@ -947,6 +954,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
+  '/notifications': typeof NotificationsRoute
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/buddies/$id': typeof BuddiesIdRoute
@@ -1080,6 +1088,7 @@ export interface FileRoutesById {
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
+  '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRouteWithChildren
   '/search': typeof SearchRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
@@ -1217,6 +1226,7 @@ export interface FileRouteTypes {
     | '/community'
     | '/counselling'
     | '/mindgym'
+    | '/notifications'
     | '/profile'
     | '/search'
     | '/settings'
@@ -1350,6 +1360,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/community'
+    | '/notifications'
     | '/api/chat'
     | '/breathe/stats'
     | '/buddies/$id'
@@ -1482,6 +1493,7 @@ export interface FileRouteTypes {
     | '/community'
     | '/counselling'
     | '/mindgym'
+    | '/notifications'
     | '/profile'
     | '/search'
     | '/settings'
@@ -1618,6 +1630,7 @@ export interface RootRouteChildren {
   CommunityRoute: typeof CommunityRoute
   CounsellingRoute: typeof CounsellingRouteWithChildren
   MindgymRoute: typeof MindgymRouteWithChildren
+  NotificationsRoute: typeof NotificationsRoute
   ProfileRoute: typeof ProfileRouteWithChildren
   SearchRoute: typeof SearchRouteWithChildren
   SettingsRoute: typeof SettingsRouteWithChildren
@@ -1707,6 +1720,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mindgym': {
@@ -2800,6 +2820,7 @@ const rootRouteChildren: RootRouteChildren = {
   CommunityRoute: CommunityRoute,
   CounsellingRoute: CounsellingRouteWithChildren,
   MindgymRoute: MindgymRouteWithChildren,
+  NotificationsRoute: NotificationsRoute,
   ProfileRoute: ProfileRouteWithChildren,
   SearchRoute: SearchRouteWithChildren,
   SettingsRoute: SettingsRouteWithChildren,
