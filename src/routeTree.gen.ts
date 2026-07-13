@@ -21,6 +21,7 @@ import { Route as EventsRouteImport } from './routes/events'
 import { Route as EmergencyRouteImport } from './routes/emergency'
 import { Route as CounsellingRouteImport } from './routes/counselling'
 import { Route as CommunityRouteImport } from './routes/community'
+import { Route as BreatheRouteImport } from './routes/breathe'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as SearchIndexRouteImport } from './routes/search.index'
@@ -265,6 +266,11 @@ const CommunityRoute = CommunityRouteImport.update({
   path: '/community',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BreatheRoute = BreatheRouteImport.update({
+  id: '/breathe',
+  path: '/breathe',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -351,9 +357,9 @@ const BuddiesIndexRoute = BuddiesIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const BreatheIndexRoute = BreatheIndexRouteImport.update({
-  id: '/breathe/',
-  path: '/breathe/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => BreatheRoute,
 } as any)
 const SettingsSupportRoute = SettingsSupportRouteImport.update({
   id: '/support',
@@ -966,9 +972,9 @@ const BuddiesIdRoute = BuddiesIdRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const BreatheStatsRoute = BreatheStatsRouteImport.update({
-  id: '/breathe/stats',
-  path: '/breathe/stats',
-  getParentRoute: () => rootRouteImport,
+  id: '/stats',
+  path: '/stats',
+  getParentRoute: () => BreatheRoute,
 } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
@@ -1183,6 +1189,7 @@ const BuddiesBookIdRoute = BuddiesBookIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
   '/emergency': typeof EmergencyRouteWithChildren
@@ -1566,6 +1573,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
   '/emergency': typeof EmergencyRouteWithChildren
@@ -1765,6 +1773,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/breathe'
     | '/community'
     | '/counselling'
     | '/emergency'
@@ -2147,6 +2156,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/breathe'
     | '/community'
     | '/counselling'
     | '/emergency'
@@ -2345,6 +2355,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BreatheRoute: typeof BreatheRouteWithChildren
   CommunityRoute: typeof CommunityRoute
   CounsellingRoute: typeof CounsellingRouteWithChildren
   EmergencyRoute: typeof EmergencyRouteWithChildren
@@ -2358,7 +2369,6 @@ export interface RootRouteChildren {
   SearchRoute: typeof SearchRouteWithChildren
   SettingsRoute: typeof SettingsRouteWithChildren
   ApiChatRoute: typeof ApiChatRoute
-  BreatheStatsRoute: typeof BreatheStatsRoute
   BuddiesIdRoute: typeof BuddiesIdRoute
   BuddiesAboutRoute: typeof BuddiesAboutRoute
   BuddiesBrowseRoute: typeof BuddiesBrowseRoute
@@ -2382,7 +2392,6 @@ export interface RootRouteChildren {
   PeacebotSettingsRoute: typeof PeacebotSettingsRoute
   PeacebotToolsRoute: typeof PeacebotToolsRoute
   PeacebotVoiceRoute: typeof PeacebotVoiceRoute
-  BreatheIndexRoute: typeof BreatheIndexRoute
   BuddiesIndexRoute: typeof BuddiesIndexRoute
   FocusIndexRoute: typeof FocusIndexRoute
   GratitudeIndexRoute: typeof GratitudeIndexRoute
@@ -2481,6 +2490,13 @@ declare module '@tanstack/react-router' {
       path: '/community'
       fullPath: '/community'
       preLoaderRoute: typeof CommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/breathe': {
+      id: '/breathe'
+      path: '/breathe'
+      fullPath: '/breathe'
+      preLoaderRoute: typeof BreatheRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -2604,10 +2620,10 @@ declare module '@tanstack/react-router' {
     }
     '/breathe/': {
       id: '/breathe/'
-      path: '/breathe'
+      path: '/'
       fullPath: '/breathe/'
       preLoaderRoute: typeof BreatheIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof BreatheRoute
     }
     '/settings/support': {
       id: '/settings/support'
@@ -3465,10 +3481,10 @@ declare module '@tanstack/react-router' {
     }
     '/breathe/stats': {
       id: '/breathe/stats'
-      path: '/breathe/stats'
+      path: '/stats'
       fullPath: '/breathe/stats'
       preLoaderRoute: typeof BreatheStatsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof BreatheRoute
     }
     '/api/chat': {
       id: '/api/chat'
@@ -3766,6 +3782,19 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface BreatheRouteChildren {
+  BreatheStatsRoute: typeof BreatheStatsRoute
+  BreatheIndexRoute: typeof BreatheIndexRoute
+}
+
+const BreatheRouteChildren: BreatheRouteChildren = {
+  BreatheStatsRoute: BreatheStatsRoute,
+  BreatheIndexRoute: BreatheIndexRoute,
+}
+
+const BreatheRouteWithChildren =
+  BreatheRoute._addFileChildren(BreatheRouteChildren)
 
 interface CounsellingRouteChildren {
   CounsellingAssessmentsRoute: typeof CounsellingAssessmentsRoute
@@ -4200,6 +4229,7 @@ const SettingsRouteWithChildren = SettingsRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BreatheRoute: BreatheRouteWithChildren,
   CommunityRoute: CommunityRoute,
   CounsellingRoute: CounsellingRouteWithChildren,
   EmergencyRoute: EmergencyRouteWithChildren,
@@ -4213,7 +4243,6 @@ const rootRouteChildren: RootRouteChildren = {
   SearchRoute: SearchRouteWithChildren,
   SettingsRoute: SettingsRouteWithChildren,
   ApiChatRoute: ApiChatRoute,
-  BreatheStatsRoute: BreatheStatsRoute,
   BuddiesIdRoute: BuddiesIdRoute,
   BuddiesAboutRoute: BuddiesAboutRoute,
   BuddiesBrowseRoute: BuddiesBrowseRoute,
@@ -4237,7 +4266,6 @@ const rootRouteChildren: RootRouteChildren = {
   PeacebotSettingsRoute: PeacebotSettingsRoute,
   PeacebotToolsRoute: PeacebotToolsRoute,
   PeacebotVoiceRoute: PeacebotVoiceRoute,
-  BreatheIndexRoute: BreatheIndexRoute,
   BuddiesIndexRoute: BuddiesIndexRoute,
   FocusIndexRoute: FocusIndexRoute,
   GratitudeIndexRoute: GratitudeIndexRoute,
