@@ -158,6 +158,7 @@ import { Route as CounsellingEmergencyRouteImport } from './routes/counselling.e
 import { Route as CounsellingDocumentsRouteImport } from './routes/counselling.documents'
 import { Route as CounsellingBillingRouteImport } from './routes/counselling.billing'
 import { Route as CounsellingAssessmentsRouteImport } from './routes/counselling.assessments'
+import { Route as CommunityThreadsRouteImport } from './routes/community.threads'
 import { Route as CommunityRoomsRouteImport } from './routes/community.rooms'
 import { Route as CommunityCirclesRouteImport } from './routes/community.circles'
 import { Route as BuddiesSettingsRouteImport } from './routes/buddies.settings'
@@ -959,6 +960,11 @@ const CounsellingAssessmentsRoute = CounsellingAssessmentsRouteImport.update({
   path: '/assessments',
   getParentRoute: () => CounsellingRoute,
 } as any)
+const CommunityThreadsRoute = CommunityThreadsRouteImport.update({
+  id: '/threads',
+  path: '/threads',
+  getParentRoute: () => CommunityRoute,
+} as any)
 const CommunityRoomsRoute = CommunityRoomsRouteImport.update({
   id: '/rooms',
   path: '/rooms',
@@ -1265,6 +1271,7 @@ export interface FileRoutesByFullPath {
   '/buddies/settings': typeof BuddiesSettingsRoute
   '/community/circles': typeof CommunityCirclesRouteWithChildren
   '/community/rooms': typeof CommunityRoomsRouteWithChildren
+  '/community/threads': typeof CommunityThreadsRoute
   '/counselling/assessments': typeof CounsellingAssessmentsRoute
   '/counselling/billing': typeof CounsellingBillingRoute
   '/counselling/documents': typeof CounsellingDocumentsRoute
@@ -1455,6 +1462,7 @@ export interface FileRoutesByTo {
   '/buddies/settings': typeof BuddiesSettingsRoute
   '/community/circles': typeof CommunityCirclesRouteWithChildren
   '/community/rooms': typeof CommunityRoomsRouteWithChildren
+  '/community/threads': typeof CommunityThreadsRoute
   '/counselling/assessments': typeof CounsellingAssessmentsRoute
   '/counselling/billing': typeof CounsellingBillingRoute
   '/counselling/documents': typeof CounsellingDocumentsRoute
@@ -1661,6 +1669,7 @@ export interface FileRoutesById {
   '/buddies/settings': typeof BuddiesSettingsRoute
   '/community/circles': typeof CommunityCirclesRouteWithChildren
   '/community/rooms': typeof CommunityRoomsRouteWithChildren
+  '/community/threads': typeof CommunityThreadsRoute
   '/counselling/assessments': typeof CounsellingAssessmentsRoute
   '/counselling/billing': typeof CounsellingBillingRoute
   '/counselling/documents': typeof CounsellingDocumentsRoute
@@ -1869,6 +1878,7 @@ export interface FileRouteTypes {
     | '/buddies/settings'
     | '/community/circles'
     | '/community/rooms'
+    | '/community/threads'
     | '/counselling/assessments'
     | '/counselling/billing'
     | '/counselling/documents'
@@ -2059,6 +2069,7 @@ export interface FileRouteTypes {
     | '/buddies/settings'
     | '/community/circles'
     | '/community/rooms'
+    | '/community/threads'
     | '/counselling/assessments'
     | '/counselling/billing'
     | '/counselling/documents'
@@ -2264,6 +2275,7 @@ export interface FileRouteTypes {
     | '/buddies/settings'
     | '/community/circles'
     | '/community/rooms'
+    | '/community/threads'
     | '/counselling/assessments'
     | '/counselling/billing'
     | '/counselling/documents'
@@ -3532,6 +3544,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CounsellingAssessmentsRouteImport
       parentRoute: typeof CounsellingRoute
     }
+    '/community/threads': {
+      id: '/community/threads'
+      path: '/threads'
+      fullPath: '/community/threads'
+      preLoaderRoute: typeof CommunityThreadsRouteImport
+      parentRoute: typeof CommunityRoute
+    }
     '/community/rooms': {
       id: '/community/rooms'
       path: '/rooms'
@@ -3959,12 +3978,14 @@ const CommunityRoomsRouteWithChildren = CommunityRoomsRoute._addFileChildren(
 interface CommunityRouteChildren {
   CommunityCirclesRoute: typeof CommunityCirclesRouteWithChildren
   CommunityRoomsRoute: typeof CommunityRoomsRouteWithChildren
+  CommunityThreadsRoute: typeof CommunityThreadsRoute
   CommunityIndexRoute: typeof CommunityIndexRoute
 }
 
 const CommunityRouteChildren: CommunityRouteChildren = {
   CommunityCirclesRoute: CommunityCirclesRouteWithChildren,
   CommunityRoomsRoute: CommunityRoomsRouteWithChildren,
+  CommunityThreadsRoute: CommunityThreadsRoute,
   CommunityIndexRoute: CommunityIndexRoute,
 }
 
