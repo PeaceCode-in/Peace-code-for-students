@@ -160,6 +160,7 @@ import { Route as CounsellingBillingRouteImport } from './routes/counselling.bil
 import { Route as CounsellingAssessmentsRouteImport } from './routes/counselling.assessments'
 import { Route as CommunityThreadsRouteImport } from './routes/community.threads'
 import { Route as CommunityRoomsRouteImport } from './routes/community.rooms'
+import { Route as CommunityNewRouteImport } from './routes/community.new'
 import { Route as CommunityCirclesRouteImport } from './routes/community.circles'
 import { Route as BuddiesSettingsRouteImport } from './routes/buddies.settings'
 import { Route as BuddiesPsychologistsRouteImport } from './routes/buddies.psychologists'
@@ -971,6 +972,11 @@ const CommunityRoomsRoute = CommunityRoomsRouteImport.update({
   path: '/rooms',
   getParentRoute: () => CommunityRoute,
 } as any)
+const CommunityNewRoute = CommunityNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => CommunityRoute,
+} as any)
 const CommunityCirclesRoute = CommunityCirclesRouteImport.update({
   id: '/circles',
   path: '/circles',
@@ -1277,6 +1283,7 @@ export interface FileRoutesByFullPath {
   '/buddies/psychologists': typeof BuddiesPsychologistsRoute
   '/buddies/settings': typeof BuddiesSettingsRoute
   '/community/circles': typeof CommunityCirclesRouteWithChildren
+  '/community/new': typeof CommunityNewRoute
   '/community/rooms': typeof CommunityRoomsRouteWithChildren
   '/community/threads': typeof CommunityThreadsRouteWithChildren
   '/counselling/assessments': typeof CounsellingAssessmentsRoute
@@ -1469,6 +1476,7 @@ export interface FileRoutesByTo {
   '/buddies/psychologists': typeof BuddiesPsychologistsRoute
   '/buddies/settings': typeof BuddiesSettingsRoute
   '/community/circles': typeof CommunityCirclesRouteWithChildren
+  '/community/new': typeof CommunityNewRoute
   '/community/rooms': typeof CommunityRoomsRouteWithChildren
   '/community/threads': typeof CommunityThreadsRouteWithChildren
   '/counselling/assessments': typeof CounsellingAssessmentsRoute
@@ -1677,6 +1685,7 @@ export interface FileRoutesById {
   '/buddies/psychologists': typeof BuddiesPsychologistsRoute
   '/buddies/settings': typeof BuddiesSettingsRoute
   '/community/circles': typeof CommunityCirclesRouteWithChildren
+  '/community/new': typeof CommunityNewRoute
   '/community/rooms': typeof CommunityRoomsRouteWithChildren
   '/community/threads': typeof CommunityThreadsRouteWithChildren
   '/counselling/assessments': typeof CounsellingAssessmentsRoute
@@ -1887,6 +1896,7 @@ export interface FileRouteTypes {
     | '/buddies/psychologists'
     | '/buddies/settings'
     | '/community/circles'
+    | '/community/new'
     | '/community/rooms'
     | '/community/threads'
     | '/counselling/assessments'
@@ -2079,6 +2089,7 @@ export interface FileRouteTypes {
     | '/buddies/psychologists'
     | '/buddies/settings'
     | '/community/circles'
+    | '/community/new'
     | '/community/rooms'
     | '/community/threads'
     | '/counselling/assessments'
@@ -2286,6 +2297,7 @@ export interface FileRouteTypes {
     | '/buddies/psychologists'
     | '/buddies/settings'
     | '/community/circles'
+    | '/community/new'
     | '/community/rooms'
     | '/community/threads'
     | '/counselling/assessments'
@@ -3571,6 +3583,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CommunityRoomsRouteImport
       parentRoute: typeof CommunityRoute
     }
+    '/community/new': {
+      id: '/community/new'
+      path: '/new'
+      fullPath: '/community/new'
+      preLoaderRoute: typeof CommunityNewRouteImport
+      parentRoute: typeof CommunityRoute
+    }
     '/community/circles': {
       id: '/community/circles'
       path: '/circles'
@@ -4008,6 +4027,7 @@ const CommunityThreadsRouteWithChildren =
 
 interface CommunityRouteChildren {
   CommunityCirclesRoute: typeof CommunityCirclesRouteWithChildren
+  CommunityNewRoute: typeof CommunityNewRoute
   CommunityRoomsRoute: typeof CommunityRoomsRouteWithChildren
   CommunityThreadsRoute: typeof CommunityThreadsRouteWithChildren
   CommunityIndexRoute: typeof CommunityIndexRoute
@@ -4015,6 +4035,7 @@ interface CommunityRouteChildren {
 
 const CommunityRouteChildren: CommunityRouteChildren = {
   CommunityCirclesRoute: CommunityCirclesRouteWithChildren,
+  CommunityNewRoute: CommunityNewRoute,
   CommunityRoomsRoute: CommunityRoomsRouteWithChildren,
   CommunityThreadsRoute: CommunityThreadsRouteWithChildren,
   CommunityIndexRoute: CommunityIndexRoute,
@@ -4550,3 +4571,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
