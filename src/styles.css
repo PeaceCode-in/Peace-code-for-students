@@ -835,3 +835,173 @@ html[data-pc-perf="low"] .pc-mobile-drawer::after {
 .pc-glass-sidebar[data-pinned="true"] [class~="group-hover:opacity-100"] { opacity: 1 !important; }
 .pc-glass-sidebar[data-pinned="true"] nav.group-hover\:overflow-y-auto,
 .pc-glass-sidebar[data-pinned="true"] [class~="group-hover:overflow-y-auto"] { overflow-y: auto !important; }
+
+/* ============================================================
+   Premium themable backdrops — driven by html[data-pc-bg="key"]
+   Each preset sets:
+     • body background (gradient composition)
+     • --pc-ink / --pc-muted / --pc-border tokens for readable text
+     • a shared grain layer via body::before
+   Selecting a theme in Settings > Appearance persists to
+   peacecode.settings.v1 and applies globally.
+   ============================================================ */
+
+html[data-pc-bg] body {
+  min-height: 100vh;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: var(--pc-ink);
+  transition: background-color 400ms ease, color 400ms ease;
+}
+html[data-pc-bg] body::before {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.10  0 0 0 0 0.12  0 0 0 0 0.16  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 320px 320px;
+  mix-blend-mode: multiply;
+  opacity: 0.045;
+}
+html[data-pc-bg][data-theme="dark"] body::before {
+  mix-blend-mode: overlay;
+  opacity: 0.08;
+}
+
+/* Daylight — soft haze */
+html[data-pc-bg="daylight"] body {
+  background:
+    radial-gradient(60% 45% at 18% 12%, #DDEEFF 0%, transparent 60%),
+    radial-gradient(55% 50% at 88% 8%, #FFF5EE 0%, transparent 62%),
+    radial-gradient(70% 55% at 82% 92%, #EAF2FF 0%, transparent 65%),
+    radial-gradient(80% 60% at 20% 90%, #F7F8FC 0%, transparent 70%),
+    linear-gradient(180deg, #FFFFFF 0%, #F5F7FB 100%);
+  --pc-ink: #15233F; --pc-muted: #5C6D86; --pc-border: rgba(20,30,60,0.10);
+}
+
+/* Aurora — iridescent lavender + pink */
+html[data-pc-bg="aurora"] body {
+  background:
+    radial-gradient(50% 40% at 12% 10%, #E9E4FF 0%, transparent 65%),
+    radial-gradient(55% 45% at 88% 18%, #FCE7F3 0%, transparent 65%),
+    radial-gradient(60% 50% at 75% 90%, #DDF1FF 0%, transparent 65%),
+    radial-gradient(60% 50% at 15% 85%, #FFF1D6 0%, transparent 70%),
+    linear-gradient(160deg, #F8F5FF 0%, #FDF1F7 55%, #EEF6FF 100%);
+  --pc-ink: #2A1E4A; --pc-muted: #6B5E85; --pc-border: rgba(60,40,110,0.12);
+}
+
+/* Dusk — sunset peach + rose */
+html[data-pc-bg="dusk"] body {
+  background:
+    radial-gradient(55% 45% at 18% 12%, #FFE7D6 0%, transparent 65%),
+    radial-gradient(60% 50% at 88% 22%, #F8CAD7 0%, transparent 65%),
+    radial-gradient(65% 55% at 78% 92%, #E9D6F5 0%, transparent 70%),
+    linear-gradient(155deg, #FFF2E6 0%, #FBE0DA 50%, #F1E0F5 100%);
+  --pc-ink: #3B1F2E; --pc-muted: #7A5766; --pc-border: rgba(90,40,60,0.14);
+}
+
+/* Sage Paper — muted green on warm paper */
+html[data-pc-bg="sage"] body {
+  background:
+    radial-gradient(60% 50% at 15% 15%, #E6EFD9 0%, transparent 65%),
+    radial-gradient(55% 45% at 88% 20%, #F1EFE6 0%, transparent 70%),
+    radial-gradient(70% 60% at 80% 95%, #DDE7D6 0%, transparent 65%),
+    linear-gradient(180deg, #F7F4EB 0%, #EEEFE0 100%);
+  --pc-ink: #24361F; --pc-muted: #5F7458; --pc-border: rgba(50,70,40,0.14);
+}
+
+/* Linen — cream + warm sand */
+html[data-pc-bg="linen"] body {
+  background:
+    radial-gradient(65% 55% at 20% 15%, #FBF7EF 0%, transparent 70%),
+    radial-gradient(60% 50% at 85% 20%, #F0E8DA 0%, transparent 70%),
+    radial-gradient(70% 55% at 80% 90%, #E6D8C1 0%, transparent 65%),
+    linear-gradient(180deg, #FAF6F0 0%, #F1E8D6 100%);
+  --pc-ink: #3A2F20; --pc-muted: #7A6B54; --pc-border: rgba(90,70,40,0.16);
+}
+
+/* Ocean — cool teal + foam */
+html[data-pc-bg="ocean"] body {
+  background:
+    radial-gradient(60% 50% at 18% 15%, #EAF6F8 0%, transparent 65%),
+    radial-gradient(55% 45% at 88% 22%, #D9EEF3 0%, transparent 65%),
+    radial-gradient(70% 60% at 78% 92%, #B8D9E6 0%, transparent 60%),
+    linear-gradient(160deg, #F1F9FA 0%, #D0E7ED 100%);
+  --pc-ink: #0C2735; --pc-muted: #4A6C7A; --pc-border: rgba(20,60,80,0.14);
+}
+
+/* Sunrise — warm coral */
+html[data-pc-bg="sunrise"] body {
+  background:
+    radial-gradient(60% 50% at 20% 12%, #FDEFD9 0%, transparent 65%),
+    radial-gradient(55% 45% at 85% 18%, #FFE4C7 0%, transparent 65%),
+    radial-gradient(70% 60% at 75% 92%, #F6A69B 0%, transparent 65%),
+    linear-gradient(160deg, #FFF5E4 0%, #FFCFBB 100%);
+  --pc-ink: #4A1E1A; --pc-muted: #8A5648; --pc-border: rgba(120,50,30,0.16);
+}
+
+/* Iridescent — vapor chrome pastels */
+html[data-pc-bg="iris"] body {
+  background:
+    radial-gradient(55% 45% at 15% 12%, #C9F0F2 0%, transparent 65%),
+    radial-gradient(55% 45% at 85% 15%, #E9D8FF 0%, transparent 65%),
+    radial-gradient(60% 50% at 75% 90%, #FFE0EF 0%, transparent 65%),
+    radial-gradient(60% 55% at 20% 90%, #F0F7FF 0%, transparent 70%),
+    linear-gradient(140deg, #EAFAFB 0%, #F1E4FF 55%, #FFE9F2 100%);
+  --pc-ink: #2A1F4A; --pc-muted: #6D5F8A; --pc-border: rgba(80,50,140,0.14);
+}
+
+/* Midnight — deep navy w/ lavender aurora (dark) */
+html[data-pc-bg="midnight"] body {
+  background:
+    radial-gradient(55% 45% at 18% 10%, #3A2E6B 0%, transparent 60%),
+    radial-gradient(55% 45% at 85% 20%, #1E3A6E 0%, transparent 60%),
+    radial-gradient(70% 60% at 80% 92%, #12203E 0%, transparent 60%),
+    linear-gradient(160deg, #0B1020 0%, #141B33 60%, #0B1020 100%);
+  --pc-ink: #E8ECF7; --pc-muted: #A8B4D0; --pc-border: rgba(255,255,255,0.10);
+  --pc-surface: rgba(255,255,255,0.06); --pc-surface2: rgba(255,255,255,0.10);
+}
+
+/* Noir Gold — charcoal + gold whisper (dark) */
+html[data-pc-bg="noir"] body {
+  background:
+    radial-gradient(55% 45% at 20% 10%, #2A2418 0%, transparent 60%),
+    radial-gradient(50% 40% at 82% 22%, #3A2E1C 0%, transparent 60%),
+    radial-gradient(70% 60% at 80% 92%, #1A1712 0%, transparent 60%),
+    linear-gradient(160deg, #0D0D0D 0%, #1A1A1A 60%, #0D0D0D 100%);
+  --pc-ink: #F5EEDD; --pc-muted: #B8AC90; --pc-border: rgba(201,168,76,0.20);
+  --pc-primary: #C9A84C; --pc-soft: #E6D28A;
+  --pc-surface: rgba(255,255,255,0.05); --pc-surface2: rgba(201,168,76,0.10);
+}
+
+/* Ensure page content sits above the grain layer */
+html[data-pc-bg] main,
+html[data-pc-bg] aside,
+html[data-pc-bg] header,
+html[data-pc-bg] footer { position: relative; z-index: 1; }
+
+/* Dark-tone presets: tune the frosted glass for readability */
+html[data-pc-bg="midnight"] .pc-glass-card,
+html[data-pc-bg="noir"] .pc-glass-card,
+html[data-pc-bg="midnight"] main .rounded-2xl:not(.no-glass):not(.pc-solid),
+html[data-pc-bg="midnight"] main .rounded-3xl:not(.no-glass):not(.pc-solid),
+html[data-pc-bg="noir"] main .rounded-2xl:not(.no-glass):not(.pc-solid),
+html[data-pc-bg="noir"] main .rounded-3xl:not(.no-glass):not(.pc-solid) {
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.10) !important;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.10) !important;
+  color: var(--pc-ink);
+}
+html[data-pc-bg="midnight"] main,
+html[data-pc-bg="noir"] main { color: var(--pc-ink); }
+html[data-pc-bg="midnight"] input,
+html[data-pc-bg="midnight"] textarea,
+html[data-pc-bg="midnight"] select,
+html[data-pc-bg="noir"] input,
+html[data-pc-bg="noir"] textarea,
+html[data-pc-bg="noir"] select { color: var(--pc-ink) !important; }
+html[data-pc-bg="midnight"] input::placeholder,
+html[data-pc-bg="noir"] input::placeholder { color: var(--pc-muted) !important; }
