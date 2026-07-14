@@ -36,8 +36,18 @@ function Wellness() {
           <Sparkles className="w-3.5 h-3.5" /> This week
         </div>
         <p className="font-serif text-[18px] leading-snug" style={{ color: ink }}>
-          Sleep before 12:30am on four nights. Journal three lines every morning. One walk without your phone.
+          {(() => {
+            const focus = [...daily, ...weekly].filter(g => g.progress < 100).slice(0, 3);
+            if (focus.length === 0) return "Add one small habit below and we'll build the week around it.";
+            const parts = focus.map(g => g.title.replace(/\.$/, ""));
+            return parts.join(". ") + ".";
+          })()}
         </p>
+        {[...daily, ...weekly].length > 0 && (
+          <div className="mt-2 text-[12px]" style={{ color: muted }}>
+            Overall progress · {Math.round([...daily, ...weekly].reduce((s, g) => s + g.progress, 0) / [...daily, ...weekly].length)}%
+          </div>
+        )}
       </Card>
 
       <div className="grid gap-4 lg:grid-cols-2">

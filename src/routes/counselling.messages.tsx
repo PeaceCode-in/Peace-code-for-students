@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { palette } from "@/components/AppShell";
 import { Card, Chip } from "./counselling";
-import { myCounsellors, listMessages, addMessage, patchMessage, threadIds, getExpert, photoFor, EXPERTS } from "@/lib/counselling-store";
+import { myCounsellors, listMessages, addMessage, patchMessage, threadIds, getExpert, photoFor, EXPERTS, addDoc } from "@/lib/counselling-store";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Send, Pin, Bookmark, Archive, Search, Paperclip } from "lucide-react";
 
@@ -100,7 +100,22 @@ function Messages() {
               ))}
             </div>
             <div className="p-3 flex gap-2 items-center" style={{ borderTop: `1px solid ${border}` }}>
-              <button onClick={() => alert("Attachment is a demo placeholder.")} className="w-9 h-9 shrink-0 rounded-full flex items-center justify-center" style={{ background: surface2 }}><Paperclip className="w-4 h-4" style={{ color: muted }} /></button>
+              <label className="w-9 h-9 shrink-0 rounded-full flex items-center justify-center cursor-pointer" style={{ background: surface2 }}>
+                <Paperclip className="w-4 h-4" style={{ color: muted }} />
+                <input
+                  type="file"
+                  className="hidden"
+                  onChange={(ev) => {
+                    const f = ev.target.files?.[0]; if (!f || !active) return;
+                    const ext = f.name.split(".").pop()?.toLowerCase() ?? "";
+                    const kind = ["png","jpg","jpeg","webp","gif"].includes(ext) ? "image" as const : ext === "pdf" ? "pdf" as const : "medical" as const;
+                    const d = addDoc({ name: f.name, kind, size: f.size, sharedWith: [active] });
+                    addMessage({ threadId: active, from: "me", text: `📎 Shared ${d.name}` });
+                    setTick(x => x + 1);
+                    ev.target.value = "";
+                  }}
+                />
+              </label>
               <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && send()} placeholder="Type a message…" className="flex-1 rounded-full px-4 py-2 text-[13.5px] outline-none" style={{ background: surface, color: ink, border: `1px solid ${border}` }} />
               <button onClick={send} className="shrink-0 rounded-full px-3 py-2" style={{ background: ink, color: "#fff" }}><Send className="w-4 h-4" /></button>
             </div>

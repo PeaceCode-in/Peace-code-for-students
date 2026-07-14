@@ -15,6 +15,7 @@ function AppointmentDashboard() {
   const { ink, muted, primary, surface, surface2, border, soft } = palette;
   const [tick, setTick] = useState(0);
   const [confirmCancel, setConfirmCancel] = useState(false);
+  const [uploadNote, setUploadNote] = useState<string | null>(null);
 
   useEffect(() => { const t = setInterval(() => setTick(x => x + 1), 1000); return () => clearInterval(t); }, []);
 
@@ -33,12 +34,17 @@ function AppointmentDashboard() {
 
   const ModeIcon = a.mode === "video" ? Video : a.mode === "audio" ? Phone : MessageSquare;
 
-  const handleUpload = () => {
-    const kinds = ["medical","prescription","journal","assessment","image","pdf"] as const;
-    const kind = kinds[Math.floor(Math.random() * kinds.length)];
-    const d = addDoc({ name: `report-${Date.now().toString(36)}.pdf`, kind, size: 320_000 + Math.floor(Math.random()*800_000), sharedWith: [e.id] });
-    updateAppointment(a.id, { }); // trigger no-op update to refresh
-    alert(`Uploaded ${d.name} and shared with ${e.name}.`);
+  const onFilePicked = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    const f = ev.target.files?.[0]; if (!f) return;
+    const ext = f.name.split(".").pop()?.toLowerCase() ?? "";
+    const kind = ["png","jpg","jpeg","webp","gif"].includes(ext) ? "image" as const
+      : ext === "pdf" ? "pdf" as const
+      : ext.match(/^(docx?|txt|md)$/) ? "medical" as const
+      : "medical" as const;
+    const d = addDoc({ name: f.name, kind, size: f.size, sharedWith: [e.id] });
+    updateAppointment(a.id, {});
+    setUploadNote(`Shared “${d.name}” with ${e.name}. Only they can open it.`);
+    ev.target.value = "";
   };
 
   return (
@@ -74,9 +80,10 @@ function AppointmentDashboard() {
           <Link to="/counselling/messages" className="rounded-full px-4 py-2.5 text-[13px] inline-flex items-center gap-2" style={{ background: surface, color: ink, border: `1px solid ${border}` }}>
             <MessageCircle className="w-4 h-4" /> Message
           </Link>
-          <button onClick={handleUpload} className="rounded-full px-4 py-2.5 text-[13px] inline-flex items-center gap-2" style={{ background: surface, color: ink, border: `1px solid ${border}` }}>
+          <label className="rounded-full px-4 py-2.5 text-[13px] inline-flex items-center gap-2 cursor-pointer" style={{ background: surface, color: ink, border: `1px solid ${border}` }}>
             <Upload className="w-4 h-4" /> Upload document
-          </button>
+            <input type="file" className="hidden" onChange={onFilePicked} />
+          </label>
           <Link to="/counselling/experts" className="rounded-full px-4 py-2.5 text-[13px] inline-flex items-center gap-2" style={{ background: surface, color: ink, border: `1px solid ${border}` }}>
             <CalendarClock className="w-4 h-4" /> Reschedule
           </Link>
@@ -126,8 +133,12 @@ function AppointmentDashboard() {
         <Card className="lg:col-span-2">
           <div className="flex items-center justify-between mb-2">
             <div className="font-serif text-[18px]" style={{ color: ink }}>Shared documents</div>
-            <button onClick={handleUpload} className="text-[12.5px] inline-flex items-center gap-1.5" style={{ color: muted }}><Upload className="w-3.5 h-3.5" /> Upload</button>
+            <label className="text-[12.5px] inline-flex items-center gap-1.5 cursor-pointer" style={{ color: muted }}>
+              <Upload className="w-3.5 h-3.5" /> Upload
+              <input type="file" className="hidden" onChange={onFilePicked} />
+            </label>
           </div>
+          {uploadNote && <div className="mb-2 rounded-2xl px-3 py-2 text-[12.5px]" style={{ background: soft, color: ink }}>{uploadNote}</div>}
           <SharedDocs expertId={e.id} />
         </Card>
       </div>
