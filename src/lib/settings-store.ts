@@ -195,6 +195,7 @@ const defaults: Settings = {
   appearance: {
     theme: "light",
     accent: "blue",
+    bgTheme: "daylight",
     fontSize: 16,
     density: "comfortable",
     reduceMotion: false,
