@@ -52,9 +52,7 @@ function EmailEntry() {
           onChange={(e) => { setEmail(e.target.value); if (error) setError(null); }}
           onKeyDown={(e) => e.key === "Enter" && onContinue()}
         />
-        {error && (
-          <div className="mt-2 text-[12px]" style={{ color: "#a24a30" }}>{error}</div>
-        )}
+        {error && <InlineFeedback kind="error">{error}</InlineFeedback>}
       </div>
 
       <div className="flex flex-col gap-2.5">
