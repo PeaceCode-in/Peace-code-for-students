@@ -110,7 +110,7 @@ function DashboardInner() {
             <h1 className="mt-4 font-serif text-[42px] sm:text-[64px] leading-[0.98]"
               style={{ color: "var(--pc-ink)", letterSpacing: "-0.03em" }}>
               {greet},<br/>
-              <span className="italic" style={{ color: "var(--pc-primary)" }}>Jai.</span>
+              <span className="italic" style={{ color: "var(--pc-primary)" }}>{who.first}.</span>
             </h1>
             <p className="mt-6 max-w-[560px] text-[15px] sm:text-[17px] leading-[1.55]"
               style={{ color: "var(--pc-ink)", opacity: 0.72 }}>
