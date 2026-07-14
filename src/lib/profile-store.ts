@@ -217,15 +217,8 @@ export function loadProfile(): Profile {
     const raw = window.localStorage.getItem(KEY);
     // Overlay the currently signed-in student's name so the profile matches sign-in.
     // Falls back to "Guest Student" / "Guest" when no session exists.
-    let signed: { full: string; first: string; isGuest: boolean } = { full: "", first: "", isGuest: true };
-    try {
-      // dynamic require to avoid a circular import at module init
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      signed = (require("./auth-store") as typeof import("./auth-store")).currentDisplayName();
-    } catch { /* ignore */ }
-    const base: Profile = signed.full
-      ? { ...defaults, displayName: signed.full, preferredName: signed.first }
-      : defaults;
+    const signed = currentDisplayName();
+    const base: Profile = { ...defaults, displayName: signed.full, preferredName: signed.first };
     if (!raw) return base;
     return { ...base, ...JSON.parse(raw) };
   } catch { return defaults; }
