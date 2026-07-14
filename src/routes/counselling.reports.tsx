@@ -13,26 +13,37 @@ function Reports() {
   const { ink, muted, primary, surface2, border } = palette;
   const appts = listAppointments();
 
+  const moodScale: Record<string, number> = { calm: 8, hopeful: 7, okay: 6, tired: 4, anxious: 3, low: 2, overwhelmed: 2 };
+  const scoreMood = (m?: string) => (m ? moodScale[m.toLowerCase()] ?? 5 : 5);
+
   const stats = useMemo(() => {
     const total = appts.length;
     const completed = appts.filter(a => a.status === "completed").length;
     const attendance = total ? Math.round((completed / total) * 100) : 0;
     const homework = listHomework();
     const hwRate = homework.length ? Math.round(homework.filter(h => h.done).length / homework.length * 100) : 0;
-    // last 8 weeks — synthetic mood/stress from local seed for demo
-    const weeks = Array.from({ length: 8 }, (_, i) => {
-      const seed = (i + 3) * 13 % 100;
-      return {
+
+    // Real trend derived from chronological questionnaire + mood entries.
+    const chrono = [...appts].sort((a, b) => a.scheduledFor - b.scheduledFor);
+    const series = chrono
+      .filter(a => a.questionnaire || a.moodBefore || a.moodAfter)
+      .slice(-8)
+      .map((a, i) => ({
         i,
-        mood: 4 + Math.round(Math.sin(i / 1.6) * 2 + seed / 50),
-        stress: 6 - Math.round(Math.cos(i / 2) * 2) + (i > 4 ? -1 : 0),
-        sleep: 6 + Math.round(Math.sin(i / 2.4) * 1.5) + (i > 5 ? 1 : 0),
-      };
-    });
-    return { total, completed, attendance, hwRate, weeks };
+        label: new Date(a.scheduledFor).toLocaleDateString([], { day: "numeric", month: "short" }),
+        mood: scoreMood(a.moodAfter ?? a.moodBefore ?? a.questionnaire?.currentMood),
+        stress: a.questionnaire ? 10 - a.questionnaire.stress : 5,
+        sleep: a.questionnaire ? Math.max(0, Math.min(10, a.questionnaire.sleep)) : 6,
+      }));
+
+    return { total, completed, attendance, hwRate, series };
   }, [appts]);
 
   const goals = listGoals();
+
+  const exportPdf = () => {
+    if (typeof window !== "undefined") window.print();
+  };
 
   return (
     <>
@@ -41,7 +52,7 @@ function Reports() {
           <div className="text-[10.5px] uppercase tracking-[0.18em]" style={{ color: muted }}>Reports</div>
           <h1 className="font-serif text-[26px]" style={{ color: ink }}>Your progress, quietly measured</h1>
         </div>
-        <button onClick={() => alert("PDF export is a demo placeholder.")} className="rounded-full px-3 py-1.5 text-[12.5px] inline-flex items-center gap-1.5" style={{ background: surface2, color: ink, border: `1px solid ${border}` }}>
+        <button onClick={exportPdf} className="rounded-full px-3 py-1.5 text-[12.5px] inline-flex items-center gap-1.5" style={{ background: surface2, color: ink, border: `1px solid ${border}` }}>
           <Download className="w-3.5 h-3.5" /> Download PDF
         </button>
       </div>
@@ -55,13 +66,21 @@ function Reports() {
 
       <div className="grid gap-4 lg:grid-cols-2 mb-4">
         <Card>
-          <div className="font-serif text-[17px] mb-3" style={{ color: ink }}>Mood, stress, sleep · last 8 weeks</div>
-          <TrendChart weeks={stats.weeks} />
-          <div className="mt-2 flex flex-wrap gap-3 text-[11.5px]" style={{ color: muted }}>
-            <Legend color="#3f6d51" label="Mood" />
-            <Legend color="#c14a5a" label="Stress" />
-            <Legend color={primary} label="Sleep" />
-          </div>
+          <div className="font-serif text-[17px] mb-3" style={{ color: ink }}>Mood, calm & sleep · your sessions</div>
+          {stats.series.length < 2 ? (
+            <p className="text-[13px]" style={{ color: muted }}>
+              Trends appear after your second session. We derive them from the mood + intake answers you share before each meeting.
+            </p>
+          ) : (
+            <>
+              <TrendChart weeks={stats.series} />
+              <div className="mt-2 flex flex-wrap gap-3 text-[11.5px]" style={{ color: muted }}>
+                <Legend color="#3f6d51" label="Mood" />
+                <Legend color="#c14a5a" label="Calm (10 − stress)" />
+                <Legend color={primary} label="Sleep (hrs)" />
+              </div>
+            </>
+          )}
         </Card>
 
         <Card>

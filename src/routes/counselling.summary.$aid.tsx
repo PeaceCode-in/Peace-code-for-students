@@ -51,17 +51,30 @@ function SessionSummary() {
         <Card>
           <div className="font-serif text-[19px] mb-2" style={{ color: ink }}>What we noticed together</div>
           <ul className="space-y-2 text-[14px]" style={{ color: ink }}>
-            {[
-              "You showed up despite feeling low all week. That counts.",
-              "The all-or-nothing thinking pattern came up more than once.",
-              "Your sleep, not your studies, is the current bottleneck.",
-            ].map((t, i) => (
-              <li key={i} className="flex items-start gap-2"><Check className="w-4 h-4 mt-0.5 flex-none" style={{ color: primary }} />{t}</li>
-            ))}
+            {(() => {
+              const q = a.questionnaire;
+              const notes: string[] = [];
+              notes.push(`You came in for ${q?.primaryConcern?.toLowerCase() || "what you're carrying right now"} and stayed with it.`);
+              if (q && q.stress >= 7) notes.push("Stress was running high before we met — noticing it is already part of the work.");
+              else if (q && q.stress <= 3) notes.push("You arrived steadier than you gave yourself credit for.");
+              if (q && q.sleep < 6) notes.push("Sleep, not effort, looks like the current bottleneck.");
+              else if (q && q.sleep >= 7) notes.push("Your sleep is holding — a quiet base to build on.");
+              if (q?.appetite === "poor") notes.push("Appetite is low too. Small, regular meals help more than perfect ones.");
+              if (q?.goals) notes.push(`Your goal — “${q.goals}” — will guide the next few sessions.`);
+              return notes.slice(0, 4).map((t, i) => (
+                <li key={i} className="flex items-start gap-2"><Check className="w-4 h-4 mt-0.5 flex-none" style={{ color: primary }} />{t}</li>
+              ));
+            })()}
           </ul>
           <div className="mt-4 rounded-2xl p-3" style={{ background: surface2 }}>
             <div className="text-[10.5px] uppercase tracking-[0.18em] mb-1" style={{ color: muted }}>Counsellor's note</div>
-            <p className="text-[13.5px]" style={{ color: ink }}>Small steps this week. If sleep isn't better by Wednesday, message me.</p>
+            <p className="text-[13.5px]" style={{ color: ink }}>
+              {a.questionnaire?.sleep !== undefined && a.questionnaire.sleep < 6
+                ? "Small steps this week. If sleep isn't better by Wednesday, message me."
+                : a.questionnaire && a.questionnaire.stress >= 7
+                ? "Try the breathing homework twice this week. Message me if anything spikes."
+                : "You're doing the work. Message me if anything shifts between sessions."}
+            </p>
           </div>
         </Card>
 

@@ -47,7 +47,24 @@ function Billing() {
       <Card>
         <div className="flex items-center justify-between mb-3">
           <div className="font-serif text-[17px]" style={{ color: ink }}>Payment history</div>
-          <button onClick={() => alert("Export is a demo placeholder.")} className="text-[12.5px] inline-flex items-center gap-1" style={{ color: muted }}><Download className="w-3.5 h-3.5" /> Export</button>
+          <button
+            onClick={() => {
+              const header = "Date,Counsellor,Method,Amount (INR),Status,Invoice ID";
+              const rows = invoices.map(i => {
+                const e = i.expertId ? getExpert(i.expertId) : null;
+                return [new Date(i.when).toISOString(), e?.name ?? "Session", i.method, i.amount, i.status, i.id].join(",");
+              });
+              const csv = [header, ...rows].join("\n");
+              const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url; a.download = `peacecode-invoices-${new Date().toISOString().slice(0,10)}.csv`;
+              document.body.appendChild(a); a.click(); a.remove();
+              URL.revokeObjectURL(url);
+            }}
+            className="text-[12.5px] inline-flex items-center gap-1" style={{ color: muted }}>
+            <Download className="w-3.5 h-3.5" /> Export CSV
+          </button>
         </div>
         {invoices.length === 0 ? (
           <p className="text-[13px]" style={{ color: muted }}>No invoices yet.</p>

@@ -26,6 +26,9 @@ function LiveSession() {
   const [seconds, setSeconds] = useState(0);
   const [input, setInput] = useState("");
   const [signal, setSignal] = useState(3);
+  const [sharing, setSharing] = useState(false);
+  const [whiteboard, setWhiteboard] = useState(false);
+  const [speaker, setSpeaker] = useState<"default" | "system" | "headset">("default");
   const msgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -111,9 +114,9 @@ function LiveSession() {
             <Ctrl onClick={() => setCam(v => !v)} active={cam} icon={cam ? Video : VideoOff} label={cam ? "Cam on" : "Cam off"} />
             <Ctrl onClick={() => setBlur(v => !v)} active={blur} icon={Sparkles} label={blur ? "Blur on" : "Blur off"} />
             <Ctrl onClick={() => setCaptions(v => !v)} active={captions} icon={Captions} label="Captions" />
-            <Ctrl onClick={() => alert("Screen share is a demo placeholder.")} active={false} icon={ScreenShare} label="Share" />
-            <Ctrl onClick={() => alert("Whiteboard is a demo placeholder.")} active={false} icon={Paintbrush} label="Whiteboard" />
-            <Ctrl onClick={() => alert("Speaker selection is a demo placeholder.")} active={false} icon={Volume2} label="Speaker" />
+            <Ctrl onClick={() => setSharing(v => !v)} active={sharing} icon={ScreenShare} label={sharing ? "Sharing" : "Share"} />
+            <Ctrl onClick={() => setWhiteboard(v => !v)} active={whiteboard} icon={Paintbrush} label="Whiteboard" />
+            <Ctrl onClick={() => setSpeaker(s => s === "default" ? "system" : s === "system" ? "headset" : "default")} active={speaker !== "default"} icon={Volume2} label={speaker === "default" ? "Speaker" : speaker === "system" ? "System" : "Headset"} />
             <Ctrl onClick={() => setChatOpen(v => !v)} active={chatOpen} icon={MessageSquare} label="Chat" />
             <button onClick={endSession} className="shrink-0 rounded-full px-4 py-2.5 text-[13px] inline-flex items-center gap-2" style={{ background: "#c14a5a" }}>
               <PhoneOff className="w-4 h-4" /> End
