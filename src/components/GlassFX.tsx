@@ -10,6 +10,7 @@ import { useEffect } from "react";
 export function GlassFX() {
   useEffect(() => {
     const root = document.documentElement;
+    root.removeAttribute("data-pc-glass");
     if (!root.getAttribute("data-pc-bg")) {
       try {
         const raw = localStorage.getItem("peacecode.settings.v1");
