@@ -333,13 +333,13 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
           {navGroups.map((group) => (
             <div key={group.label} className="flex flex-col gap-1">
               <div className="h-4 flex items-center pl-4 mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
-                <span className="text-[8.5px] tracking-[0.32em] uppercase whitespace-nowrap" style={{ color: "#0f2540", opacity: 0.7 }}>{group.label}</span>
+                <span className="text-[8.5px] tracking-[0.32em] uppercase whitespace-nowrap" style={{ color: "var(--pc-ink)", opacity: 0.7 }}>{group.label}</span>
               </div>
               {group.items.map((item) => {
                 const Icon = item.icon;
                 const active = isActive(item.to);
                 const cls = "pc-nav-item relative flex items-center h-11 rounded-2xl";
-                const style = active ? { background: surface2, color: "#0f2540", fontWeight: 600 } : { color: "#0f2540" };
+                const style = active ? { background: surface2, color: "var(--pc-ink)", fontWeight: 600 } : { color: "var(--pc-ink)" };
                 const inner = (
                   <>
                     <span className="w-[56px] shrink-0 flex justify-center">
@@ -359,7 +359,7 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
         </nav>
 
         <div className="shrink-0 mt-4 mx-3 pt-3" style={{ borderTop: `1px solid ${border}` }}>
-          <div className="flex items-center h-11 rounded-2xl" style={{ color: "#0f2540" }} aria-label="Current streak">
+          <div className="flex items-center h-11 rounded-2xl" style={{ color: "var(--pc-ink)" }} aria-label="Current streak">
             <span className="w-[56px] shrink-0 flex justify-center">
               <span className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: soft, color: primary }}>
                 <Flame className="w-4 h-4" strokeWidth={1.6}/>
@@ -433,13 +433,13 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
             <nav className="flex flex-col gap-5">
               {navGroups.map((group) => (
                 <div key={group.label}>
-                  <div className="text-[9px] tracking-[0.3em] uppercase mb-2 px-1" style={{ color: "#0f2540", opacity: 0.65 }}>{group.label}</div>
+                  <div className="text-[9px] tracking-[0.3em] uppercase mb-2 px-1" style={{ color: "var(--pc-ink)", opacity: 0.65 }}>{group.label}</div>
                   <div className="flex flex-col gap-1">
                     {group.items.map((item) => {
                       const Icon = item.icon;
                       const active = isActive(item.to);
                       const cls = "pc-nav-item flex items-center gap-3 h-12 px-3 rounded-2xl text-[14px]";
-                      const style = active ? { background: "rgba(255,255,255,0.6)", color: "#0f2540", fontWeight: 600 } : { color: "#0f2540" };
+                      const style = active ? { background: "rgba(255,255,255,0.6)", color: "var(--pc-ink)", fontWeight: 600 } : { color: "var(--pc-ink)" };
                       return item.to ? (
                         <Link key={item.label} to={item.to} className={cls} style={style}>
                           <Icon className="pc-nav-icon w-4 h-4" strokeWidth={1.5}/> <span className="pc-nav-label opacity-100">{item.label}</span>
@@ -517,7 +517,7 @@ function TopBarActions({ unread, compact = false }: { unread: number; compact?: 
     border: "1px solid rgba(255,255,255,0.55)",
     backdropFilter: "blur(18px) saturate(140%)",
     boxShadow: "0 8px 24px -14px rgba(20,30,60,0.25), inset 0 1px 0 rgba(255,255,255,0.6)",
-    color: "#0f2540",
+    color: "var(--pc-ink)",
   };
 
   return (
@@ -542,7 +542,7 @@ function TopBarActions({ unread, compact = false }: { unread: number; compact?: 
           className={`${btnSize} rounded-full flex items-center justify-center transition hover:scale-[1.04] active:scale-95`}
           style={{ ...chrome, padding: 2 }}
         >
-          <span className="w-full h-full rounded-full flex items-center justify-center font-serif text-[13px]" style={{ background: "linear-gradient(135deg, var(--pc-soft), rgba(255,255,255,0.65))", color: "#0f2540" }}>
+          <span className="w-full h-full rounded-full flex items-center justify-center font-serif text-[13px]" style={{ background: "linear-gradient(135deg, var(--pc-soft), rgba(255,255,255,0.65))", color: "var(--pc-ink)" }}>
             K
           </span>
         </button>
@@ -556,7 +556,7 @@ function TopBarActions({ unread, compact = false }: { unread: number; compact?: 
               border: "1px solid rgba(255,255,255,0.7)",
               backdropFilter: "blur(24px) saturate(160%)",
               boxShadow: "0 24px 60px -24px rgba(20,30,60,0.35), inset 0 1px 0 rgba(255,255,255,0.8)",
-              color: "#0f2540",
+              color: "var(--pc-ink)",
             }}
           >
             {/* Profile header */}
@@ -603,7 +603,7 @@ function MenuItem({
       onClick={onClick}
       role="menuitem"
       className="flex items-center gap-3 px-4 py-2.5 text-[13px] transition hover:bg-white/50"
-      style={{ color: danger ? "#b23a48" : "#0f2540" }}
+      style={{ color: danger ? "#b23a48" : "var(--pc-ink)" }}
     >
       <Icon className="w-3.5 h-3.5 opacity-70" strokeWidth={1.6}/>
       <span className="flex-1 truncate">{label}</span>
