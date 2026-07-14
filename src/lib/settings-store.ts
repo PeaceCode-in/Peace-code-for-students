@@ -331,12 +331,17 @@ export function applyAppearance(s: Settings) {
   const root = document.documentElement;
   const a = s.appearance;
 
-  // Theme
-  let mode: "light" | "dark" = "light";
+  // Background theme (writes html[data-pc-bg]; CSS in styles.css does the rest)
+  const bg = (a.bgTheme && BG_THEMES[a.bgTheme]) ? a.bgTheme : "daylight";
+  root.setAttribute("data-pc-bg", bg);
+
+  // Theme mode: dark presets force dark; user override still wins if explicit.
+  const preset = BG_THEMES[bg];
+  let mode: "light" | "dark" = preset.tone === "dark" ? "dark" : "light";
   if (a.theme === "dark") mode = "dark";
   else if (a.theme === "light") mode = "light";
   else if (a.theme === "auto" || a.theme === "system") {
-    mode = window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    mode = window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : preset.tone;
   }
   root.classList.toggle("dark", mode === "dark");
   root.setAttribute("data-theme", mode);
@@ -358,7 +363,10 @@ export function applyAppearance(s: Settings) {
   // Motion / effects
   root.setAttribute("data-motion", (a.reduceMotion || s.accessibility.reduceAnim) ? "reduced" : "on");
   root.setAttribute("data-glass", a.glassEffects ? "on" : "off");
+  root.setAttribute("data-card-style", a.cardStyle);
+  root.setAttribute("data-chart-style", a.chartStyle);
   root.style.setProperty("--pc-radius-scale", `${a.roundedCorners}px`);
+  root.style.setProperty("--radius", `${a.roundedCorners}px`);
 }
 
 export function applyAccessibility(s: Settings) {
