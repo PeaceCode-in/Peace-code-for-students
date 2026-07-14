@@ -854,19 +854,39 @@ html[data-pc-bg] body {
   color: var(--pc-ink);
   transition: background-color 400ms ease, color 400ms ease;
 }
+/* Coarse grain — creates depth and film-like texture */
 html[data-pc-bg] body::before {
+  content: "";
+  position: fixed; inset: -20px;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='3' stitchTiles='stitch' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0.06  0 0 0 0 0.08  0 0 0 0 0.14  0 0 0 0.95 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 360px 360px;
+  mix-blend-mode: multiply;
+  opacity: 0.16;
+}
+/* Fine grain — a sharper micro-layer over the top */
+html[data-pc-bg] body::after {
   content: "";
   position: fixed; inset: 0;
   pointer-events: none;
   z-index: 0;
-  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.10  0 0 0 0 0.12  0 0 0 0 0.16  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 320px 320px;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.4' numOctaves='2' stitchTiles='stitch' seed='9'/%3E%3CfeColorMatrix values='0 0 0 0 0.10  0 0 0 0 0.10  0 0 0 0 0.14  0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
   mix-blend-mode: multiply;
-  opacity: 0.045;
+  opacity: 0.09;
 }
-html[data-pc-bg][data-theme="dark"] body::before {
+html[data-pc-bg][data-theme="dark"] body::before,
+html[data-pc-bg="midnight"] body::before,
+html[data-pc-bg="noir"] body::before {
   mix-blend-mode: overlay;
-  opacity: 0.08;
+  opacity: 0.22;
+}
+html[data-pc-bg][data-theme="dark"] body::after,
+html[data-pc-bg="midnight"] body::after,
+html[data-pc-bg="noir"] body::after {
+  mix-blend-mode: overlay;
+  opacity: 0.14;
 }
 
 /* Daylight — soft haze */
