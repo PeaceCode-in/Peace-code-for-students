@@ -25,6 +25,7 @@ import { Route as EmergencyRouteImport } from './routes/emergency'
 import { Route as CounsellingRouteImport } from './routes/counselling'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as BreatheRouteImport } from './routes/breathe'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as SearchIndexRouteImport } from './routes/search.index'
@@ -44,6 +45,7 @@ import { Route as CounsellingIndexRouteImport } from './routes/counselling.index
 import { Route as CommunityIndexRouteImport } from './routes/community.index'
 import { Route as BuddiesIndexRouteImport } from './routes/buddies.index'
 import { Route as BreatheIndexRouteImport } from './routes/breathe.index'
+import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as SettingsSupportRouteImport } from './routes/settings.support'
 import { Route as SettingsResourcesRouteImport } from './routes/settings.resources'
 import { Route as SettingsProfileRouteImport } from './routes/settings.profile'
@@ -171,6 +173,8 @@ import { Route as BuddiesBrowseRouteImport } from './routes/buddies.browse'
 import { Route as BuddiesAboutRouteImport } from './routes/buddies.about'
 import { Route as BuddiesIdRouteImport } from './routes/buddies.$id'
 import { Route as BreatheStatsRouteImport } from './routes/breathe.stats'
+import { Route as AuthSignupRouteImport } from './routes/auth.signup'
+import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as EventsIdIndexRouteImport } from './routes/events.$id.index'
 import { Route as ScreeningTestIdRouteImport } from './routes/screening.test.$id'
@@ -297,6 +301,11 @@ const BreatheRoute = BreatheRouteImport.update({
   path: '/breathe',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -391,6 +400,11 @@ const BreatheIndexRoute = BreatheIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => BreatheRoute,
+} as any)
+const AuthIndexRoute = AuthIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthRoute,
 } as any)
 const SettingsSupportRoute = SettingsSupportRouteImport.update({
   id: '/support',
@@ -1027,6 +1041,16 @@ const BreatheStatsRoute = BreatheStatsRouteImport.update({
   path: '/stats',
   getParentRoute: () => BreatheRoute,
 } as any)
+const AuthSignupRoute = AuthSignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AuthRoute,
+} as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
   path: '/api/chat',
@@ -1256,6 +1280,7 @@ const BuddiesBookIdRoute = BuddiesBookIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRouteWithChildren
   '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRouteWithChildren
   '/counselling': typeof CounsellingRouteWithChildren
@@ -1273,6 +1298,8 @@ export interface FileRoutesByFullPath {
   '/search': typeof SearchRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
   '/api/chat': typeof ApiChatRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/signup': typeof AuthSignupRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/buddies/$id': typeof BuddiesIdRoute
   '/buddies/about': typeof BuddiesAboutRoute
@@ -1400,6 +1427,7 @@ export interface FileRoutesByFullPath {
   '/settings/profile': typeof SettingsProfileRoute
   '/settings/resources': typeof SettingsResourcesRoute
   '/settings/support': typeof SettingsSupportRoute
+  '/auth/': typeof AuthIndexRoute
   '/breathe/': typeof BreatheIndexRoute
   '/buddies/': typeof BuddiesIndexRoute
   '/community/': typeof CommunityIndexRoute
@@ -1466,6 +1494,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/chat': typeof ApiChatRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/signup': typeof AuthSignupRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/buddies/$id': typeof BuddiesIdRoute
   '/buddies/about': typeof BuddiesAboutRoute
@@ -1592,6 +1622,7 @@ export interface FileRoutesByTo {
   '/settings/profile': typeof SettingsProfileRoute
   '/settings/resources': typeof SettingsResourcesRoute
   '/settings/support': typeof SettingsSupportRoute
+  '/auth': typeof AuthIndexRoute
   '/breathe': typeof BreatheIndexRoute
   '/buddies': typeof BuddiesIndexRoute
   '/community': typeof CommunityIndexRoute
@@ -1658,6 +1689,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRouteWithChildren
   '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRouteWithChildren
   '/counselling': typeof CounsellingRouteWithChildren
@@ -1675,6 +1707,8 @@ export interface FileRoutesById {
   '/search': typeof SearchRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
   '/api/chat': typeof ApiChatRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/signup': typeof AuthSignupRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/buddies/$id': typeof BuddiesIdRoute
   '/buddies/about': typeof BuddiesAboutRoute
@@ -1802,6 +1836,7 @@ export interface FileRoutesById {
   '/settings/profile': typeof SettingsProfileRoute
   '/settings/resources': typeof SettingsResourcesRoute
   '/settings/support': typeof SettingsSupportRoute
+  '/auth/': typeof AuthIndexRoute
   '/breathe/': typeof BreatheIndexRoute
   '/buddies/': typeof BuddiesIndexRoute
   '/community/': typeof CommunityIndexRoute
@@ -1869,6 +1904,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/breathe'
     | '/community'
     | '/counselling'
@@ -1886,6 +1922,8 @@ export interface FileRouteTypes {
     | '/search'
     | '/settings'
     | '/api/chat'
+    | '/auth/login'
+    | '/auth/signup'
     | '/breathe/stats'
     | '/buddies/$id'
     | '/buddies/about'
@@ -2013,6 +2051,7 @@ export interface FileRouteTypes {
     | '/settings/profile'
     | '/settings/resources'
     | '/settings/support'
+    | '/auth/'
     | '/breathe/'
     | '/buddies/'
     | '/community/'
@@ -2079,6 +2118,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/api/chat'
+    | '/auth/login'
+    | '/auth/signup'
     | '/breathe/stats'
     | '/buddies/$id'
     | '/buddies/about'
@@ -2205,6 +2246,7 @@ export interface FileRouteTypes {
     | '/settings/profile'
     | '/settings/resources'
     | '/settings/support'
+    | '/auth'
     | '/breathe'
     | '/buddies'
     | '/community'
@@ -2270,6 +2312,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/auth'
     | '/breathe'
     | '/community'
     | '/counselling'
@@ -2287,6 +2330,8 @@ export interface FileRouteTypes {
     | '/search'
     | '/settings'
     | '/api/chat'
+    | '/auth/login'
+    | '/auth/signup'
     | '/breathe/stats'
     | '/buddies/$id'
     | '/buddies/about'
@@ -2414,6 +2459,7 @@ export interface FileRouteTypes {
     | '/settings/profile'
     | '/settings/resources'
     | '/settings/support'
+    | '/auth/'
     | '/breathe/'
     | '/buddies/'
     | '/community/'
@@ -2480,6 +2526,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRouteWithChildren
   BreatheRoute: typeof BreatheRouteWithChildren
   CommunityRoute: typeof CommunityRouteWithChildren
   CounsellingRoute: typeof CounsellingRouteWithChildren
@@ -2638,6 +2685,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BreatheRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -2770,6 +2824,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/breathe/'
       preLoaderRoute: typeof BreatheIndexRouteImport
       parentRoute: typeof BreatheRoute
+    }
+    '/auth/': {
+      id: '/auth/'
+      path: '/'
+      fullPath: '/auth/'
+      preLoaderRoute: typeof AuthIndexRouteImport
+      parentRoute: typeof AuthRoute
     }
     '/settings/support': {
       id: '/settings/support'
@@ -3660,6 +3721,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BreatheStatsRouteImport
       parentRoute: typeof BreatheRoute
     }
+    '/auth/signup': {
+      id: '/auth/signup'
+      path: '/signup'
+      fullPath: '/auth/signup'
+      preLoaderRoute: typeof AuthSignupRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof AuthRoute
+    }
     '/api/chat': {
       id: '/api/chat'
       path: '/api/chat'
@@ -3977,6 +4052,20 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AuthRouteChildren {
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthSignupRoute: typeof AuthSignupRoute
+  AuthIndexRoute: typeof AuthIndexRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthLoginRoute: AuthLoginRoute,
+  AuthSignupRoute: AuthSignupRoute,
+  AuthIndexRoute: AuthIndexRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 interface BreatheRouteChildren {
   BreatheStatsRoute: typeof BreatheStatsRoute
@@ -4525,6 +4614,7 @@ const SettingsRouteWithChildren = SettingsRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRouteWithChildren,
   BreatheRoute: BreatheRouteWithChildren,
   CommunityRoute: CommunityRouteWithChildren,
   CounsellingRoute: CounsellingRouteWithChildren,
