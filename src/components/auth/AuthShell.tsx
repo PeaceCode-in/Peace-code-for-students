@@ -44,16 +44,13 @@ export function AuthShell({
       style={{ fontFamily: "'DM Sans', system-ui, sans-serif" }}
     >
       <style>{`
-        @keyframes pc-drift-a  { 0%,100% { transform: translate(0,0) } 50% { transform: translate(18px,-14px) } }
-        @keyframes pc-drift-b  { 0%,100% { transform: translate(0,0) } 50% { transform: translate(-22px,12px) } }
-        @keyframes pc-grain    { 0%,100% { transform: translate(0,0) } 10% { transform: translate(-2%,1%) } 30% { transform: translate(1%,-2%) } 50% { transform: translate(-1%,2%) } 70% { transform: translate(2%,-1%) } 90% { transform: translate(-2%,-2%) } }
         @keyframes pc-logo-breathe {
           0%,100% { transform: translateY(0) scale(1); filter: drop-shadow(0 2px 8px rgba(30,58,138,0.15)); }
           50%     { transform: translateY(-1.5px) scale(1.012); filter: drop-shadow(0 6px 14px rgba(30,58,138,0.22)); }
         }
         @keyframes pc-logo-halo {
           0%,100% { opacity: 0.35; transform: translate(-50%,-50%) scale(1); }
-          50%     { opacity: 0.65; transform: translate(-50%,-50%) scale(1.15); }
+          50%     { opacity: 0.6;  transform: translate(-50%,-50%) scale(1.12); }
         }
         @keyframes pc-fb-in {
           0%   { opacity: 0; transform: translateY(-4px); }
@@ -65,7 +62,7 @@ export function AuthShell({
         .pc-field { transition: box-shadow 220ms ease, border-color 220ms ease, background 220ms ease; }
         .pc-field:focus-within {
           border-color: rgba(30,58,138,0.55) !important;
-          background: rgba(255,252,247,0.85) !important;
+          background: rgba(255,252,247,0.9) !important;
           box-shadow:
             0 0 0 4px rgba(30,58,138,0.14),
             0 8px 22px -14px rgba(30,58,138,0.35),
@@ -95,65 +92,13 @@ export function AuthShell({
           backgroundRepeat: "no-repeat",
         }}
       />
+      {/* Single soft warm wash — no blur, no animation, no grain */}
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden
         style={{
-          backdropFilter: "blur(5px) saturate(110%)",
           background:
-            "linear-gradient(180deg, rgba(190,205,225,0.14) 0%, rgba(240,200,170,0.20) 55%, rgba(220,170,140,0.28) 100%)",
-        }}
-      />
-      <div
-        className="absolute -inset-40 pointer-events-none mix-blend-soft-light"
-        aria-hidden
-        style={{
-          animation: "pc-drift-a 22s ease-in-out infinite",
-          backgroundImage: [
-            "radial-gradient(38% 32% at 22% 24%, rgba(255,240,220,0.55), transparent 65%)",
-            "radial-gradient(30% 28% at 78% 18%, rgba(230,175,130,0.45), transparent 70%)",
-          ].join(","),
-        }}
-      />
-      <div
-        className="absolute -inset-40 pointer-events-none mix-blend-soft-light"
-        aria-hidden
-        style={{
-          animation: "pc-drift-b 28s ease-in-out infinite",
-          backgroundImage: [
-            "radial-gradient(34% 30% at 84% 82%, rgba(240,190,150,0.55), transparent 70%)",
-            "radial-gradient(32% 28% at 14% 84%, rgba(200,160,180,0.42), transparent 72%)",
-          ].join(","),
-        }}
-      />
-
-      {/* Grain layers */}
-      <div
-        className="absolute inset-0 pointer-events-none mix-blend-multiply"
-        aria-hidden
-        style={{
-          opacity: 0.48,
-          animation: "pc-grain 6s steps(6) infinite",
-          backgroundImage:
-            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.28 0 0 0 0 0.18 0 0 0 0.98 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
-        }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none mix-blend-overlay"
-        aria-hidden
-        style={{
-          opacity: 0.28,
-          backgroundImage:
-            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='2.4' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 0.95 0 0 0 0 0.85 0 0 0 0.75 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
-        }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none mix-blend-multiply"
-        aria-hidden
-        style={{
-          opacity: 0.22,
-          backgroundImage:
-            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='3.6' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.13 0 0 0 0 0.1 0 0 0 0.8 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
+            "linear-gradient(180deg, rgba(190,205,225,0.18) 0%, rgba(240,200,170,0.22) 55%, rgba(220,170,140,0.30) 100%)",
         }}
       />
 
