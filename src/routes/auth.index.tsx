@@ -1,8 +1,9 @@
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowRight, Mail, Sparkles, UserRound } from "lucide-react";
 import { AuthShell, FieldLabel, GhostRow, GlassInput, InlineFeedback, PrimaryButton } from "@/components/auth/AuthShell";
-import { isCollegeEmail, isRegistered, saveDraft, loadDraft } from "@/lib/auth-store";
+import { isCollegeEmail, isRegistered, saveDraft, loadDraft, endSession } from "@/lib/auth-store";
+import { resetProfile } from "@/lib/profile-store";
 
 export const Route = createFileRoute("/auth/")({
   component: EmailEntry,
@@ -66,9 +67,14 @@ function EmailEntry() {
         </span>
       </PrimaryButton>
 
-      <Link to="/" className="text-center text-[12.5px] -mt-2" style={{ color: "#7d5a44" }}>
-        Skip for now
-      </Link>
+      <button
+        type="button"
+        onClick={() => { endSession(); resetProfile(); nav({ to: "/" }); }}
+        className="text-center text-[12.5px] -mt-2 hover:underline transition"
+        style={{ color: "#7d5a44" }}
+      >
+        Skip for now · continue as Guest
+      </button>
     </AuthShell>
   );
 }

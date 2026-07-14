@@ -215,12 +215,16 @@ export function loadProfile(): Profile {
   if (typeof window === "undefined") return defaults;
   try {
     const raw = window.localStorage.getItem(KEY);
-    // Overlay the currently signed-in student's name so the profile matches sign-in.
-    // Falls back to "Guest Student" / "Guest" when no session exists.
     const signed = currentDisplayName();
-    const base: Profile = { ...defaults, displayName: signed.full, preferredName: signed.first };
-    if (!raw) return base;
-    return { ...base, ...JSON.parse(raw) };
+    const parsed = raw ? JSON.parse(raw) as Partial<Profile> : {};
+    // Always overlay identity from the active session (or Guest fallback)
+    // so a stale saved profile never leaks another student's name.
+    const merged: Profile = { ...defaults, ...parsed, displayName: signed.full, preferredName: signed.first };
+    if (signed.isGuest) {
+      merged.username = "@guest";
+      merged.verified = false;
+    }
+    return merged;
   } catch { return defaults; }
 }
 export function saveProfile(p: Profile) {
