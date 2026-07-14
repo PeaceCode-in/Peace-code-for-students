@@ -10,6 +10,7 @@ import {
 import logo from "@/assets/peacecode-logo.png";
 import { loadSettings, applyAppearance, applyAccessibility } from "@/lib/settings-store";
 import { unreadCount as notifUnread } from "@/lib/notifications-store";
+import { currentDisplayName } from "@/lib/auth-store";
 import { GlassFX } from "@/components/GlassFX";
 
 // ─── Themeable palette — every value is a CSS variable so light/dark ────
