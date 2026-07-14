@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { ShieldCheck } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
+import skyBg from "@/assets/auth-sky-cranes.jpg.asset.json";
 
 /**
  * AuthShell — single-viewport frosted glass card centered on a full-bleed
