@@ -2,7 +2,7 @@
 // Editorial, product-grade wellness overview. One unified surface, not a card grid.
 // Inspired by Apple Health, Linear, Notion Calendar, Arc, Things 3.
 
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useHydrated } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight, ChevronRight } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
@@ -66,10 +66,11 @@ function DashboardInner() {
   const [who, setWho] = useState(() => ({ full: "Guest Student", first: "Guest", isGuest: true }));
   useEffect(() => { setWho(currentDisplayName()); }, []);
 
-  const now = new Date();
-  const hour = now.getHours();
-  const greet = hour < 5 ? "Still awake" : hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : hour < 21 ? "Good evening" : "Quiet night";
-  const dateLine = now.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
+  const hydrated = useHydrated();
+  const now = hydrated ? new Date() : null;
+  const hour = now ? now.getHours() : -1;
+  const greet = !now ? "Welcome" : hour < 5 ? "Still awake" : hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : hour < 21 ? "Good evening" : "Quiet night";
+  const dateLine = now ? now.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" }) : "\u00a0";
 
   const overall = brainOverall(mg.brain);
   const week = weeklyStats();
