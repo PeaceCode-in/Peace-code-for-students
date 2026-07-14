@@ -1,6 +1,8 @@
 // PeaceCode — global settings store.
 // Every value persists to localStorage. Appearance/accessibility changes
 // are applied globally via CSS variables + data attributes.
+import { currentDisplayName } from "./auth-store";
+
 
 export type ThemeMode = "light" | "dark" | "auto" | "system";
 export type Density = "compact" | "comfortable" | "spacious";
