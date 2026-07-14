@@ -10,6 +10,7 @@ import {
 import logo from "@/assets/peacecode-logo.png";
 import { loadSettings, applyAppearance, applyAccessibility } from "@/lib/settings-store";
 import { unreadCount as notifUnread } from "@/lib/notifications-store";
+import { currentDisplayName } from "@/lib/auth-store";
 import { GlassFX } from "@/components/GlassFX";
 
 // ─── Themeable palette — every value is a CSS variable so light/dark ────
@@ -512,6 +513,8 @@ function TopBarActions({ unread, compact = false }: { unread: number; compact?: 
 
   const btnSize = compact ? "w-9 h-9" : "w-10 h-10";
   const iconCls = compact ? "w-3.5 h-3.5" : "w-4 h-4";
+  const who = currentDisplayName();
+  const initial = (who.first?.[0] ?? "G").toUpperCase();
   const chrome: React.CSSProperties = {
     background: "rgba(255,255,255,0.42)",
     border: "1px solid rgba(255,255,255,0.55)",
@@ -543,7 +546,7 @@ function TopBarActions({ unread, compact = false }: { unread: number; compact?: 
           style={{ ...chrome, padding: 2 }}
         >
           <span className="w-full h-full rounded-full flex items-center justify-center font-serif text-[13px]" style={{ background: "linear-gradient(135deg, var(--pc-soft), rgba(255,255,255,0.65))", color: "var(--pc-ink)" }}>
-            K
+            {initial}
           </span>
         </button>
 
@@ -561,9 +564,9 @@ function TopBarActions({ unread, compact = false }: { unread: number; compact?: 
           >
             {/* Profile header */}
             <Link to="/profile" onClick={() => setOpen(false)} className="flex items-center gap-3 px-4 py-3.5 transition hover:bg-white/40">
-              <span className="w-11 h-11 rounded-full flex items-center justify-center font-serif text-[16px]" style={{ background: "linear-gradient(135deg, var(--pc-soft), #ffffff)" }}>K</span>
+              <span className="w-11 h-11 rounded-full flex items-center justify-center font-serif text-[16px]" style={{ background: "linear-gradient(135deg, var(--pc-soft), #ffffff)" }}>{initial}</span>
               <div className="min-w-0 flex-1">
-                <div className="font-serif text-[15px] leading-tight truncate">Keya</div>
+                <div className="font-serif text-[15px] leading-tight truncate">{who.first}</div>
                 <div className="flex items-center gap-1 mt-0.5 text-[10.5px]" style={{ color: "var(--pc-primary)" }}>
                   <Flame className="w-3 h-3" strokeWidth={1.6}/> 12 day streak
                 </div>

@@ -1,6 +1,8 @@
 // PeaceCode — global settings store.
 // Every value persists to localStorage. Appearance/accessibility changes
 // are applied globally via CSS variables + data attributes.
+import { currentDisplayName } from "./auth-store";
+
 
 export type ThemeMode = "light" | "dark" | "auto" | "system";
 export type Density = "compact" | "comfortable" | "spacious";
@@ -299,8 +301,9 @@ export function loadSettings(): Settings {
   if (typeof window === "undefined") return defaults;
   try {
     const raw = window.localStorage.getItem(KEY);
-    if (!raw) return defaults;
-    return merge(defaults, JSON.parse(raw));
+    const base = raw ? merge(defaults, JSON.parse(raw)) : defaults;
+    const who = currentDisplayName();
+    return { ...base, profile: { ...base.profile, fullName: who.full, preferredName: who.first } };
   } catch { return defaults; }
 }
 
