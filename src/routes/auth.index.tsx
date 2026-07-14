@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowRight, Mail, Sparkles, UserRound } from "lucide-react";
-import { AuthShell, FieldLabel, GhostRow, GlassInput, PrimaryButton } from "@/components/auth/AuthShell";
+import { AuthShell, FieldLabel, GhostRow, GlassInput, InlineFeedback, PrimaryButton } from "@/components/auth/AuthShell";
 import { isCollegeEmail, isRegistered, saveDraft, loadDraft } from "@/lib/auth-store";
 
 export const Route = createFileRoute("/auth/")({
@@ -52,9 +52,7 @@ function EmailEntry() {
           onChange={(e) => { setEmail(e.target.value); if (error) setError(null); }}
           onKeyDown={(e) => e.key === "Enter" && onContinue()}
         />
-        {error && (
-          <div className="mt-2 text-[12px]" style={{ color: "#a24a30" }}>{error}</div>
-        )}
+        {error && <InlineFeedback kind="error">{error}</InlineFeedback>}
       </div>
 
       <div className="flex flex-col gap-2.5">
