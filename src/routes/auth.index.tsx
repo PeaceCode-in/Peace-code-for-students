@@ -67,9 +67,14 @@ function EmailEntry() {
         </span>
       </PrimaryButton>
 
-      <Link to="/" className="text-center text-[12.5px] -mt-2" style={{ color: "#7d5a44" }}>
-        Skip for now
-      </Link>
+      <button
+        type="button"
+        onClick={() => { endSession(); resetProfile(); nav({ to: "/" }); }}
+        className="text-center text-[12.5px] -mt-2 hover:underline transition"
+        style={{ color: "#7d5a44" }}
+      >
+        Skip for now · continue as Guest
+      </button>
     </AuthShell>
   );
 }
