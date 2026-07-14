@@ -25,8 +25,21 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Your wellness, told softly from top to bottom." },
     ],
   }),
-  component: () => (<AppShell><DashboardInner /></AppShell>),
+  component: () => (<AuthGate><AppShell><DashboardInner /></AppShell></AuthGate>),
 });
+
+function AuthGate({ children }: { children: React.ReactNode }) {
+  const nav = useNavigate();
+  const [ok, setOk] = useState(false);
+  useEffect(() => {
+    const session = loadSession();
+    const guest = typeof window !== "undefined" && localStorage.getItem("pc.auth.guest") === "1";
+    if (!session && !guest) { nav({ to: "/auth" }); return; }
+    setOk(true);
+  }, [nav]);
+  if (!ok) return null;
+  return <>{children}</>;
+}
 
 // ─── data ────────────────────────────────────────────────────────────
 function useData() {
