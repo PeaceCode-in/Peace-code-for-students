@@ -102,17 +102,17 @@ function DashboardInner() {
       {/* ── Masthead ─────────────────────────────────────────────── */}
       <section className="pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-12">
 
-        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-6">
+        <div className="flex flex-col sm:grid sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end gap-6">
           <div className="min-w-0">
             <div className="text-[10px] tracking-[0.36em] uppercase" style={{ color: "var(--pc-muted)" }}>
               {dateLine}
             </div>
-            <h1 className="mt-4 font-serif text-[42px] sm:text-[64px] leading-[0.98]"
+            <h1 className="mt-4 font-serif text-[38px] sm:text-[52px] lg:text-[64px] leading-[0.98]"
               style={{ color: "var(--pc-ink)", letterSpacing: "-0.03em" }}>
               {greet},<br/>
               <span className="italic" style={{ color: "var(--pc-primary)" }}>{who.first}.</span>
             </h1>
-            <p className="mt-6 max-w-[560px] text-[15px] sm:text-[17px] leading-[1.55]"
+            <p className="mt-6 max-w-[560px] text-[14.5px] sm:text-[17px] leading-[1.55]"
               style={{ color: "var(--pc-ink)", opacity: 0.72 }}>
               {status}
             </p>
