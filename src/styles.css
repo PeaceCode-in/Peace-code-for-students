@@ -445,8 +445,8 @@ body { overflow-y: visible; }
    Resources / Screening — Liquid Glass page treatment
    Scoped only to pages that explicitly opt in.
    ============================================================ */
-/* Matte page background — no photograph, no sky image. */
-:is(html[data-pc-resources],html[data-pc-screening]) body { background: #F8FAFD; }
+/* Body background is owned by the global theme (html[data-pc-bg]) only.
+   No per-page override may set `body { background: ... }`. */
 
 /* Dim AppShell's aurora so the matte backdrop reads */
 :is(html[data-pc-resources],html[data-pc-screening]) .fixed.inset-0.pointer-events-none.z-0 > div { opacity: 0 !important; }
