@@ -1,11 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Page, PageTitle, Card, BigAction, Chip, Divider } from "@/components/emergency/primitives";
+import { Page, Card, BigAction } from "@/components/emergency/primitives";
 import { loadContacts, loadPlan, HELPLINES, type Contact } from "@/lib/emergency-store";
 import { palette } from "@/components/AppShell";
-import { Phone, MessageCircle, HeartHandshake, Wind, ShieldCheck, Users, Bot, Sparkles, Compass, History, Box, MapPin } from "lucide-react";
+import { Phone, MessageCircle, HeartHandshake, Wind, ShieldCheck, Users, Bot, Sparkles, Compass, History, Box, MapPin, LifeBuoy, Siren, Clock } from "lucide-react";
 
-const { surface2, border, muted, ink, primary, soft } = palette;
+const { surface, surface2, border, muted, ink, primary, soft } = palette;
+
+// Emergency red — used ONLY on this page to signal urgency without shouting.
+const RED = "#B93A2E";
+const RED_SOFT = "#F6E3DE";
+const RED_INK  = "#4A140C";
 
 function HomeInner() {
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -17,26 +22,109 @@ function HomeInner() {
   }, []);
 
   const defaultContact = contacts.find((c) => c.isDefault) ?? contacts[0];
+  const kiran = HELPLINES.find(h => h.id === "kiran")!;
   const featured = HELPLINES.slice(0, 3);
 
   return (
     <Page>
-      {/* Calm hero */}
-      <header className="mb-8 lg:mb-10">
-        <div className="text-[10px] tracking-[0.32em] uppercase mb-3" style={{ color: muted }}>Emergency Support</div>
-        <h1 className="font-serif tracking-tight text-[32px] sm:text-[44px] leading-[1.02]" style={{ color: ink }}>
-          How are you feeling right now?
+      {/* Urgency band */}
+      <div className="flex flex-wrap items-center gap-2 mb-5">
+        <span className="inline-flex items-center gap-2 rounded-full h-7 px-3 text-[10.5px] tracking-[0.28em] uppercase"
+          style={{ background: RED_SOFT, color: RED_INK, border: `1px solid ${RED}33` }}>
+          <span className="relative flex w-1.5 h-1.5">
+            <span className="absolute inset-0 rounded-full animate-pulse-soft" style={{ background: RED }} />
+            <span className="relative rounded-full w-1.5 h-1.5" style={{ background: RED }} />
+          </span>
+          Emergency · Live 24×7
+        </span>
+        <span className="inline-flex items-center gap-1.5 rounded-full h-7 px-3 text-[11px]" style={{ background: surface2, border: `1px solid ${border}`, color: muted }}>
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#3BA55C" }} />
+          3 counsellors online now
+        </span>
+        <span className="inline-flex items-center gap-1.5 rounded-full h-7 px-3 text-[11px]" style={{ background: surface2, border: `1px solid ${border}`, color: muted }}>
+          <Clock className="w-3 h-3" strokeWidth={1.6} /> Median pickup · 12s
+        </span>
+      </div>
+
+      <header className="mb-6 lg:mb-8">
+        <h1 className="font-serif tracking-tight text-[34px] sm:text-[48px] leading-[1.02]" style={{ color: ink }}>
+          You are not alone.<br className="hidden sm:block"/> Help is one tap away.
         </h1>
         <p className="mt-3 text-[13.5px] max-w-2xl" style={{ color: muted }}>
-          You're safe here. Take a slow breath — we'll go one gentle step at a time. Nothing you tap will hurt or expose you.
+          You're safe here. Nothing you tap will hurt or expose you. Pick the first step that feels possible right now.
         </p>
       </header>
 
-      {/* Three primary actions */}
+      {/* SOS priority panel — the emergency signal */}
+      <div className="relative rounded-[28px] overflow-hidden mb-6"
+        style={{ border: `1px solid ${RED}33`, background: `linear-gradient(135deg, ${RED} 0%, #8E2A22 100%)` }}>
+        <div className="absolute inset-0 pointer-events-none opacity-[0.18] mix-blend-overlay"
+          style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }}/>
+        <div className="relative p-6 sm:p-8 grid gap-6 lg:grid-cols-[1.35fr_1fr] items-center">
+          <div>
+            <div className="flex items-center gap-2 text-[10.5px] tracking-[0.28em] uppercase text-white/85 mb-3">
+              <Siren className="w-3.5 h-3.5" strokeWidth={1.8}/> In crisis right now?
+            </div>
+            <div className="font-serif text-white text-[26px] sm:text-[30px] leading-[1.1]">
+              One call. A calm voice on the other end.
+            </div>
+            <div className="text-white/80 text-[12.5px] mt-2 max-w-md">
+              KIRAN is the Government of India's free 24×7 mental-health helpline. 13 languages. Nothing is recorded against you.
+            </div>
+            <div className="mt-5 flex flex-wrap gap-2.5">
+              <a href={`tel:${kiran.number.replace(/[^0-9+]/g, "")}`}
+                className="inline-flex items-center gap-2.5 rounded-full h-12 px-5 text-[13.5px] font-medium transition hover:-translate-y-[1px]"
+                style={{ background: "#fff", color: RED_INK, boxShadow: "0 8px 24px -12px rgba(0,0,0,0.35)" }}>
+                <Phone className="w-4 h-4" strokeWidth={2}/> Call KIRAN · {kiran.number}
+              </a>
+              <a href="tel:112"
+                className="inline-flex items-center gap-2 rounded-full h-12 px-4 text-[12.5px] transition hover:-translate-y-[1px]"
+                style={{ background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.30)", color: "#fff", backdropFilter: "blur(8px)" }}>
+                <Siren className="w-3.5 h-3.5" strokeWidth={1.8}/> Dial 112 · All emergencies
+              </a>
+              {defaultContact?.phone && (
+                <Link to="/emergency/sos"
+                  className="inline-flex items-center gap-2 rounded-full h-12 px-4 text-[12.5px] transition hover:-translate-y-[1px]"
+                  style={{ background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.30)", color: "#fff", backdropFilter: "blur(8px)" }}>
+                  <MessageCircle className="w-3.5 h-3.5" strokeWidth={1.8}/> Text SOS to {defaultContact.name.split(" ")[0]}
+                </Link>
+              )}
+            </div>
+            <div className="mt-4 text-[11px] text-white/70">
+              Free · Confidential · Won't affect your record
+            </div>
+          </div>
+
+          <div className="rounded-2xl p-5 text-white/95"
+            style={{ background: "rgba(0,0,0,0.20)", border: "1px solid rgba(255,255,255,0.18)", backdropFilter: "blur(10px)" }}>
+            <div className="text-[10px] tracking-[0.3em] uppercase text-white/70 mb-3">Right now</div>
+            <ul className="space-y-3 text-[12.5px]">
+              <li className="flex items-center justify-between gap-3">
+                <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full" style={{ background: "#5CE38A" }}/> Peace Buddies online</span>
+                <Link to="/buddies" className="underline underline-offset-2 text-white/90">3 available</Link>
+              </li>
+              <li className="flex items-center justify-between gap-3">
+                <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full" style={{ background: "#5CE38A" }}/> Counsellor chat</span>
+                <Link to="/counselling" className="underline underline-offset-2 text-white/90">Open chat</Link>
+              </li>
+              <li className="flex items-center justify-between gap-3">
+                <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full" style={{ background: "#FBD24C" }}/> PeaceBot crisis mode</span>
+                <Link to="/peacebot" className="underline underline-offset-2 text-white/90">Start</Link>
+              </li>
+              <li className="flex items-center justify-between gap-3">
+                <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full" style={{ background: "#5CE38A" }}/> 60-second breathing</span>
+                <Link to="/emergency/breathe" className="underline underline-offset-2 text-white/90">Begin</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick paths */}
       <div className="grid gap-3 sm:grid-cols-3">
-        <BigAction to="/emergency/helplines" icon={<ShieldCheck className="w-4.5 h-4.5" strokeWidth={1.6} />} title="I need immediate help" sub="Trained people, available 24×7. One tap to call." />
+        <BigAction to="/emergency/helplines" icon={<LifeBuoy className="w-4.5 h-4.5" strokeWidth={1.6} />} title="Every helpline, one screen" sub="KIRAN, iCall, Vandrevala, 112, women, child." />
         <BigAction to="/emergency/human"     icon={<HeartHandshake className="w-4.5 h-4.5" strokeWidth={1.6} />} title="I need someone to talk to" sub="Peace Buddy, counsellor, or a trusted person." />
-        <BigAction to="/emergency/calm"      icon={<Wind className="w-4.5 h-4.5" strokeWidth={1.6} />} title="I need to calm down" sub="Breathing, grounding, and gentle audio." />
+        <BigAction to="/emergency/calm"      icon={<Wind className="w-4.5 h-4.5" strokeWidth={1.6} />} title="Bring me down gently" sub="Breathing, grounding, and quiet audio." />
       </div>
 
       {/* Check-in tile */}
@@ -52,6 +140,7 @@ function HomeInner() {
           </Link>
         </div>
       </Card>
+
 
       <Divider />
 
