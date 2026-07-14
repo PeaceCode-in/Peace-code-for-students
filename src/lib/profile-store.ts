@@ -1,6 +1,7 @@
 // PeaceCode Student Profile — persistent mock state (localStorage).
 // Everything the profile pages read/write goes through here. Frontend-only,
 // but shaped like a real API so we can lift it to Cloud later.
+import { currentDisplayName } from "./auth-store";
 
 export type ThemeKey =
   | "sky" | "lavender" | "ocean" | "forest" | "sunrise"
