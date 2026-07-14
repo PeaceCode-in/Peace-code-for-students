@@ -313,8 +313,10 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
 
       {/* ─── desktop sidebar ─── */}
       <aside
-        className="pc-glass-sidebar hidden lg:flex fixed top-6 bottom-6 left-6 z-40 group flex-col py-6 rounded-[38px] transition-[width] duration-300 ease-out overflow-hidden w-[80px] hover:w-60"
+        className="pc-glass-sidebar hidden lg:flex fixed left-6 top-1/2 -translate-y-1/2 z-40 group flex-col py-6 rounded-[38px] transition-[width] duration-300 ease-out overflow-hidden w-[80px] hover:w-60"
+        style={{ maxHeight: "min(92vh, 860px)" }}
       >
+
 
 
 
@@ -460,9 +462,10 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
       )}
 
       {/* content */}
-      <main className="relative z-10 lg:pl-[108px] lg:pr-6 lg:pt-4">
+      <main className="relative z-10 lg:pl-[108px] lg:pr-6 lg:pt-4 mx-auto w-full max-w-[1440px]">
         {children}
       </main>
+
 
 
 
