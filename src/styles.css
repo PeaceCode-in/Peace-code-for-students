@@ -1083,6 +1083,64 @@ html[data-pc-bg="noir"] select { color: var(--pc-ink) !important; }
 html[data-pc-bg="midnight"] input::placeholder,
 html[data-pc-bg="noir"] input::placeholder { color: var(--pc-muted) !important; }
 
+/* Sidebar adapts to dark themes — the inline #0f2540 ink is unreadable on dark glass */
+html[data-pc-bg="midnight"] .pc-glass-sidebar,
+html[data-pc-bg="noir"] .pc-glass-sidebar,
+html[data-pc-bg="ember"] .pc-glass-sidebar,
+html[data-pc-bg="graphite"] .pc-glass-sidebar {
+  background:
+    radial-gradient(120% 60% at 50% 0%, rgba(255,255,255,0.09), rgba(255,255,255,0.05) 60%, rgba(255,255,255,0.03) 100%) !important;
+  border-color: rgba(255,255,255,0.10) !important;
+  box-shadow:
+    0 12px 32px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.08) !important;
+}
+html[data-pc-bg="midnight"] .pc-glass-sidebar::before,
+html[data-pc-bg="noir"] .pc-glass-sidebar::before,
+html[data-pc-bg="ember"] .pc-glass-sidebar::before,
+html[data-pc-bg="graphite"] .pc-glass-sidebar::before {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+}
+html[data-pc-bg="midnight"] .pc-glass-sidebar a,
+html[data-pc-bg="midnight"] .pc-glass-sidebar button,
+html[data-pc-bg="midnight"] .pc-glass-sidebar span,
+html[data-pc-bg="midnight"] .pc-glass-sidebar div,
+html[data-pc-bg="noir"] .pc-glass-sidebar a,
+html[data-pc-bg="noir"] .pc-glass-sidebar button,
+html[data-pc-bg="noir"] .pc-glass-sidebar span,
+html[data-pc-bg="noir"] .pc-glass-sidebar div,
+html[data-pc-bg="ember"] .pc-glass-sidebar a,
+html[data-pc-bg="ember"] .pc-glass-sidebar button,
+html[data-pc-bg="ember"] .pc-glass-sidebar span,
+html[data-pc-bg="ember"] .pc-glass-sidebar div,
+html[data-pc-bg="graphite"] .pc-glass-sidebar a,
+html[data-pc-bg="graphite"] .pc-glass-sidebar button,
+html[data-pc-bg="graphite"] .pc-glass-sidebar span,
+html[data-pc-bg="graphite"] .pc-glass-sidebar div {
+  color: rgba(240, 244, 252, 0.92) !important;
+}
+html[data-pc-bg="midnight"] .pc-glass-sidebar .pc-nav-item[style*="background"],
+html[data-pc-bg="noir"] .pc-glass-sidebar .pc-nav-item[style*="background"],
+html[data-pc-bg="ember"] .pc-glass-sidebar .pc-nav-item[style*="background"],
+html[data-pc-bg="graphite"] .pc-glass-sidebar .pc-nav-item[style*="background"] {
+  background: rgba(255,255,255,0.10) !important;
+}
+html[data-pc-bg="midnight"] .pc-glass-sidebar .pc-nav-item:hover,
+html[data-pc-bg="noir"] .pc-glass-sidebar .pc-nav-item:hover,
+html[data-pc-bg="ember"] .pc-glass-sidebar .pc-nav-item:hover,
+html[data-pc-bg="graphite"] .pc-glass-sidebar .pc-nav-item:hover {
+  background: rgba(255,255,255,0.06);
+}
+/* Mobile drawer + top bar too */
+html[data-pc-bg="midnight"] .pc-glass-drawer,
+html[data-pc-bg="noir"] .pc-glass-drawer,
+html[data-pc-bg="ember"] .pc-glass-drawer,
+html[data-pc-bg="graphite"] .pc-glass-drawer {
+  background: rgba(18, 22, 32, 0.72) !important;
+  border-color: rgba(255,255,255,0.10) !important;
+  color: rgba(240, 244, 252, 0.92);
+}
+
 @keyframes pcMenu {
   from { opacity: 0; transform: translateY(-6px) scale(0.97); }
   to   { opacity: 1; transform: translateY(0)    scale(1); }
