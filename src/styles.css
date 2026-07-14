@@ -975,11 +975,13 @@ html[data-pc-bg="noir"] body {
   --pc-surface: rgba(255,255,255,0.05); --pc-surface2: rgba(201,168,76,0.10);
 }
 
-/* Ensure page content sits above the grain layer */
-html[data-pc-bg] main,
-html[data-pc-bg] aside,
-html[data-pc-bg] header,
-html[data-pc-bg] footer { position: relative; z-index: 1; }
+/* Ensure page content sits above the grain layer — only when not already
+   positioned (fixed/sticky/absolute must win over this fallback). */
+html[data-pc-bg] main:not(.fixed):not(.sticky):not(.absolute),
+html[data-pc-bg] aside:not(.fixed):not(.sticky):not(.absolute),
+html[data-pc-bg] header:not(.fixed):not(.sticky):not(.absolute),
+html[data-pc-bg] footer:not(.fixed):not(.sticky):not(.absolute) { position: relative; z-index: 1; }
+
 
 /* Dark-tone presets: tune the frosted glass for readability */
 html[data-pc-bg="midnight"] .pc-glass-card,
