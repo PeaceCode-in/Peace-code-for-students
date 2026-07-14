@@ -546,7 +546,7 @@ function TopBarActions({ unread, compact = false }: { unread: number; compact?: 
           style={{ ...chrome, padding: 2 }}
         >
           <span className="w-full h-full rounded-full flex items-center justify-center font-serif text-[13px]" style={{ background: "linear-gradient(135deg, var(--pc-soft), rgba(255,255,255,0.65))", color: "var(--pc-ink)" }}>
-            K
+            {initial}
           </span>
         </button>
 
