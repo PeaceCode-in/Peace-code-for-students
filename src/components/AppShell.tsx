@@ -78,8 +78,6 @@ const navGroups: NavGroup[] = [
     label: "Home",
     items: [
       { icon: Home, label: "Today", to: "/" },
-      { icon: Search, label: "Search", to: "/search" },
-      { icon: Bell, label: "Inbox", to: "/notifications" },
     ],
   },
   {
