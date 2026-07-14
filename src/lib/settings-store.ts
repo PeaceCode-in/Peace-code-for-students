@@ -63,6 +63,7 @@ export interface Settings {
   appearance: {
     theme: ThemeMode;
     accent: AccentKey;
+    bgTheme: BgThemeKey;
     fontSize: number;     // px, 14–20
     density: Density;
     reduceMotion: boolean;
