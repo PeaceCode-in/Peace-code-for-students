@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowRight, Mail, Sparkles, UserRound } from "lucide-react";
-import { AuthShell, FieldLabel, GhostRow, GlassInput, PrimaryButton } from "@/components/auth/AuthShell";
+import { AuthShell, FieldLabel, GhostRow, GlassInput, InlineFeedback, PrimaryButton } from "@/components/auth/AuthShell";
 import { isCollegeEmail, isRegistered, saveDraft, loadDraft } from "@/lib/auth-store";
 
 export const Route = createFileRoute("/auth/")({
