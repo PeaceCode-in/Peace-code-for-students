@@ -210,7 +210,7 @@ function DashboardInner() {
         <span>Softly — that's how growth happens.</span>
         <span>PeaceCode · 2026</span>
       </footer>
-    </main>
+    </div>
   );
 }
 
