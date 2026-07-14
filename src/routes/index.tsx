@@ -131,9 +131,9 @@ function DashboardInner() {
         <div className="col-span-12 md:col-span-5">
           <div className="text-[11px] tracking-[0.3em] uppercase" style={{ color: "var(--pc-muted)" }}>Peace Score</div>
           <div className="mt-5 flex items-baseline gap-3">
-            <span className="font-serif text-[110px] sm:text-[148px] leading-[0.85] tracking-tight"
+            <span className="font-serif text-[88px] sm:text-[120px] lg:text-[148px] leading-[0.85] tracking-tight"
               style={{ color: "var(--pc-ink)", letterSpacing: "-0.05em" }}>{peace}</span>
-            <span className="font-serif text-[28px]" style={{ color: "var(--pc-muted)" }}>/100</span>
+            <span className="font-serif text-[22px] sm:text-[28px]" style={{ color: "var(--pc-muted)" }}>/100</span>
           </div>
           <div className="mt-4 text-[13px] leading-[1.6] max-w-[380px]" style={{ color: "var(--pc-muted)" }}>
             A composite of your mind fitness, mood trend and daily rituals — updated each hour, kept private.
