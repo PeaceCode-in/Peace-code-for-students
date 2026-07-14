@@ -3,17 +3,8 @@
 // (window.__lovableEvents?.captureException) and keeps a small rolling buffer
 // in sessionStorage so hydration + runtime issues in production can be inspected.
 
-type LovableEvents = {
-  captureException?: (
-    error: unknown,
-    context?: Record<string, unknown>,
-    options?: { mechanism?: string; handled?: boolean; severity?: "error" | "warning" | "info" },
-  ) => void;
-};
-
 declare global {
   interface Window {
-    __lovableEvents?: LovableEvents;
     __pcMonitorInstalled?: boolean;
   }
 }
@@ -44,7 +35,8 @@ function serialize(err: unknown) {
   }
 }
 
-function report(error: unknown, mechanism: "onerror" | "unhandledrejection" | "console_error") {
+type Mechanism = "onerror" | "unhandledrejection" | "manual";
+function report(error: unknown, mechanism: Mechanism) {
   const payload = {
     ...serialize(error),
     mechanism,
@@ -82,7 +74,7 @@ export function installClientErrorMonitor() {
       const first = args[0];
       const message = typeof first === "string" ? first : "";
       if (message.includes("Hydration") || message.includes("hydrat")) {
-        report(new Error(message || "hydration warning"), "console_error");
+        report(new Error(message || "hydration warning"), "manual");
       }
     } catch {
       /* never throw from monitor */
