@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SettingsShell, Section, Row, Toggle, Segmented, Select } from "@/components/settings/primitives";
-import { useSettings, ACCENTS, type AccentKey, type ThemeMode, type Density, type CardStyle, type ChartStyle } from "@/lib/settings-store";
+import { useSettings, ACCENTS, BG_THEMES, type AccentKey, type BgThemeKey, type ThemeMode, type Density, type CardStyle, type ChartStyle } from "@/lib/settings-store";
 import { palette } from "@/components/AppShell";
 import { Check } from "lucide-react";
 
@@ -18,12 +18,48 @@ function AppearancePage() {
 
   return (
     <SettingsShell title="Appearance" description="Every change previews live across PeaceCode.">
-      <Section title="Theme">
+      <Section title="Background theme" hint="Grainy, gradient canvases inspired by Apple, Arc and Linear. Applies to every page.">
+        <div className="px-5 py-5 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+          {(Object.keys(BG_THEMES) as BgThemeKey[]).map((k) => {
+            const t = BG_THEMES[k]; const active = a.bgTheme === k;
+            const grad = `linear-gradient(135deg, ${t.swatch[0]} 0%, ${t.swatch[1]} 40%, ${t.swatch[2]} 75%, ${t.swatch[3] ?? t.swatch[0]} 100%)`;
+            return (
+              <button key={k} onClick={() => set("bgTheme", k)}
+                className="group relative text-left rounded-2xl overflow-hidden transition hover:-translate-y-0.5"
+                style={{ border: `1.5px solid ${active ? "var(--pc-primary)" : border}`, boxShadow: active ? "0 8px 24px -12px rgba(20,30,60,0.25)" : "none" }}>
+                <div className="relative h-24" style={{ background: grad }}>
+                  <div className="absolute inset-0" style={{
+                    backgroundImage: "url(\"data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.10  0 0 0 0 0.12  0 0 0 0 0.16  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+                    mixBlendMode: t.tone === "dark" ? "overlay" : "multiply",
+                    opacity: 0.08,
+                  }}/>
+                  {active && (
+                    <div className="absolute top-2 right-2 w-6 h-6 rounded-full grid place-items-center" style={{ background: "var(--pc-primary)", color: "#fff" }}>
+                      <Check className="w-3.5 h-3.5" strokeWidth={2.5}/>
+                    </div>
+                  )}
+                  <div className="absolute bottom-2 left-2 text-[10px] px-1.5 py-0.5 rounded-full"
+                    style={{ background: t.tone === "dark" ? "rgba(0,0,0,0.35)" : "rgba(255,255,255,0.65)", color: t.tone === "dark" ? "#fff" : "#15233F", backdropFilter: "blur(6px)" }}>
+                    {t.tone}
+                  </div>
+                </div>
+                <div className="p-3" style={{ background: surface2 }}>
+                  <div className="font-serif text-[14px] leading-tight" style={{ color: ink }}>{t.name}</div>
+                  <div className="text-[10.5px] mt-0.5 leading-snug" style={{ color: muted }}>{t.blurb}</div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </Section>
+
+      <Section title="Theme mode" hint="Light or dark. Presets already carry a natural tone — set 'Auto' to follow.">
         <Row label="Mode" hint="System follows your OS setting." action={
           <Segmented<ThemeMode> value={a.theme} onChange={(v) => set("theme", v)}
             options={[{ value: "light", label: "Light" }, { value: "dark", label: "Dark" }, { value: "auto", label: "Auto" }, { value: "system", label: "System" }]} />
         } />
       </Section>
+
 
       <Section title="Accent color" hint="Used for buttons, links, streak markers.">
         <div className="px-5 py-4 flex flex-wrap gap-3">
