@@ -302,10 +302,6 @@ export function loadSettings(): Settings {
   try {
     const raw = window.localStorage.getItem(KEY);
     const base = raw ? merge(defaults, JSON.parse(raw)) : defaults;
-    // Overlay the active session's identity so the profile section never
-    // leaks a stale name (e.g. "Keya" for a guest login).
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { currentDisplayName } = require("./auth-store") as typeof import("./auth-store");
     const who = currentDisplayName();
     return { ...base, profile: { ...base.profile, fullName: who.full, preferredName: who.first } };
   } catch { return defaults; }
