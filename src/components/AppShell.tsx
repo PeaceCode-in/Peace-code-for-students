@@ -375,10 +375,7 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
 
       {/* ─── mobile top bar ─── */}
       {showHeader && (
-        <header
-          className={`lg:hidden sticky top-0 z-30 backdrop-blur-xl transition ${scrolled ? "border-b shadow-[0_10px_30px_-20px_rgba(0,0,0,0.25)]" : ""}`}
-          style={{ background: "var(--pc-header)", borderColor: border }}
-        >
+        <header className="lg:hidden sticky top-0 z-30 backdrop-blur-xl" style={{ background: "transparent" }}>
           <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 sm:px-5 py-3">
             <Link to="/" className="flex items-center gap-2.5 min-w-0">
               <Mark className="w-8 h-8 shrink-0"/>
@@ -387,29 +384,22 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
                 <div className="text-[7.5px] tracking-[0.3em] uppercase mt-1 opacity-50 truncate">a soft place</div>
               </div>
             </Link>
-            <Link to="/search" className="hidden xs:flex items-center gap-2 rounded-full px-3 py-1.5 mx-1 min-w-0" style={{ background: surface, border: `1px solid ${border}` }} aria-label="Open search">
-              <Search className="w-3 h-3 opacity-40 shrink-0"/>
-              <span className="text-[11px] opacity-40 truncate">search…</span>
-            </Link>
+            <div />
             <div className="flex items-center gap-1.5 shrink-0">
-              <div className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px]" style={{ background: surface2, color: primary }}>
-                <Flame className="w-3 h-3" strokeWidth={1.5}/> 12
-              </div>
-              <Link to="/notifications" className="relative w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }} aria-label={`notifications${unread ? `, ${unread} unread` : ""}`}>
-                <Bell className="w-3.5 h-3.5 opacity-70" strokeWidth={1.5}/>
-                {unread > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-[16px] px-1 rounded-full text-[9px] font-medium flex items-center justify-center" style={{ background: primary, color: "white" }}>
-                    {unread > 99 ? "99+" : unread}
-                  </span>
-                )}
-              </Link>
-              <button onClick={() => setMobileOpen(true)} className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }} aria-label="open navigation">
+              <TopBarActions unread={unread} compact />
+              <button onClick={() => setMobileOpen(true)} className="w-9 h-9 rounded-full flex items-center justify-center transition hover:scale-[1.04] active:scale-95" style={{ background: "rgba(255,255,255,0.55)", border: `1px solid rgba(255,255,255,0.55)`, backdropFilter: "blur(14px)" }} aria-label="open navigation">
                 <Menu className="w-4 h-4 opacity-70"/>
               </button>
             </div>
           </div>
         </header>
       )}
+
+      {/* ─── desktop floating top-right actions ─── */}
+      <div className="hidden lg:flex fixed top-6 right-8 z-40 items-center gap-2">
+        <TopBarActions unread={unread} />
+      </div>
+
 
       {/* mobile drawer (mounted while open OR during edge-swipe open) */}
       {(mobileOpen || dragging) && (
