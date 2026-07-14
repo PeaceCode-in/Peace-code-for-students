@@ -141,7 +141,7 @@ function DashboardInner() {
         </div>
         <div className="col-span-12 md:col-span-7 md:pl-8 md:border-l" style={{ borderColor: "var(--pc-border)" }}>
           <Sparkline data={trend} accent="peace" />
-          <div className="mt-6 grid grid-cols-3 gap-6">
+          <div className="mt-6 grid grid-cols-3 gap-3 sm:gap-6">
             <Metric label="Emotional stability" value={`${emoStability}%`} to="/screening"/>
             <Metric label="Mind fitness" value={`${overall}`} to="/mindgym/brain-dna"/>
             <Metric label="This week" value={`${week.count || 0} sessions`} to="/mindgym"/>
