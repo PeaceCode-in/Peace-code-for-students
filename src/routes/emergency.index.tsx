@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Page, Card, BigAction } from "@/components/emergency/primitives";
+import { Page, Card, BigAction, Chip, Divider } from "@/components/emergency/primitives";
 import { loadContacts, loadPlan, HELPLINES, type Contact } from "@/lib/emergency-store";
 import { palette } from "@/components/AppShell";
 import { Phone, MessageCircle, HeartHandshake, Wind, ShieldCheck, Users, Bot, Sparkles, Compass, History, Box, MapPin, LifeBuoy, Siren, Clock } from "lucide-react";
