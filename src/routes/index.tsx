@@ -327,17 +327,17 @@ function Sparkline({ data, accent = "peace" }: { data: number[]; accent?: string
 function ModuleRow({ to, title, desc, meta, last }: { to: string; title: string; desc: string; meta: string; last?: boolean }) {
   return (
     <Link to={to}
-      className={`group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 py-5 sm:py-6 ${last ? "" : "border-b"} transition`}
+      className={`group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 sm:gap-6 py-5 sm:py-6 ${last ? "" : "border-b"} transition`}
       style={{ borderColor: "var(--pc-border)" }}>
-      <div className="min-w-0 grid grid-cols-[minmax(0,240px)_minmax(0,1fr)] gap-6 items-baseline">
-        <div className="font-serif text-[22px] sm:text-[26px] leading-none transition group-hover:translate-x-1"
+      <div className="min-w-0 sm:grid sm:grid-cols-[minmax(0,240px)_minmax(0,1fr)] sm:gap-6 sm:items-baseline">
+        <div className="font-serif text-[20px] sm:text-[26px] leading-none truncate transition group-hover:translate-x-1"
           style={{ color: "var(--pc-ink)", letterSpacing: "-0.02em" }}>
           {title}
         </div>
-        <div className="text-[13px] hidden sm:block" style={{ color: "var(--pc-muted)" }}>{desc}</div>
+        <div className="text-[13px] hidden sm:block truncate" style={{ color: "var(--pc-muted)" }}>{desc}</div>
       </div>
-      <div className="flex items-center gap-4 shrink-0">
-        <span className="text-[12px] tabular-nums" style={{ color: "var(--pc-ink)", opacity: 0.6 }}>{meta}</span>
+      <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+        <span className="text-[11px] sm:text-[12px] tabular-nums truncate max-w-[110px] sm:max-w-none" style={{ color: "var(--pc-ink)", opacity: 0.6 }}>{meta}</span>
         <ChevronRight className="w-4 h-4 transition group-hover:translate-x-0.5" style={{ color: "var(--pc-muted)" }}/>
       </div>
     </Link>
