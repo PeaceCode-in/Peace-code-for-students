@@ -26,6 +26,9 @@ function LiveSession() {
   const [seconds, setSeconds] = useState(0);
   const [input, setInput] = useState("");
   const [signal, setSignal] = useState(3);
+  const [sharing, setSharing] = useState(false);
+  const [whiteboard, setWhiteboard] = useState(false);
+  const [speaker, setSpeaker] = useState<"default" | "system" | "headset">("default");
   const msgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
