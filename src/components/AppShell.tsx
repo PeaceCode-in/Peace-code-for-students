@@ -4,6 +4,7 @@ import {
   BookOpen, Settings, Bell, Flame, Users, Wind, Search,
   Heart, PenLine, Bot, CalendarCheck, UserCheck, ClipboardList, Target, Activity, Brain,
   Menu, X, Home, LifeBuoy, CalendarDays,
+  User, LogOut, Palette, ShieldCheck, HelpCircle, ChevronRight,
 } from "lucide-react";
 
 import logo from "@/assets/peacecode-logo.png";
@@ -77,8 +78,6 @@ const navGroups: NavGroup[] = [
     label: "Home",
     items: [
       { icon: Home, label: "Today", to: "/" },
-      { icon: Search, label: "Search", to: "/search" },
-      { icon: Bell, label: "Inbox", to: "/notifications" },
     ],
   },
   {
@@ -357,34 +356,26 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
           ))}
         </nav>
 
-        <div className="shrink-0 mt-4 mx-3 pt-3 flex flex-col gap-1" style={{ borderTop: `1px solid ${border}` }}>
-          <Link to="/settings" className="flex items-center h-10 rounded-2xl transition" style={{ color: "#0f2540" }} aria-label="Settings">
-            <span className="w-[56px] shrink-0 flex justify-center"><Settings className="w-[19px] h-[19px]" strokeWidth={1.4}/></span>
-            <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">Settings</span>
-          </Link>
-          <Link to="/profile" className="mt-2 rounded-2xl flex items-center h-14 transition hover:opacity-90" style={{ background: surface2 }} aria-label="Open profile">
+        <div className="shrink-0 mt-4 mx-3 pt-3" style={{ borderTop: `1px solid ${border}` }}>
+          <div className="flex items-center h-11 rounded-2xl" style={{ color: "#0f2540" }} aria-label="Current streak">
             <span className="w-[56px] shrink-0 flex justify-center">
-              <span className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: soft }}>
-                <Mark className="w-4 h-4"/>
+              <span className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: soft, color: primary }}>
+                <Flame className="w-4 h-4" strokeWidth={1.6}/>
               </span>
             </span>
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 whitespace-nowrap min-w-0 -ml-1">
-              <div className="font-serif text-[13px] leading-none">Keya</div>
-              <div className="flex items-center gap-1 mt-1 text-[9px]" style={{ color: primary }}>
-                <Flame className="w-2.5 h-2.5" strokeWidth={1.5}/> 12 day streak
-              </div>
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 whitespace-nowrap -ml-1">
+              <div className="text-[12.5px] leading-none">12 day streak</div>
+              <div className="text-[9px] tracking-[0.25em] uppercase opacity-50 mt-1">keep going</div>
             </div>
-          </Link>
+          </div>
         </div>
+
 
       </aside>
 
       {/* ─── mobile top bar ─── */}
       {showHeader && (
-        <header
-          className={`lg:hidden sticky top-0 z-30 backdrop-blur-xl transition ${scrolled ? "border-b shadow-[0_10px_30px_-20px_rgba(0,0,0,0.25)]" : ""}`}
-          style={{ background: "var(--pc-header)", borderColor: border }}
-        >
+        <header className="lg:hidden sticky top-0 z-30 backdrop-blur-xl" style={{ background: "transparent" }}>
           <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 sm:px-5 py-3">
             <Link to="/" className="flex items-center gap-2.5 min-w-0">
               <Mark className="w-8 h-8 shrink-0"/>
@@ -393,29 +384,22 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
                 <div className="text-[7.5px] tracking-[0.3em] uppercase mt-1 opacity-50 truncate">a soft place</div>
               </div>
             </Link>
-            <Link to="/search" className="hidden xs:flex items-center gap-2 rounded-full px-3 py-1.5 mx-1 min-w-0" style={{ background: surface, border: `1px solid ${border}` }} aria-label="Open search">
-              <Search className="w-3 h-3 opacity-40 shrink-0"/>
-              <span className="text-[11px] opacity-40 truncate">search…</span>
-            </Link>
+            <div />
             <div className="flex items-center gap-1.5 shrink-0">
-              <div className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px]" style={{ background: surface2, color: primary }}>
-                <Flame className="w-3 h-3" strokeWidth={1.5}/> 12
-              </div>
-              <Link to="/notifications" className="relative w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }} aria-label={`notifications${unread ? `, ${unread} unread` : ""}`}>
-                <Bell className="w-3.5 h-3.5 opacity-70" strokeWidth={1.5}/>
-                {unread > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-[16px] px-1 rounded-full text-[9px] font-medium flex items-center justify-center" style={{ background: primary, color: "white" }}>
-                    {unread > 99 ? "99+" : unread}
-                  </span>
-                )}
-              </Link>
-              <button onClick={() => setMobileOpen(true)} className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }} aria-label="open navigation">
+              <TopBarActions unread={unread} compact />
+              <button onClick={() => setMobileOpen(true)} className="w-9 h-9 rounded-full flex items-center justify-center transition hover:scale-[1.04] active:scale-95" style={{ background: "rgba(255,255,255,0.55)", border: `1px solid rgba(255,255,255,0.55)`, backdropFilter: "blur(14px)" }} aria-label="open navigation">
                 <Menu className="w-4 h-4 opacity-70"/>
               </button>
             </div>
           </div>
         </header>
       )}
+
+      {/* ─── desktop floating top-right actions ─── */}
+      <div className="hidden lg:flex fixed top-6 right-8 z-40 items-center gap-2">
+        <TopBarActions unread={unread} />
+      </div>
+
 
       {/* mobile drawer (mounted while open OR during edge-swipe open) */}
       {(mobileOpen || dragging) && (
@@ -505,4 +489,129 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
     </div>
   );
 }
+
+// ─── Top-right actions bar: Search • Notifications • Profile dropdown ───
+// Transparent, floating, aesthetic. Present on every AppShell page.
+function TopBarActions({ unread, compact = false }: { unread: number; compact?: boolean }) {
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    window.addEventListener("mousedown", onDown);
+    window.addEventListener("keydown", onKey);
+    return () => { window.removeEventListener("mousedown", onDown); window.removeEventListener("keydown", onKey); };
+  }, [open]);
+
+  const btnSize = compact ? "w-9 h-9" : "w-10 h-10";
+  const iconCls = compact ? "w-3.5 h-3.5" : "w-4 h-4";
+  const chrome: React.CSSProperties = {
+    background: "rgba(255,255,255,0.42)",
+    border: "1px solid rgba(255,255,255,0.55)",
+    backdropFilter: "blur(18px) saturate(140%)",
+    boxShadow: "0 8px 24px -14px rgba(20,30,60,0.25), inset 0 1px 0 rgba(255,255,255,0.6)",
+    color: "#0f2540",
+  };
+
+  return (
+    <>
+      <Link to="/search" aria-label="Search" className={`${btnSize} rounded-full flex items-center justify-center transition hover:scale-[1.04] active:scale-95`} style={chrome}>
+        <Search className={iconCls} strokeWidth={1.6}/>
+      </Link>
+      <Link to="/notifications" aria-label={`Notifications${unread ? `, ${unread} unread` : ""}`} className={`relative ${btnSize} rounded-full flex items-center justify-center transition hover:scale-[1.04] active:scale-95`} style={chrome}>
+        <Bell className={iconCls} strokeWidth={1.6}/>
+        {unread > 0 && (
+          <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-[16px] px-1 rounded-full text-[9px] font-medium flex items-center justify-center" style={{ background: "var(--pc-primary)", color: "white" }}>
+            {unread > 99 ? "99+" : unread}
+          </span>
+        )}
+      </Link>
+
+      <div ref={menuRef} className="relative">
+        <button
+          onClick={() => setOpen((v) => !v)}
+          aria-label="Open profile menu"
+          aria-expanded={open}
+          className={`${btnSize} rounded-full flex items-center justify-center transition hover:scale-[1.04] active:scale-95`}
+          style={{ ...chrome, padding: 2 }}
+        >
+          <span className="w-full h-full rounded-full flex items-center justify-center font-serif text-[13px]" style={{ background: "linear-gradient(135deg, var(--pc-soft), rgba(255,255,255,0.65))", color: "#0f2540" }}>
+            K
+          </span>
+        </button>
+
+        {open && (
+          <div
+            role="menu"
+            className="absolute right-0 mt-2 w-[280px] rounded-2xl overflow-hidden origin-top-right animate-[pcMenu_180ms_cubic-bezier(0.22,1,0.36,1)]"
+            style={{
+              background: "rgba(255,255,255,0.72)",
+              border: "1px solid rgba(255,255,255,0.7)",
+              backdropFilter: "blur(24px) saturate(160%)",
+              boxShadow: "0 24px 60px -24px rgba(20,30,60,0.35), inset 0 1px 0 rgba(255,255,255,0.8)",
+              color: "#0f2540",
+            }}
+          >
+            {/* Profile header */}
+            <Link to="/profile" onClick={() => setOpen(false)} className="flex items-center gap-3 px-4 py-3.5 transition hover:bg-white/40">
+              <span className="w-11 h-11 rounded-full flex items-center justify-center font-serif text-[16px]" style={{ background: "linear-gradient(135deg, var(--pc-soft), #ffffff)" }}>K</span>
+              <div className="min-w-0 flex-1">
+                <div className="font-serif text-[15px] leading-tight truncate">Keya</div>
+                <div className="flex items-center gap-1 mt-0.5 text-[10.5px]" style={{ color: "var(--pc-primary)" }}>
+                  <Flame className="w-3 h-3" strokeWidth={1.6}/> 12 day streak
+                </div>
+              </div>
+              <ChevronRight className="w-3.5 h-3.5 opacity-40"/>
+            </Link>
+
+            <div className="h-px mx-3" style={{ background: "rgba(20,30,60,0.08)" }} />
+
+            <MenuItem to="/profile" icon={User} label="Your profile" onClick={() => setOpen(false)} />
+            <MenuItem to="/settings" icon={Settings} label="Settings" onClick={() => setOpen(false)} />
+            <MenuItem to="/settings/appearance" icon={Palette} label="Appearance" onClick={() => setOpen(false)} />
+            <MenuItem to="/settings/privacy" icon={ShieldCheck} label="Privacy & data" onClick={() => setOpen(false)} />
+            <MenuItem to="/notifications" icon={Bell} label="Notifications" badge={unread} onClick={() => setOpen(false)} />
+
+            <div className="h-px mx-3" style={{ background: "rgba(20,30,60,0.08)" }} />
+
+            <MenuItem to="/settings/support" icon={HelpCircle} label="Help & support" onClick={() => setOpen(false)} />
+            <MenuItem to="/settings/logout" icon={LogOut} label="Sign out" onClick={() => setOpen(false)} danger />
+
+            <div className="px-4 pb-3 pt-1 text-[10px] tracking-[0.22em] uppercase" style={{ color: "rgba(15,37,64,0.45)" }}>
+              PeaceCode · a soft place
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+function MenuItem({
+  to, icon: Icon, label, badge, danger, onClick,
+}: { to: string; icon: typeof Home; label: string; badge?: number; danger?: boolean; onClick?: () => void }) {
+  return (
+    <Link
+      to={to}
+      onClick={onClick}
+      role="menuitem"
+      className="flex items-center gap-3 px-4 py-2.5 text-[13px] transition hover:bg-white/50"
+      style={{ color: danger ? "#b23a48" : "#0f2540" }}
+    >
+      <Icon className="w-3.5 h-3.5 opacity-70" strokeWidth={1.6}/>
+      <span className="flex-1 truncate">{label}</span>
+      {badge && badge > 0 ? (
+        <span className="min-w-[18px] h-[18px] px-1.5 rounded-full text-[10px] flex items-center justify-center" style={{ background: "var(--pc-primary)", color: "white" }}>
+          {badge > 99 ? "99+" : badge}
+        </span>
+      ) : (
+        <ChevronRight className="w-3 h-3 opacity-30"/>
+      )}
+    </Link>
+  );
+}
+
 
