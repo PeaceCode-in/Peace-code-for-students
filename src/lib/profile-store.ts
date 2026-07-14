@@ -1,6 +1,7 @@
 // PeaceCode Student Profile — persistent mock state (localStorage).
 // Everything the profile pages read/write goes through here. Frontend-only,
 // but shaped like a real API so we can lift it to Cloud later.
+import { currentDisplayName } from "./auth-store";
 
 export type ThemeKey =
   | "sky" | "lavender" | "ocean" | "forest" | "sunrise"
@@ -214,8 +215,12 @@ export function loadProfile(): Profile {
   if (typeof window === "undefined") return defaults;
   try {
     const raw = window.localStorage.getItem(KEY);
-    if (!raw) return defaults;
-    return { ...defaults, ...JSON.parse(raw) };
+    // Overlay the currently signed-in student's name so the profile matches sign-in.
+    // Falls back to "Guest Student" / "Guest" when no session exists.
+    const signed = currentDisplayName();
+    const base: Profile = { ...defaults, displayName: signed.full, preferredName: signed.first };
+    if (!raw) return base;
+    return { ...base, ...JSON.parse(raw) };
   } catch { return defaults; }
 }
 export function saveProfile(p: Profile) {
