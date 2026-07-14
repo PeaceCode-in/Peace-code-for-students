@@ -208,7 +208,7 @@ function DashboardInner() {
       </section>
 
       {/* ── Footer ───────────────────────────────────────────────── */}
-      <footer className="border-t py-10 mt-4 flex items-center justify-between text-[11px] tracking-[0.18em] uppercase"
+      <footer className="border-t py-8 mt-4 flex flex-wrap items-center justify-between gap-3 text-[10.5px] sm:text-[11px] tracking-[0.18em] uppercase"
         style={{ borderColor: "var(--pc-border)", color: "var(--pc-muted)" }}>
         <span>Softly — that's how growth happens.</span>
         <span>PeaceCode · 2026</span>
