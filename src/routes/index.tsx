@@ -102,17 +102,17 @@ function DashboardInner() {
       {/* ── Masthead ─────────────────────────────────────────────── */}
       <section className="pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-12">
 
-        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-6">
+        <div className="flex flex-col sm:grid sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end gap-6">
           <div className="min-w-0">
             <div className="text-[10px] tracking-[0.36em] uppercase" style={{ color: "var(--pc-muted)" }}>
               {dateLine}
             </div>
-            <h1 className="mt-4 font-serif text-[42px] sm:text-[64px] leading-[0.98]"
+            <h1 className="mt-4 font-serif text-[38px] sm:text-[52px] lg:text-[64px] leading-[0.98]"
               style={{ color: "var(--pc-ink)", letterSpacing: "-0.03em" }}>
               {greet},<br/>
               <span className="italic" style={{ color: "var(--pc-primary)" }}>{who.first}.</span>
             </h1>
-            <p className="mt-6 max-w-[560px] text-[15px] sm:text-[17px] leading-[1.55]"
+            <p className="mt-6 max-w-[560px] text-[14.5px] sm:text-[17px] leading-[1.55]"
               style={{ color: "var(--pc-ink)", opacity: 0.72 }}>
               {status}
             </p>
@@ -131,9 +131,9 @@ function DashboardInner() {
         <div className="col-span-12 md:col-span-5">
           <div className="text-[11px] tracking-[0.3em] uppercase" style={{ color: "var(--pc-muted)" }}>Peace Score</div>
           <div className="mt-5 flex items-baseline gap-3">
-            <span className="font-serif text-[110px] sm:text-[148px] leading-[0.85] tracking-tight"
+            <span className="font-serif text-[88px] sm:text-[120px] lg:text-[148px] leading-[0.85] tracking-tight"
               style={{ color: "var(--pc-ink)", letterSpacing: "-0.05em" }}>{peace}</span>
-            <span className="font-serif text-[28px]" style={{ color: "var(--pc-muted)" }}>/100</span>
+            <span className="font-serif text-[22px] sm:text-[28px]" style={{ color: "var(--pc-muted)" }}>/100</span>
           </div>
           <div className="mt-4 text-[13px] leading-[1.6] max-w-[380px]" style={{ color: "var(--pc-muted)" }}>
             A composite of your mind fitness, mood trend and daily rituals — updated each hour, kept private.
@@ -141,7 +141,7 @@ function DashboardInner() {
         </div>
         <div className="col-span-12 md:col-span-7 md:pl-8 md:border-l" style={{ borderColor: "var(--pc-border)" }}>
           <Sparkline data={trend} accent="peace" />
-          <div className="mt-6 grid grid-cols-3 gap-6">
+          <div className="mt-6 grid grid-cols-3 gap-3 sm:gap-6">
             <Metric label="Emotional stability" value={`${emoStability}%`} to="/screening"/>
             <Metric label="Mind fitness" value={`${overall}`} to="/mindgym/brain-dna"/>
             <Metric label="This week" value={`${week.count || 0} sessions`} to="/mindgym"/>
@@ -208,7 +208,7 @@ function DashboardInner() {
       </section>
 
       {/* ── Footer ───────────────────────────────────────────────── */}
-      <footer className="border-t py-10 mt-4 flex items-center justify-between text-[11px] tracking-[0.18em] uppercase"
+      <footer className="border-t py-8 mt-4 flex flex-wrap items-center justify-between gap-3 text-[10.5px] sm:text-[11px] tracking-[0.18em] uppercase"
         style={{ borderColor: "var(--pc-border)", color: "var(--pc-muted)" }}>
         <span>Softly — that's how growth happens.</span>
         <span>PeaceCode · 2026</span>
@@ -327,17 +327,17 @@ function Sparkline({ data, accent = "peace" }: { data: number[]; accent?: string
 function ModuleRow({ to, title, desc, meta, last }: { to: string; title: string; desc: string; meta: string; last?: boolean }) {
   return (
     <Link to={to}
-      className={`group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 py-5 sm:py-6 ${last ? "" : "border-b"} transition`}
+      className={`group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 sm:gap-6 py-5 sm:py-6 ${last ? "" : "border-b"} transition`}
       style={{ borderColor: "var(--pc-border)" }}>
-      <div className="min-w-0 grid grid-cols-[minmax(0,240px)_minmax(0,1fr)] gap-6 items-baseline">
-        <div className="font-serif text-[22px] sm:text-[26px] leading-none transition group-hover:translate-x-1"
+      <div className="min-w-0 sm:grid sm:grid-cols-[minmax(0,240px)_minmax(0,1fr)] sm:gap-6 sm:items-baseline">
+        <div className="font-serif text-[20px] sm:text-[26px] leading-none truncate transition group-hover:translate-x-1"
           style={{ color: "var(--pc-ink)", letterSpacing: "-0.02em" }}>
           {title}
         </div>
-        <div className="text-[13px] hidden sm:block" style={{ color: "var(--pc-muted)" }}>{desc}</div>
+        <div className="text-[13px] hidden sm:block truncate" style={{ color: "var(--pc-muted)" }}>{desc}</div>
       </div>
-      <div className="flex items-center gap-4 shrink-0">
-        <span className="text-[12px] tabular-nums" style={{ color: "var(--pc-ink)", opacity: 0.6 }}>{meta}</span>
+      <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+        <span className="text-[11px] sm:text-[12px] tabular-nums truncate max-w-[110px] sm:max-w-none" style={{ color: "var(--pc-ink)", opacity: 0.6 }}>{meta}</span>
         <ChevronRight className="w-4 h-4 transition group-hover:translate-x-0.5" style={{ color: "var(--pc-muted)" }}/>
       </div>
     </Link>
