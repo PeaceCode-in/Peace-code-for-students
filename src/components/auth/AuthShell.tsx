@@ -42,70 +42,51 @@ export function AuthShell({
         .pc-card-scroll { scrollbar-width: none; -ms-overflow-style: none }
       `}</style>
 
-      {/* Grainy sakura base — covers whole viewport */}
+      {/* Sky illustration base — full bleed */}
       <div
         className="absolute inset-0"
         aria-hidden
         style={{
-          background:
-            "linear-gradient(160deg, #fbe9ec 0%, #f7e3d9 40%, #f2ded9 70%, #ecd9e0 100%)",
+          backgroundImage: `url(${skyBg.url})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
         }}
       />
-      {/* Painterly washes drifting slowly */}
+      {/* Soft blur wash over image (tints + softens the illustration) */}
       <div
-        className="absolute -inset-40 pointer-events-none"
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden
+        style={{
+          backdropFilter: "blur(6px) saturate(108%)",
+          background:
+            "linear-gradient(180deg, rgba(180,200,230,0.18) 0%, rgba(240,200,205,0.22) 60%, rgba(220,180,200,0.30) 100%)",
+        }}
+      />
+      {/* Painterly light washes drifting slowly */}
+      <div
+        className="absolute -inset-40 pointer-events-none mix-blend-soft-light"
         aria-hidden
         style={{
           animation: "pc-drift-a 22s ease-in-out infinite",
           backgroundImage: [
-            "radial-gradient(38% 32% at 22% 24%, rgba(255,255,255,0.85), transparent 65%)",
-            "radial-gradient(30% 28% at 78% 18%, rgba(240,190,205,0.55), transparent 70%)",
+            "radial-gradient(38% 32% at 22% 24%, rgba(255,255,255,0.55), transparent 65%)",
+            "radial-gradient(30% 28% at 78% 18%, rgba(255,210,215,0.45), transparent 70%)",
           ].join(","),
         }}
       />
       <div
-        className="absolute -inset-40 pointer-events-none"
+        className="absolute -inset-40 pointer-events-none mix-blend-soft-light"
         aria-hidden
         style={{
           animation: "pc-drift-b 28s ease-in-out infinite",
           backgroundImage: [
-            "radial-gradient(34% 30% at 84% 82%, rgba(255,232,214,0.7), transparent 70%)",
-            "radial-gradient(32% 28% at 14% 84%, rgba(228,200,214,0.6), transparent 72%)",
+            "radial-gradient(34% 30% at 84% 82%, rgba(255,230,210,0.55), transparent 70%)",
+            "radial-gradient(32% 28% at 14% 84%, rgba(210,190,220,0.50), transparent 72%)",
           ].join(","),
         }}
       />
-      {/* Hand-drawn horizon arcs, one on each corner */}
-      <svg
-        className="absolute -top-40 -right-40 opacity-[0.11] pointer-events-none"
-        width="820" height="820" viewBox="0 0 820 820" aria-hidden
-      >
-        {[180, 260, 360, 480, 620].map((r, i) => (
-          <circle key={i} cx="640" cy="180" r={r} fill="none" stroke="#8a3a52" strokeWidth="1"
-            strokeDasharray={i % 2 ? "2 6" : "0"} />
-        ))}
-      </svg>
-      <svg
-        className="absolute -bottom-52 -left-40 opacity-[0.10] pointer-events-none"
-        width="900" height="900" viewBox="0 0 900 900" aria-hidden
-      >
-        {[220, 320, 440, 580, 740].map((r, i) => (
-          <circle key={i} cx="180" cy="720" r={r} fill="none" stroke="#8a3a52" strokeWidth="1"
-            strokeDasharray={i % 2 ? "3 7" : "0"} />
-        ))}
-      </svg>
-      {/* Floating petal specks */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-70" aria-hidden>
-        {Array.from({ length: 34 }).map((_, i) => {
-          const x = (i * 79) % 100;
-          const y = (i * 137) % 100;
-          const r = 1 + ((i * 11) % 3);
-          return (
-            <circle key={i} cx={`${x}%`} cy={`${y}%`} r={r}
-              fill={i % 3 === 0 ? "#e0a5b6" : i % 3 === 1 ? "#d6b39a" : "#c98aa2"}
-              opacity={0.32} />
-          );
-        })}
-      </svg>
+
       {/* Heavy film grain — full bleed */}
       <div
         className="absolute inset-0 pointer-events-none mix-blend-multiply"
