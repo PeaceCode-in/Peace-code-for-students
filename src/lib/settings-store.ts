@@ -202,8 +202,8 @@ const defaults: Settings = {
   },
   appearance: {
     theme: "light",
-    accent: "blue",
-    bgTheme: "daylight",
+    accent: "rose",
+    bgTheme: "sakura",
     fontSize: 16,
     density: "comfortable",
     reduceMotion: false,
@@ -341,7 +341,7 @@ export function applyAppearance(s: Settings) {
   const a = s.appearance;
 
   // Background theme (writes html[data-pc-bg]; CSS in styles.css does the rest)
-  const bg = (a.bgTheme && BG_THEMES[a.bgTheme]) ? a.bgTheme : "daylight";
+  const bg = (a.bgTheme && BG_THEMES[a.bgTheme]) ? a.bgTheme : "sakura";
   root.setAttribute("data-pc-bg", bg);
 
   // Theme mode: dark presets force dark; user override still wins if explicit.
