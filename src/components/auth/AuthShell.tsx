@@ -83,24 +83,38 @@ export function AuthShell({
         .pc-feedback { animation: pc-fb-in 260ms ease-out both; }
       `}</style>
 
-      {/* Sky illustration base */}
-      <div
-        className="absolute inset-0"
-        aria-hidden
-        style={{
-          backgroundImage: `url(${skyBg.url})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
-      {/* Single soft warm wash — no blur, no animation, no grain */}
+      {/* Sky illustration base — softly blurred so the card feels like the hero */}
+      <div className="absolute inset-0 overflow-hidden" aria-hidden>
+        <div
+          className="absolute -inset-8"
+          style={{
+            backgroundImage: `url(${skyBg.url})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            filter: "blur(14px) saturate(108%)",
+            transform: "scale(1.06)",
+          }}
+        />
+      </div>
+      {/* Single soft warm wash */}
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden
         style={{
           background:
             "linear-gradient(180deg, rgba(190,205,225,0.18) 0%, rgba(240,200,170,0.22) 55%, rgba(220,170,140,0.30) 100%)",
+        }}
+      />
+      {/* Grain / noise overlay — subtle film texture */}
+      <div
+        className="absolute inset-0 pointer-events-none mix-blend-soft-light"
+        aria-hidden
+        style={{
+          opacity: 0.55,
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
+          backgroundSize: "240px 240px",
         }}
       />
 
