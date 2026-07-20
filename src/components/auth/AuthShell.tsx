@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
 import { CheckCircle2, ShieldCheck, AlertCircle } from "lucide-react";
 import wordmarkUrl from "@/assets/img/peacecode-wordmark.png";
 import skyBgUrl from "@/assets/img/auth-sky-cranes.jpg";
@@ -129,6 +130,20 @@ export function AuthShell({
         <ShieldCheck className="w-3.5 h-3.5" strokeWidth={1.7} />
         <span className="tracking-[0.22em] uppercase">private · for students</span>
       </div>
+
+      <a
+        href="https://peacecode.in"
+        className="absolute top-6 left-6 sm:left-8 z-10 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] transition hover:brightness-105 active:scale-[0.98]"
+        style={{
+          background: "rgba(255,248,240,0.55)",
+          border: "1px solid rgba(255,255,255,0.85)",
+          color: INK_SOFT,
+          backdropFilter: "blur(14px)",
+        }}
+      >
+        <ArrowLeft className="w-3.5 h-3.5" strokeWidth={1.7} />
+        <span className="tracking-[0.18em] uppercase">Go back</span>
+      </a>
 
       {/* Frosted glass card */}
       <div className="relative z-[1] w-full h-full flex items-center justify-center px-4 sm:px-6">
