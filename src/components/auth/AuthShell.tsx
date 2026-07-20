@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
 import { CheckCircle2, ShieldCheck, AlertCircle } from "lucide-react";
 import wordmarkUrl from "@/assets/img/peacecode-wordmark.png";
 import skyBgUrl from "@/assets/img/auth-sky-cranes.jpg";
