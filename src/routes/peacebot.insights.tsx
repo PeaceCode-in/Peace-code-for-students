@@ -6,10 +6,10 @@ import { loadConvs, STUDENT_CONTEXT } from "@/lib/peacebot-store";
 
 export const Route = createFileRoute("/peacebot/insights")({
   head: () => ({ meta: [{ title: "Peace Bot · insights" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot-insights.svg?title=Peace+Bot+%C2%B7+insights" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot/insights.svg?title=Peace+Bot+%C2%B7+insights" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/peacebot-insights.svg?title=Peace+Bot+%C2%B7+insights" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/peacebot/insights.svg?title=Peace+Bot+%C2%B7+insights" },
     ],
     links: [{ rel: "canonical", href: "/peacebot/insights" }],
   }),

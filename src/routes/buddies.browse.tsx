@@ -6,10 +6,10 @@ import { useMemo, useState } from "react";
 
 export const Route = createFileRoute("/buddies/browse")({
   head: () => ({ meta: [{ title: "Browse Peace Buddies" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/buddies-browse.svg?title=Browse+Peace+Buddies" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/buddies/browse.svg?title=Browse+Peace+Buddies" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/buddies-browse.svg?title=Browse+Peace+Buddies" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/buddies/browse.svg?title=Browse+Peace+Buddies" },
     ],
     links: [{ rel: "canonical", href: "/buddies/browse" }],
   }),

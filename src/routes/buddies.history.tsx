@@ -5,10 +5,10 @@ import { ArrowLeft, Star, Clock, Heart, MessageCircle } from "lucide-react";
 
 export const Route = createFileRoute("/buddies/history")({
   head: () => ({ meta: [{ title: "Session history & favorites" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/buddies-history.svg?title=Session+history+%26+favorites" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/buddies/history.svg?title=Session+history+%26+favorites" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/buddies-history.svg?title=Session+history+%26+favorites" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/buddies/history.svg?title=Session+history+%26+favorites" },
     ],
     links: [{ rel: "canonical", href: "/buddies/history" }],
   }),

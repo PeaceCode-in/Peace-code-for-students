@@ -4,10 +4,10 @@ import { useSettings } from "@/lib/settings-store";
 
 export const Route = createFileRoute("/settings/breathing")({
   head: () => ({ meta: [{ title: "Breathing — Settings" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/settings-breathing.svg?title=Breathing+%E2%80%94+Settings" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/settings/breathing.svg?title=Breathing+%E2%80%94+Settings" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/settings-breathing.svg?title=Breathing+%E2%80%94+Settings" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/settings/breathing.svg?title=Breathing+%E2%80%94+Settings" },
     ],
     links: [{ rel: "canonical", href: "/settings/breathing" }],
   }),

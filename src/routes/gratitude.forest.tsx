@@ -6,10 +6,10 @@ import { loadEntries, loadCommunity, computeForest } from "@/lib/gratitude-store
 
 export const Route = createFileRoute("/gratitude/forest")({
   head: () => ({ meta: [{ title: "Peace Forest — Gratitude" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/gratitude-forest.svg?title=Peace+Forest+%E2%80%94+Gratitude" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/gratitude/forest.svg?title=Peace+Forest+%E2%80%94+Gratitude" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/gratitude-forest.svg?title=Peace+Forest+%E2%80%94+Gratitude" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/gratitude/forest.svg?title=Peace+Forest+%E2%80%94+Gratitude" },
     ],
     links: [{ rel: "canonical", href: "/gratitude/forest" }],
   }),

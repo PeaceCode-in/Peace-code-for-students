@@ -6,10 +6,10 @@ import { CloudUpload, HardDrive, RefreshCcw } from "lucide-react";
 
 export const Route = createFileRoute("/settings/data")({
   head: () => ({ meta: [{ title: "Data & Storage — Settings" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/settings-data.svg?title=Data+%26+Storage+%E2%80%94+Settings" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/settings/data.svg?title=Data+%26+Storage+%E2%80%94+Settings" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/settings-data.svg?title=Data+%26+Storage+%E2%80%94+Settings" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/settings/data.svg?title=Data+%26+Storage+%E2%80%94+Settings" },
     ],
     links: [{ rel: "canonical", href: "/settings/data" }],
   }),

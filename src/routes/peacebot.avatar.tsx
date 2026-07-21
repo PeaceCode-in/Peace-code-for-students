@@ -6,10 +6,10 @@ import { loadPrefs, savePrefs, type Prefs } from "@/lib/peacebot-store";
 
 export const Route = createFileRoute("/peacebot/avatar")({
   head: () => ({ meta: [{ title: "Peace Bot · avatar & style" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot-avatar.svg?title=Peace+Bot+%C2%B7+avatar+%26+style" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot/avatar.svg?title=Peace+Bot+%C2%B7+avatar+%26+style" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/peacebot-avatar.svg?title=Peace+Bot+%C2%B7+avatar+%26+style" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/peacebot/avatar.svg?title=Peace+Bot+%C2%B7+avatar+%26+style" },
     ],
     links: [{ rel: "canonical", href: "/peacebot/avatar" }],
   }),

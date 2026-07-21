@@ -6,10 +6,10 @@ import { surface2, border, ink, muted, primary, Panel, Toasts, pushToast } from 
 
 export const Route = createFileRoute("/profile/privacy")({
   head: () => ({ meta: [{ title: "Profile privacy · PeaceCode" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/profile-privacy.svg?title=Profile+privacy+%C2%B7+PeaceCode" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/profile/privacy.svg?title=Profile+privacy+%C2%B7+PeaceCode" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/profile-privacy.svg?title=Profile+privacy+%C2%B7+PeaceCode" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/profile/privacy.svg?title=Profile+privacy+%C2%B7+PeaceCode" },
     ],
     links: [{ rel: "canonical", href: "/profile/privacy" }],
   }),

@@ -4,10 +4,10 @@ import { useSettings } from "@/lib/settings-store";
 
 export const Route = createFileRoute("/settings/notifications")({
   head: () => ({ meta: [{ title: "Notifications — PeaceCode Settings" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/settings-notifications.svg?title=Notifications+%E2%80%94+PeaceCode+Settings" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/settings/notifications.svg?title=Notifications+%E2%80%94+PeaceCode+Settings" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/settings-notifications.svg?title=Notifications+%E2%80%94+PeaceCode+Settings" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/settings/notifications.svg?title=Notifications+%E2%80%94+PeaceCode+Settings" },
     ],
     links: [{ rel: "canonical", href: "/settings/notifications" }],
   }),

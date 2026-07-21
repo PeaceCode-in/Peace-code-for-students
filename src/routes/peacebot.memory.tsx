@@ -6,10 +6,10 @@ import { loadMems, addMem, patchMem, removeMem, type Memory } from "@/lib/peaceb
 
 export const Route = createFileRoute("/peacebot/memory")({
   head: () => ({ meta: [{ title: "Peace Bot · memory" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot-memory.svg?title=Peace+Bot+%C2%B7+memory" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot/memory.svg?title=Peace+Bot+%C2%B7+memory" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/peacebot-memory.svg?title=Peace+Bot+%C2%B7+memory" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/peacebot/memory.svg?title=Peace+Bot+%C2%B7+memory" },
     ],
     links: [{ rel: "canonical", href: "/peacebot/memory" }],
   }),

@@ -6,10 +6,10 @@ import { surface, surface2, border, ink, muted, primary, Panel, Toasts, pushToas
 
 export const Route = createFileRoute("/profile/themes")({
   head: () => ({ meta: [{ title: "Profile themes · PeaceCode" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/profile-themes.svg?title=Profile+themes+%C2%B7+PeaceCode" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/profile/themes.svg?title=Profile+themes+%C2%B7+PeaceCode" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/profile-themes.svg?title=Profile+themes+%C2%B7+PeaceCode" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/profile/themes.svg?title=Profile+themes+%C2%B7+PeaceCode" },
     ],
     links: [{ rel: "canonical", href: "/profile/themes" }],
   }),

@@ -7,10 +7,10 @@ import { peacebotReply } from "@/lib/peacebot-ai.functions";
 
 export const Route = createFileRoute("/peacebot/voice")({
   head: () => ({ meta: [{ title: "Peace Bot · voice" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot-voice.svg?title=Peace+Bot+%C2%B7+voice" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot/voice.svg?title=Peace+Bot+%C2%B7+voice" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/peacebot-voice.svg?title=Peace+Bot+%C2%B7+voice" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/peacebot/voice.svg?title=Peace+Bot+%C2%B7+voice" },
     ],
     links: [{ rel: "canonical", href: "/peacebot/voice" }],
   }),

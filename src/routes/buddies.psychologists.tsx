@@ -5,10 +5,10 @@ import { ArrowLeft, Sparkles, Star, Clock, ShieldAlert } from "lucide-react";
 
 export const Route = createFileRoute("/buddies/psychologists")({
   head: () => ({ meta: [{ title: "Find a psychologist — Professional referral" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/buddies-psychologists.svg?title=Find+a+psychologist+%E2%80%94+Professional+referral" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/buddies/psychologists.svg?title=Find+a+psychologist+%E2%80%94+Professional+referral" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/buddies-psychologists.svg?title=Find+a+psychologist+%E2%80%94+Professional+referral" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/buddies/psychologists.svg?title=Find+a+psychologist+%E2%80%94+Professional+referral" },
     ],
     links: [{ rel: "canonical", href: "/buddies/psychologists" }],
   }),

@@ -9,10 +9,10 @@ import {
 
 export const Route = createFileRoute("/gratitude/history")({
   head: () => ({ meta: [{ title: "Gratitude History & Analytics" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/gratitude-history.svg?title=Gratitude+History+%26+Analytics" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/gratitude/history.svg?title=Gratitude+History+%26+Analytics" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/gratitude-history.svg?title=Gratitude+History+%26+Analytics" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/gratitude/history.svg?title=Gratitude+History+%26+Analytics" },
     ],
     links: [{ rel: "canonical", href: "/gratitude/history" }],
   }),

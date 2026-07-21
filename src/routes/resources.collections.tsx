@@ -4,10 +4,10 @@ import { COLLECTIONS, heroBg } from "@/lib/resources-store";
 
 export const Route = createFileRoute("/resources/collections")({
   head: () => ({ meta: [{ title: "Collections — Resources" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/resources-collections.svg?title=Collections+%E2%80%94+Resources" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/resources/collections.svg?title=Collections+%E2%80%94+Resources" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/resources-collections.svg?title=Collections+%E2%80%94+Resources" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/resources/collections.svg?title=Collections+%E2%80%94+Resources" },
     ],
     links: [{ rel: "canonical", href: "/resources/collections" }],
   }),

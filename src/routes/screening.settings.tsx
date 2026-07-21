@@ -6,10 +6,10 @@ import { loadPrefs, savePrefs, loadSessions, saveSessions } from "@/lib/screenin
 
 export const Route = createFileRoute("/screening/settings")({
   head: () => ({ meta: [{ title: "Settings — PeaceCode Screening" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/screening-settings.svg?title=Settings+%E2%80%94+PeaceCode+Screening" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/screening/settings.svg?title=Settings+%E2%80%94+PeaceCode+Screening" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/screening-settings.svg?title=Settings+%E2%80%94+PeaceCode+Screening" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/screening/settings.svg?title=Settings+%E2%80%94+PeaceCode+Screening" },
     ],
     links: [{ rel: "canonical", href: "/screening/settings" }],
   }),

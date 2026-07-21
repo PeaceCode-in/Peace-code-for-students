@@ -6,10 +6,10 @@ import { Check } from "lucide-react";
 
 export const Route = createFileRoute("/settings/appearance")({
   head: () => ({ meta: [{ title: "Appearance — PeaceCode Settings" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/settings-appearance.svg?title=Appearance+%E2%80%94+PeaceCode+Settings" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/settings/appearance.svg?title=Appearance+%E2%80%94+PeaceCode+Settings" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/settings-appearance.svg?title=Appearance+%E2%80%94+PeaceCode+Settings" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/settings/appearance.svg?title=Appearance+%E2%80%94+PeaceCode+Settings" },
     ],
     links: [{ rel: "canonical", href: "/settings/appearance" }],
   }),

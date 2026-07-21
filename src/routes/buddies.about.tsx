@@ -4,10 +4,10 @@ import { ArrowLeft, Check, X, Heart, GraduationCap, Stethoscope, Pill, Phone } f
 
 export const Route = createFileRoute("/buddies/about")({
   head: () => ({ meta: [{ title: "What is Peace Buddies?" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/buddies-about.svg?title=What+is+Peace+Buddies%3F" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/buddies/about.svg?title=What+is+Peace+Buddies%3F" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/buddies-about.svg?title=What+is+Peace+Buddies%3F" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/buddies/about.svg?title=What+is+Peace+Buddies%3F" },
     ],
     links: [{ rel: "canonical", href: "/buddies/about" }],
   }),

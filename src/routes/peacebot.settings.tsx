@@ -6,10 +6,10 @@ import { loadPrefs, savePrefs, loadConvs, saveConvs, loadMems, saveMems, type Pr
 
 export const Route = createFileRoute("/peacebot/settings")({
   head: () => ({ meta: [{ title: "Peace Bot · settings" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot-settings.svg?title=Peace+Bot+%C2%B7+settings" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot/settings.svg?title=Peace+Bot+%C2%B7+settings" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/peacebot-settings.svg?title=Peace+Bot+%C2%B7+settings" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/peacebot/settings.svg?title=Peace+Bot+%C2%B7+settings" },
     ],
     links: [{ rel: "canonical", href: "/peacebot/settings" }],
   }),

@@ -6,10 +6,10 @@ import { useState } from "react";
 
 export const Route = createFileRoute("/buddies/settings")({
   head: () => ({ meta: [{ title: "Peace Buddies settings" },
-      { property: "og:image", content: "https://app.peacecode.in/api/og/buddies-settings.svg?title=Peace+Buddies+settings" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/buddies/settings.svg?title=Peace+Buddies+settings" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { name: "twitter:image", content: "https://app.peacecode.in/api/og/buddies-settings.svg?title=Peace+Buddies+settings" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/buddies/settings.svg?title=Peace+Buddies+settings" },
     ],
     links: [{ rel: "canonical", href: "/buddies/settings" }],
   }),
