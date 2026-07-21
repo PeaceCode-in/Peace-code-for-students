@@ -118,13 +118,14 @@ for (const fp of files) {
     continue;
   }
   const src = fs.readFileSync(fp, "utf8");
+  // File-based server routes (e.g. `sitemap[.]xml.ts`, `robots[.]txt.ts`,
+  // anything under src/routes/api/) don't render HTML and have no head().
+  const isServerRoute = /\[\.\]|\/api\//.test(fp.replace(/\\/g, "/"));
+  if (isServerRoute) {
+    skipped++;
+    continue;
+  }
   if (!hasHead(src)) {
-    // Server-only route files (e.g. sitemap.xml, api/*) legitimately have no head.
-    const routePath = filenameToRoutePath(fp);
-    if (/\.(xml|txt|json)\b/.test(routePath) || /\/api\//.test(fp)) {
-      skipped++;
-      continue;
-    }
     findings.push({ file: relFile(fp), level: "error", msg: "no head() metadata block" });
     continue;
   }
