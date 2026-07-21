@@ -13,7 +13,8 @@
     "format": "prettier --write .",
     "seo:check": "node scripts/seo-check.mjs",
     "seo:check:strict": "SEO_CHECK_STRICT=1 node scripts/seo-check.mjs",
-    "preview:validate": "node scripts/preview-validate.mjs"
+    "preview:validate": "node scripts/preview-validate.mjs",
+    "seo:jsonld": "node scripts/jsonld-validate.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
