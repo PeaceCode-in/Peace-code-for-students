@@ -5,7 +5,9 @@ import { loadProfile, saveProfile, type Visibility } from "@/lib/profile-store";
 import { surface2, border, ink, muted, primary, Panel, Toasts, pushToast } from "@/components/profile/primitives";
 
 export const Route = createFileRoute("/profile/privacy")({
-  head: () => ({ meta: [{ title: "Profile privacy · PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "Profile privacy · PeaceCode" }],
+    links: [{ rel: "canonical", href: "/profile/privacy" }],
+  }),
   component: PrivacyPage,
 });
 

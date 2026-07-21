@@ -7,7 +7,9 @@ import { loadEntries, computeTree, computeStreak, STAGES } from "@/lib/gratitude
 import { gratitudeAI } from "@/lib/gratitude-ai.functions";
 
 export const Route = createFileRoute("/gratitude/tree")({
-  head: () => ({ meta: [{ title: "Your Tree — Gratitude" }] }),
+  head: () => ({ meta: [{ title: "Your Tree — Gratitude" }],
+    links: [{ rel: "canonical", href: "/gratitude/tree" }],
+  }),
   component: TreePage,
 });
 

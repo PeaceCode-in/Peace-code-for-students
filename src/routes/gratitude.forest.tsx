@@ -5,7 +5,9 @@ import { AppShell, palette } from "@/components/AppShell";
 import { loadEntries, loadCommunity, computeForest } from "@/lib/gratitude-store";
 
 export const Route = createFileRoute("/gratitude/forest")({
-  head: () => ({ meta: [{ title: "Peace Forest — Gratitude" }] }),
+  head: () => ({ meta: [{ title: "Peace Forest — Gratitude" }],
+    links: [{ rel: "canonical", href: "/gratitude/forest" }],
+  }),
   component: ForestPage,
 });
 

@@ -5,7 +5,9 @@ import { loadProfile, saveProfile, type Bookmark } from "@/lib/profile-store";
 import { surface, surface2, border, ink, muted, primary, soft, Panel, Toasts, pushToast } from "@/components/profile/primitives";
 
 export const Route = createFileRoute("/profile/bookmarks")({
-  head: () => ({ meta: [{ title: "Saved resources · PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "Saved resources · PeaceCode" }],
+    links: [{ rel: "canonical", href: "/profile/bookmarks" }],
+  }),
   component: BookmarksPage,
 });
 

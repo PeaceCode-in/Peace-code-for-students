@@ -4,7 +4,9 @@ import { useState } from "react";
 import { AlertTriangle, X } from "lucide-react";
 
 export const Route = createFileRoute("/settings/delete")({
-  head: () => ({ meta: [{ title: "Delete account — PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "Delete account — PeaceCode" }],
+    links: [{ rel: "canonical", href: "/settings/delete" }],
+  }),
   component: DeletePage,
 });
 

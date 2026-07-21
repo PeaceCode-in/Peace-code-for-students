@@ -6,7 +6,9 @@ import { Camera, Trash2, Upload } from "lucide-react";
 import { useRef } from "react";
 
 export const Route = createFileRoute("/settings/profile")({
-  head: () => ({ meta: [{ title: "Profile — PeaceCode Settings" }] }),
+  head: () => ({ meta: [{ title: "Profile — PeaceCode Settings" }],
+    links: [{ rel: "canonical", href: "/settings/profile" }],
+  }),
   component: ProfilePage,
 });
 

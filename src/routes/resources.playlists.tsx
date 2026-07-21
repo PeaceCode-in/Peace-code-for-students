@@ -5,7 +5,9 @@ import { ListMusic, Plus, Trash2, Edit3 } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/resources/playlists")({
-  head: () => ({ meta: [{ title: "Playlists — Resources" }] }),
+  head: () => ({ meta: [{ title: "Playlists — Resources" }],
+    links: [{ rel: "canonical", href: "/resources/playlists" }],
+  }),
   component: PlaylistsPage,
 });
 

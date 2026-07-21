@@ -10,6 +10,8 @@ export const getRouter = () => {
     context: { queryClient },
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
+    // Enforce a single canonical URL shape: never trailing slash (except "/").
+    trailingSlash: "never",
   });
 
   return router;

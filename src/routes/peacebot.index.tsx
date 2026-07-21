@@ -14,7 +14,9 @@ export const Route = createFileRoute("/peacebot/")({
   head: () => ({ meta: [
     { title: "Peace Bot — your quiet companion · PeaceCode" },
     { name: "description", content: "An emotionally intelligent AI companion for students. Talk, reflect, focus, sleep, celebrate." },
-  ]}),
+  ],
+    links: [{ rel: "canonical", href: "/peacebot" }],
+  }),
   component: PeaceBotHome,
 });
 

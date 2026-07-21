@@ -5,7 +5,9 @@ import { useResourceStore, byId } from "@/lib/resources-store";
 import { useMemo, useState } from "react";
 
 export const Route = createFileRoute("/resources/history")({
-  head: () => ({ meta: [{ title: "History — Resources" }] }),
+  head: () => ({ meta: [{ title: "History — Resources" }],
+    links: [{ rel: "canonical", href: "/resources/history" }],
+  }),
   component: HistoryPage,
 });
 

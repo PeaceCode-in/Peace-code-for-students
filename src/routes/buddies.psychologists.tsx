@@ -4,7 +4,9 @@ import { PSYCHOLOGISTS, avatarFor } from "@/lib/buddies-store";
 import { ArrowLeft, Sparkles, Star, Clock, ShieldAlert } from "lucide-react";
 
 export const Route = createFileRoute("/buddies/psychologists")({
-  head: () => ({ meta: [{ title: "Find a psychologist — Professional referral" }] }),
+  head: () => ({ meta: [{ title: "Find a psychologist — Professional referral" }],
+    links: [{ rel: "canonical", href: "/buddies/psychologists" }],
+  }),
   component: Psychologists,
 });
 

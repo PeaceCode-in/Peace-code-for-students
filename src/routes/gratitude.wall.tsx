@@ -9,7 +9,9 @@ import {
 } from "@/lib/gratitude-store";
 
 export const Route = createFileRoute("/gratitude/wall")({
-  head: () => ({ meta: [{ title: "Community Wall — Gratitude" }, { name: "description", content: "Anonymous gratitude from students across India." }] }),
+  head: () => ({ meta: [{ title: "Community Wall — Gratitude" }, { name: "description", content: "Anonymous gratitude from students across India." }],
+    links: [{ rel: "canonical", href: "/gratitude/wall" }],
+  }),
   component: WallPage,
 });
 

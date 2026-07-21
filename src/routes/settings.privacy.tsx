@@ -6,7 +6,9 @@ import { useState } from "react";
 import { KeyRound, LogOut, Smartphone } from "lucide-react";
 
 export const Route = createFileRoute("/settings/privacy")({
-  head: () => ({ meta: [{ title: "Privacy & Security — PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "Privacy & Security — PeaceCode" }],
+    links: [{ rel: "canonical", href: "/settings/privacy" }],
+  }),
   component: PrivacyPage,
 });
 

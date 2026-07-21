@@ -4,7 +4,9 @@ import { loadProfile } from "@/lib/profile-store";
 import { surface, surface2, border, ink, muted, primary, soft, Panel, SectionLabel, StatTile, Toasts, pushToast } from "@/components/profile/primitives";
 
 export const Route = createFileRoute("/profile/stats")({
-  head: () => ({ meta: [{ title: "Statistics · PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "Statistics · PeaceCode" }],
+    links: [{ rel: "canonical", href: "/profile/stats" }],
+  }),
   component: StatsPage,
 });
 

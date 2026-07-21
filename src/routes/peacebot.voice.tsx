@@ -6,7 +6,9 @@ import { newConv, upsertConv, addMsg, STUDENT_CONTEXT, loadPrefs, loadMems } fro
 import { peacebotReply } from "@/lib/peacebot-ai.functions";
 
 export const Route = createFileRoute("/peacebot/voice")({
-  head: () => ({ meta: [{ title: "Peace Bot · voice" }] }),
+  head: () => ({ meta: [{ title: "Peace Bot · voice" }],
+    links: [{ rel: "canonical", href: "/peacebot/voice" }],
+  }),
   component: VoicePage,
 });
 

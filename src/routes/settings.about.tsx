@@ -5,7 +5,9 @@ import { palette } from "@/components/AppShell";
 import logo from "@/assets/peacecode-logo.png";
 
 export const Route = createFileRoute("/settings/about")({
-  head: () => ({ meta: [{ title: "About — PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "About — PeaceCode" }],
+    links: [{ rel: "canonical", href: "/settings/about" }],
+  }),
   component: AboutPage,
 });
 

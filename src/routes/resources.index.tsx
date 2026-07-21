@@ -18,6 +18,7 @@ export const Route = createFileRoute("/resources/")({
       { property: "og:title", content: "Resource Library — PeaceCode" },
       { property: "og:description", content: "Discover, save and learn — a Netflix-meets-Spotify library for student wellbeing." },
     ],
+    links: [{ rel: "canonical", href: "/resources" }],
   }),
   component: ResourcesHome,
 });

@@ -5,7 +5,9 @@ import { useResourceStore, byId } from "@/lib/resources-store";
 import { Download } from "lucide-react";
 
 export const Route = createFileRoute("/resources/downloads")({
-  head: () => ({ meta: [{ title: "Downloads — Resources" }] }),
+  head: () => ({ meta: [{ title: "Downloads — Resources" }],
+    links: [{ rel: "canonical", href: "/resources/downloads" }],
+  }),
   component: () => {
     const snap = useResourceStore();
     const items = snap.downloads.map(id => byId(id)).filter(Boolean) as any[];

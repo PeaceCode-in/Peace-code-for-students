@@ -5,7 +5,9 @@ import { ArrowLeft, Search, Bookmark, ArrowRight, Filter } from "lucide-react";
 import { TESTS, loadPrefs, savePrefs, type Category, type Difficulty } from "@/lib/screening-store";
 
 export const Route = createFileRoute("/screening/library")({
-  head: () => ({ meta: [{ title: "Available Assessments — PeaceCode Screening" }] }),
+  head: () => ({ meta: [{ title: "Available Assessments — PeaceCode Screening" }],
+    links: [{ rel: "canonical", href: "/screening/library" }],
+  }),
   component: Library,
 });
 

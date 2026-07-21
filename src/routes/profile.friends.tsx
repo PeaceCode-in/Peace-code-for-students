@@ -5,7 +5,9 @@ import { loadProfile, saveProfile, MOOD_META, type Friend } from "@/lib/profile-
 import { surface, surface2, border, ink, muted, primary, soft, Panel, Toasts, pushToast } from "@/components/profile/primitives";
 
 export const Route = createFileRoute("/profile/friends")({
-  head: () => ({ meta: [{ title: "Friends · PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "Friends · PeaceCode" }],
+    links: [{ rel: "canonical", href: "/profile/friends" }],
+  }),
   component: FriendsPage,
 });
 

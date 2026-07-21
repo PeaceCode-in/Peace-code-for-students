@@ -3,7 +3,9 @@ import { SettingsShell, Section, Row, Toggle, Segmented, TextField } from "@/com
 import { useSettings } from "@/lib/settings-store";
 
 export const Route = createFileRoute("/settings/notifications")({
-  head: () => ({ meta: [{ title: "Notifications — PeaceCode Settings" }] }),
+  head: () => ({ meta: [{ title: "Notifications — PeaceCode Settings" }],
+    links: [{ rel: "canonical", href: "/settings/notifications" }],
+  }),
   component: NotificationsPage,
 });
 

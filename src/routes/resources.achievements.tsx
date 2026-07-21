@@ -4,7 +4,9 @@ import { ACHIEVEMENTS, useResourceStore, computeStreak, RESOURCES } from "@/lib/
 import { Trophy, Flame, Clock, CheckCircle2, Target } from "lucide-react";
 
 export const Route = createFileRoute("/resources/achievements")({
-  head: () => ({ meta: [{ title: "Achievements — Resources" }] }),
+  head: () => ({ meta: [{ title: "Achievements — Resources" }],
+    links: [{ rel: "canonical", href: "/resources/achievements" }],
+  }),
   component: () => {
     const snap = useResourceStore();
     const streak = computeStreak(snap.learnMinutes);

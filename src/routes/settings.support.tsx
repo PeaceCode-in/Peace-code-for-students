@@ -5,7 +5,9 @@ import { useState } from "react";
 import { Star, ExternalLink } from "lucide-react";
 
 export const Route = createFileRoute("/settings/support")({
-  head: () => ({ meta: [{ title: "Support — PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "Support — PeaceCode" }],
+    links: [{ rel: "canonical", href: "/settings/support" }],
+  }),
   component: SupportPage,
 });
 

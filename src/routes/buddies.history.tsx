@@ -4,7 +4,9 @@ import { listSessions, getBuddy, avatarFor, favorites, BUDDIES } from "@/lib/bud
 import { ArrowLeft, Star, Clock, Heart, MessageCircle } from "lucide-react";
 
 export const Route = createFileRoute("/buddies/history")({
-  head: () => ({ meta: [{ title: "Session history & favorites" }] }),
+  head: () => ({ meta: [{ title: "Session history & favorites" }],
+    links: [{ rel: "canonical", href: "/buddies/history" }],
+  }),
   component: History,
 });
 

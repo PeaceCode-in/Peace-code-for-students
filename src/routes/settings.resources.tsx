@@ -3,7 +3,9 @@ import { SettingsShell, Section, Row, Toggle, Segmented, Chip } from "@/componen
 import { useSettings } from "@/lib/settings-store";
 
 export const Route = createFileRoute("/settings/resources")({
-  head: () => ({ meta: [{ title: "Resources — Settings" }] }),
+  head: () => ({ meta: [{ title: "Resources — Settings" }],
+    links: [{ rel: "canonical", href: "/settings/resources" }],
+  }),
   component: ResourceSettings,
 });
 

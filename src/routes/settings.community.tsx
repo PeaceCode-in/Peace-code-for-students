@@ -3,7 +3,9 @@ import { SettingsShell, Section, Row, Toggle, Chip, GhostButton } from "@/compon
 import { useSettings } from "@/lib/settings-store";
 
 export const Route = createFileRoute("/settings/community")({
-  head: () => ({ meta: [{ title: "Community — Settings" }] }),
+  head: () => ({ meta: [{ title: "Community — Settings" }],
+    links: [{ rel: "canonical", href: "/settings/community" }],
+  }),
   component: CommunitySettings,
 });
 

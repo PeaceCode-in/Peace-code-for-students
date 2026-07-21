@@ -3,7 +3,9 @@ import { AppShell, palette } from "@/components/AppShell";
 import { ArrowLeft, Phone, Wind, Bot, Stethoscope, Users, ShieldAlert, MapPin, UserRound } from "lucide-react";
 
 export const Route = createFileRoute("/buddies/emergency")({
-  head: () => ({ meta: [{ title: "Emergency support" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Emergency support" }, { name: "robots", content: "noindex" }],
+    links: [{ rel: "canonical", href: "/buddies/emergency" }],
+  }),
   component: Emergency,
 });
 

@@ -5,7 +5,9 @@ import { ArrowLeft, Users, Calendar, ArrowRight } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/buddies/groups")({
-  head: () => ({ meta: [{ title: "Peer groups & events" }] }),
+  head: () => ({ meta: [{ title: "Peer groups & events" }],
+    links: [{ rel: "canonical", href: "/buddies/groups" }],
+  }),
   component: Groups,
 });
 

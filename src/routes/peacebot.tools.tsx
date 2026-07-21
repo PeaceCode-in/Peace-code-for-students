@@ -5,7 +5,9 @@ import { AppShell, palette } from "@/components/AppShell";
 import { peacebotTask } from "@/lib/peacebot-ai.functions";
 
 export const Route = createFileRoute("/peacebot/tools")({
-  head: () => ({ meta: [{ title: "Peace Bot · AI tools hub" }] }),
+  head: () => ({ meta: [{ title: "Peace Bot · AI tools hub" }],
+    links: [{ rel: "canonical", href: "/peacebot/tools" }],
+  }),
   component: ToolsHub,
 });
 const { surface, surface2, border, ink, muted, soft } = palette;

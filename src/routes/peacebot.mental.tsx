@@ -4,7 +4,9 @@ import { AppShell, palette } from "@/components/AppShell";
 import { newConv, upsertConv, type ConvType } from "@/lib/peacebot-store";
 
 export const Route = createFileRoute("/peacebot/mental")({
-  head: () => ({ meta: [{ title: "Peace Bot · mental health tools" }] }),
+  head: () => ({ meta: [{ title: "Peace Bot · mental health tools" }],
+    links: [{ rel: "canonical", href: "/peacebot/mental" }],
+  }),
   component: MentalPage,
 });
 const { surface, border, ink, muted, soft } = palette;
