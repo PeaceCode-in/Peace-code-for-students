@@ -7,6 +7,9 @@ import { KeyRound, LogOut, Smartphone } from "lucide-react";
 
 export const Route = createFileRoute("/settings/privacy")({
   head: () => ({ meta: [{ title: "Privacy & Security — PeaceCode" },
+      { name: "description", content: "Privacy & Security on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Privacy & Security — PeaceCode" },
+      { property: "og:description", content: "Privacy & Security on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/settings/privacy.svg?title=Privacy+%26+Security+%E2%80%94+PeaceCode" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

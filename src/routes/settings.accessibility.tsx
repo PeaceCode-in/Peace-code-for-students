@@ -4,6 +4,9 @@ import { useSettings } from "@/lib/settings-store";
 
 export const Route = createFileRoute("/settings/accessibility")({
   head: () => ({ meta: [{ title: "Accessibility — PeaceCode" },
+      { name: "description", content: "Accessibility on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Accessibility — PeaceCode" },
+      { property: "og:description", content: "Accessibility on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/settings/accessibility.svg?title=Accessibility+%E2%80%94+PeaceCode" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

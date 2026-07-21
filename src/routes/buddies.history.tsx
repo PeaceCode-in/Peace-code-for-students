@@ -5,6 +5,9 @@ import { ArrowLeft, Star, Clock, Heart, MessageCircle } from "lucide-react";
 
 export const Route = createFileRoute("/buddies/history")({
   head: () => ({ meta: [{ title: "Session history & favorites" },
+      { name: "description", content: "Session history & favorites on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Session history & favorites" },
+      { property: "og:description", content: "Session history & favorites on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/buddies/history.svg?title=Session+history+%26+favorites" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

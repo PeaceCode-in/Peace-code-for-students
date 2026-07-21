@@ -10,6 +10,9 @@ type Tab = (typeof TABS)[number];
 
 export const Route = createFileRoute("/resources/library")({
   head: () => ({ meta: [{ title: "My Library — PeaceCode" },
+      { name: "description", content: "My Library on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "My Library — PeaceCode" },
+      { property: "og:description", content: "My Library on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/resources/library.svg?title=My+Library+%E2%80%94+PeaceCode" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

@@ -5,6 +5,9 @@ import { newConv, upsertConv, type ConvType } from "@/lib/peacebot-store";
 
 export const Route = createFileRoute("/peacebot/mental")({
   head: () => ({ meta: [{ title: "Peace Bot · mental health tools" },
+      { name: "description", content: "Peace Bot · mental health tools on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Peace Bot · mental health tools" },
+      { property: "og:description", content: "Peace Bot · mental health tools on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot/mental.svg?title=Peace+Bot+%C2%B7+mental+health+tools" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

@@ -6,6 +6,9 @@ import { useState } from "react";
 
 export const Route = createFileRoute("/buddies/groups")({
   head: () => ({ meta: [{ title: "Peer groups & events" },
+      { name: "description", content: "Peer groups & events on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Peer groups & events" },
+      { property: "og:description", content: "Peer groups & events on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/buddies/groups.svg?title=Peer+groups+%26+events" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

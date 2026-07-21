@@ -6,6 +6,9 @@ import { TESTS, loadPrefs, savePrefs, type Category, type Difficulty } from "@/l
 
 export const Route = createFileRoute("/screening/library")({
   head: () => ({ meta: [{ title: "Available Assessments — PeaceCode Screening" },
+      { name: "description", content: "Available Assessments on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Available Assessments — PeaceCode Screening" },
+      { property: "og:description", content: "Available Assessments on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/screening/library.svg?title=Available+Assessments+%E2%80%94+PeaceCode+Screening" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

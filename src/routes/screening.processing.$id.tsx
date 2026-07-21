@@ -5,7 +5,10 @@ import { loadSessions } from "@/lib/screening-store";
 
 export const Route = createFileRoute("/screening/processing/$id")({
   loader: ({ params }) => ({ id: params.id }),
-  head: () => ({ meta: [{ title: "Reading your responses… — PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "Reading your responses… — PeaceCode" },
+      { name: "description", content: "Reading your responses… on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Reading your responses… — PeaceCode" },
+      { property: "og:description", content: "Reading your responses… on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." }] }),
   component: Processing,
 });
 

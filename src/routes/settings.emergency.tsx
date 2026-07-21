@@ -6,6 +6,9 @@ import { PhoneCall, MapPin } from "lucide-react";
 
 export const Route = createFileRoute("/settings/emergency")({
   head: () => ({ meta: [{ title: "Emergency & Safety — Settings" },
+      { name: "description", content: "Emergency & Safety — Settings on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Emergency & Safety — Settings" },
+      { property: "og:description", content: "Emergency & Safety — Settings on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/settings/emergency.svg?title=Emergency+%26+Safety+%E2%80%94+Settings" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

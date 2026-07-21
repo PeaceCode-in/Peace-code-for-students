@@ -6,6 +6,9 @@ import { loadPrefs, savePrefs, loadConvs, saveConvs, loadMems, saveMems, type Pr
 
 export const Route = createFileRoute("/peacebot/settings")({
   head: () => ({ meta: [{ title: "Peace Bot · settings" },
+      { name: "description", content: "Peace Bot · settings on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Peace Bot · settings" },
+      { property: "og:description", content: "Peace Bot · settings on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot/settings.svg?title=Peace+Bot+%C2%B7+settings" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

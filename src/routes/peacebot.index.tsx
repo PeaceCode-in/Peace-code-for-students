@@ -13,6 +13,8 @@ import {
 export const Route = createFileRoute("/peacebot/")({
   head: () => ({ meta: [
     { title: "Peace Bot — your quiet companion · PeaceCode" },
+      { property: "og:title", content: "Peace Bot — your quiet companion · PeaceCode" },
+      { property: "og:description", content: "Peace Bot — your quiet companion · PeaceCode on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
     { name: "description", content: "An emotionally intelligent AI companion for students. Talk, reflect, focus, sleep, celebrate." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot.svg?title=Peace+Bot+%E2%80%94+your+quiet+companion+%C2%B7+PeaceCode" },
       { property: "og:image:width", content: "1200" },

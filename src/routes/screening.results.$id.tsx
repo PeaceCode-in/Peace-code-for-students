@@ -10,7 +10,10 @@ import { generateInsights, type InsightsOutput } from "@/lib/screening-ai.functi
 
 export const Route = createFileRoute("/screening/results/$id")({
   loader: ({ params }) => ({ id: params.id }),
-  head: () => ({ meta: [{ title: "Your results — PeaceCode Screening" }] }),
+  head: () => ({ meta: [{ title: "Your results — PeaceCode Screening" },
+      { name: "description", content: "Your results on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Your results — PeaceCode Screening" },
+      { property: "og:description", content: "Your results on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." }] }),
   component: Results,
 });
 

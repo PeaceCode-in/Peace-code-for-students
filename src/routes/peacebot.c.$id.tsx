@@ -13,7 +13,10 @@ import {
 import { peacebotReply } from "@/lib/peacebot-ai.functions";
 
 export const Route = createFileRoute("/peacebot/c/$id")({
-  head: () => ({ meta: [{ title: "Peace Bot · conversation" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Peace Bot · conversation" },
+      { name: "description", content: "Peace Bot · conversation on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Peace Bot · conversation" },
+      { property: "og:description", content: "Peace Bot · conversation on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." }, { name: "robots", content: "noindex" }] }),
   component: ConversationPage,
 });
 

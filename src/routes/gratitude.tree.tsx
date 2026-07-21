@@ -8,6 +8,9 @@ import { gratitudeAI } from "@/lib/gratitude-ai.functions";
 
 export const Route = createFileRoute("/gratitude/tree")({
   head: () => ({ meta: [{ title: "Your Tree — Gratitude" },
+      { name: "description", content: "Your Tree — Gratitude on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Your Tree — Gratitude" },
+      { property: "og:description", content: "Your Tree — Gratitude on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/gratitude/tree.svg?title=Your+Tree+%E2%80%94+Gratitude" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

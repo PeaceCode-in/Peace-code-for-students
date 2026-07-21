@@ -4,6 +4,9 @@ import { useSettings, type Personality, type ResponseLength } from "@/lib/settin
 
 export const Route = createFileRoute("/settings/peacebot")({
   head: () => ({ meta: [{ title: "PeaceBot — Settings" },
+      { name: "description", content: "PeaceBot — Settings on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "PeaceBot — Settings" },
+      { property: "og:description", content: "PeaceBot — Settings on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/settings/peacebot.svg?title=PeaceBot+%E2%80%94+Settings" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

@@ -5,6 +5,9 @@ import { surface, surface2, border, ink, muted, primary, soft, Panel, StatTile }
 
 export const Route = createFileRoute("/profile/garden")({
   head: () => ({ meta: [{ title: "Mind Garden · PeaceCode" },
+      { name: "description", content: "Mind Garden · PeaceCode on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Mind Garden · PeaceCode" },
+      { property: "og:description", content: "Mind Garden · PeaceCode on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/profile/garden.svg?title=Mind+Garden+%C2%B7+PeaceCode" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

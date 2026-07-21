@@ -6,6 +6,9 @@ import { Check } from "lucide-react";
 
 export const Route = createFileRoute("/settings/connected")({
   head: () => ({ meta: [{ title: "Connected Accounts — Settings" },
+      { name: "description", content: "Connected Accounts — Settings on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Connected Accounts — Settings" },
+      { property: "og:description", content: "Connected Accounts — Settings on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/settings/connected.svg?title=Connected+Accounts+%E2%80%94+Settings" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

@@ -6,6 +6,9 @@ import { Download } from "lucide-react";
 
 export const Route = createFileRoute("/resources/downloads")({
   head: () => ({ meta: [{ title: "Downloads — Resources" },
+      { name: "description", content: "Downloads — Resources on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Downloads — Resources" },
+      { property: "og:description", content: "Downloads — Resources on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/resources/downloads.svg?title=Downloads+%E2%80%94+Resources" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

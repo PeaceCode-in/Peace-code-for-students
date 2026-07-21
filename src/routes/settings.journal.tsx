@@ -4,6 +4,9 @@ import { useSettings } from "@/lib/settings-store";
 
 export const Route = createFileRoute("/settings/journal")({
   head: () => ({ meta: [{ title: "Journal — Settings" },
+      { name: "description", content: "Journal — Settings on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Journal — Settings" },
+      { property: "og:description", content: "Journal — Settings on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/settings/journal.svg?title=Journal+%E2%80%94+Settings" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

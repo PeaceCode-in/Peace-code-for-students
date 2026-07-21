@@ -6,6 +6,9 @@ import { loadMems, addMem, patchMem, removeMem, type Memory } from "@/lib/peaceb
 
 export const Route = createFileRoute("/peacebot/memory")({
   head: () => ({ meta: [{ title: "Peace Bot · memory" },
+      { name: "description", content: "Peace Bot · memory on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Peace Bot · memory" },
+      { property: "og:description", content: "Peace Bot · memory on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot/memory.svg?title=Peace+Bot+%C2%B7+memory" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

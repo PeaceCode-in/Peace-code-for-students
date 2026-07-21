@@ -6,6 +6,9 @@ import { TESTS, loadSessions, deleteSession, type Session } from "@/lib/screenin
 
 export const Route = createFileRoute("/screening/history")({
   head: () => ({ meta: [{ title: "History — PeaceCode Screening" },
+      { name: "description", content: "History on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "History — PeaceCode Screening" },
+      { property: "og:description", content: "History on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/screening/history.svg?title=History+%E2%80%94+PeaceCode+Screening" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

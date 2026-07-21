@@ -5,6 +5,9 @@ import { Trophy, Flame, Clock, CheckCircle2, Target } from "lucide-react";
 
 export const Route = createFileRoute("/resources/achievements")({
   head: () => ({ meta: [{ title: "Achievements — Resources" },
+      { name: "description", content: "Achievements — Resources on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Achievements — Resources" },
+      { property: "og:description", content: "Achievements — Resources on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/resources/achievements.svg?title=Achievements+%E2%80%94+Resources" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

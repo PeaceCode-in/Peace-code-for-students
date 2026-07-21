@@ -9,6 +9,9 @@ import {
 
 export const Route = createFileRoute("/gratitude/history")({
   head: () => ({ meta: [{ title: "Gratitude History & Analytics" },
+      { name: "description", content: "Gratitude History & Analytics on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Gratitude History & Analytics" },
+      { property: "og:description", content: "Gratitude History & Analytics on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/gratitude/history.svg?title=Gratitude+History+%26+Analytics" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

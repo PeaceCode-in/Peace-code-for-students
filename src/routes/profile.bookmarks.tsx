@@ -6,6 +6,9 @@ import { surface, surface2, border, ink, muted, primary, soft, Panel, Toasts, pu
 
 export const Route = createFileRoute("/profile/bookmarks")({
   head: () => ({ meta: [{ title: "Saved resources · PeaceCode" },
+      { name: "description", content: "Saved resources · PeaceCode on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Saved resources · PeaceCode" },
+      { property: "og:description", content: "Saved resources · PeaceCode on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/profile/bookmarks.svg?title=Saved+resources+%C2%B7+PeaceCode" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
