@@ -44,7 +44,9 @@ function AuthorPage() {
   const list = resourcesByAuthor(a.id);
   return (
     <AppShell>
+      <AuthorJsonLd author={a} />
       <main className="max-w-[1100px] mx-auto px-4 sm:px-6 py-6 sm:py-10">
+
         <div className="rounded-3xl p-8 sm:p-12 mb-10" style={{ background: "var(--pc-surface)", border: "1px solid var(--pc-border)" }}>
           <div className="flex items-start gap-5">
             <div className="w-20 h-20 rounded-full flex items-center justify-center font-serif text-[28px] shrink-0"

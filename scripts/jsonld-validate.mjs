@@ -69,6 +69,7 @@ const KNOWN_TYPES = new Set([
   "LearningResource",
   "CreativeWork",
   "Article",
+  "MedicalScholarlyArticle",
   "DiscussionForumPosting",
   "Event",
   "ProfilePage",
@@ -89,7 +90,12 @@ const KNOWN_TYPES = new Set([
   "FAQPage",
   "Question",
   "Answer",
+  "Person",
+  "Physician",
+  "Psychologist",
+  "EducationalOccupationalCredential",
 ]);
+
 
 // Required properties per @type (baseline). Missing any → error.
 const REQUIRED = {
