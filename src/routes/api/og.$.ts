@@ -192,35 +192,95 @@ function titleFromPath(path: string): string {
   return last.replace(/\b\w/g, (m) => m.toUpperCase());
 }
 
+/**
+ * Fast, deterministic 32-bit FNV-1a hash → hex. Used to build strong
+ * ETags from the rendered SVG body so any change in inputs (title,
+ * kicker, palette, route) yields a new tag and scrapers refresh.
+ */
+function fnv1a(input: string): string {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < input.length; i++) {
+    h ^= input.charCodeAt(i);
+    h = (h + ((h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24))) >>> 0;
+  }
+  return h.toString(16).padStart(8, "0");
+}
+
+/** Semantic version of the renderer — bump to invalidate all ETags. */
+const OG_RENDERER_VERSION = "1";
+
+async function handleOg(request: Request): Promise<Response> {
+  const url = new URL(request.url);
+  // The splat comes in as everything after /api/og/
+  const splat = url.pathname.replace(/^\/api\/og\/?/, "");
+  const routePath = "/" + splat.replace(/\.svg$/i, "");
+
+  const rawTitle = url.searchParams.get("title") ?? titleFromPath(routePath);
+  const rawKicker = url.searchParams.get("kicker") ?? kickerFromPath(routePath);
+  const paletteName = url.searchParams.get("palette");
+  const palette = paletteForPath(routePath, paletteName);
+
+  // Clamp to protect the layout from absurd inputs.
+  const title = rawTitle.slice(0, 80);
+  const kicker = rawKicker.slice(0, 40).toUpperCase();
+
+  const svg = renderSvg({ title, kicker, palette });
+
+  // Strong ETag over renderer version + final body — deterministic and
+  // varies precisely with the meaningful inputs (title, kicker, palette,
+  // route path). Query-param permutations that don't affect output
+  // collapse to the same tag, which is what we want.
+  const etag = `"og-${OG_RENDERER_VERSION}-${fnv1a(svg)}"`;
+
+  // Common caching headers shared by 200 and 304 responses.
+  const cacheHeaders: Record<string, string> = {
+    ETag: etag,
+    // Public: safe to cache in shared caches (Cloudflare, social scrapers).
+    // max-age: browser cache lifetime.
+    // s-maxage: shared/CDN cache lifetime (longer — output is deterministic).
+    // stale-while-revalidate: serve stale while re-fetching in background.
+    // stale-if-error: keep serving on upstream failure.
+    "Cache-Control":
+      "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800, stale-if-error=604800, immutable",
+    // Signal to intermediaries that the response body depends on these
+    // request dimensions. Query string is implicitly part of the cache
+    // key on all major CDNs, so Vary only needs to cover negotiated
+    // request headers.
+    Vary: "Accept, Accept-Encoding",
+  };
+
+  // Conditional GET — honour If-None-Match for scraper refreshes.
+  const ifNoneMatch = request.headers.get("if-none-match");
+  if (ifNoneMatch && etagMatches(ifNoneMatch, etag)) {
+    return new Response(null, { status: 304, headers: cacheHeaders });
+  }
+
+  const isHead = request.method === "HEAD";
+  return new Response(isHead ? null : svg, {
+    status: 200,
+    headers: {
+      ...cacheHeaders,
+      "Content-Type": "image/svg+xml; charset=utf-8",
+    },
+  });
+}
+
+/**
+ * RFC 7232 §3.1 — If-None-Match can be a comma-separated list or "*".
+ * Compare using weak equivalence (ignoring any leading "W/").
+ */
+function etagMatches(ifNoneMatch: string, etag: string): boolean {
+  if (ifNoneMatch.trim() === "*") return true;
+  const strip = (s: string) => s.trim().replace(/^W\//, "");
+  const target = strip(etag);
+  return ifNoneMatch.split(",").some((tag) => strip(tag) === target);
+}
+
 export const Route = createFileRoute("/api/og/$")({
   server: {
     handlers: {
-      GET: async ({ request }) => {
-        const url = new URL(request.url);
-        // The splat comes in as everything after /api/og/
-        const splat = url.pathname.replace(/^\/api\/og\/?/, "");
-        const routePath = "/" + splat.replace(/\.svg$/i, "");
-
-        const rawTitle = url.searchParams.get("title") ?? titleFromPath(routePath);
-        const rawKicker = url.searchParams.get("kicker") ?? kickerFromPath(routePath);
-        const paletteName = url.searchParams.get("palette");
-        const palette = paletteForPath(routePath, paletteName);
-
-        // Clamp to protect the layout from absurd inputs.
-        const title = rawTitle.slice(0, 80);
-        const kicker = rawKicker.slice(0, 40).toUpperCase();
-
-        const svg = renderSvg({ title, kicker, palette });
-
-        return new Response(svg, {
-          status: 200,
-          headers: {
-            "Content-Type": "image/svg+xml; charset=utf-8",
-            // Long cache — deterministic output for a given URL.
-            "Cache-Control": "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
-          },
-        });
-      },
+      GET: async ({ request }) => handleOg(request),
+      HEAD: async ({ request }) => handleOg(request),
     },
   },
 });
