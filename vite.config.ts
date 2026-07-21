@@ -27,7 +27,7 @@ function seoCheckPlugin() {
         env: process.env,
       });
       if (result.status !== 0) {
-        this.error(
+        throw new Error(
           "SEO metadata check failed. Fix the issues above or run `node scripts/seo-check.mjs` locally.",
         );
       }
