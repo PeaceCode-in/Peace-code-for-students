@@ -46,6 +46,9 @@ const ROUTES = [
   "/hub",
   "/settings",
   "/settings/appearance",
+  "/settings/support",
+  "/screening/resources",
+  "/screening/test/phq9",
   "/emergency",
 ];
 
@@ -83,6 +86,9 @@ const KNOWN_TYPES = new Set([
   "MedicalCondition",
   "SearchAction",
   "EntryPoint",
+  "FAQPage",
+  "Question",
+  "Answer",
 ]);
 
 // Required properties per @type (baseline). Missing any → error.
@@ -101,6 +107,9 @@ const REQUIRED = {
   ProfilePage: ["name"],
   ImageObject: ["url"],
   Offer: ["price", "priceCurrency"],
+  FAQPage: ["mainEntity"],
+  Question: ["name", "acceptedAnswer"],
+  Answer: ["text"],
 };
 
 // String fields that must be absolute URLs when present.

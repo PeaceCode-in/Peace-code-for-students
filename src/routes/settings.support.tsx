@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SettingsShell, Section, Row, GhostButton, TextArea } from "@/components/settings/primitives";
 import { palette } from "@/components/AppShell";
+import { FaqJsonLd } from "@/components/seo/FaqJsonLd";
 import { useState } from "react";
 import { Star, ExternalLink } from "lucide-react";
 
@@ -52,6 +53,7 @@ function SupportPage() {
           </div>
         ))}
       </Section>
+      <FaqJsonLd items={FAQS} />
 
       <Section title="Rate PeaceCode">
         <div className="px-5 py-4 flex items-center gap-2">

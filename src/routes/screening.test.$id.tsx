@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { AppShell, palette } from "@/components/AppShell";
+import { FaqJsonLd } from "@/components/seo/FaqJsonLd";
 import { ArrowLeft, ArrowRight, ChevronDown, ShieldCheck, Clock, ListChecks, BookOpen, Info } from "lucide-react";
 import { getTest, loadPrefs, savePrefs } from "@/lib/screening-store";
 
@@ -80,6 +81,7 @@ function TestDetail() {
                   </button>
                 ))}
               </div>
+              <FaqJsonLd items={FAQS} />
             </div>
           </div>
 
