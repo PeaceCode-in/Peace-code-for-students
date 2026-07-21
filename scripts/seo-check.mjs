@@ -61,8 +61,14 @@ function relFile(fp) {
  * `meta: [ ... ]` block. Only handles simple string literals — dynamic
  * template strings are treated as "present" without a length check.
  */
+function extractLiteral(raw) {
+  // Match "...", '...', or `...`, tolerating escapes and the OTHER quote inside.
+  const m = raw.match(/^"((?:[^"\\]|\\.)*)"$|^'((?:[^'\\]|\\.)*)'$|^`((?:[^`\\]|\\.)*)`$/);
+  if (!m) return null;
+  return m[1] ?? m[2] ?? m[3] ?? "";
+}
+
 function readMetaValue(src, key) {
-  // Match either { name: "key", content: "val" } or { property: "key", content: "val" }
   const pattern = new RegExp(
     `\\{\\s*(?:name|property)\\s*:\\s*["']${key}["']\\s*,\\s*content\\s*:\\s*([^}]+?)\\s*\\}`,
     "s",
@@ -70,15 +76,16 @@ function readMetaValue(src, key) {
   const m = src.match(pattern);
   if (!m) return { present: false };
   const raw = m[1].trim();
-  const lit = raw.match(/^["'`]([^"'`]*)["'`]$/);
-  return { present: true, value: lit ? lit[1] : null, dynamic: !lit };
+  const lit = extractLiteral(raw);
+  return { present: true, value: lit, dynamic: lit === null };
 }
 
 function readTitle(src) {
-  // title: "..." inside meta array
-  const m = src.match(/\{\s*title\s*:\s*(["'`])([^"'`]*)\1\s*\}/);
+  const m = src.match(
+    /\{\s*title\s*:\s*(?:"((?:[^"\\]|\\.)*)"|'((?:[^'\\]|\\.)*)'|`((?:[^`\\]|\\.)*)`)\s*\}/,
+  );
   if (!m) return { present: false };
-  return { present: true, value: m[2], dynamic: false };
+  return { present: true, value: m[1] ?? m[2] ?? m[3] ?? "", dynamic: false };
 }
 
 function hasCanonical(src) {
