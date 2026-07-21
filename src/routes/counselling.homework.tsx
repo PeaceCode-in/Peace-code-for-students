@@ -6,7 +6,22 @@ import { useState } from "react";
 import { Wind, Feather, BookOpen, Target, ClipboardList, Plus, Check } from "lucide-react";
 
 export const Route = createFileRoute("/counselling/homework")({
-  component: Homework,
+  
+  head: () => ({
+    meta: [
+      { title: "Therapy homework — PeaceCode" },
+      { name: "description", content: "The small practices your therapist recommended for this week." },
+      { property: "og:title", content: "Therapy homework — PeaceCode" },
+      { property: "og:description", content: "The small practices your therapist recommended for this week." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling/homework" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Therapy homework — PeaceCode" },
+      { name: "twitter:description", content: "The small practices your therapist recommended for this week." },
+    ],
+    links: [{ rel: "canonical", href: "/counselling/homework" }],
+  }),
+component: Homework,
 });
 
 function Homework() {

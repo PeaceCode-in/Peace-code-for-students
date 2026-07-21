@@ -6,7 +6,22 @@ import { useEffect, useState } from "react";
 import { loadSessions, TESTS, type Session } from "@/lib/screening-store";
 
 export const Route = createFileRoute("/counselling/assessments")({
-  component: Assessments,
+  
+  head: () => ({
+    meta: [
+      { title: "Assessments — PeaceCode" },
+      { name: "description", content: "Clinical assessments your therapist has assigned or shared with you." },
+      { property: "og:title", content: "Assessments — PeaceCode" },
+      { property: "og:description", content: "Clinical assessments your therapist has assigned or shared with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling/assessments" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Assessments — PeaceCode" },
+      { name: "twitter:description", content: "Clinical assessments your therapist has assigned or shared with you." },
+    ],
+    links: [{ rel: "canonical", href: "/counselling/assessments" }],
+  }),
+component: Assessments,
 });
 
 // Curated set that most counsellors ask about first.

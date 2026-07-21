@@ -5,7 +5,23 @@ import { cmy } from "@/lib/community-theme";
 import { community, useCommunity, timeAgo } from "@/lib/community-store";
 
 export const Route = createFileRoute("/community/threads/$threadId")({
-  component: ThreadDetail,
+  
+  head: () => ({
+    meta: [
+      { title: "$ThreadId — PeaceCode" },
+      { name: "description", content: "$ThreadId on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "$ThreadId — PeaceCode" },
+      { property: "og:description", content: "$ThreadId on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/community/threads/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "$ThreadId — PeaceCode" },
+      { name: "twitter:description", content: "$ThreadId on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/community/threads/" }],
+  }),
+component: ThreadDetail,
   loader: ({ params }) => {
     const t = community.getThread(params.threadId);
     if (!t) throw notFound();

@@ -12,7 +12,23 @@ import {
 } from "@/lib/journal-store";
 import { journalAI } from "@/lib/journal-ai.functions";
 
-export const Route = createFileRoute("/journal/$id")({ component: EditorPage });
+export const Route = createFileRoute("/journal/$id")({ 
+  head: () => ({
+    meta: [
+      { title: "$Id — PeaceCode" },
+      { name: "description", content: "$Id on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "$Id — PeaceCode" },
+      { property: "og:description", content: "$Id on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/journal/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "$Id — PeaceCode" },
+      { name: "twitter:description", content: "$Id on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/journal/" }],
+  }),
+component: EditorPage });
 
 const { surface, surface2, border, ink, muted, primary } = palette;
 

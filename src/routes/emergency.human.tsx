@@ -20,4 +20,20 @@ function ConnectHuman() {
   );
 }
 
-export const Route = createFileRoute("/emergency/human")({ component: ConnectHuman });
+export const Route = createFileRoute("/emergency/human")({ 
+  head: () => ({
+    meta: [
+      { title: "Human — PeaceCode" },
+      { name: "description", content: "Human on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Human — PeaceCode" },
+      { property: "og:description", content: "Human on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency/human" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Human — PeaceCode" },
+      { name: "twitter:description", content: "Human on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency/human" }],
+  }),
+component: ConnectHuman });

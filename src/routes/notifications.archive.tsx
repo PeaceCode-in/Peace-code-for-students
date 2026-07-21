@@ -9,7 +9,22 @@ import { Icon, Panel, Pill, CategoryChip } from "@/components/notifications/prim
 const { surface, border, ink, muted, primary, soft } = palette;
 
 export const Route = createFileRoute("/notifications/archive")({
-  component: Archive,
+  
+  head: () => ({
+    meta: [
+      { title: "Archive — PeaceCode" },
+      { name: "description", content: "Quiet notifications you've moved out of your inbox." },
+      { property: "og:title", content: "Archive — PeaceCode" },
+      { property: "og:description", content: "Quiet notifications you've moved out of your inbox." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/notifications/archive" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Archive — PeaceCode" },
+      { name: "twitter:description", content: "Quiet notifications you've moved out of your inbox." },
+    ],
+    links: [{ rel: "canonical", href: "/notifications/archive" }],
+  }),
+component: Archive,
 });
 
 function Archive() {

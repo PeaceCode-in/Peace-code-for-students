@@ -247,4 +247,19 @@ function Home() {
   );
 }
 
-export const Route = createFileRoute("/events/")({ component: Home });
+export const Route = createFileRoute("/events/")({ 
+  head: () => ({
+    meta: [
+      { title: "Community events — PeaceCode" },
+      { name: "description", content: "Meditation circles, career workshops, wellness meetups — across your campus and beyond." },
+      { property: "og:title", content: "Community events — PeaceCode" },
+      { property: "og:description", content: "Meditation circles, career workshops, wellness meetups — across your campus and beyond." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/events" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Community events — PeaceCode" },
+      { name: "twitter:description", content: "Meditation circles, career workshops, wellness meetups — across your campus and beyond." },
+    ],
+    links: [{ rel: "canonical", href: "/events" }],
+  }),
+component: Home });

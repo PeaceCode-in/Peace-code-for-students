@@ -6,7 +6,22 @@ import { useMemo, useState } from "react";
 import { Play, FileText, Download, Search, Headphones, Video, X, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/counselling/resources")({
-  component: Resources,
+  
+  head: () => ({
+    meta: [
+      { title: "Therapy resources — PeaceCode" },
+      { name: "description", content: "Worksheets, articles, and audios curated by your therapist." },
+      { property: "og:title", content: "Therapy resources — PeaceCode" },
+      { property: "og:description", content: "Worksheets, articles, and audios curated by your therapist." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling/resources" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Therapy resources — PeaceCode" },
+      { name: "twitter:description", content: "Worksheets, articles, and audios curated by your therapist." },
+    ],
+    links: [{ rel: "canonical", href: "/counselling/resources" }],
+  }),
+component: Resources,
 });
 
 const KINDS: Resource["kind"][] = ["article","video","worksheet","meditation","podcast","download"];

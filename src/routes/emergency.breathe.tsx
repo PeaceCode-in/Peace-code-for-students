@@ -112,4 +112,20 @@ function Breathe() {
   );
 }
 
-export const Route = createFileRoute("/emergency/breathe")({ component: Breathe });
+export const Route = createFileRoute("/emergency/breathe")({ 
+  head: () => ({
+    meta: [
+      { title: "Breathe — PeaceCode" },
+      { name: "description", content: "Breathe on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Breathe — PeaceCode" },
+      { property: "og:description", content: "Breathe on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency/breathe" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Breathe — PeaceCode" },
+      { name: "twitter:description", content: "Breathe on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency/breathe" }],
+  }),
+component: Breathe });

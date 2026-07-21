@@ -95,4 +95,20 @@ function Attendance() {
   );
 }
 
-export const Route = createFileRoute("/events/$id/attendance")({ component: Attendance });
+export const Route = createFileRoute("/events/$id/attendance")({ 
+  head: () => ({
+    meta: [
+      { title: "Attendance — PeaceCode" },
+      { name: "description", content: "Attendance on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Attendance — PeaceCode" },
+      { property: "og:description", content: "Attendance on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/events//attendance" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Attendance — PeaceCode" },
+      { name: "twitter:description", content: "Attendance on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/events//attendance" }],
+  }),
+component: Attendance });

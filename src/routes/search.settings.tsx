@@ -5,7 +5,22 @@ import { palette } from "@/components/AppShell";
 import { loadPrefs, savePrefs, clearRecents, type SearchPrefs } from "@/lib/search-store";
 
 export const Route = createFileRoute("/search/settings")({
-  component: SearchSettings,
+  
+  head: () => ({
+    meta: [
+      { title: "Settings — PeaceCode" },
+      { name: "description", content: "Settings on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Settings — PeaceCode" },
+      { property: "og:description", content: "Settings on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/search/settings" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Settings — PeaceCode" },
+      { name: "twitter:description", content: "Settings on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+    ],
+    links: [{ rel: "canonical", href: "/search/settings" }],
+  }),
+component: SearchSettings,
 });
 
 function SearchSettings() {

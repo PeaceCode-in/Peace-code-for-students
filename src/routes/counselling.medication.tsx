@@ -6,7 +6,22 @@ import { useState } from "react";
 import { Pill, Bell, X, Info } from "lucide-react";
 
 export const Route = createFileRoute("/counselling/medication")({
-  component: Medication,
+  
+  head: () => ({
+    meta: [
+      { title: "Medication log — PeaceCode" },
+      { name: "description", content: "Private, gentle medication tracking — never shared without consent." },
+      { property: "og:title", content: "Medication log — PeaceCode" },
+      { property: "og:description", content: "Private, gentle medication tracking — never shared without consent." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling/medication" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Medication log — PeaceCode" },
+      { name: "twitter:description", content: "Private, gentle medication tracking — never shared without consent." },
+    ],
+    links: [{ rel: "canonical", href: "/counselling/medication" }],
+  }),
+component: Medication,
 });
 
 function Medication() {

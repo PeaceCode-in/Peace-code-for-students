@@ -13,7 +13,22 @@ import { Icon, NotifRow, SectionLabel, Panel, Pill, CategoryChip } from "@/compo
 const { surface, border, ink, muted, primary, soft, surface2 } = palette;
 
 export const Route = createFileRoute("/notifications/inbox")({
-  component: Inbox,
+  
+  head: () => ({
+    meta: [
+      { title: "Inbox — PeaceCode" },
+      { name: "description", content: "Everything unread on PeaceCode." },
+      { property: "og:title", content: "Inbox — PeaceCode" },
+      { property: "og:description", content: "Everything unread on PeaceCode." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/notifications/inbox" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Inbox — PeaceCode" },
+      { name: "twitter:description", content: "Everything unread on PeaceCode." },
+    ],
+    links: [{ rel: "canonical", href: "/notifications/inbox" }],
+  }),
+component: Inbox,
 });
 
 type Filter =

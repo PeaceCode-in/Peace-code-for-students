@@ -6,7 +6,22 @@ import { useEffect, useState } from "react";
 import { Plus, X, Download, Trash2 } from "lucide-react";
 
 export const Route = createFileRoute("/counselling/settings")({
-  component: SettingsRoute,
+  
+  head: () => ({
+    meta: [
+      { title: "Counselling settings — PeaceCode" },
+      { name: "description", content: "Session preferences, notifications, and privacy controls." },
+      { property: "og:title", content: "Counselling settings — PeaceCode" },
+      { property: "og:description", content: "Session preferences, notifications, and privacy controls." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling/settings" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Counselling settings — PeaceCode" },
+      { name: "twitter:description", content: "Session preferences, notifications, and privacy controls." },
+    ],
+    links: [{ rel: "canonical", href: "/counselling/settings" }],
+  }),
+component: SettingsRoute,
 });
 
 function SettingsRoute() {

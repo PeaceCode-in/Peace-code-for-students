@@ -120,4 +120,19 @@ function Themes() {
   );
 }
 
-export const Route = createFileRoute("/hub/themes")({ component: Themes });
+export const Route = createFileRoute("/hub/themes")({ 
+  head: () => ({
+    meta: [
+      { title: "Themes — PeaceCode" },
+      { name: "description", content: "Every canvas and palette you can wear on PeaceCode." },
+      { property: "og:title", content: "Themes — PeaceCode" },
+      { property: "og:description", content: "Every canvas and palette you can wear on PeaceCode." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/hub/themes" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Themes — PeaceCode" },
+      { name: "twitter:description", content: "Every canvas and palette you can wear on PeaceCode." },
+    ],
+    links: [{ rel: "canonical", href: "/hub/themes" }],
+  }),
+component: Themes });

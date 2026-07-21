@@ -22,4 +22,20 @@ function Calm() {
   );
 }
 
-export const Route = createFileRoute("/emergency/calm")({ component: Calm });
+export const Route = createFileRoute("/emergency/calm")({ 
+  head: () => ({
+    meta: [
+      { title: "Calm — PeaceCode" },
+      { name: "description", content: "Calm on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Calm — PeaceCode" },
+      { property: "og:description", content: "Calm on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency/calm" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Calm — PeaceCode" },
+      { name: "twitter:description", content: "Calm on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency/calm" }],
+  }),
+component: Calm });

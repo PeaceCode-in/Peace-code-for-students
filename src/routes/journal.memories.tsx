@@ -4,7 +4,22 @@ import { Image as ImageIcon, Mic, Search, Filter, Calendar, ChevronRight, X } fr
 import { AppShell, palette } from "@/components/AppShell";
 import { loadEntries, collectMedia, isUnlocked, type MediaItem } from "@/lib/journal-store";
 
-export const Route = createFileRoute("/journal/memories")({ component: MemoryGallery });
+export const Route = createFileRoute("/journal/memories")({ 
+  head: () => ({
+    meta: [
+      { title: "Memories — PeaceCode" },
+      { name: "description", content: "The gentle threads that ran through your journal this month, surfaced softly." },
+      { property: "og:title", content: "Memories — PeaceCode" },
+      { property: "og:description", content: "The gentle threads that ran through your journal this month, surfaced softly." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/journal/memories" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Memories — PeaceCode" },
+      { name: "twitter:description", content: "The gentle threads that ran through your journal this month, surfaced softly." },
+    ],
+    links: [{ rel: "canonical", href: "/journal/memories" }],
+  }),
+component: MemoryGallery });
 
 const { surface, surface2, border, ink, muted, primary } = palette;
 type Filter = "all" | "photos" | "voice";

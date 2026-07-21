@@ -6,7 +6,23 @@ import { useMemo, useState } from "react";
 import { Check, ArrowRight, Wind, Feather, BookOpen, Target } from "lucide-react";
 
 export const Route = createFileRoute("/counselling/summary/$aid")({
-  component: SessionSummary,
+  
+  head: () => ({
+    meta: [
+      { title: "$Aid — PeaceCode" },
+      { name: "description", content: "$Aid on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "$Aid — PeaceCode" },
+      { property: "og:description", content: "$Aid on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling/summary/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "$Aid — PeaceCode" },
+      { name: "twitter:description", content: "$Aid on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/counselling/summary/" }],
+  }),
+component: SessionSummary,
 });
 
 function SessionSummary() {

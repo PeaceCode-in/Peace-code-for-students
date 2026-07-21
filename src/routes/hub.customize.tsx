@@ -151,4 +151,19 @@ function Customize() {
 // silence
 void surface; void Wand2;
 
-export const Route = createFileRoute("/hub/customize")({ component: Customize });
+export const Route = createFileRoute("/hub/customize")({ 
+  head: () => ({
+    meta: [
+      { title: "Customize your PeaceCode — PeaceCode" },
+      { name: "description", content: "Make PeaceCode feel like yours — palettes, motion, layout, tone." },
+      { property: "og:title", content: "Customize your PeaceCode — PeaceCode" },
+      { property: "og:description", content: "Make PeaceCode feel like yours — palettes, motion, layout, tone." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/hub/customize" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Customize your PeaceCode — PeaceCode" },
+      { name: "twitter:description", content: "Make PeaceCode feel like yours — palettes, motion, layout, tone." },
+    ],
+    links: [{ rel: "canonical", href: "/hub/customize" }],
+  }),
+component: Customize });

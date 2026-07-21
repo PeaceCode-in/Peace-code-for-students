@@ -93,4 +93,20 @@ function Certificate() {
   );
 }
 
-export const Route = createFileRoute("/events/$id/certificate")({ component: Certificate });
+export const Route = createFileRoute("/events/$id/certificate")({ 
+  head: () => ({
+    meta: [
+      { title: "Certificate — PeaceCode" },
+      { name: "description", content: "Certificate on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Certificate — PeaceCode" },
+      { property: "og:description", content: "Certificate on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/events//certificate" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Certificate — PeaceCode" },
+      { name: "twitter:description", content: "Certificate on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/events//certificate" }],
+  }),
+component: Certificate });

@@ -4,7 +4,22 @@ import { useMemo, useState } from "react";
 import { cmy } from "@/lib/community-theme";
 import { useCommunity } from "@/lib/community-store";
 
-export const Route = createFileRoute("/community/circles")({ component: CirclesPage });
+export const Route = createFileRoute("/community/circles")({ 
+  head: () => ({
+    meta: [
+      { title: "Circles — PeaceCode" },
+      { name: "description", content: "Small, moderated communities around shared experiences and campuses." },
+      { property: "og:title", content: "Circles — PeaceCode" },
+      { property: "og:description", content: "Small, moderated communities around shared experiences and campuses." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/community/circles" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Circles — PeaceCode" },
+      { name: "twitter:description", content: "Small, moderated communities around shared experiences and campuses." },
+    ],
+    links: [{ rel: "canonical", href: "/community/circles" }],
+  }),
+component: CirclesPage });
 
 function CirclesPage() {
   const { circles, joinedCircles } = useCommunity();

@@ -7,7 +7,22 @@ import { useMindGym, EXERCISES } from "@/lib/mindgym-store";
 const search = z.object({ sid: z.string().optional() });
 
 export const Route = createFileRoute("/mindgym/share/session")({
-  validateSearch: (s) => search.parse(s),
+  
+  head: () => ({
+    meta: [
+      { title: "Session — PeaceCode" },
+      { name: "description", content: "Session on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Session — PeaceCode" },
+      { property: "og:description", content: "Session on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/mindgym/share/session" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Session — PeaceCode" },
+      { name: "twitter:description", content: "Session on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+    ],
+    links: [{ rel: "canonical", href: "/mindgym/share/session" }],
+  }),
+validateSearch: (s) => search.parse(s),
   component: ShareSession,
 });
 

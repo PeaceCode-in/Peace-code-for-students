@@ -6,7 +6,22 @@ import { useMindGym, brainOverall } from "@/lib/mindgym-store";
 import { useServerFn } from "@tanstack/react-start";
 import { coachDna } from "@/lib/mindgym-ai.functions";
 
-export const Route = createFileRoute("/mindgym/brain-dna")({ component: DnaPage });
+export const Route = createFileRoute("/mindgym/brain-dna")({ 
+  head: () => ({
+    meta: [
+      { title: "Your Brain DNA — PeaceCode" },
+      { name: "description", content: "A personal profile of the mental skills you're strongest at — and where reps will move the needle." },
+      { property: "og:title", content: "Your Brain DNA — PeaceCode" },
+      { property: "og:description", content: "A personal profile of the mental skills you're strongest at — and where reps will move the needle." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/mindgym/brain-dna" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Your Brain DNA — PeaceCode" },
+      { name: "twitter:description", content: "A personal profile of the mental skills you're strongest at — and where reps will move the needle." },
+    ],
+    links: [{ rel: "canonical", href: "/mindgym/brain-dna" }],
+  }),
+component: DnaPage });
 
 function DnaPage() {
   const s = useMindGym();

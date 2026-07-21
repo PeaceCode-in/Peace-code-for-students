@@ -114,4 +114,20 @@ function Chat() {
   );
 }
 
-export const Route = createFileRoute("/events/$id/chat")({ component: Chat });
+export const Route = createFileRoute("/events/$id/chat")({ 
+  head: () => ({
+    meta: [
+      { title: "Chat — PeaceCode" },
+      { name: "description", content: "Chat on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Chat — PeaceCode" },
+      { property: "og:description", content: "Chat on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/events//chat" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Chat — PeaceCode" },
+      { name: "twitter:description", content: "Chat on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/events//chat" }],
+  }),
+component: Chat });

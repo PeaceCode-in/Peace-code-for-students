@@ -4,7 +4,22 @@ import { ArrowLeft } from "lucide-react";
 import { PATHS, EXERCISES, useMindGym } from "@/lib/mindgym-store";
 
 export const Route = createFileRoute("/mindgym/paths")({
-  component: PathsPage,
+  
+  head: () => ({
+    meta: [
+      { title: "Guided paths — PeaceCode" },
+      { name: "description", content: "Multi-week journeys through focus, calm, and resilience — one small rep at a time." },
+      { property: "og:title", content: "Guided paths — PeaceCode" },
+      { property: "og:description", content: "Multi-week journeys through focus, calm, and resilience — one small rep at a time." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/mindgym/paths" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Guided paths — PeaceCode" },
+      { name: "twitter:description", content: "Multi-week journeys through focus, calm, and resilience — one small rep at a time." },
+    ],
+    links: [{ rel: "canonical", href: "/mindgym/paths" }],
+  }),
+component: PathsPage,
 });
 
 function PathsPage() {

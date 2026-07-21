@@ -71,4 +71,19 @@ function Beta() {
   );
 }
 
-export const Route = createFileRoute("/hub/beta")({ component: Beta });
+export const Route = createFileRoute("/hub/beta")({ 
+  head: () => ({
+    meta: [
+      { title: "Beta features — PeaceCode" },
+      { name: "description", content: "Try tomorrow's PeaceCode today. Feedback welcomed." },
+      { property: "og:title", content: "Beta features — PeaceCode" },
+      { property: "og:description", content: "Try tomorrow's PeaceCode today. Feedback welcomed." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/hub/beta" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Beta features — PeaceCode" },
+      { name: "twitter:description", content: "Try tomorrow's PeaceCode today. Feedback welcomed." },
+    ],
+    links: [{ rel: "canonical", href: "/hub/beta" }],
+  }),
+component: Beta });

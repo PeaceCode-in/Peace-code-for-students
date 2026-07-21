@@ -131,4 +131,20 @@ function ThemeDetail() {
   );
 }
 
-export const Route = createFileRoute("/hub/themes/$id")({ component: ThemeDetail });
+export const Route = createFileRoute("/hub/themes/$id")({ 
+  head: () => ({
+    meta: [
+      { title: "$Id — PeaceCode" },
+      { name: "description", content: "$Id on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "$Id — PeaceCode" },
+      { property: "og:description", content: "$Id on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/hub/themes/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "$Id — PeaceCode" },
+      { name: "twitter:description", content: "$Id on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/hub/themes/" }],
+  }),
+component: ThemeDetail });

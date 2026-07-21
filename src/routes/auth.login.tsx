@@ -5,7 +5,23 @@ import { AuthShell, FieldLabel, GlassInput, InlineFeedback, PrimaryButton } from
 import { findUser, loadDraft, startSession, verifyPassword } from "@/lib/auth-store";
 
 export const Route = createFileRoute("/auth/login")({
-  component: LoginPage,
+  
+  head: () => ({
+    meta: [
+      { title: "Log in — PeaceCode" },
+      { name: "description", content: "Welcome back. Sign in with your PeaceCode password to continue." },
+      { property: "og:title", content: "Log in — PeaceCode" },
+      { property: "og:description", content: "Welcome back. Sign in with your PeaceCode password to continue." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/auth/login" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Log in — PeaceCode" },
+      { name: "twitter:description", content: "Welcome back. Sign in with your PeaceCode password to continue." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/auth/login" }],
+  }),
+component: LoginPage,
 });
 
 function LoginPage() {

@@ -206,4 +206,19 @@ function CalendarPage() {
   );
 }
 
-export const Route = createFileRoute("/events/calendar")({ component: CalendarPage });
+export const Route = createFileRoute("/events/calendar")({ 
+  head: () => ({
+    meta: [
+      { title: "Events calendar — PeaceCode" },
+      { name: "description", content: "A month view of everything happening on PeaceCode." },
+      { property: "og:title", content: "Events calendar — PeaceCode" },
+      { property: "og:description", content: "A month view of everything happening on PeaceCode." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/events/calendar" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Events calendar — PeaceCode" },
+      { name: "twitter:description", content: "A month view of everything happening on PeaceCode." },
+    ],
+    links: [{ rel: "canonical", href: "/events/calendar" }],
+  }),
+component: CalendarPage });

@@ -3,7 +3,22 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Flame } from "lucide-react";
 import { useMindGym } from "@/lib/mindgym-store";
 
-export const Route = createFileRoute("/mindgym/streak")({ component: StreakPage });
+export const Route = createFileRoute("/mindgym/streak")({ 
+  head: () => ({
+    meta: [
+      { title: "Your consistency streak — PeaceCode" },
+      { name: "description", content: "Every session counts as a check-in. See your streak, honestly." },
+      { property: "og:title", content: "Your consistency streak — PeaceCode" },
+      { property: "og:description", content: "Every session counts as a check-in. See your streak, honestly." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/mindgym/streak" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Your consistency streak — PeaceCode" },
+      { name: "twitter:description", content: "Every session counts as a check-in. See your streak, honestly." },
+    ],
+    links: [{ rel: "canonical", href: "/mindgym/streak" }],
+  }),
+component: StreakPage });
 
 function StreakPage() {
   const s = useMindGym();

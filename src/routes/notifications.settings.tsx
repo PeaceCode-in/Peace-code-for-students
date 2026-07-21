@@ -11,7 +11,22 @@ import { Icon, Panel, Pill } from "@/components/notifications/primitives";
 const { surface, surface2, border, ink, muted, primary } = palette;
 
 export const Route = createFileRoute("/notifications/settings")({
-  component: Settings,
+  
+  head: () => ({
+    meta: [
+      { title: "Notification settings — PeaceCode" },
+      { name: "description", content: "Choose what PeaceCode nudges you about, and when." },
+      { property: "og:title", content: "Notification settings — PeaceCode" },
+      { property: "og:description", content: "Choose what PeaceCode nudges you about, and when." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/notifications/settings" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Notification settings — PeaceCode" },
+      { name: "twitter:description", content: "Choose what PeaceCode nudges you about, and when." },
+    ],
+    links: [{ rel: "canonical", href: "/notifications/settings" }],
+  }),
+component: Settings,
 });
 
 function Toggle({ on, onChange, label, hint }: { on: boolean; onChange: (v: boolean) => void; label: string; hint?: string }) {

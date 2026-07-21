@@ -8,7 +8,23 @@ import { X, Pause, Play, RotateCcw, Heart } from "lucide-react";
 import { EXERCISES, completeSession, useMindGym, type Exercise } from "@/lib/mindgym-store";
 
 export const Route = createFileRoute("/mindgym/train/$id")({
-  component: TrainPage,
+  
+  head: () => ({
+    meta: [
+      { title: "$Id — PeaceCode" },
+      { name: "description", content: "$Id on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "$Id — PeaceCode" },
+      { property: "og:description", content: "$Id on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/mindgym/train/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "$Id — PeaceCode" },
+      { name: "twitter:description", content: "$Id on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/mindgym/train/" }],
+  }),
+component: TrainPage,
 });
 
 function TrainPage() {

@@ -9,7 +9,22 @@ import { Icon, NotifRow, Panel, Pill } from "@/components/notifications/primitiv
 const { muted, ink, primary } = palette;
 
 export const Route = createFileRoute("/notifications/bookmarks")({
-  component: Bookmarks,
+  
+  head: () => ({
+    meta: [
+      { title: "Bookmarked notifications — PeaceCode" },
+      { name: "description", content: "Notifications you've saved to revisit." },
+      { property: "og:title", content: "Bookmarked notifications — PeaceCode" },
+      { property: "og:description", content: "Notifications you've saved to revisit." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/notifications/bookmarks" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Bookmarked notifications — PeaceCode" },
+      { name: "twitter:description", content: "Notifications you've saved to revisit." },
+    ],
+    links: [{ rel: "canonical", href: "/notifications/bookmarks" }],
+  }),
+component: Bookmarks,
 });
 
 function Bookmarks() {

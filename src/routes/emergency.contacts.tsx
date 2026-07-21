@@ -105,4 +105,20 @@ function ContactsPage() {
   );
 }
 
-export const Route = createFileRoute("/emergency/contacts")({ component: ContactsPage });
+export const Route = createFileRoute("/emergency/contacts")({ 
+  head: () => ({
+    meta: [
+      { title: "Contacts — PeaceCode" },
+      { name: "description", content: "Contacts on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Contacts — PeaceCode" },
+      { property: "og:description", content: "Contacts on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency/contacts" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Contacts — PeaceCode" },
+      { name: "twitter:description", content: "Contacts on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency/contacts" }],
+  }),
+component: ContactsPage });

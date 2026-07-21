@@ -4,7 +4,23 @@ import { ArrowLeft, Play, Clock, Zap } from "lucide-react";
 import { PATHS, EXERCISES, useMindGym, type Difficulty } from "@/lib/mindgym-store";
 
 export const Route = createFileRoute("/mindgym/path/$slug")({
-  component: PathDetail,
+  
+  head: () => ({
+    meta: [
+      { title: "$Slug — PeaceCode" },
+      { name: "description", content: "$Slug on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "$Slug — PeaceCode" },
+      { property: "og:description", content: "$Slug on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/mindgym/path/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "$Slug — PeaceCode" },
+      { name: "twitter:description", content: "$Slug on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/mindgym/path/" }],
+  }),
+component: PathDetail,
 });
 
 const LEVELS: Difficulty[] = ["Beginner", "Intermediate", "Advanced", "Master"];

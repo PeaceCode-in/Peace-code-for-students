@@ -49,6 +49,22 @@ function Confirm() {
 }
 
 export const Route = createFileRoute("/emergency/confirm")({
-  validateSearch: (s: Record<string, unknown>) => ({ from: typeof s.from === "string" ? s.from : undefined }),
+  
+  head: () => ({
+    meta: [
+      { title: "Confirm — PeaceCode" },
+      { name: "description", content: "Confirm on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Confirm — PeaceCode" },
+      { property: "og:description", content: "Confirm on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency/confirm" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Confirm — PeaceCode" },
+      { name: "twitter:description", content: "Confirm on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency/confirm" }],
+  }),
+validateSearch: (s: Record<string, unknown>) => ({ from: typeof s.from === "string" ? s.from : undefined }),
   component: Confirm,
 });

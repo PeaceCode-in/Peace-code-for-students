@@ -71,4 +71,20 @@ function Timeline() {
   );
 }
 
-export const Route = createFileRoute("/events/$id/timeline")({ component: Timeline });
+export const Route = createFileRoute("/events/$id/timeline")({ 
+  head: () => ({
+    meta: [
+      { title: "Timeline — PeaceCode" },
+      { name: "description", content: "Timeline on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Timeline — PeaceCode" },
+      { property: "og:description", content: "Timeline on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/events//timeline" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Timeline — PeaceCode" },
+      { name: "twitter:description", content: "Timeline on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/events//timeline" }],
+  }),
+component: Timeline });

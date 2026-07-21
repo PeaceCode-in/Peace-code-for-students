@@ -23,4 +23,20 @@ function Toolkit() {
   );
 }
 
-export const Route = createFileRoute("/emergency/toolkit")({ component: Toolkit });
+export const Route = createFileRoute("/emergency/toolkit")({ 
+  head: () => ({
+    meta: [
+      { title: "Toolkit — PeaceCode" },
+      { name: "description", content: "Toolkit on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Toolkit — PeaceCode" },
+      { property: "og:description", content: "Toolkit on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency/toolkit" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Toolkit — PeaceCode" },
+      { name: "twitter:description", content: "Toolkit on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency/toolkit" }],
+  }),
+component: Toolkit });

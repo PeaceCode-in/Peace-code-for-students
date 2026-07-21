@@ -7,7 +7,23 @@ import { coachPost } from "@/lib/mindgym-ai.functions";
 import { useServerFn } from "@tanstack/react-start";
 
 export const Route = createFileRoute("/mindgym/results/$sid")({
-  component: Results,
+  
+  head: () => ({
+    meta: [
+      { title: "$Sid — PeaceCode" },
+      { name: "description", content: "$Sid on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "$Sid — PeaceCode" },
+      { property: "og:description", content: "$Sid on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/mindgym/results/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "$Sid — PeaceCode" },
+      { name: "twitter:description", content: "$Sid on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/mindgym/results/" }],
+  }),
+component: Results,
 });
 
 function Results() {

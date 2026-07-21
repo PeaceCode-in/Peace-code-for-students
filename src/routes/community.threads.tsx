@@ -4,7 +4,22 @@ import { ArrowUp, ArrowDown, MessageCircle, Bookmark, ChevronRight, Sparkles, Fl
 import { cmy } from "@/lib/community-theme";
 import { community, useCommunity, timeAgo } from "@/lib/community-store";
 
-export const Route = createFileRoute("/community/threads")({ component: ThreadsPage });
+export const Route = createFileRoute("/community/threads")({ 
+  head: () => ({
+    meta: [
+      { title: "Threads — PeaceCode" },
+      { name: "description", content: "Long-form conversations, kindly moderated, safely anonymous." },
+      { property: "og:title", content: "Threads — PeaceCode" },
+      { property: "og:description", content: "Long-form conversations, kindly moderated, safely anonymous." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/community/threads" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Threads — PeaceCode" },
+      { name: "twitter:description", content: "Long-form conversations, kindly moderated, safely anonymous." },
+    ],
+    links: [{ rel: "canonical", href: "/community/threads" }],
+  }),
+component: ThreadsPage });
 
 type Sort = "soft" | "warm" | "new";
 

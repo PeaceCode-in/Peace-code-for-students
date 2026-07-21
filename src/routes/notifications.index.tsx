@@ -12,7 +12,22 @@ import { currentDisplayName } from "@/lib/auth-store";
 const { surface, surface2, border, ink, muted, primary, soft } = palette;
 
 export const Route = createFileRoute("/notifications/")({
-  component: NotificationsHome,
+  
+  head: () => ({
+    meta: [
+      { title: "Notifications — PeaceCode" },
+      { name: "description", content: "Your inbox on PeaceCode — softly grouped, never noisy." },
+      { property: "og:title", content: "Notifications — PeaceCode" },
+      { property: "og:description", content: "Your inbox on PeaceCode — softly grouped, never noisy." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/notifications" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Notifications — PeaceCode" },
+      { name: "twitter:description", content: "Your inbox on PeaceCode — softly grouped, never noisy." },
+    ],
+    links: [{ rel: "canonical", href: "/notifications" }],
+  }),
+component: NotificationsHome,
 });
 
 function useNotifs(): [Notif[], () => void] {

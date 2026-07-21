@@ -99,4 +99,19 @@ function MyEvents() {
   );
 }
 
-export const Route = createFileRoute("/events/my")({ component: MyEvents });
+export const Route = createFileRoute("/events/my")({ 
+  head: () => ({
+    meta: [
+      { title: "My events — PeaceCode" },
+      { name: "description", content: "Events you've RSVP'd to, attended, and hosted." },
+      { property: "og:title", content: "My events — PeaceCode" },
+      { property: "og:description", content: "Events you've RSVP'd to, attended, and hosted." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/events/my" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "My events — PeaceCode" },
+      { name: "twitter:description", content: "Events you've RSVP'd to, attended, and hosted." },
+    ],
+    links: [{ rel: "canonical", href: "/events/my" }],
+  }),
+component: MyEvents });

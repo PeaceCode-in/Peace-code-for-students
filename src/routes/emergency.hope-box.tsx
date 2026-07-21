@@ -130,4 +130,20 @@ function HopeBox() {
   );
 }
 
-export const Route = createFileRoute("/emergency/hope-box")({ component: HopeBox });
+export const Route = createFileRoute("/emergency/hope-box")({ 
+  head: () => ({
+    meta: [
+      { title: "Hope Box — PeaceCode" },
+      { name: "description", content: "Hope Box on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Hope Box — PeaceCode" },
+      { property: "og:description", content: "Hope Box on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency/hope-box" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Hope Box — PeaceCode" },
+      { name: "twitter:description", content: "Hope Box on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency/hope-box" }],
+  }),
+component: HopeBox });

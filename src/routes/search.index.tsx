@@ -66,7 +66,22 @@ async function aiRecommend(query: string, items: SearchItem[]): Promise<string> 
 }
 
 export const Route = createFileRoute("/search/")({
-  component: SearchCenter,
+  
+  head: () => ({
+    meta: [
+      { title: "Search PeaceCode — PeaceCode" },
+      { name: "description", content: "Find any tool, article, buddy, or moment — fast." },
+      { property: "og:title", content: "Search PeaceCode — PeaceCode" },
+      { property: "og:description", content: "Find any tool, article, buddy, or moment — fast." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/search" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Search PeaceCode — PeaceCode" },
+      { name: "twitter:description", content: "Find any tool, article, buddy, or moment — fast." },
+    ],
+    links: [{ rel: "canonical", href: "/search" }],
+  }),
+component: SearchCenter,
 });
 
 function SearchCenter() {

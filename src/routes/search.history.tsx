@@ -11,7 +11,22 @@ import {
 } from "@/lib/search-store";
 
 export const Route = createFileRoute("/search/history")({
-  component: SearchHistory,
+  
+  head: () => ({
+    meta: [
+      { title: "History — PeaceCode" },
+      { name: "description", content: "History on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "History — PeaceCode" },
+      { property: "og:description", content: "History on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/search/history" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "History — PeaceCode" },
+      { name: "twitter:description", content: "History on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+    ],
+    links: [{ rel: "canonical", href: "/search/history" }],
+  }),
+component: SearchHistory,
 });
 
 function SearchHistory() {

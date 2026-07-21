@@ -281,4 +281,19 @@ function Home() {
   );
 }
 
-export const Route = createFileRoute("/hub/")({ component: Home });
+export const Route = createFileRoute("/hub/")({ 
+  head: () => ({
+    meta: [
+      { title: "Product Hub — PeaceCode" },
+      { name: "description", content: "Announcements, roadmap, integrations, and everything new on PeaceCode." },
+      { property: "og:title", content: "Product Hub — PeaceCode" },
+      { property: "og:description", content: "Announcements, roadmap, integrations, and everything new on PeaceCode." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/hub" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Product Hub — PeaceCode" },
+      { name: "twitter:description", content: "Announcements, roadmap, integrations, and everything new on PeaceCode." },
+    ],
+    links: [{ rel: "canonical", href: "/hub" }],
+  }),
+component: Home });

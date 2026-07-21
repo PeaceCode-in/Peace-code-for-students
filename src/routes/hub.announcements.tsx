@@ -68,4 +68,19 @@ function Announcements() {
 // silence
 void primary; void soft; void border;
 
-export const Route = createFileRoute("/hub/announcements")({ component: Announcements });
+export const Route = createFileRoute("/hub/announcements")({ 
+  head: () => ({
+    meta: [
+      { title: "Announcements — PeaceCode" },
+      { name: "description", content: "The latest from the PeaceCode team." },
+      { property: "og:title", content: "Announcements — PeaceCode" },
+      { property: "og:description", content: "The latest from the PeaceCode team." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/hub/announcements" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Announcements — PeaceCode" },
+      { name: "twitter:description", content: "The latest from the PeaceCode team." },
+    ],
+    links: [{ rel: "canonical", href: "/hub/announcements" }],
+  }),
+component: Announcements });

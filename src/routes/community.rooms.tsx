@@ -3,7 +3,22 @@ import { Volume2 } from "lucide-react";
 import { cmy } from "@/lib/community-theme";
 import { useCommunity } from "@/lib/community-store";
 
-export const Route = createFileRoute("/community/rooms")({ component: RoomsPage });
+export const Route = createFileRoute("/community/rooms")({ 
+  head: () => ({
+    meta: [
+      { title: "Live rooms — PeaceCode" },
+      { name: "description", content: "Drop-in audio and text rooms with peers who get it." },
+      { property: "og:title", content: "Live rooms — PeaceCode" },
+      { property: "og:description", content: "Drop-in audio and text rooms with peers who get it." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/community/rooms" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Live rooms — PeaceCode" },
+      { name: "twitter:description", content: "Drop-in audio and text rooms with peers who get it." },
+    ],
+    links: [{ rel: "canonical", href: "/community/rooms" }],
+  }),
+component: RoomsPage });
 
 function RoomsPage() {
   const { rooms } = useCommunity();

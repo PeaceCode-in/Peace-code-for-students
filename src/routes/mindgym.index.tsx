@@ -15,7 +15,22 @@ import {
 } from "@/lib/mindgym-store";
 
 export const Route = createFileRoute("/mindgym/")({
-  component: MindGymHome,
+  
+  head: () => ({
+    meta: [
+      { title: "Mind Gym — train your inner skills — PeaceCode" },
+      { name: "description", content: "Short daily reps for focus, calm, memory, resilience, and confidence." },
+      { property: "og:title", content: "Mind Gym — train your inner skills — PeaceCode" },
+      { property: "og:description", content: "Short daily reps for focus, calm, memory, resilience, and confidence." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/mindgym" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Mind Gym — train your inner skills — PeaceCode" },
+      { name: "twitter:description", content: "Short daily reps for focus, calm, memory, resilience, and confidence." },
+    ],
+    links: [{ rel: "canonical", href: "/mindgym" }],
+  }),
+component: MindGymHome,
 });
 
 function MindGymHome() {

@@ -6,7 +6,22 @@ import { useState } from "react";
 import { Upload, FileText, Image as ImageIcon, Mic, X, Share2 } from "lucide-react";
 
 export const Route = createFileRoute("/counselling/documents")({
-  component: Documents,
+  
+  head: () => ({
+    meta: [
+      { title: "Documents — PeaceCode" },
+      { name: "description", content: "Consent forms, invoices, and shared files, one tidy place." },
+      { property: "og:title", content: "Documents — PeaceCode" },
+      { property: "og:description", content: "Consent forms, invoices, and shared files, one tidy place." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling/documents" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Documents — PeaceCode" },
+      { name: "twitter:description", content: "Consent forms, invoices, and shared files, one tidy place." },
+    ],
+    links: [{ rel: "canonical", href: "/counselling/documents" }],
+  }),
+component: Documents,
 });
 
 const KINDS: Doc["kind"][] = ["medical","prescription","journal","assessment","image","voice","pdf","other"];
