@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as ScreeningRouteImport } from './routes/screening'
@@ -221,6 +222,11 @@ import { Route as BuddiesFeedbackIdRouteImport } from './routes/buddies.feedback
 import { Route as BuddiesChatIdRouteImport } from './routes/buddies.chat.$id'
 import { Route as BuddiesBookIdRouteImport } from './routes/buddies.book.$id'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -1297,6 +1303,7 @@ export interface FileRoutesByFullPath {
   '/screening': typeof ScreeningRouteWithChildren
   '/search': typeof SearchRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/chat': typeof ApiChatRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
@@ -1493,6 +1500,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/chat': typeof ApiChatRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
@@ -1706,6 +1714,7 @@ export interface FileRoutesById {
   '/screening': typeof ScreeningRouteWithChildren
   '/search': typeof SearchRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/chat': typeof ApiChatRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
@@ -1921,6 +1930,7 @@ export interface FileRouteTypes {
     | '/screening'
     | '/search'
     | '/settings'
+    | '/sitemap.xml'
     | '/api/chat'
     | '/auth/login'
     | '/auth/signup'
@@ -2117,6 +2127,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/sitemap.xml'
     | '/api/chat'
     | '/auth/login'
     | '/auth/signup'
@@ -2329,6 +2340,7 @@ export interface FileRouteTypes {
     | '/screening'
     | '/search'
     | '/settings'
+    | '/sitemap.xml'
     | '/api/chat'
     | '/auth/login'
     | '/auth/signup'
@@ -2543,6 +2555,7 @@ export interface RootRouteChildren {
   ScreeningRoute: typeof ScreeningRouteWithChildren
   SearchRoute: typeof SearchRouteWithChildren
   SettingsRoute: typeof SettingsRouteWithChildren
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiChatRoute: typeof ApiChatRoute
   BuddiesIdRoute: typeof BuddiesIdRoute
   BuddiesAboutRoute: typeof BuddiesAboutRoute
@@ -2573,6 +2586,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/settings': {
       id: '/settings'
       path: '/settings'
@@ -4631,6 +4651,7 @@ const rootRouteChildren: RootRouteChildren = {
   ScreeningRoute: ScreeningRouteWithChildren,
   SearchRoute: SearchRouteWithChildren,
   SettingsRoute: SettingsRouteWithChildren,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiChatRoute: ApiChatRoute,
   BuddiesIdRoute: BuddiesIdRoute,
   BuddiesAboutRoute: BuddiesAboutRoute,
@@ -4661,13 +4682,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

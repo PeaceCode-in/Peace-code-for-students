@@ -1,0 +1,32 @@
+# PeaceCode — Student Wellness App
+User-agent: *
+Allow: /
+
+# Keep private / high-sensitivity surfaces out of search results
+Disallow: /auth
+Disallow: /auth/
+Disallow: /emergency
+Disallow: /emergency/
+Disallow: /peacebot/c/
+Disallow: /buddies/chat/
+Disallow: /buddies/book/
+Disallow: /buddies/request/
+Disallow: /buddies/feedback/
+Disallow: /buddies/safety/
+Disallow: /buddies/guidelines/
+Disallow: /counselling/session/
+Disallow: /counselling/appt/
+Disallow: /counselling/summary/
+Disallow: /counselling/book/
+Disallow: /journal/*/edit
+Disallow: /settings/logout
+Disallow: /settings/delete
+Disallow: /api/
+
+# Block noisy crawlers that don't drive traffic
+User-agent: GPTBot
+Disallow: /
+User-agent: CCBot
+Disallow: /
+
+Sitemap: https://app.peacecode.in/sitemap.xml
