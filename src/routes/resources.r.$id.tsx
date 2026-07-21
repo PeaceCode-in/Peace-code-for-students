@@ -3,13 +3,30 @@ import { AppShell } from "@/components/AppShell";
 import { ResourceCard } from "@/components/resources/ResourceCard";
 import {
   byId, authorById, categoryBySlug, related, heroBg, FORMAT_LABELS, store, useResourceStore, RESOURCES,
+  AUTHORS,
 } from "@/lib/resources-store";
+import { ArticleJsonLd } from "@/components/seo/ArticleJsonLd";
 import {
   Bookmark, BookmarkCheck, Heart, Share2, Download, Play, Pause, CheckCircle2, Clock, BadgeCheck,
   Highlighter, StickyNote, Type as TypeIcon, Sun, Moon, Rewind, FastForward, SkipBack, SkipForward,
   Volume2, Link as LinkIcon, MessageCircle, ChevronLeft,
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
+
+// Category → default medical/clinical reviewer. Keeps E-E-A-T reviewer wiring
+// consistent across seeded content without requiring per-resource edits.
+const CLINICAL_REVIEWER: Record<string, string> = {
+  anxiety: "a5", depression: "a5", adhd: "a5", ocd: "a5", ptsd: "a5",
+  burnout: "a1", stress: "a1", homesickness: "a1",
+  sleep: "a2", meditation: "a2", mindfulness: "a2",
+  nutrition: "a6", fitness: "a6",
+};
+
+function reviewerForResource(r: { medicalReviewerId?: string; category: string; authorId: string }) {
+  const id = r.medicalReviewerId ?? CLINICAL_REVIEWER[r.category];
+  if (!id || id === r.authorId) return undefined;
+  return AUTHORS.find((a) => a.id === id);
+}
 
 export const Route = createFileRoute("/resources/r/$id")({
   loader: ({ params }) => {
@@ -31,6 +48,7 @@ export const Route = createFileRoute("/resources/r/$id")({
   errorComponent: ({ error }) => <AppShell><main className="p-10">{error.message}</main></AppShell>,
   component: ResourcePage,
 });
+
 
 function ResourcePage() {
   const { r } = Route.useLoaderData();
