@@ -44,7 +44,7 @@ const ROUTES = [
   "/profile",
   "/search",
   "/hub",
-  "settings",
+  "/settings",
   "/settings/appearance",
   "/settings/support",
   "/screening/resources",
