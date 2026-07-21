@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { BreadcrumbJsonLd } from "../components/seo/BreadcrumbJsonLd";
+import { PageJsonLd } from "../components/seo/PageJsonLd";
 
 function NotFoundComponent() {
   return (
@@ -110,10 +111,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
+          "@id": "https://app.peacecode.in/#organization",
           name: "PeaceCode",
           alternateName: "Peace Code",
           url: "https://app.peacecode.in",
-          logo: "https://app.peacecode.in/favicon.png",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://app.peacecode.in/favicon.png",
+          },
           description:
             "India's student mental wellness ecosystem — calm, private, AI-assisted, and always with you.",
           foundingLocation: { "@type": "Place", name: "India" },
@@ -134,10 +139,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
+          "@id": "https://app.peacecode.in/#website",
           name: "PeaceCode",
           url: "https://app.peacecode.in",
           inLanguage: ["en-IN", "hi-IN"],
-          publisher: { "@type": "Organization", name: "PeaceCode" },
+          publisher: { "@id": "https://app.peacecode.in/#organization" },
           potentialAction: {
             "@type": "SearchAction",
             target: {
@@ -188,6 +194,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <BreadcrumbJsonLd />
+      <PageJsonLd />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>
