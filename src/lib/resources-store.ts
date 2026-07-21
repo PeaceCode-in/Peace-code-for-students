@@ -78,6 +78,14 @@ export type Author = {
   rating: number;
   topics: CategorySlug[];
   socials: { twitter?: string; linkedin?: string; site?: string };
+  // E-E-A-T fields — surfaced in author profile UI and JSON-LD
+  credentials?: string;              // e.g. "MD, Psychiatry" or "PhD, Clinical Psychology"
+  qualifications?: string[];         // e.g. ["MBBS, AIIMS Delhi", "MD Psychiatry, NIMHANS"]
+  affiliation?: string;              // e.g. "NIMHANS, Bengaluru"
+  yearsExperience?: number;
+  specialty?: string;                // schema.org MedicalSpecialty string
+  role?: "Physician" | "Psychologist" | "Person"; // schema.org @type for author node
+  sameAs?: string[];                 // canonical profile URLs (LinkedIn, ORCID, university)
 };
 
 export type Resource = {
@@ -94,6 +102,9 @@ export type Resource = {
   difficulty: Difficulty;
   language: Language;
   publishedAt: string;              // ISO
+  updatedAt?: string;               // ISO — last editorial update
+  medicalReviewerId?: string;       // Author id of the clinician who reviewed
+  reviewedAt?: string;              // ISO
   hero: string;                     // gradient token, e.g. "sunrise"
   emoji: string;
   views: number;
@@ -107,6 +118,7 @@ export type Resource = {
   tableOfContents?: string[];
   transcript?: string;
 };
+
 
 export type Collection = {
   id: string;
@@ -124,28 +136,67 @@ export const AUTHORS: Author[] = [
   { id: "a1", name: "Dr. Ananya Rao", title: "Clinical Psychologist, NIMHANS",
     bio: "Ananya works with students on anxiety, burnout and the quiet grief of leaving home. She writes gentle, evidence-based pieces that read like a letter from a friend.",
     verified: true, rating: 4.9, topics: ["anxiety","burnout","homesickness","exams"],
-    socials: { linkedin: "#", twitter: "#", site: "#" } },
+    socials: { linkedin: "#", twitter: "#", site: "#" },
+    role: "Psychologist",
+    credentials: "PhD, Clinical Psychology",
+    qualifications: ["MA Clinical Psychology, University of Delhi", "PhD Clinical Psychology, NIMHANS Bengaluru"],
+    affiliation: "NIMHANS, Bengaluru",
+    yearsExperience: 12,
+    specialty: "Psychology",
+    sameAs: ["https://www.linkedin.com/in/ananya-rao-nimhans"] },
   { id: "a2", name: "Kabir Sen", title: "Sleep Researcher & Meditation Guide",
     bio: "Kabir teaches nervous-system regulation, sleep hygiene and long-form breath work. He's spent a decade with Zen and Vipassana teachers.",
     verified: true, rating: 4.8, topics: ["sleep","meditation","mindfulness","stress"],
-    socials: { site: "#" } },
+    socials: { site: "#" },
+    role: "Person",
+    credentials: "MSc, Cognitive Neuroscience",
+    qualifications: ["BSc Psychology, Ashoka University", "MSc Cognitive Neuroscience, University of Edinburgh"],
+    affiliation: "Independent — PeaceCode Sleep & Breath Lab",
+    yearsExperience: 10,
+    sameAs: ["https://www.linkedin.com/in/kabir-sen-sleep"] },
   { id: "a3", name: "Prof. Meera Iyer", title: "Career Counsellor, IIT Bombay",
     bio: "Meera has helped over 12,000 students navigate placements, career pivots and imposter syndrome. Warm, practical, unafraid.",
     verified: true, rating: 4.9, topics: ["career","placements","internships","confidence"],
-    socials: { linkedin: "#" } },
+    socials: { linkedin: "#" },
+    role: "Person",
+    credentials: "MPhil, Counselling Psychology",
+    qualifications: ["MA Psychology, TISS Mumbai", "MPhil Counselling Psychology, University of Mumbai"],
+    affiliation: "IIT Bombay Career Services",
+    yearsExperience: 18,
+    sameAs: ["https://www.linkedin.com/in/meera-iyer-iitb"] },
   { id: "a4", name: "Riya Kapoor", title: "Peer Wellness Educator",
     bio: "Riya writes as a fifth-year student who has been through the wall and back. Real, tender, and never preachy.",
     verified: true, rating: 4.7, topics: ["college-life","hostel-life","friendship","relationships"],
-    socials: { twitter: "#" } },
+    socials: { twitter: "#" },
+    role: "Person",
+    credentials: "Certified Peer Wellness Educator (JED Foundation)",
+    qualifications: ["BA (Hons) Psychology, Lady Shri Ram College, University of Delhi"],
+    affiliation: "PeaceCode Peer Circles",
+    yearsExperience: 3,
+    sameAs: [] },
   { id: "a5", name: "Dr. Farhan Qureshi", title: "Psychiatrist, AIIMS",
     bio: "Farhan focuses on ADHD, OCD and depression in students. He believes in the phrase: 'diagnosis is not identity'.",
     verified: true, rating: 4.9, topics: ["adhd","ocd","depression","ptsd"],
-    socials: { linkedin: "#" } },
+    socials: { linkedin: "#" },
+    role: "Physician",
+    credentials: "MD, Psychiatry",
+    qualifications: ["MBBS, AIIMS New Delhi", "MD Psychiatry, AIIMS New Delhi"],
+    affiliation: "All India Institute of Medical Sciences (AIIMS), New Delhi",
+    yearsExperience: 15,
+    specialty: "Psychiatric",
+    sameAs: ["https://www.linkedin.com/in/farhan-qureshi-aiims"] },
   { id: "a6", name: "Sana Verma", title: "Nutritionist & Fitness Coach",
     bio: "Sana designs eating and movement rituals for exam-week bodies. No shame, no fad diets, only what actually works.",
     verified: true, rating: 4.6, topics: ["nutrition","fitness","self-care"],
-    socials: { site: "#" } },
+    socials: { site: "#" },
+    role: "Person",
+    credentials: "Registered Dietitian, ICMR",
+    qualifications: ["BSc Nutrition & Dietetics, Lady Irwin College, University of Delhi", "MSc Sports Nutrition, University of Westminster"],
+    affiliation: "Independent — Registered with the Indian Dietetic Association",
+    yearsExperience: 8,
+    sameAs: [] },
 ];
+
 
 // helper for seed generation
 const now = new Date("2026-07-01T09:00:00Z").getTime();

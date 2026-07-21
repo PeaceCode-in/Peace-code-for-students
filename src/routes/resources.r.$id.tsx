@@ -3,13 +3,30 @@ import { AppShell } from "@/components/AppShell";
 import { ResourceCard } from "@/components/resources/ResourceCard";
 import {
   byId, authorById, categoryBySlug, related, heroBg, FORMAT_LABELS, store, useResourceStore, RESOURCES,
+  AUTHORS,
 } from "@/lib/resources-store";
+import { ArticleJsonLd } from "@/components/seo/ArticleJsonLd";
 import {
   Bookmark, BookmarkCheck, Heart, Share2, Download, Play, Pause, CheckCircle2, Clock, BadgeCheck,
   Highlighter, StickyNote, Type as TypeIcon, Sun, Moon, Rewind, FastForward, SkipBack, SkipForward,
   Volume2, Link as LinkIcon, MessageCircle, ChevronLeft,
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
+
+// Category → default medical/clinical reviewer. Keeps E-E-A-T reviewer wiring
+// consistent across seeded content without requiring per-resource edits.
+const CLINICAL_REVIEWER: Record<string, string> = {
+  anxiety: "a5", depression: "a5", adhd: "a5", ocd: "a5", ptsd: "a5",
+  burnout: "a1", stress: "a1", homesickness: "a1",
+  sleep: "a2", meditation: "a2", mindfulness: "a2",
+  nutrition: "a6", fitness: "a6",
+};
+
+function reviewerForResource(r: { medicalReviewerId?: string; category: string; authorId: string }) {
+  const id = r.medicalReviewerId ?? CLINICAL_REVIEWER[r.category];
+  if (!id || id === r.authorId) return undefined;
+  return AUTHORS.find((a) => a.id === id);
+}
 
 export const Route = createFileRoute("/resources/r/$id")({
   loader: ({ params }) => {
@@ -31,6 +48,7 @@ export const Route = createFileRoute("/resources/r/$id")({
   errorComponent: ({ error }) => <AppShell><main className="p-10">{error.message}</main></AppShell>,
   component: ResourcePage,
 });
+
 
 function ResourcePage() {
   const { r } = Route.useLoaderData();
@@ -90,12 +108,16 @@ function ResourcePage() {
   const isAudio = r.format === "podcast" || r.format === "meditation" || r.format === "sleep-story" || r.format === "audiobook" || r.format === "breathing";
   const isVideo = r.format === "video" || r.format === "short-video" || r.format === "webinar";
 
+  const reviewer = useMemo(() => reviewerForResource(r), [r.id]);
+
   return (
     <AppShell>
+      {author && <ArticleJsonLd resource={r} author={author} reviewer={reviewer} />}
       {/* reading progress */}
       <div className="fixed top-0 left-0 right-0 h-0.5 z-30">
         <div className="h-full transition-[width]" style={{ width: `${scrollPct*100}%`, background: "var(--pc-primary)" }}/>
       </div>
+
 
       <main className="max-w-[900px] mx-auto px-4 sm:px-6 py-6 sm:py-10" ref={contentRef}>
         <Link to="/resources" className="inline-flex items-center gap-1 text-[12px] mb-6" style={{ color: "var(--pc-muted)" }}>

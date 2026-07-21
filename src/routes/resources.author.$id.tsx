@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { ResourceCard } from "@/components/resources/ResourceCard";
 import { authorById, resourcesByAuthor, categoryBySlug, AUTHORS } from "@/lib/resources-store";
+import { AuthorJsonLd } from "@/components/seo/AuthorJsonLd";
 import { BadgeCheck, Star } from "lucide-react";
 
 export const Route = createFileRoute("/resources/author/$id")({
@@ -10,18 +11,42 @@ export const Route = createFileRoute("/resources/author/$id")({
     if (!a) throw notFound();
     return { a };
   },
-  head: ({ loaderData }) => ({ meta: [{ title: `${loaderData?.a.name ?? "Author"} — PeaceCode` }] }),
+  head: ({ loaderData }) => {
+    const a = loaderData?.a;
+    const title = a ? `${a.name} — ${a.title} — PeaceCode` : "Author — PeaceCode";
+    const desc = a
+      ? `${a.name}${a.credentials ? `, ${a.credentials}` : ""}${a.affiliation ? `, ${a.affiliation}` : ""}. ${a.bio}`.slice(0, 300)
+      : "PeaceCode contributor profile.";
+    const path = a ? `/resources/author/${a.id}` : "/resources";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: desc },
+        { property: "og:title", content: title },
+        { property: "og:description", content: desc },
+        { property: "og:type", content: "profile" },
+        { property: "og:url", content: path },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: desc },
+      ],
+      links: [{ rel: "canonical", href: path }],
+    };
+  },
   notFoundComponent: () => <AppShell><main className="p-10 text-center"><div className="font-serif text-2xl">Author not found</div></main></AppShell>,
   errorComponent: ({ error }) => <AppShell><main className="p-10">{error.message}</main></AppShell>,
   component: AuthorPage,
 });
+
 
 function AuthorPage() {
   const { a } = Route.useLoaderData();
   const list = resourcesByAuthor(a.id);
   return (
     <AppShell>
+      <AuthorJsonLd author={a} />
       <main className="max-w-[1100px] mx-auto px-4 sm:px-6 py-6 sm:py-10">
+
         <div className="rounded-3xl p-8 sm:p-12 mb-10" style={{ background: "var(--pc-surface)", border: "1px solid var(--pc-border)" }}>
           <div className="flex items-start gap-5">
             <div className="w-20 h-20 rounded-full flex items-center justify-center font-serif text-[28px] shrink-0"

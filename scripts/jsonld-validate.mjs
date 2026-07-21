@@ -50,7 +50,10 @@ const ROUTES = [
   "/screening/resources",
   "/screening/test/phq9",
   "/emergency",
+  "/resources/r/r1",
+  "/resources/author/a5",
 ];
+
 
 // Allowlist covers every @type produced by PageJsonLd, BreadcrumbJsonLd,
 // and the sitewide nodes in __root.tsx. Add here when adding a new emitter.
@@ -69,6 +72,7 @@ const KNOWN_TYPES = new Set([
   "LearningResource",
   "CreativeWork",
   "Article",
+  "MedicalScholarlyArticle",
   "DiscussionForumPosting",
   "Event",
   "ProfilePage",
@@ -89,7 +93,12 @@ const KNOWN_TYPES = new Set([
   "FAQPage",
   "Question",
   "Answer",
+  "Person",
+  "Physician",
+  "Psychologist",
+  "EducationalOccupationalCredential",
 ]);
+
 
 // Required properties per @type (baseline). Missing any → error.
 const REQUIRED = {
@@ -99,6 +108,7 @@ const REQUIRED = {
   MedicalWebPage: ["name", "url"],
   WebApplication: ["name", "applicationCategory"],
   Article: ["headline"],
+  MedicalScholarlyArticle: ["headline", "author"],
   Event: ["name", "startDate"],
   BreadcrumbList: ["itemListElement"],
   ListItem: ["position", "name"],
@@ -110,7 +120,12 @@ const REQUIRED = {
   FAQPage: ["mainEntity"],
   Question: ["name", "acceptedAnswer"],
   Answer: ["text"],
+  Person: ["name"],
+  Physician: ["name"],
+  Psychologist: ["name"],
+  EducationalOccupationalCredential: ["name"],
 };
+
 
 // String fields that must be absolute URLs when present.
 const URL_FIELDS = ["url", "image", "logo", "sameAs"];
