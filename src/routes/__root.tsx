@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { BreadcrumbJsonLd } from "../components/seo/BreadcrumbJsonLd";
+import { PageJsonLd } from "../components/seo/PageJsonLd";
 
 function NotFoundComponent() {
   return (
