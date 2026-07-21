@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell, palette } from "@/components/AppShell";
+import { FaqJsonLd } from "@/components/seo/FaqJsonLd";
 import { ArrowLeft, Phone, HeartHandshake, ShieldCheck, BookOpen, LifeBuoy } from "lucide-react";
 
 export const Route = createFileRoute("/screening/resources")({
