@@ -108,12 +108,16 @@ function ResourcePage() {
   const isAudio = r.format === "podcast" || r.format === "meditation" || r.format === "sleep-story" || r.format === "audiobook" || r.format === "breathing";
   const isVideo = r.format === "video" || r.format === "short-video" || r.format === "webinar";
 
+  const reviewer = useMemo(() => reviewerForResource(r), [r.id]);
+
   return (
     <AppShell>
+      {author && <ArticleJsonLd resource={r} author={author} reviewer={reviewer} />}
       {/* reading progress */}
       <div className="fixed top-0 left-0 right-0 h-0.5 z-30">
         <div className="h-full transition-[width]" style={{ width: `${scrollPct*100}%`, background: "var(--pc-primary)" }}/>
       </div>
+
 
       <main className="max-w-[900px] mx-auto px-4 sm:px-6 py-6 sm:py-10" ref={contentRef}>
         <Link to="/resources" className="inline-flex items-center gap-1 text-[12px] mb-6" style={{ color: "var(--pc-muted)" }}>
