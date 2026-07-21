@@ -5,7 +5,12 @@ import { ArrowLeft, ArrowRight, Download, RefreshCw, Trash2, Search } from "luci
 import { TESTS, loadSessions, deleteSession, type Session } from "@/lib/screening-store";
 
 export const Route = createFileRoute("/screening/history")({
-  head: () => ({ meta: [{ title: "History — PeaceCode Screening" }],
+  head: () => ({ meta: [{ title: "History — PeaceCode Screening" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/screening/history.svg?title=History+%E2%80%94+PeaceCode+Screening" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/screening/history.svg?title=History+%E2%80%94+PeaceCode+Screening" },
+    ],
     links: [{ rel: "canonical", href: "/screening/history" }],
   }),
   component: History,

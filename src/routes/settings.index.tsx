@@ -11,7 +11,12 @@ import { loadActivity, useSettings } from "@/lib/settings-store";
 import { loadSessions as loadBreathSessions } from "@/lib/breathe-store";
 
 export const Route = createFileRoute("/settings/")({
-  head: () => ({ meta: [{ title: "Settings — PeaceCode" }],
+  head: () => ({ meta: [{ title: "Settings — PeaceCode" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/settings.svg?title=Settings+%E2%80%94+PeaceCode" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/settings.svg?title=Settings+%E2%80%94+PeaceCode" },
+    ],
     links: [{ rel: "canonical", href: "/settings" }],
   }),
   component: SettingsHome,

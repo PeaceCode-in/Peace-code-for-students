@@ -3,7 +3,12 @@ import { SettingsShell, Section, Row, Toggle, Segmented, Select } from "@/compon
 import { useSettings } from "@/lib/settings-store";
 
 export const Route = createFileRoute("/settings/accessibility")({
-  head: () => ({ meta: [{ title: "Accessibility — PeaceCode" }],
+  head: () => ({ meta: [{ title: "Accessibility — PeaceCode" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/settings/accessibility.svg?title=Accessibility+%E2%80%94+PeaceCode" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/settings/accessibility.svg?title=Accessibility+%E2%80%94+PeaceCode" },
+    ],
     links: [{ rel: "canonical", href: "/settings/accessibility" }],
   }),
   component: AccessibilityPage,

@@ -3,7 +3,12 @@ import { SettingsShell, Section, Row, Toggle, Segmented, Select, GhostButton } f
 import { useSettings, type Personality, type ResponseLength } from "@/lib/settings-store";
 
 export const Route = createFileRoute("/settings/peacebot")({
-  head: () => ({ meta: [{ title: "PeaceBot — Settings" }],
+  head: () => ({ meta: [{ title: "PeaceBot — Settings" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/settings/peacebot.svg?title=PeaceBot+%E2%80%94+Settings" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/settings/peacebot.svg?title=PeaceBot+%E2%80%94+Settings" },
+    ],
     links: [{ rel: "canonical", href: "/settings/peacebot" }],
   }),
   component: PeaceBotSettings,

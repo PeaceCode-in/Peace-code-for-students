@@ -4,7 +4,12 @@ import { loadProfile, THEMES } from "@/lib/profile-store";
 import { surface, surface2, border, ink, muted, primary, soft, Panel, StatTile } from "@/components/profile/primitives";
 
 export const Route = createFileRoute("/profile/garden")({
-  head: () => ({ meta: [{ title: "Mind Garden · PeaceCode" }],
+  head: () => ({ meta: [{ title: "Mind Garden · PeaceCode" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/profile/garden.svg?title=Mind+Garden+%C2%B7+PeaceCode" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/profile/garden.svg?title=Mind+Garden+%C2%B7+PeaceCode" },
+    ],
     links: [{ rel: "canonical", href: "/profile/garden" }],
   }),
   component: GardenPage,

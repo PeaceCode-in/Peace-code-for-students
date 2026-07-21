@@ -5,7 +5,12 @@ import { ArrowLeft, Search, Bookmark, ArrowRight, Filter } from "lucide-react";
 import { TESTS, loadPrefs, savePrefs, type Category, type Difficulty } from "@/lib/screening-store";
 
 export const Route = createFileRoute("/screening/library")({
-  head: () => ({ meta: [{ title: "Available Assessments — PeaceCode Screening" }],
+  head: () => ({ meta: [{ title: "Available Assessments — PeaceCode Screening" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/screening/library.svg?title=Available+Assessments+%E2%80%94+PeaceCode+Screening" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/screening/library.svg?title=Available+Assessments+%E2%80%94+PeaceCode+Screening" },
+    ],
     links: [{ rel: "canonical", href: "/screening/library" }],
   }),
   component: Library,

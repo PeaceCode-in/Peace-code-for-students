@@ -4,7 +4,12 @@ import { LogOut, X } from "lucide-react";
 import { endSession } from "@/lib/auth-store";
 
 export const Route = createFileRoute("/settings/logout")({
-  head: () => ({ meta: [{ title: "Sign out — PeaceCode" }],
+  head: () => ({ meta: [{ title: "Sign out — PeaceCode" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/settings/logout.svg?title=Sign+out+%E2%80%94+PeaceCode" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/settings/logout.svg?title=Sign+out+%E2%80%94+PeaceCode" },
+    ],
     links: [{ rel: "canonical", href: "/settings/logout" }],
   }),
   component: LogoutSheet,

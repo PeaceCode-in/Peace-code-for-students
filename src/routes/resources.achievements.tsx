@@ -4,7 +4,12 @@ import { ACHIEVEMENTS, useResourceStore, computeStreak, RESOURCES } from "@/lib/
 import { Trophy, Flame, Clock, CheckCircle2, Target } from "lucide-react";
 
 export const Route = createFileRoute("/resources/achievements")({
-  head: () => ({ meta: [{ title: "Achievements — Resources" }],
+  head: () => ({ meta: [{ title: "Achievements — Resources" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/resources/achievements.svg?title=Achievements+%E2%80%94+Resources" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/resources/achievements.svg?title=Achievements+%E2%80%94+Resources" },
+    ],
     links: [{ rel: "canonical", href: "/resources/achievements" }],
   }),
   component: () => {

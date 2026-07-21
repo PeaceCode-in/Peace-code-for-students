@@ -221,6 +221,7 @@ import { Route as BuddiesGuidelinesIdRouteImport } from './routes/buddies.guidel
 import { Route as BuddiesFeedbackIdRouteImport } from './routes/buddies.feedback.$id'
 import { Route as BuddiesChatIdRouteImport } from './routes/buddies.chat.$id'
 import { Route as BuddiesBookIdRouteImport } from './routes/buddies.book.$id'
+import { Route as ApiOgSplatRouteImport } from './routes/api/og.$'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -1283,6 +1284,11 @@ const BuddiesBookIdRoute = BuddiesBookIdRouteImport.update({
   path: '/buddies/book/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiOgSplatRoute = ApiOgSplatRouteImport.update({
+  id: '/api/og/$',
+  path: '/api/og/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -1453,6 +1459,7 @@ export interface FileRoutesByFullPath {
   '/screening/': typeof ScreeningIndexRoute
   '/search/': typeof SearchIndexRoute
   '/settings/': typeof SettingsIndexRoute
+  '/api/og/$': typeof ApiOgSplatRoute
   '/buddies/book/$id': typeof BuddiesBookIdRoute
   '/buddies/chat/$id': typeof BuddiesChatIdRoute
   '/buddies/feedback/$id': typeof BuddiesFeedbackIdRoute
@@ -1649,6 +1656,7 @@ export interface FileRoutesByTo {
   '/screening': typeof ScreeningIndexRoute
   '/search': typeof SearchIndexRoute
   '/settings': typeof SettingsIndexRoute
+  '/api/og/$': typeof ApiOgSplatRoute
   '/buddies/book/$id': typeof BuddiesBookIdRoute
   '/buddies/chat/$id': typeof BuddiesChatIdRoute
   '/buddies/feedback/$id': typeof BuddiesFeedbackIdRoute
@@ -1864,6 +1872,7 @@ export interface FileRoutesById {
   '/screening/': typeof ScreeningIndexRoute
   '/search/': typeof SearchIndexRoute
   '/settings/': typeof SettingsIndexRoute
+  '/api/og/$': typeof ApiOgSplatRoute
   '/buddies/book/$id': typeof BuddiesBookIdRoute
   '/buddies/chat/$id': typeof BuddiesChatIdRoute
   '/buddies/feedback/$id': typeof BuddiesFeedbackIdRoute
@@ -2080,6 +2089,7 @@ export interface FileRouteTypes {
     | '/screening/'
     | '/search/'
     | '/settings/'
+    | '/api/og/$'
     | '/buddies/book/$id'
     | '/buddies/chat/$id'
     | '/buddies/feedback/$id'
@@ -2276,6 +2286,7 @@ export interface FileRouteTypes {
     | '/screening'
     | '/search'
     | '/settings'
+    | '/api/og/$'
     | '/buddies/book/$id'
     | '/buddies/chat/$id'
     | '/buddies/feedback/$id'
@@ -2490,6 +2501,7 @@ export interface FileRouteTypes {
     | '/screening/'
     | '/search/'
     | '/settings/'
+    | '/api/og/$'
     | '/buddies/book/$id'
     | '/buddies/chat/$id'
     | '/buddies/feedback/$id'
@@ -2575,6 +2587,7 @@ export interface RootRouteChildren {
   PeacebotVoiceRoute: typeof PeacebotVoiceRoute
   BuddiesIndexRoute: typeof BuddiesIndexRoute
   PeacebotIndexRoute: typeof PeacebotIndexRoute
+  ApiOgSplatRoute: typeof ApiOgSplatRoute
   BuddiesBookIdRoute: typeof BuddiesBookIdRoute
   BuddiesChatIdRoute: typeof BuddiesChatIdRoute
   BuddiesFeedbackIdRoute: typeof BuddiesFeedbackIdRoute
@@ -4070,6 +4083,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BuddiesBookIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/og/$': {
+      id: '/api/og/$'
+      path: '/api/og/$'
+      fullPath: '/api/og/$'
+      preLoaderRoute: typeof ApiOgSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -4671,6 +4691,7 @@ const rootRouteChildren: RootRouteChildren = {
   PeacebotVoiceRoute: PeacebotVoiceRoute,
   BuddiesIndexRoute: BuddiesIndexRoute,
   PeacebotIndexRoute: PeacebotIndexRoute,
+  ApiOgSplatRoute: ApiOgSplatRoute,
   BuddiesBookIdRoute: BuddiesBookIdRoute,
   BuddiesChatIdRoute: BuddiesChatIdRoute,
   BuddiesFeedbackIdRoute: BuddiesFeedbackIdRoute,

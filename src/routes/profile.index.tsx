@@ -14,7 +14,12 @@ import {
 } from "@/components/profile/primitives";
 
 export const Route = createFileRoute("/profile/")({
-  head: () => ({ meta: [{ title: "Your profile · PeaceCode" }, { name: "description", content: "Your PeaceCode identity — journey, achievements, mind garden, and quiet growth over time." }],
+  head: () => ({ meta: [{ title: "Your profile · PeaceCode" }, { name: "description", content: "Your PeaceCode identity — journey, achievements, mind garden, and quiet growth over time." },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/profile.svg?title=Your+profile+%C2%B7+PeaceCode" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/profile.svg?title=Your+profile+%C2%B7+PeaceCode" },
+    ],
     links: [{ rel: "canonical", href: "/profile" }],
   }),
   component: ProfilePage,

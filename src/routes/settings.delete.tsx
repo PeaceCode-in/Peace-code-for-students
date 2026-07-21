@@ -4,7 +4,12 @@ import { useState } from "react";
 import { AlertTriangle, X } from "lucide-react";
 
 export const Route = createFileRoute("/settings/delete")({
-  head: () => ({ meta: [{ title: "Delete account — PeaceCode" }],
+  head: () => ({ meta: [{ title: "Delete account — PeaceCode" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/settings/delete.svg?title=Delete+account+%E2%80%94+PeaceCode" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/settings/delete.svg?title=Delete+account+%E2%80%94+PeaceCode" },
+    ],
     links: [{ rel: "canonical", href: "/settings/delete" }],
   }),
   component: DeletePage,
