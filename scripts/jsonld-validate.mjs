@@ -104,6 +104,9 @@ const REQUIRED = {
   ProfilePage: ["name"],
   ImageObject: ["url"],
   Offer: ["price", "priceCurrency"],
+  FAQPage: ["mainEntity"],
+  Question: ["name", "acceptedAnswer"],
+  Answer: ["text"],
 };
 
 // String fields that must be absolute URLs when present.
