@@ -3,7 +3,12 @@ import { AppShell, palette } from "@/components/AppShell";
 import { ArrowLeft, Check, X, Heart, GraduationCap, Stethoscope, Pill, Phone } from "lucide-react";
 
 export const Route = createFileRoute("/buddies/about")({
-  head: () => ({ meta: [{ title: "What is Peace Buddies?" }],
+  head: () => ({ meta: [{ title: "What is Peace Buddies?" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/buddies-about.svg?title=What+is+Peace+Buddies%3F" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/buddies-about.svg?title=What+is+Peace+Buddies%3F" },
+    ],
     links: [{ rel: "canonical", href: "/buddies/about" }],
   }),
   component: About,

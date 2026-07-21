@@ -3,7 +3,12 @@ import { AppShell, palette } from "@/components/AppShell";
 import { ArrowLeft, Phone, HeartHandshake, ShieldCheck, BookOpen, LifeBuoy } from "lucide-react";
 
 export const Route = createFileRoute("/screening/resources")({
-  head: () => ({ meta: [{ title: "Resources & help — PeaceCode Screening" }],
+  head: () => ({ meta: [{ title: "Resources & help — PeaceCode Screening" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/screening-resources.svg?title=Resources+%26+help+%E2%80%94+PeaceCode+Screening" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/screening-resources.svg?title=Resources+%26+help+%E2%80%94+PeaceCode+Screening" },
+    ],
     links: [{ rel: "canonical", href: "/screening/resources" }],
   }),
   component: Resources,

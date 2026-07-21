@@ -5,7 +5,12 @@ import { palette } from "@/components/AppShell";
 import { PhoneCall, MapPin } from "lucide-react";
 
 export const Route = createFileRoute("/settings/emergency")({
-  head: () => ({ meta: [{ title: "Emergency & Safety — Settings" }],
+  head: () => ({ meta: [{ title: "Emergency & Safety — Settings" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/settings-emergency.svg?title=Emergency+%26+Safety+%E2%80%94+Settings" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/settings-emergency.svg?title=Emergency+%26+Safety+%E2%80%94+Settings" },
+    ],
     links: [{ rel: "canonical", href: "/settings/emergency" }],
   }),
   component: EmergencySettings,

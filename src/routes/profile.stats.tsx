@@ -4,7 +4,12 @@ import { loadProfile } from "@/lib/profile-store";
 import { surface, surface2, border, ink, muted, primary, soft, Panel, SectionLabel, StatTile, Toasts, pushToast } from "@/components/profile/primitives";
 
 export const Route = createFileRoute("/profile/stats")({
-  head: () => ({ meta: [{ title: "Statistics · PeaceCode" }],
+  head: () => ({ meta: [{ title: "Statistics · PeaceCode" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/profile-stats.svg?title=Statistics+%C2%B7+PeaceCode" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/profile-stats.svg?title=Statistics+%C2%B7+PeaceCode" },
+    ],
     links: [{ rel: "canonical", href: "/profile/stats" }],
   }),
   component: StatsPage,

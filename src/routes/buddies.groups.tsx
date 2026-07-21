@@ -5,7 +5,12 @@ import { ArrowLeft, Users, Calendar, ArrowRight } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/buddies/groups")({
-  head: () => ({ meta: [{ title: "Peer groups & events" }],
+  head: () => ({ meta: [{ title: "Peer groups & events" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/buddies-groups.svg?title=Peer+groups+%26+events" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/buddies-groups.svg?title=Peer+groups+%26+events" },
+    ],
     links: [{ rel: "canonical", href: "/buddies/groups" }],
   }),
   component: Groups,

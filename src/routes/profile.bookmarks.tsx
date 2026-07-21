@@ -5,7 +5,12 @@ import { loadProfile, saveProfile, type Bookmark } from "@/lib/profile-store";
 import { surface, surface2, border, ink, muted, primary, soft, Panel, Toasts, pushToast } from "@/components/profile/primitives";
 
 export const Route = createFileRoute("/profile/bookmarks")({
-  head: () => ({ meta: [{ title: "Saved resources · PeaceCode" }],
+  head: () => ({ meta: [{ title: "Saved resources · PeaceCode" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/profile-bookmarks.svg?title=Saved+resources+%C2%B7+PeaceCode" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/profile-bookmarks.svg?title=Saved+resources+%C2%B7+PeaceCode" },
+    ],
     links: [{ rel: "canonical", href: "/profile/bookmarks" }],
   }),
   component: BookmarksPage,

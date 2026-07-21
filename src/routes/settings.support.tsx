@@ -5,7 +5,12 @@ import { useState } from "react";
 import { Star, ExternalLink } from "lucide-react";
 
 export const Route = createFileRoute("/settings/support")({
-  head: () => ({ meta: [{ title: "Support — PeaceCode" }],
+  head: () => ({ meta: [{ title: "Support — PeaceCode" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/settings-support.svg?title=Support+%E2%80%94+PeaceCode" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/settings-support.svg?title=Support+%E2%80%94+PeaceCode" },
+    ],
     links: [{ rel: "canonical", href: "/settings/support" }],
   }),
   component: SupportPage,

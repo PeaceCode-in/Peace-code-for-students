@@ -15,7 +15,12 @@ import { Search as SearchIcon, Mic, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 export const Route = createFileRoute("/resources/search")({
-  head: () => ({ meta: [{ title: "Search — Resources" }],
+  head: () => ({ meta: [{ title: "Search — Resources" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/resources-search.svg?title=Search+%E2%80%94+Resources" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/resources-search.svg?title=Search+%E2%80%94+Resources" },
+    ],
     links: [{ rel: "canonical", href: "/resources/search" }],
   }),
   component: SearchPage,

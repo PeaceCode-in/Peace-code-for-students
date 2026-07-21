@@ -5,7 +5,12 @@ import { palette } from "@/components/AppShell";
 import { Check } from "lucide-react";
 
 export const Route = createFileRoute("/settings/connected")({
-  head: () => ({ meta: [{ title: "Connected Accounts — Settings" }],
+  head: () => ({ meta: [{ title: "Connected Accounts — Settings" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/settings-connected.svg?title=Connected+Accounts+%E2%80%94+Settings" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/settings-connected.svg?title=Connected+Accounts+%E2%80%94+Settings" },
+    ],
     links: [{ rel: "canonical", href: "/settings/connected" }],
   }),
   component: ConnectedSettings,

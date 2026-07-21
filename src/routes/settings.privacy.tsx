@@ -6,7 +6,12 @@ import { useState } from "react";
 import { KeyRound, LogOut, Smartphone } from "lucide-react";
 
 export const Route = createFileRoute("/settings/privacy")({
-  head: () => ({ meta: [{ title: "Privacy & Security — PeaceCode" }],
+  head: () => ({ meta: [{ title: "Privacy & Security — PeaceCode" },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/settings-privacy.svg?title=Privacy+%26+Security+%E2%80%94+PeaceCode" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/settings-privacy.svg?title=Privacy+%26+Security+%E2%80%94+PeaceCode" },
+    ],
     links: [{ rel: "canonical", href: "/settings/privacy" }],
   }),
   component: PrivacyPage,

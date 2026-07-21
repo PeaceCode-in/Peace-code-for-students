@@ -12,6 +12,10 @@ export const Route = createFileRoute("/screening/")({
     meta: [
       { title: "Mental Health Screening — PeaceCode" },
       { name: "description", content: "Validated, gentle screening for depression, anxiety, stress, sleep, and wellbeing — with AI insights that stay with you." },
+      { property: "og:image", content: "https://app.peacecode.in/api/og/screening.svg?title=Mental+Health+Screening+%E2%80%94+PeaceCode" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: "https://app.peacecode.in/api/og/screening.svg?title=Mental+Health+Screening+%E2%80%94+PeaceCode" },
     ],
     links: [{ rel: "canonical", href: "/screening" }],
   }),
