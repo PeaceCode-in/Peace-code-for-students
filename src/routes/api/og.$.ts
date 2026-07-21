@@ -209,7 +209,7 @@ function fnv1a(input: string): string {
 /** Semantic version of the renderer — bump to invalidate all ETags. */
 const OG_RENDERER_VERSION = "1";
 
-async function handleOg(request: Request): Promise<Response> {
+export async function handleOg(request: Request): Promise<Response> {
   const url = new URL(request.url);
   // The splat comes in as everything after /api/og/
   const splat = url.pathname.replace(/^\/api\/og\/?/, "");
