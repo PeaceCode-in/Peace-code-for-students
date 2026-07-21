@@ -83,6 +83,9 @@ const KNOWN_TYPES = new Set([
   "MedicalCondition",
   "SearchAction",
   "EntryPoint",
+  "FAQPage",
+  "Question",
+  "Answer",
 ]);
 
 // Required properties per @type (baseline). Missing any → error.
