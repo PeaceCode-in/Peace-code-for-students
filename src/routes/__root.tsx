@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { BreadcrumbJsonLd } from "../components/seo/BreadcrumbJsonLd";
 
 function NotFoundComponent() {
   return (
@@ -103,6 +104,51 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Noto+Sans+Devanagari:wght@300;400;500;600&family=Noto+Serif+Devanagari:wght@400;500;600&display=swap",
       },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "PeaceCode",
+          alternateName: "Peace Code",
+          url: "https://app.peacecode.in",
+          logo: "https://app.peacecode.in/favicon.png",
+          description:
+            "India's student mental wellness ecosystem — calm, private, AI-assisted, and always with you.",
+          foundingLocation: { "@type": "Place", name: "India" },
+          areaServed: { "@type": "Country", name: "India" },
+          sameAs: ["https://peacecode.in", "https://twitter.com/PeaceCode"],
+          contactPoint: [
+            {
+              "@type": "ContactPoint",
+              contactType: "customer support",
+              email: "hello@peacecode.in",
+              availableLanguage: ["English", "Hindi"],
+            },
+          ],
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "PeaceCode",
+          url: "https://app.peacecode.in",
+          inLanguage: ["en-IN", "hi-IN"],
+          publisher: { "@type": "Organization", name: "PeaceCode" },
+          potentialAction: {
+            "@type": "SearchAction",
+            target: {
+              "@type": "EntryPoint",
+              urlTemplate: "https://app.peacecode.in/search?q={search_term_string}",
+            },
+            "query-input": "required name=search_term_string",
+          },
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -141,6 +187,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <BreadcrumbJsonLd />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>
