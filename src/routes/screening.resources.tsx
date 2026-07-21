@@ -69,6 +69,7 @@ function Resources() {
               </div>
             ))}
           </div>
+          <FaqJsonLd items={FAQ.map(([q, a]) => ({ q, a }))} />
         </section>
 
         <section className="mt-10 grid sm:grid-cols-3 gap-3">
