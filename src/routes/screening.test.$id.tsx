@@ -81,6 +81,7 @@ function TestDetail() {
                   </button>
                 ))}
               </div>
+              <FaqJsonLd items={FAQS} />
             </div>
           </div>
 
