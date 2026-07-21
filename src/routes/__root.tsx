@@ -110,10 +110,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
+          "@id": "https://app.peacecode.in/#organization",
           name: "PeaceCode",
           alternateName: "Peace Code",
           url: "https://app.peacecode.in",
-          logo: "https://app.peacecode.in/favicon.png",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://app.peacecode.in/favicon.png",
+          },
           description:
             "India's student mental wellness ecosystem — calm, private, AI-assisted, and always with you.",
           foundingLocation: { "@type": "Place", name: "India" },
@@ -134,10 +138,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
+          "@id": "https://app.peacecode.in/#website",
           name: "PeaceCode",
           url: "https://app.peacecode.in",
           inLanguage: ["en-IN", "hi-IN"],
-          publisher: { "@type": "Organization", name: "PeaceCode" },
+          publisher: { "@id": "https://app.peacecode.in/#organization" },
           potentialAction: {
             "@type": "SearchAction",
             target: {
