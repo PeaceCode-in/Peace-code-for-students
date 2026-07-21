@@ -4,7 +4,9 @@ import { loadProfile } from "@/lib/profile-store";
 import { surface, surface2, border, ink, muted, primary, Panel, SectionLabel } from "@/components/profile/primitives";
 
 export const Route = createFileRoute("/profile/journey")({
-  head: () => ({ meta: [{ title: "Wellness journey · PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "Wellness journey · PeaceCode" }],
+    links: [{ rel: "canonical", href: "/profile/journey" }],
+  }),
   component: JourneyPage,
 });
 

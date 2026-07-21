@@ -14,7 +14,9 @@ import {
 } from "@/components/profile/primitives";
 
 export const Route = createFileRoute("/profile/")({
-  head: () => ({ meta: [{ title: "Your profile · PeaceCode" }, { name: "description", content: "Your PeaceCode identity — journey, achievements, mind garden, and quiet growth over time." }] }),
+  head: () => ({ meta: [{ title: "Your profile · PeaceCode" }, { name: "description", content: "Your PeaceCode identity — journey, achievements, mind garden, and quiet growth over time." }],
+    links: [{ rel: "canonical", href: "/profile" }],
+  }),
   component: ProfilePage,
 });
 

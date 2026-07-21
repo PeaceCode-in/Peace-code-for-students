@@ -15,7 +15,9 @@ import { Search as SearchIcon, Mic, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 export const Route = createFileRoute("/resources/search")({
-  head: () => ({ meta: [{ title: "Search — Resources" }] }),
+  head: () => ({ meta: [{ title: "Search — Resources" }],
+    links: [{ rel: "canonical", href: "/resources/search" }],
+  }),
   component: SearchPage,
 });
 

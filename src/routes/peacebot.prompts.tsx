@@ -5,7 +5,9 @@ import { AppShell, palette } from "@/components/AppShell";
 import { newConv, upsertConv, addMsg } from "@/lib/peacebot-store";
 
 export const Route = createFileRoute("/peacebot/prompts")({
-  head: () => ({ meta: [{ title: "Peace Bot · prompt library" }] }),
+  head: () => ({ meta: [{ title: "Peace Bot · prompt library" }],
+    links: [{ rel: "canonical", href: "/peacebot/prompts" }],
+  }),
   component: PromptLibrary,
 });
 const { surface, surface2, border, ink, muted, soft } = palette;

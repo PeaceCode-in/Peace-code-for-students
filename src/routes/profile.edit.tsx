@@ -5,7 +5,9 @@ import { loadProfile, updateProfile, THEMES, type Profile } from "@/lib/profile-
 import { surface, surface2, border, ink, muted, primary, Panel, SectionLabel, Toasts, pushToast } from "@/components/profile/primitives";
 
 export const Route = createFileRoute("/profile/edit")({
-  head: () => ({ meta: [{ title: "Edit profile · PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "Edit profile · PeaceCode" }],
+    links: [{ rel: "canonical", href: "/profile/edit" }],
+  }),
   component: EditProfile,
 });
 

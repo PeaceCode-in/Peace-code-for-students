@@ -5,7 +5,9 @@ import { palette } from "@/components/AppShell";
 import { Check } from "lucide-react";
 
 export const Route = createFileRoute("/settings/appearance")({
-  head: () => ({ meta: [{ title: "Appearance — PeaceCode Settings" }] }),
+  head: () => ({ meta: [{ title: "Appearance — PeaceCode Settings" }],
+    links: [{ rel: "canonical", href: "/settings/appearance" }],
+  }),
   component: AppearancePage,
 });
 

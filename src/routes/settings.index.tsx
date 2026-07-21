@@ -11,7 +11,9 @@ import { loadActivity, useSettings } from "@/lib/settings-store";
 import { loadSessions as loadBreathSessions } from "@/lib/breathe-store";
 
 export const Route = createFileRoute("/settings/")({
-  head: () => ({ meta: [{ title: "Settings — PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "Settings — PeaceCode" }],
+    links: [{ rel: "canonical", href: "/settings" }],
+  }),
   component: SettingsHome,
 });
 

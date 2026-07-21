@@ -8,7 +8,9 @@ import {
 } from "@/lib/gratitude-store";
 
 export const Route = createFileRoute("/gratitude/history")({
-  head: () => ({ meta: [{ title: "Gratitude History & Analytics" }] }),
+  head: () => ({ meta: [{ title: "Gratitude History & Analytics" }],
+    links: [{ rel: "canonical", href: "/gratitude/history" }],
+  }),
   component: HistoryPage,
 });
 

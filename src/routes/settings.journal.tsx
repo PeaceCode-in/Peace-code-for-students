@@ -3,7 +3,9 @@ import { SettingsShell, Section, Row, Toggle, Segmented, GhostButton } from "@/c
 import { useSettings } from "@/lib/settings-store";
 
 export const Route = createFileRoute("/settings/journal")({
-  head: () => ({ meta: [{ title: "Journal — Settings" }] }),
+  head: () => ({ meta: [{ title: "Journal — Settings" }],
+    links: [{ rel: "canonical", href: "/settings/journal" }],
+  }),
   component: JournalSettings,
 });
 

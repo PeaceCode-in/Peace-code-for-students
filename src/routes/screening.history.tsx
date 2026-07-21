@@ -5,7 +5,9 @@ import { ArrowLeft, ArrowRight, Download, RefreshCw, Trash2, Search } from "luci
 import { TESTS, loadSessions, deleteSession, type Session } from "@/lib/screening-store";
 
 export const Route = createFileRoute("/screening/history")({
-  head: () => ({ meta: [{ title: "History — PeaceCode Screening" }] }),
+  head: () => ({ meta: [{ title: "History — PeaceCode Screening" }],
+    links: [{ rel: "canonical", href: "/screening/history" }],
+  }),
   component: History,
 });
 

@@ -4,7 +4,9 @@ import { loadProfile, formatWhen } from "@/lib/profile-store";
 import { surface, surface2, border, ink, muted, primary, Panel, SectionLabel } from "@/components/profile/primitives";
 
 export const Route = createFileRoute("/profile/activity")({
-  head: () => ({ meta: [{ title: "Activity · PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "Activity · PeaceCode" }],
+    links: [{ rel: "canonical", href: "/profile/activity" }],
+  }),
   component: ActivityPage,
 });
 

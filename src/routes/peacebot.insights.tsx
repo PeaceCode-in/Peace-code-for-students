@@ -5,7 +5,9 @@ import { AppShell, palette } from "@/components/AppShell";
 import { loadConvs, STUDENT_CONTEXT } from "@/lib/peacebot-store";
 
 export const Route = createFileRoute("/peacebot/insights")({
-  head: () => ({ meta: [{ title: "Peace Bot · insights" }] }),
+  head: () => ({ meta: [{ title: "Peace Bot · insights" }],
+    links: [{ rel: "canonical", href: "/peacebot/insights" }],
+  }),
   component: InsightsPage,
 });
 const { surface, surface2, border, ink, muted, primary, soft } = palette;

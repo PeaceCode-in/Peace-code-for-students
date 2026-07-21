@@ -23,6 +23,7 @@ export const Route = createFileRoute("/gratitude/")({
       { property: "og:title", content: "Gratitude — PeaceCode" },
       { property: "og:description", content: "A tender ecosystem for daily gratitude." },
     ],
+    links: [{ rel: "canonical", href: "/gratitude" }],
   }),
   component: GratitudePage,
 });

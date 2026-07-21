@@ -3,7 +3,9 @@ import { SettingsShell, Section, Row, Toggle, Segmented, Select } from "@/compon
 import { useSettings } from "@/lib/settings-store";
 
 export const Route = createFileRoute("/settings/accessibility")({
-  head: () => ({ meta: [{ title: "Accessibility — PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "Accessibility — PeaceCode" }],
+    links: [{ rel: "canonical", href: "/settings/accessibility" }],
+  }),
   component: AccessibilityPage,
 });
 

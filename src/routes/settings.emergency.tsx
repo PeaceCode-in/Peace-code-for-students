@@ -5,7 +5,9 @@ import { palette } from "@/components/AppShell";
 import { PhoneCall, MapPin } from "lucide-react";
 
 export const Route = createFileRoute("/settings/emergency")({
-  head: () => ({ meta: [{ title: "Emergency & Safety — Settings" }] }),
+  head: () => ({ meta: [{ title: "Emergency & Safety — Settings" }],
+    links: [{ rel: "canonical", href: "/settings/emergency" }],
+  }),
   component: EmergencySettings,
 });
 

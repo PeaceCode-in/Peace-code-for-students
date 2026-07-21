@@ -9,7 +9,9 @@ const TABS = ["Saved","Completed","Continue","Downloads","Notes","Highlights"] a
 type Tab = (typeof TABS)[number];
 
 export const Route = createFileRoute("/resources/library")({
-  head: () => ({ meta: [{ title: "My Library — PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "My Library — PeaceCode" }],
+    links: [{ rel: "canonical", href: "/resources/library" }],
+  }),
   component: LibraryPage,
 });
 

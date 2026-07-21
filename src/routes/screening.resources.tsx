@@ -3,7 +3,9 @@ import { AppShell, palette } from "@/components/AppShell";
 import { ArrowLeft, Phone, HeartHandshake, ShieldCheck, BookOpen, LifeBuoy } from "lucide-react";
 
 export const Route = createFileRoute("/screening/resources")({
-  head: () => ({ meta: [{ title: "Resources & help — PeaceCode Screening" }] }),
+  head: () => ({ meta: [{ title: "Resources & help — PeaceCode Screening" }],
+    links: [{ rel: "canonical", href: "/screening/resources" }],
+  }),
   component: Resources,
 });
 

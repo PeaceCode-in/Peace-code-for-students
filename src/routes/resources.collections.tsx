@@ -3,7 +3,9 @@ import { AppShell } from "@/components/AppShell";
 import { COLLECTIONS, heroBg } from "@/lib/resources-store";
 
 export const Route = createFileRoute("/resources/collections")({
-  head: () => ({ meta: [{ title: "Collections — Resources" }] }),
+  head: () => ({ meta: [{ title: "Collections — Resources" }],
+    links: [{ rel: "canonical", href: "/resources/collections" }],
+  }),
   component: () => (
     <AppShell>
       <main className="max-w-[1240px] mx-auto px-4 sm:px-6 py-6 sm:py-10">

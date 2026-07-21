@@ -3,7 +3,9 @@ import { SettingsShell, Section, Row, Toggle, Select, TextField, GhostButton } f
 import { useSettings } from "@/lib/settings-store";
 
 export const Route = createFileRoute("/settings/breathing")({
-  head: () => ({ meta: [{ title: "Breathing — Settings" }] }),
+  head: () => ({ meta: [{ title: "Breathing — Settings" }],
+    links: [{ rel: "canonical", href: "/settings/breathing" }],
+  }),
   component: BreathingSettings,
 });
 

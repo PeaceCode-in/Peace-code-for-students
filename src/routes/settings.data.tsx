@@ -5,7 +5,9 @@ import { useEffect, useState } from "react";
 import { CloudUpload, HardDrive, RefreshCcw } from "lucide-react";
 
 export const Route = createFileRoute("/settings/data")({
-  head: () => ({ meta: [{ title: "Data & Storage — Settings" }] }),
+  head: () => ({ meta: [{ title: "Data & Storage — Settings" }],
+    links: [{ rel: "canonical", href: "/settings/data" }],
+  }),
   component: DataSettings,
 });
 

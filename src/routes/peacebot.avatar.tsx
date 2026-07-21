@@ -5,7 +5,9 @@ import { AppShell, palette } from "@/components/AppShell";
 import { loadPrefs, savePrefs, type Prefs } from "@/lib/peacebot-store";
 
 export const Route = createFileRoute("/peacebot/avatar")({
-  head: () => ({ meta: [{ title: "Peace Bot · avatar & style" }] }),
+  head: () => ({ meta: [{ title: "Peace Bot · avatar & style" }],
+    links: [{ rel: "canonical", href: "/peacebot/avatar" }],
+  }),
   component: AvatarPage,
 });
 const { surface, surface2, border, ink, muted, soft } = palette;

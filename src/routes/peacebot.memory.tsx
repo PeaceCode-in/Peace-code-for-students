@@ -5,7 +5,9 @@ import { AppShell, palette } from "@/components/AppShell";
 import { loadMems, addMem, patchMem, removeMem, type Memory } from "@/lib/peacebot-store";
 
 export const Route = createFileRoute("/peacebot/memory")({
-  head: () => ({ meta: [{ title: "Peace Bot · memory" }] }),
+  head: () => ({ meta: [{ title: "Peace Bot · memory" }],
+    links: [{ rel: "canonical", href: "/peacebot/memory" }],
+  }),
   component: MemoryPage,
 });
 const { surface, surface2, border, ink, muted, primary, soft } = palette;

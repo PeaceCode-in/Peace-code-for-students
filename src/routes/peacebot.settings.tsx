@@ -5,7 +5,9 @@ import { AppShell, palette } from "@/components/AppShell";
 import { loadPrefs, savePrefs, loadConvs, saveConvs, loadMems, saveMems, type Prefs } from "@/lib/peacebot-store";
 
 export const Route = createFileRoute("/peacebot/settings")({
-  head: () => ({ meta: [{ title: "Peace Bot · settings" }] }),
+  head: () => ({ meta: [{ title: "Peace Bot · settings" }],
+    links: [{ rel: "canonical", href: "/peacebot/settings" }],
+  }),
   component: SettingsPage,
 });
 const { surface, surface2, border, ink, muted, soft } = palette;

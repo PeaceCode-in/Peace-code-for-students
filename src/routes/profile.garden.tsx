@@ -4,7 +4,9 @@ import { loadProfile, THEMES } from "@/lib/profile-store";
 import { surface, surface2, border, ink, muted, primary, soft, Panel, StatTile } from "@/components/profile/primitives";
 
 export const Route = createFileRoute("/profile/garden")({
-  head: () => ({ meta: [{ title: "Mind Garden · PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "Mind Garden · PeaceCode" }],
+    links: [{ rel: "canonical", href: "/profile/garden" }],
+  }),
   component: GardenPage,
 });
 

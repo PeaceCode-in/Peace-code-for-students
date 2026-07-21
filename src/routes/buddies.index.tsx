@@ -8,7 +8,9 @@ export const Route = createFileRoute("/buddies/")({
   head: () => ({ meta: [
     { title: "Peace Buddies — PeaceCode" },
     { name: "description", content: "Talk to a trained student peer listener. Not therapy. Just someone who gets it." },
-  ]}),
+  ],
+    links: [{ rel: "canonical", href: "/buddies" }],
+  }),
   component: BuddiesHome,
 });
 

@@ -24,6 +24,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Dashboard — PeaceCode" },
       { property: "og:description", content: "Your wellness, told softly from top to bottom." },
     ],
+    links: [{ rel: "canonical", href: "/" }],
   }),
   component: () => (<AuthGate><AppShell><DashboardInner /></AppShell></AuthGate>),
 });

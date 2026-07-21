@@ -5,7 +5,9 @@ import { ArrowLeft, Trash2, Download, Bell, Moon, Languages, Save } from "lucide
 import { loadPrefs, savePrefs, loadSessions, saveSessions } from "@/lib/screening-store";
 
 export const Route = createFileRoute("/screening/settings")({
-  head: () => ({ meta: [{ title: "Settings — PeaceCode Screening" }] }),
+  head: () => ({ meta: [{ title: "Settings — PeaceCode Screening" }],
+    links: [{ rel: "canonical", href: "/screening/settings" }],
+  }),
   component: SettingsPage,
 });
 

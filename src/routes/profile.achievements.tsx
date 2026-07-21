@@ -5,7 +5,9 @@ import { loadProfile, type Achievement } from "@/lib/profile-store";
 import { surface, surface2, border, ink, muted, primary, soft, Panel, Sheet, Toasts, pushToast } from "@/components/profile/primitives";
 
 export const Route = createFileRoute("/profile/achievements")({
-  head: () => ({ meta: [{ title: "Achievements · PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "Achievements · PeaceCode" }],
+    links: [{ rel: "canonical", href: "/profile/achievements" }],
+  }),
   component: AchievementsPage,
 });
 

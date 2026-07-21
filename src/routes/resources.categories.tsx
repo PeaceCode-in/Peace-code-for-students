@@ -3,7 +3,9 @@ import { AppShell } from "@/components/AppShell";
 import { CATEGORIES, resourcesByCategory } from "@/lib/resources-store";
 
 export const Route = createFileRoute("/resources/categories")({
-  head: () => ({ meta: [{ title: "Categories — Resources" }] }),
+  head: () => ({ meta: [{ title: "Categories — Resources" }],
+    links: [{ rel: "canonical", href: "/resources/categories" }],
+  }),
   component: () => (
     <AppShell>
       <main className="max-w-[1240px] mx-auto px-4 sm:px-6 py-6 sm:py-10">

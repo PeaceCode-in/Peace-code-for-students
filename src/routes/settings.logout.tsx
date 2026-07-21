@@ -4,7 +4,9 @@ import { LogOut, X } from "lucide-react";
 import { endSession } from "@/lib/auth-store";
 
 export const Route = createFileRoute("/settings/logout")({
-  head: () => ({ meta: [{ title: "Sign out — PeaceCode" }] }),
+  head: () => ({ meta: [{ title: "Sign out — PeaceCode" }],
+    links: [{ rel: "canonical", href: "/settings/logout" }],
+  }),
   component: LogoutSheet,
 });
 

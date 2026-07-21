@@ -5,7 +5,9 @@ import { ArrowLeft, Bell, Lock, Globe, Ban } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/buddies/settings")({
-  head: () => ({ meta: [{ title: "Peace Buddies settings" }] }),
+  head: () => ({ meta: [{ title: "Peace Buddies settings" }],
+    links: [{ rel: "canonical", href: "/buddies/settings" }],
+  }),
   component: Settings,
 });
 

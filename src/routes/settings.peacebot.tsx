@@ -3,7 +3,9 @@ import { SettingsShell, Section, Row, Toggle, Segmented, Select, GhostButton } f
 import { useSettings, type Personality, type ResponseLength } from "@/lib/settings-store";
 
 export const Route = createFileRoute("/settings/peacebot")({
-  head: () => ({ meta: [{ title: "PeaceBot — Settings" }] }),
+  head: () => ({ meta: [{ title: "PeaceBot — Settings" }],
+    links: [{ rel: "canonical", href: "/settings/peacebot" }],
+  }),
   component: PeaceBotSettings,
 });
 
