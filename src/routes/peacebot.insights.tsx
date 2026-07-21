@@ -6,6 +6,9 @@ import { loadConvs, STUDENT_CONTEXT } from "@/lib/peacebot-store";
 
 export const Route = createFileRoute("/peacebot/insights")({
   head: () => ({ meta: [{ title: "Peace Bot · insights" },
+      { name: "description", content: "Peace Bot · insights on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Peace Bot · insights" },
+      { property: "og:description", content: "Peace Bot · insights on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot/insights.svg?title=Peace+Bot+%C2%B7+insights" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

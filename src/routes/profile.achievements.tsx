@@ -6,6 +6,9 @@ import { surface, surface2, border, ink, muted, primary, soft, Panel, Sheet, Toa
 
 export const Route = createFileRoute("/profile/achievements")({
   head: () => ({ meta: [{ title: "Achievements · PeaceCode" },
+      { name: "description", content: "Achievements · PeaceCode on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Achievements · PeaceCode" },
+      { property: "og:description", content: "Achievements · PeaceCode on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/profile/achievements.svg?title=Achievements+%C2%B7+PeaceCode" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

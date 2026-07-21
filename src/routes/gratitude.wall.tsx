@@ -9,7 +9,9 @@ import {
 } from "@/lib/gratitude-store";
 
 export const Route = createFileRoute("/gratitude/wall")({
-  head: () => ({ meta: [{ title: "Community Wall — Gratitude" }, { name: "description", content: "Anonymous gratitude from students across India." },
+  head: () => ({ meta: [{ title: "Community Wall — Gratitude" },
+      { property: "og:title", content: "Community Wall — Gratitude" },
+      { property: "og:description", content: "Community Wall — Gratitude on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." }, { name: "description", content: "Anonymous gratitude from students across India." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/gratitude/wall.svg?title=Community+Wall+%E2%80%94+Gratitude" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

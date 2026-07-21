@@ -6,6 +6,9 @@ import { loadPrefs, savePrefs, type Prefs } from "@/lib/peacebot-store";
 
 export const Route = createFileRoute("/peacebot/avatar")({
   head: () => ({ meta: [{ title: "Peace Bot · avatar & style" },
+      { name: "description", content: "Peace Bot · avatar & style on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Peace Bot · avatar & style" },
+      { property: "og:description", content: "Peace Bot · avatar & style on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot/avatar.svg?title=Peace+Bot+%C2%B7+avatar+%26+style" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

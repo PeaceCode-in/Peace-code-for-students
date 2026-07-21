@@ -3,7 +3,10 @@ import { AppShell, palette } from "@/components/AppShell";
 import { ArrowLeft, Phone, Wind, Bot, Stethoscope, Users, ShieldAlert, MapPin, UserRound } from "lucide-react";
 
 export const Route = createFileRoute("/buddies/emergency")({
-  head: () => ({ meta: [{ title: "Emergency support" }, { name: "robots", content: "noindex" }],
+  head: () => ({ meta: [{ title: "Emergency support" },
+      { name: "description", content: "Emergency support on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Emergency support" },
+      { property: "og:description", content: "Emergency support on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." }, { name: "robots", content: "noindex" }],
     links: [{ rel: "canonical", href: "/buddies/emergency" }],
   }),
   component: Emergency,

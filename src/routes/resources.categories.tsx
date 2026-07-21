@@ -4,6 +4,9 @@ import { CATEGORIES, resourcesByCategory } from "@/lib/resources-store";
 
 export const Route = createFileRoute("/resources/categories")({
   head: () => ({ meta: [{ title: "Categories — Resources" },
+      { name: "description", content: "Categories — Resources on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Categories — Resources" },
+      { property: "og:description", content: "Categories — Resources on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/resources/categories.svg?title=Categories+%E2%80%94+Resources" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

@@ -8,7 +8,10 @@ import { ArrowLeft, Clock, Check, X, CalendarClock, MessageCircle, RefreshCcw } 
 import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/buddies/request/$id")({
-  head: () => ({ meta: [{ title: "Request sent — Peace Buddies" }] }),
+  head: () => ({ meta: [{ title: "Request sent — Peace Buddies" },
+      { name: "description", content: "Request sent — Peace Buddies on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Request sent — Peace Buddies" },
+      { property: "og:description", content: "Request sent — Peace Buddies on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." }] }),
   component: RequestPage,
 });
 

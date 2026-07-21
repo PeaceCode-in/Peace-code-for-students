@@ -6,6 +6,9 @@ import { Star, ExternalLink } from "lucide-react";
 
 export const Route = createFileRoute("/settings/support")({
   head: () => ({ meta: [{ title: "Support — PeaceCode" },
+      { name: "description", content: "Support on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Support — PeaceCode" },
+      { property: "og:description", content: "Support on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/settings/support.svg?title=Support+%E2%80%94+PeaceCode" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

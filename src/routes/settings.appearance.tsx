@@ -6,6 +6,9 @@ import { Check } from "lucide-react";
 
 export const Route = createFileRoute("/settings/appearance")({
   head: () => ({ meta: [{ title: "Appearance — PeaceCode Settings" },
+      { name: "description", content: "Appearance on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Appearance — PeaceCode Settings" },
+      { property: "og:description", content: "Appearance on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/settings/appearance.svg?title=Appearance+%E2%80%94+PeaceCode+Settings" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

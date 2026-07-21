@@ -6,6 +6,9 @@ import { peacebotTask } from "@/lib/peacebot-ai.functions";
 
 export const Route = createFileRoute("/peacebot/tools")({
   head: () => ({ meta: [{ title: "Peace Bot · AI tools hub" },
+      { name: "description", content: "Peace Bot · AI tools hub on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Peace Bot · AI tools hub" },
+      { property: "og:description", content: "Peace Bot · AI tools hub on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot/tools.svg?title=Peace+Bot+%C2%B7+AI+tools+hub" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

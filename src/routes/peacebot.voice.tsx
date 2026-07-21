@@ -7,6 +7,9 @@ import { peacebotReply } from "@/lib/peacebot-ai.functions";
 
 export const Route = createFileRoute("/peacebot/voice")({
   head: () => ({ meta: [{ title: "Peace Bot · voice" },
+      { name: "description", content: "Peace Bot · voice on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Peace Bot · voice" },
+      { property: "og:description", content: "Peace Bot · voice on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot/voice.svg?title=Peace+Bot+%C2%B7+voice" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

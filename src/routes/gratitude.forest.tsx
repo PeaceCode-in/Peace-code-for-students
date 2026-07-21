@@ -6,6 +6,9 @@ import { loadEntries, loadCommunity, computeForest } from "@/lib/gratitude-store
 
 export const Route = createFileRoute("/gratitude/forest")({
   head: () => ({ meta: [{ title: "Peace Forest — Gratitude" },
+      { name: "description", content: "Peace Forest — Gratitude on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Peace Forest — Gratitude" },
+      { property: "og:description", content: "Peace Forest — Gratitude on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/gratitude/forest.svg?title=Peace+Forest+%E2%80%94+Gratitude" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

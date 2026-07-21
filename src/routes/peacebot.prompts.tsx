@@ -6,6 +6,9 @@ import { newConv, upsertConv, addMsg } from "@/lib/peacebot-store";
 
 export const Route = createFileRoute("/peacebot/prompts")({
   head: () => ({ meta: [{ title: "Peace Bot · prompt library" },
+      { name: "description", content: "Peace Bot · prompt library on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Peace Bot · prompt library" },
+      { property: "og:description", content: "Peace Bot · prompt library on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/peacebot/prompts.svg?title=Peace+Bot+%C2%B7+prompt+library" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

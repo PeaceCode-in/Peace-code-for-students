@@ -4,6 +4,9 @@ import { ArrowLeft, Check, X, Heart, GraduationCap, Stethoscope, Pill, Phone } f
 
 export const Route = createFileRoute("/buddies/about")({
   head: () => ({ meta: [{ title: "What is Peace Buddies?" },
+      { name: "description", content: "What is Peace Buddies? on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "What is Peace Buddies?" },
+      { property: "og:description", content: "What is Peace Buddies? on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/buddies/about.svg?title=What+is+Peace+Buddies%3F" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

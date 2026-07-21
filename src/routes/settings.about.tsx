@@ -6,6 +6,9 @@ import logo from "@/assets/peacecode-logo.png";
 
 export const Route = createFileRoute("/settings/about")({
   head: () => ({ meta: [{ title: "About — PeaceCode" },
+      { name: "description", content: "About on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "About — PeaceCode" },
+      { property: "og:description", content: "About on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/settings/about.svg?title=About+%E2%80%94+PeaceCode" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

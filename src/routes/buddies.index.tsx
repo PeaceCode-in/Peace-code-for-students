@@ -7,6 +7,8 @@ import { useMemo } from "react";
 export const Route = createFileRoute("/buddies/")({
   head: () => ({ meta: [
     { title: "Peace Buddies — PeaceCode" },
+      { property: "og:title", content: "Peace Buddies — PeaceCode" },
+      { property: "og:description", content: "Peace Buddies on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
     { name: "description", content: "Talk to a trained student peer listener. Not therapy. Just someone who gets it." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/buddies.svg?title=Peace+Buddies+%E2%80%94+PeaceCode" },
       { property: "og:image:width", content: "1200" },

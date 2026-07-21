@@ -12,6 +12,9 @@ import { loadSessions as loadBreathSessions } from "@/lib/breathe-store";
 
 export const Route = createFileRoute("/settings/")({
   head: () => ({ meta: [{ title: "Settings — PeaceCode" },
+      { name: "description", content: "Settings on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Settings — PeaceCode" },
+      { property: "og:description", content: "Settings on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/settings.svg?title=Settings+%E2%80%94+PeaceCode" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

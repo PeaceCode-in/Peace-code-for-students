@@ -4,6 +4,9 @@ import { ArrowLeft, Phone, HeartHandshake, ShieldCheck, BookOpen, LifeBuoy } fro
 
 export const Route = createFileRoute("/screening/resources")({
   head: () => ({ meta: [{ title: "Resources & help — PeaceCode Screening" },
+      { name: "description", content: "Resources & help on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Resources & help — PeaceCode Screening" },
+      { property: "og:description", content: "Resources & help on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/screening/resources.svg?title=Resources+%26+help+%E2%80%94+PeaceCode+Screening" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },

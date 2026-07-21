@@ -6,7 +6,10 @@ import { useState } from "react";
 import { Plus, Edit3 } from "lucide-react";
 
 export const Route = createFileRoute("/resources/playlist/$id")({
-  head: () => ({ meta: [{ title: "Playlist — Resources" }] }),
+  head: () => ({ meta: [{ title: "Playlist — Resources" },
+      { name: "description", content: "Playlist — Resources on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Playlist — Resources" },
+      { property: "og:description", content: "Playlist — Resources on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." }] }),
   component: PlaylistPage,
   notFoundComponent: () => <AppShell><main className="p-10 text-center">Playlist not found</main></AppShell>,
 });

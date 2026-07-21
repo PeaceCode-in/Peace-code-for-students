@@ -6,6 +6,9 @@ import { surface, surface2, border, ink, muted, primary, Panel, SectionLabel, To
 
 export const Route = createFileRoute("/profile/edit")({
   head: () => ({ meta: [{ title: "Edit profile · PeaceCode" },
+      { name: "description", content: "Edit profile · PeaceCode on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
+      { property: "og:title", content: "Edit profile · PeaceCode" },
+      { property: "og:description", content: "Edit profile · PeaceCode on PeaceCode — a calm, private space for Indian students to feel supported, focused, and understood." },
       { property: "og:image", content: "https://app.peacecode.in/api/og/profile/edit.svg?title=Edit+profile+%C2%B7+PeaceCode" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
