@@ -121,4 +121,20 @@ function ChangelogDetail() {
   );
 }
 
-export const Route = createFileRoute("/hub/changelog/$version")({ component: ChangelogDetail });
+export const Route = createFileRoute("/hub/changelog/$version")({ 
+  head: () => ({
+    meta: [
+      { title: "$Version — PeaceCode" },
+      { name: "description", content: "$Version on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "$Version — PeaceCode" },
+      { property: "og:description", content: "$Version on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/hub/changelog/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "$Version — PeaceCode" },
+      { name: "twitter:description", content: "$Version on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/hub/changelog/" }],
+  }),
+component: ChangelogDetail });

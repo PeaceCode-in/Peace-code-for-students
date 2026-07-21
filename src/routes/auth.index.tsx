@@ -6,7 +6,23 @@ import { isCollegeEmail, isRegistered, saveDraft, loadDraft, endSession } from "
 import { resetProfile } from "@/lib/profile-store";
 
 export const Route = createFileRoute("/auth/")({
-  component: EmailEntry,
+  
+  head: () => ({
+    meta: [
+      { title: "Sign in — PeaceCode" },
+      { name: "description", content: "A calm doorway into PeaceCode. Use your college email to continue." },
+      { property: "og:title", content: "Sign in — PeaceCode" },
+      { property: "og:description", content: "A calm doorway into PeaceCode. Use your college email to continue." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/auth" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Sign in — PeaceCode" },
+      { name: "twitter:description", content: "A calm doorway into PeaceCode. Use your college email to continue." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/auth" }],
+  }),
+component: EmailEntry,
 });
 
 function EmailEntry() {

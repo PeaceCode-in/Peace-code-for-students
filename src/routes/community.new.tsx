@@ -7,7 +7,22 @@ import { useCommunity, community } from "@/lib/community-store";
 type Search = { circle?: string };
 
 export const Route = createFileRoute("/community/new")({
-  component: NewThreadPage,
+  
+  head: () => ({
+    meta: [
+      { title: "Start a conversation — PeaceCode" },
+      { name: "description", content: "Share a thread, question, or moment with the community." },
+      { property: "og:title", content: "Start a conversation — PeaceCode" },
+      { property: "og:description", content: "Share a thread, question, or moment with the community." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/community/new" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Start a conversation — PeaceCode" },
+      { name: "twitter:description", content: "Share a thread, question, or moment with the community." },
+    ],
+    links: [{ rel: "canonical", href: "/community/new" }],
+  }),
+component: NewThreadPage,
   validateSearch: (search: Record<string, unknown>): Search => ({
     circle: typeof search.circle === "string" ? search.circle : undefined,
   }),

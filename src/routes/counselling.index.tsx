@@ -9,7 +9,22 @@ import { ArrowRight, Sparkles, ShieldCheck, Star, CalendarClock, MessageCircle, 
 import { useEffect, useMemo, useState } from "react";
 
 export const Route = createFileRoute("/counselling/")({
-  component: CounsellingHome,
+  
+  head: () => ({
+    meta: [
+      { title: "Counselling — PeaceCode" },
+      { name: "description", content: "Licensed therapists, bookable sessions, homework and reports — all in one calm surface." },
+      { property: "og:title", content: "Counselling — PeaceCode" },
+      { property: "og:description", content: "Licensed therapists, bookable sessions, homework and reports — all in one calm surface." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Counselling — PeaceCode" },
+      { name: "twitter:description", content: "Licensed therapists, bookable sessions, homework and reports — all in one calm surface." },
+    ],
+    links: [{ rel: "canonical", href: "/counselling" }],
+  }),
+component: CounsellingHome,
 });
 
 function CounsellingHome() {

@@ -6,7 +6,23 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, Video, Phone, MessageSquare, Upload, MessageCircle, CalendarClock, X, Check, FileText } from "lucide-react";
 
 export const Route = createFileRoute("/counselling/appt/$aid")({
-  component: AppointmentDashboard,
+  
+  head: () => ({
+    meta: [
+      { title: "$Aid — PeaceCode" },
+      { name: "description", content: "$Aid on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "$Aid — PeaceCode" },
+      { property: "og:description", content: "$Aid on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling/appt/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "$Aid — PeaceCode" },
+      { name: "twitter:description", content: "$Aid on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/counselling/appt/" }],
+  }),
+component: AppointmentDashboard,
 });
 
 function AppointmentDashboard() {

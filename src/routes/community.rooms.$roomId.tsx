@@ -5,7 +5,23 @@ import { cmy } from "@/lib/community-theme";
 import { community, useCommunity, timeAgo } from "@/lib/community-store";
 
 export const Route = createFileRoute("/community/rooms/$roomId")({
-  component: RoomDetail,
+  
+  head: () => ({
+    meta: [
+      { title: "$RoomId — PeaceCode" },
+      { name: "description", content: "$RoomId on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "$RoomId — PeaceCode" },
+      { property: "og:description", content: "$RoomId on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/community/rooms/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "$RoomId — PeaceCode" },
+      { name: "twitter:description", content: "$RoomId on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/community/rooms/" }],
+  }),
+component: RoomDetail,
   loader: ({ params }) => {
     const r = community.getRoom(params.roomId);
     if (!r) throw notFound();

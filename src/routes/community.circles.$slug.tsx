@@ -4,7 +4,23 @@ import { cmy } from "@/lib/community-theme";
 import { community, useCommunity, timeAgo } from "@/lib/community-store";
 
 export const Route = createFileRoute("/community/circles/$slug")({
-  component: CircleDetail,
+  
+  head: () => ({
+    meta: [
+      { title: "$Slug — PeaceCode" },
+      { name: "description", content: "$Slug on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "$Slug — PeaceCode" },
+      { property: "og:description", content: "$Slug on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/community/circles/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "$Slug — PeaceCode" },
+      { name: "twitter:description", content: "$Slug on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/community/circles/" }],
+  }),
+component: CircleDetail,
   loader: ({ params }) => {
     const c = community.getCircleBySlug(params.slug);
     if (!c) throw notFound();

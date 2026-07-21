@@ -58,4 +58,19 @@ function Bookmarks() {
   );
 }
 
-export const Route = createFileRoute("/events/bookmarks")({ component: Bookmarks });
+export const Route = createFileRoute("/events/bookmarks")({ 
+  head: () => ({
+    meta: [
+      { title: "Bookmarked events — PeaceCode" },
+      { name: "description", content: "Events you're keeping an eye on." },
+      { property: "og:title", content: "Bookmarked events — PeaceCode" },
+      { property: "og:description", content: "Events you're keeping an eye on." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/events/bookmarks" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Bookmarked events — PeaceCode" },
+      { name: "twitter:description", content: "Events you're keeping an eye on." },
+    ],
+    links: [{ rel: "canonical", href: "/events/bookmarks" }],
+  }),
+component: Bookmarks });

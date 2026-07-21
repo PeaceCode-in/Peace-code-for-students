@@ -5,7 +5,22 @@ import { Phone, MapPin, MessageSquare, Wind, LifeBuoy } from "lucide-react";
 import { EXPERTS, photoFor } from "@/lib/counselling-store";
 
 export const Route = createFileRoute("/counselling/emergency")({
-  component: Emergency,
+  
+  head: () => ({
+    meta: [
+      { title: "Emergency support — PeaceCode" },
+      { name: "description", content: "In a crisis? Reach a human immediately." },
+      { property: "og:title", content: "Emergency support — PeaceCode" },
+      { property: "og:description", content: "In a crisis? Reach a human immediately." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling/emergency" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Emergency support — PeaceCode" },
+      { name: "twitter:description", content: "In a crisis? Reach a human immediately." },
+    ],
+    links: [{ rel: "canonical", href: "/counselling/emergency" }],
+  }),
+component: Emergency,
 });
 
 const HELPLINES = [

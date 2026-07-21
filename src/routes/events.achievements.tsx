@@ -76,4 +76,19 @@ function Achievements() {
   );
 }
 
-export const Route = createFileRoute("/events/achievements")({ component: Achievements });
+export const Route = createFileRoute("/events/achievements")({ 
+  head: () => ({
+    meta: [
+      { title: "Event achievements — PeaceCode" },
+      { name: "description", content: "Milestones you've unlocked by showing up." },
+      { property: "og:title", content: "Event achievements — PeaceCode" },
+      { property: "og:description", content: "Milestones you've unlocked by showing up." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/events/achievements" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Event achievements — PeaceCode" },
+      { name: "twitter:description", content: "Milestones you've unlocked by showing up." },
+    ],
+    links: [{ rel: "canonical", href: "/events/achievements" }],
+  }),
+component: Achievements });

@@ -131,4 +131,19 @@ function Requests() {
 // silence unused
 void surface;
 
-export const Route = createFileRoute("/hub/feature-requests")({ component: Requests });
+export const Route = createFileRoute("/hub/feature-requests")({ 
+  head: () => ({
+    meta: [
+      { title: "Feature requests — PeaceCode" },
+      { name: "description", content: "Ideas from students, upvoted by students." },
+      { property: "og:title", content: "Feature requests — PeaceCode" },
+      { property: "og:description", content: "Ideas from students, upvoted by students." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/hub/feature-requests" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Feature requests — PeaceCode" },
+      { name: "twitter:description", content: "Ideas from students, upvoted by students." },
+    ],
+    links: [{ rel: "canonical", href: "/hub/feature-requests" }],
+  }),
+component: Requests });

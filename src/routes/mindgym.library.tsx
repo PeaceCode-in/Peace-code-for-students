@@ -5,7 +5,22 @@ import { ArrowLeft, Search, Clock, Zap, Filter, X } from "lucide-react";
 import { EXERCISES, PATHS, useMindGym, type Difficulty } from "@/lib/mindgym-store";
 
 export const Route = createFileRoute("/mindgym/library")({
-  component: LibraryPage,
+  
+  head: () => ({
+    meta: [
+      { title: "Mind Gym library — PeaceCode" },
+      { name: "description", content: "Every exercise, organized by the skill it trains and the mood it fits." },
+      { property: "og:title", content: "Mind Gym library — PeaceCode" },
+      { property: "og:description", content: "Every exercise, organized by the skill it trains and the mood it fits." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/mindgym/library" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Mind Gym library — PeaceCode" },
+      { name: "twitter:description", content: "Every exercise, organized by the skill it trains and the mood it fits." },
+    ],
+    links: [{ rel: "canonical", href: "/mindgym/library" }],
+  }),
+component: LibraryPage,
 });
 
 const DURATIONS = [

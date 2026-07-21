@@ -79,5 +79,21 @@ function CheckIn() {
 }
 
 export const Route = createFileRoute("/emergency/checkin")({
-  component: CheckIn,
+  
+  head: () => ({
+    meta: [
+      { title: "Checkin — PeaceCode" },
+      { name: "description", content: "Checkin on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Checkin — PeaceCode" },
+      { property: "og:description", content: "Checkin on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency/checkin" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Checkin — PeaceCode" },
+      { name: "twitter:description", content: "Checkin on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency/checkin" }],
+  }),
+component: CheckIn,
 });

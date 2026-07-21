@@ -89,4 +89,19 @@ function Roadmap() {
   );
 }
 
-export const Route = createFileRoute("/hub/roadmap")({ component: Roadmap });
+export const Route = createFileRoute("/hub/roadmap")({ 
+  head: () => ({
+    meta: [
+      { title: "Roadmap — PeaceCode" },
+      { name: "description", content: "What we're working on next, and what's shipping soon." },
+      { property: "og:title", content: "Roadmap — PeaceCode" },
+      { property: "og:description", content: "What we're working on next, and what's shipping soon." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/hub/roadmap" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Roadmap — PeaceCode" },
+      { name: "twitter:description", content: "What we're working on next, and what's shipping soon." },
+    ],
+    links: [{ rel: "canonical", href: "/hub/roadmap" }],
+  }),
+component: Roadmap });

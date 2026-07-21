@@ -100,4 +100,20 @@ function Grounding() {
   );
 }
 
-export const Route = createFileRoute("/emergency/grounding")({ component: Grounding });
+export const Route = createFileRoute("/emergency/grounding")({ 
+  head: () => ({
+    meta: [
+      { title: "Grounding — PeaceCode" },
+      { name: "description", content: "Grounding on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Grounding — PeaceCode" },
+      { property: "og:description", content: "Grounding on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency/grounding" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Grounding — PeaceCode" },
+      { name: "twitter:description", content: "Grounding on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency/grounding" }],
+  }),
+component: Grounding });

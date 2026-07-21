@@ -6,7 +6,22 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Send, Pin, Bookmark, Archive, Search, Paperclip } from "lucide-react";
 
 export const Route = createFileRoute("/counselling/messages")({
-  component: Messages,
+  
+  head: () => ({
+    meta: [
+      { title: "Messages — PeaceCode" },
+      { name: "description", content: "Secure, async messages with your therapist between sessions." },
+      { property: "og:title", content: "Messages — PeaceCode" },
+      { property: "og:description", content: "Secure, async messages with your therapist between sessions." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling/messages" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Messages — PeaceCode" },
+      { name: "twitter:description", content: "Secure, async messages with your therapist between sessions." },
+    ],
+    links: [{ rel: "canonical", href: "/counselling/messages" }],
+  }),
+component: Messages,
 });
 
 function Messages() {

@@ -129,4 +129,20 @@ function Rsvp() {
   );
 }
 
-export const Route = createFileRoute("/events/$id/rsvp")({ component: Rsvp });
+export const Route = createFileRoute("/events/$id/rsvp")({ 
+  head: () => ({
+    meta: [
+      { title: "Rsvp — PeaceCode" },
+      { name: "description", content: "Rsvp on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Rsvp — PeaceCode" },
+      { property: "og:description", content: "Rsvp on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/events//rsvp" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Rsvp — PeaceCode" },
+      { name: "twitter:description", content: "Rsvp on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/events//rsvp" }],
+  }),
+component: Rsvp });

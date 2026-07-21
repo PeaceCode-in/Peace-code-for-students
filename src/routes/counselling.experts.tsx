@@ -8,7 +8,22 @@ import {
 import { Search, ShieldCheck, Star, Heart, SlidersHorizontal, X, CalendarClock } from "lucide-react";
 
 export const Route = createFileRoute("/counselling/experts")({
-  component: FindExperts,
+  
+  head: () => ({
+    meta: [
+      { title: "Find a therapist — PeaceCode" },
+      { name: "description", content: "Filter licensed clinicians by concern, language, modality, and price." },
+      { property: "og:title", content: "Find a therapist — PeaceCode" },
+      { property: "og:description", content: "Filter licensed clinicians by concern, language, modality, and price." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling/experts" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Find a therapist — PeaceCode" },
+      { name: "twitter:description", content: "Filter licensed clinicians by concern, language, modality, and price." },
+    ],
+    links: [{ rel: "canonical", href: "/counselling/experts" }],
+  }),
+component: FindExperts,
 });
 
 type Sort = "recommended" | "rating" | "price-low" | "price-high" | "soonest";

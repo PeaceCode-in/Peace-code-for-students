@@ -49,4 +49,20 @@ function Affirmations() {
   );
 }
 
-export const Route = createFileRoute("/emergency/affirmations")({ component: Affirmations });
+export const Route = createFileRoute("/emergency/affirmations")({ 
+  head: () => ({
+    meta: [
+      { title: "Affirmations — PeaceCode" },
+      { name: "description", content: "Affirmations on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Affirmations — PeaceCode" },
+      { property: "og:description", content: "Affirmations on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency/affirmations" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Affirmations — PeaceCode" },
+      { name: "twitter:description", content: "Affirmations on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency/affirmations" }],
+  }),
+component: Affirmations });

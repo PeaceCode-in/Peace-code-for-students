@@ -6,7 +6,22 @@ import { useEffect, useState } from "react";
 import { Plus, Check, X, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/counselling/wellness")({
-  component: Wellness,
+  
+  head: () => ({
+    meta: [
+      { title: "Wellness plan — PeaceCode" },
+      { name: "description", content: "The therapeutic plan you and your clinician are working toward." },
+      { property: "og:title", content: "Wellness plan — PeaceCode" },
+      { property: "og:description", content: "The therapeutic plan you and your clinician are working toward." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling/wellness" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Wellness plan — PeaceCode" },
+      { name: "twitter:description", content: "The therapeutic plan you and your clinician are working toward." },
+    ],
+    links: [{ rel: "canonical", href: "/counselling/wellness" }],
+  }),
+component: Wellness,
 });
 
 function Wellness() {

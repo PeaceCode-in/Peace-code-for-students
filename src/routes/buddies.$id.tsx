@@ -5,7 +5,23 @@ import { ArrowLeft, Sparkles, Star, MessageCircle, Calendar, Play, Flag, Share2,
 import { useState } from "react";
 
 export const Route = createFileRoute("/buddies/$id")({
-  component: Profile,
+  
+  head: () => ({
+    meta: [
+      { title: "$Id — PeaceCode" },
+      { name: "description", content: "$Id on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "$Id — PeaceCode" },
+      { property: "og:description", content: "$Id on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/buddies/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "$Id — PeaceCode" },
+      { name: "twitter:description", content: "$Id on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/buddies/" }],
+  }),
+component: Profile,
 });
 
 function Profile() {

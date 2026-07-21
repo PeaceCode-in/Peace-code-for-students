@@ -97,4 +97,20 @@ function SettingsPage() {
   );
 }
 
-export const Route = createFileRoute("/emergency/settings")({ component: SettingsPage });
+export const Route = createFileRoute("/emergency/settings")({ 
+  head: () => ({
+    meta: [
+      { title: "Settings — PeaceCode" },
+      { name: "description", content: "Settings on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Settings — PeaceCode" },
+      { property: "og:description", content: "Settings on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency/settings" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Settings — PeaceCode" },
+      { name: "twitter:description", content: "Settings on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency/settings" }],
+  }),
+component: SettingsPage });

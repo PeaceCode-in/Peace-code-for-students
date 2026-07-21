@@ -182,4 +182,20 @@ function Live() {
   );
 }
 
-export const Route = createFileRoute("/events/$id/live")({ component: Live });
+export const Route = createFileRoute("/events/$id/live")({ 
+  head: () => ({
+    meta: [
+      { title: "Live — PeaceCode" },
+      { name: "description", content: "Live on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Live — PeaceCode" },
+      { property: "og:description", content: "Live on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/events//live" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Live — PeaceCode" },
+      { name: "twitter:description", content: "Live on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/events//live" }],
+  }),
+component: Live });

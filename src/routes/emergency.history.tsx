@@ -72,4 +72,20 @@ function History() {
   );
 }
 
-export const Route = createFileRoute("/emergency/history")({ component: History });
+export const Route = createFileRoute("/emergency/history")({ 
+  head: () => ({
+    meta: [
+      { title: "History — PeaceCode" },
+      { name: "description", content: "History on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "History — PeaceCode" },
+      { property: "og:description", content: "History on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency/history" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "History — PeaceCode" },
+      { name: "twitter:description", content: "History on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency/history" }],
+  }),
+component: History });

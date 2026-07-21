@@ -5,7 +5,22 @@ import { listInvoices, getExpert, upcomingAppointments } from "@/lib/counselling
 import { Download, Receipt } from "lucide-react";
 
 export const Route = createFileRoute("/counselling/billing")({
-  component: Billing,
+  
+  head: () => ({
+    meta: [
+      { title: "Billing — PeaceCode" },
+      { name: "description", content: "Invoices, receipts, and insurance-ready statements." },
+      { property: "og:title", content: "Billing — PeaceCode" },
+      { property: "og:description", content: "Invoices, receipts, and insurance-ready statements." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling/billing" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Billing — PeaceCode" },
+      { name: "twitter:description", content: "Invoices, receipts, and insurance-ready statements." },
+    ],
+    links: [{ rel: "canonical", href: "/counselling/billing" }],
+  }),
+component: Billing,
 });
 
 function Billing() {

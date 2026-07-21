@@ -255,5 +255,21 @@ function HomeInner() {
 }
 
 export const Route = createFileRoute("/emergency/")({
-  component: HomeInner,
+  
+  head: () => ({
+    meta: [
+      { title: "Emergency — PeaceCode" },
+      { name: "description", content: "Emergency on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Emergency — PeaceCode" },
+      { property: "og:description", content: "Emergency on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Emergency — PeaceCode" },
+      { name: "twitter:description", content: "Emergency on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency" }],
+  }),
+component: HomeInner,
 });

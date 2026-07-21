@@ -90,4 +90,19 @@ function Search() {
 // silence
 void primary;
 
-export const Route = createFileRoute("/hub/search")({ component: Search });
+export const Route = createFileRoute("/hub/search")({ 
+  head: () => ({
+    meta: [
+      { title: "Hub search — PeaceCode" },
+      { name: "description", content: "Find any release, integration, or theme in the hub." },
+      { property: "og:title", content: "Hub search — PeaceCode" },
+      { property: "og:description", content: "Find any release, integration, or theme in the hub." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/hub/search" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Hub search — PeaceCode" },
+      { name: "twitter:description", content: "Find any release, integration, or theme in the hub." },
+    ],
+    links: [{ rel: "canonical", href: "/hub/search" }],
+  }),
+component: Search });

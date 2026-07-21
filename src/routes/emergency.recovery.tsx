@@ -35,4 +35,20 @@ function Recovery() {
   );
 }
 
-export const Route = createFileRoute("/emergency/recovery")({ component: Recovery });
+export const Route = createFileRoute("/emergency/recovery")({ 
+  head: () => ({
+    meta: [
+      { title: "Recovery — PeaceCode" },
+      { name: "description", content: "Recovery on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Recovery — PeaceCode" },
+      { property: "og:description", content: "Recovery on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency/recovery" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Recovery — PeaceCode" },
+      { name: "twitter:description", content: "Recovery on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency/recovery" }],
+  }),
+component: Recovery });

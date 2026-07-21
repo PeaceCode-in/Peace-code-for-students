@@ -62,4 +62,19 @@ function Categories() {
   );
 }
 
-export const Route = createFileRoute("/events/categories")({ component: Categories });
+export const Route = createFileRoute("/events/categories")({ 
+  head: () => ({
+    meta: [
+      { title: "Event categories — PeaceCode" },
+      { name: "description", content: "Meditation, mentorship, career, wellness, community, and more." },
+      { property: "og:title", content: "Event categories — PeaceCode" },
+      { property: "og:description", content: "Meditation, mentorship, career, wellness, community, and more." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/events/categories" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Event categories — PeaceCode" },
+      { name: "twitter:description", content: "Meditation, mentorship, career, wellness, community, and more." },
+    ],
+    links: [{ rel: "canonical", href: "/events/categories" }],
+  }),
+component: Categories });

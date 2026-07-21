@@ -84,4 +84,20 @@ function Helplines() {
   );
 }
 
-export const Route = createFileRoute("/emergency/helplines")({ component: Helplines });
+export const Route = createFileRoute("/emergency/helplines")({ 
+  head: () => ({
+    meta: [
+      { title: "Helplines — PeaceCode" },
+      { name: "description", content: "Helplines on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Helplines — PeaceCode" },
+      { property: "og:description", content: "Helplines on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency/helplines" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Helplines — PeaceCode" },
+      { name: "twitter:description", content: "Helplines on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency/helplines" }],
+  }),
+component: Helplines });

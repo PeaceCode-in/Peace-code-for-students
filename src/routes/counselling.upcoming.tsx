@@ -5,7 +5,22 @@ import { upcomingAppointments, getExpert, photoFor } from "@/lib/counselling-sto
 import { CalendarClock, ArrowRight, Video, Phone, MessageSquare } from "lucide-react";
 
 export const Route = createFileRoute("/counselling/upcoming")({
-  component: Upcoming,
+  
+  head: () => ({
+    meta: [
+      { title: "Upcoming sessions — PeaceCode" },
+      { name: "description", content: "Your next counselling sessions, at a glance." },
+      { property: "og:title", content: "Upcoming sessions — PeaceCode" },
+      { property: "og:description", content: "Your next counselling sessions, at a glance." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling/upcoming" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Upcoming sessions — PeaceCode" },
+      { name: "twitter:description", content: "Your next counselling sessions, at a glance." },
+    ],
+    links: [{ rel: "canonical", href: "/counselling/upcoming" }],
+  }),
+component: Upcoming,
 });
 
 function Upcoming() {

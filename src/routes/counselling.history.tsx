@@ -5,7 +5,22 @@ import { Card, Chip, fmtDay, fmtTime, rupee } from "./counselling";
 import { listAppointments, getExpert, photoFor } from "@/lib/counselling-store";
 
 export const Route = createFileRoute("/counselling/history")({
-  component: History,
+  
+  head: () => ({
+    meta: [
+      { title: "Session history — PeaceCode" },
+      { name: "description", content: "Every past session, summary, and reflection — private to you and your therapist." },
+      { property: "og:title", content: "Session history — PeaceCode" },
+      { property: "og:description", content: "Every past session, summary, and reflection — private to you and your therapist." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling/history" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Session history — PeaceCode" },
+      { name: "twitter:description", content: "Every past session, summary, and reflection — private to you and your therapist." },
+    ],
+    links: [{ rel: "canonical", href: "/counselling/history" }],
+  }),
+component: History,
 });
 
 function History() {

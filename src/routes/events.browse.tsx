@@ -208,7 +208,22 @@ function Browse() {
 }
 
 export const Route = createFileRoute("/events/browse")({
-  validateSearch: (s: Record<string, unknown>): SearchParams => ({
+  
+  head: () => ({
+    meta: [
+      { title: "Browse events — PeaceCode" },
+      { name: "description", content: "Every upcoming event on PeaceCode. Filter by campus, category, and mood." },
+      { property: "og:title", content: "Browse events — PeaceCode" },
+      { property: "og:description", content: "Every upcoming event on PeaceCode. Filter by campus, category, and mood." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/events/browse" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Browse events — PeaceCode" },
+      { name: "twitter:description", content: "Every upcoming event on PeaceCode. Filter by campus, category, and mood." },
+    ],
+    links: [{ rel: "canonical", href: "/events/browse" }],
+  }),
+validateSearch: (s: Record<string, unknown>): SearchParams => ({
     q: typeof s.q === "string" ? s.q : undefined,
     category: typeof s.category === "string" ? s.category : undefined,
     when: typeof s.when === "string" ? s.when : undefined,

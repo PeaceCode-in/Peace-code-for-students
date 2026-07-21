@@ -107,4 +107,20 @@ function LocationPage() {
   );
 }
 
-export const Route = createFileRoute("/emergency/location")({ component: LocationPage });
+export const Route = createFileRoute("/emergency/location")({ 
+  head: () => ({
+    meta: [
+      { title: "Location — PeaceCode" },
+      { name: "description", content: "Location on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Location — PeaceCode" },
+      { property: "og:description", content: "Location on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency/location" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Location — PeaceCode" },
+      { name: "twitter:description", content: "Location on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency/location" }],
+  }),
+component: LocationPage });

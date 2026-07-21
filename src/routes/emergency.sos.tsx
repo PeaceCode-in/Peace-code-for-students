@@ -94,6 +94,22 @@ function SOSPage() {
 }
 
 export const Route = createFileRoute("/emergency/sos")({
-  validateSearch: (s: Record<string, unknown>) => ({ from: typeof s.from === "string" ? s.from : undefined }),
+  
+  head: () => ({
+    meta: [
+      { title: "Sos — PeaceCode" },
+      { name: "description", content: "Sos on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Sos — PeaceCode" },
+      { property: "og:description", content: "Sos on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency/sos" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Sos — PeaceCode" },
+      { name: "twitter:description", content: "Sos on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency/sos" }],
+  }),
+validateSearch: (s: Record<string, unknown>) => ({ from: typeof s.from === "string" ? s.from : undefined }),
   component: SOSPage,
 });

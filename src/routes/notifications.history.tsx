@@ -12,7 +12,22 @@ import { Icon, Panel, Pill, CategoryChip, SectionLabel } from "@/components/noti
 const { surface, border, ink, muted, primary, soft } = palette;
 
 export const Route = createFileRoute("/notifications/history")({
-  component: History,
+  
+  head: () => ({
+    meta: [
+      { title: "Notification history — PeaceCode" },
+      { name: "description", content: "Every notification PeaceCode has ever sent you." },
+      { property: "og:title", content: "Notification history — PeaceCode" },
+      { property: "og:description", content: "Every notification PeaceCode has ever sent you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/notifications/history" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Notification history — PeaceCode" },
+      { name: "twitter:description", content: "Every notification PeaceCode has ever sent you." },
+    ],
+    links: [{ rel: "canonical", href: "/notifications/history" }],
+  }),
+component: History,
 });
 
 function History() {

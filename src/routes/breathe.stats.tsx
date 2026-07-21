@@ -5,7 +5,22 @@ import logo from "@/assets/peacecode-logo.png";
 import { AppShell } from "@/components/AppShell";
 import { loadSessions, type BreathSession, type BreathTechniqueKey } from "@/lib/breathe-store";
 
-export const Route = createFileRoute("/breathe/stats")({ component: BreatheStatsPage });
+export const Route = createFileRoute("/breathe/stats")({ 
+  head: () => ({
+    meta: [
+      { title: "Breathing stats — PeaceCode" },
+      { name: "description", content: "Your breathing history, streaks, and how each technique moved you." },
+      { property: "og:title", content: "Breathing stats — PeaceCode" },
+      { property: "og:description", content: "Your breathing history, streaks, and how each technique moved you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/breathe/stats" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Breathing stats — PeaceCode" },
+      { name: "twitter:description", content: "Your breathing history, streaks, and how each technique moved you." },
+    ],
+    links: [{ rel: "canonical", href: "/breathe/stats" }],
+  }),
+component: BreatheStatsPage });
 
 const bg = "#F7FAFF", surface = "#FFFFFF", surface2 = "#EAF3FF", border = "#DCE3EF";
 const ink = "#1D2A44", muted = "#7587A6", primary = "#4B6CB7";

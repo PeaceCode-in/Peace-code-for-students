@@ -173,4 +173,19 @@ function WhatsNew() {
 // silence unused Package, Bell, Flag icons (used in some variants)
 const _reserved: ReactNode = null; void _reserved; void Package; void Bell; void Flag;
 
-export const Route = createFileRoute("/hub/whats-new")({ component: WhatsNew });
+export const Route = createFileRoute("/hub/whats-new")({ 
+  head: () => ({
+    meta: [
+      { title: "What's new — PeaceCode" },
+      { name: "description", content: "Every feature, fix, and improvement — chronologically." },
+      { property: "og:title", content: "What's new — PeaceCode" },
+      { property: "og:description", content: "Every feature, fix, and improvement — chronologically." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/hub/whats-new" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "What's new — PeaceCode" },
+      { name: "twitter:description", content: "Every feature, fix, and improvement — chronologically." },
+    ],
+    links: [{ rel: "canonical", href: "/hub/whats-new" }],
+  }),
+component: WhatsNew });

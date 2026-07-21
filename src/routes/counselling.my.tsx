@@ -5,7 +5,22 @@ import { myCounsellors, photoFor, listAppointments, listMessages, listDocs } fro
 import { CalendarClock, MessageCircle, FileText, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/counselling/my")({
-  component: MyCounsellors,
+  
+  head: () => ({
+    meta: [
+      { title: "My therapist — PeaceCode" },
+      { name: "description", content: "Your ongoing therapeutic relationship, homework, and shared notes." },
+      { property: "og:title", content: "My therapist — PeaceCode" },
+      { property: "og:description", content: "Your ongoing therapeutic relationship, homework, and shared notes." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling/my" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "My therapist — PeaceCode" },
+      { name: "twitter:description", content: "Your ongoing therapeutic relationship, homework, and shared notes." },
+    ],
+    links: [{ rel: "canonical", href: "/counselling/my" }],
+  }),
+component: MyCounsellors,
 });
 
 function MyCounsellors() {

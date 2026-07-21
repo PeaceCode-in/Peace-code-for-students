@@ -106,4 +106,20 @@ function Feedback() {
   );
 }
 
-export const Route = createFileRoute("/events/$id/feedback")({ component: Feedback });
+export const Route = createFileRoute("/events/$id/feedback")({ 
+  head: () => ({
+    meta: [
+      { title: "Feedback — PeaceCode" },
+      { name: "description", content: "Feedback on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Feedback — PeaceCode" },
+      { property: "og:description", content: "Feedback on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/events//feedback" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Feedback — PeaceCode" },
+      { name: "twitter:description", content: "Feedback on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/events//feedback" }],
+  }),
+component: Feedback });

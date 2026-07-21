@@ -5,7 +5,22 @@ import logo from "@/assets/peacecode-logo.png";
 import { cmy } from "@/lib/community-theme";
 import { useCommunity, timeAgo } from "@/lib/community-store";
 
-export const Route = createFileRoute("/community/")({ component: CommunityHome });
+export const Route = createFileRoute("/community/")({ 
+  head: () => ({
+    meta: [
+      { title: "Community — PeaceCode" },
+      { name: "description", content: "Anonymous student-led spaces to be heard, held, and understood." },
+      { property: "og:title", content: "Community — PeaceCode" },
+      { property: "og:description", content: "Anonymous student-led spaces to be heard, held, and understood." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/community" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Community — PeaceCode" },
+      { name: "twitter:description", content: "Anonymous student-led spaces to be heard, held, and understood." },
+    ],
+    links: [{ rel: "canonical", href: "/community" }],
+  }),
+component: CommunityHome });
 
 function CommunityHome() {
   const { circles, rooms, threads } = useCommunity();

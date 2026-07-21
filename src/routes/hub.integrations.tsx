@@ -75,4 +75,19 @@ function Integrations() {
   );
 }
 
-export const Route = createFileRoute("/hub/integrations")({ component: Integrations });
+export const Route = createFileRoute("/hub/integrations")({ 
+  head: () => ({
+    meta: [
+      { title: "Integrations — PeaceCode" },
+      { name: "description", content: "Connect PeaceCode with Google Calendar, Notion, Spotify, and more." },
+      { property: "og:title", content: "Integrations — PeaceCode" },
+      { property: "og:description", content: "Connect PeaceCode with Google Calendar, Notion, Spotify, and more." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/hub/integrations" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Integrations — PeaceCode" },
+      { name: "twitter:description", content: "Connect PeaceCode with Google Calendar, Notion, Spotify, and more." },
+    ],
+    links: [{ rel: "canonical", href: "/hub/integrations" }],
+  }),
+component: Integrations });

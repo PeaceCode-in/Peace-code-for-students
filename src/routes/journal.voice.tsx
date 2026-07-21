@@ -6,7 +6,22 @@ import { AppShell, palette } from "@/components/AppShell";
 import { loadEntries, newEntry, upsertEntry, type JournalEntry, type Mood, type VoiceNote } from "@/lib/journal-store";
 import { transcribeVoice, summarizeVoice } from "@/lib/journal-voice.functions";
 
-export const Route = createFileRoute("/journal/voice")({ component: VoiceJournal });
+export const Route = createFileRoute("/journal/voice")({ 
+  head: () => ({
+    meta: [
+      { title: "Voice journal — PeaceCode" },
+      { name: "description", content: "Speak your day when writing is too heavy. Transcribed and stored privately." },
+      { property: "og:title", content: "Voice journal — PeaceCode" },
+      { property: "og:description", content: "Speak your day when writing is too heavy. Transcribed and stored privately." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/journal/voice" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Voice journal — PeaceCode" },
+      { name: "twitter:description", content: "Speak your day when writing is too heavy. Transcribed and stored privately." },
+    ],
+    links: [{ rel: "canonical", href: "/journal/voice" }],
+  }),
+component: VoiceJournal });
 
 const { surface, surface2, border, ink, muted, primary, lavender, soft } = palette;
 

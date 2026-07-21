@@ -119,4 +119,20 @@ function Plan() {
   );
 }
 
-export const Route = createFileRoute("/emergency/safety-plan")({ component: Plan });
+export const Route = createFileRoute("/emergency/safety-plan")({ 
+  head: () => ({
+    meta: [
+      { title: "Safety Plan — PeaceCode" },
+      { name: "description", content: "Safety Plan on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:title", content: "Safety Plan — PeaceCode" },
+      { property: "og:description", content: "Safety Plan on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/emergency/safety-plan" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Safety Plan — PeaceCode" },
+      { name: "twitter:description", content: "Safety Plan on PeaceCode — India's student mental wellness ecosystem — calm, private, and always with you." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/emergency/safety-plan" }],
+  }),
+component: Plan });

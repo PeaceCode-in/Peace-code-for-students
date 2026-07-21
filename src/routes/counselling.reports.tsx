@@ -6,7 +6,22 @@ import { useMemo } from "react";
 import { Download } from "lucide-react";
 
 export const Route = createFileRoute("/counselling/reports")({
-  component: Reports,
+  
+  head: () => ({
+    meta: [
+      { title: "Reports — PeaceCode" },
+      { name: "description", content: "Progress reports, session summaries, and clinical letters — export-ready." },
+      { property: "og:title", content: "Reports — PeaceCode" },
+      { property: "og:description", content: "Progress reports, session summaries, and clinical letters — export-ready." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/counselling/reports" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Reports — PeaceCode" },
+      { name: "twitter:description", content: "Progress reports, session summaries, and clinical letters — export-ready." },
+    ],
+    links: [{ rel: "canonical", href: "/counselling/reports" }],
+  }),
+component: Reports,
 });
 
 function Reports() {

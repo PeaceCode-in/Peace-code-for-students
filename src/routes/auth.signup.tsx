@@ -5,7 +5,23 @@ import { AuthShell, FieldLabel, GlassInput, GlassSelect, PrimaryButton } from "@
 import { clearDraft, createUser, isCollegeEmail, isRegistered, loadDraft, saveDraft, startSession } from "@/lib/auth-store";
 
 export const Route = createFileRoute("/auth/signup")({
-  component: SignupFlow,
+  
+  head: () => ({
+    meta: [
+      { title: "Create your account — PeaceCode" },
+      { name: "description", content: "Join PeaceCode with your college email. Free, private, and student-first." },
+      { property: "og:title", content: "Create your account — PeaceCode" },
+      { property: "og:description", content: "Join PeaceCode with your college email. Free, private, and student-first." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/auth/signup" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Create your account — PeaceCode" },
+      { name: "twitter:description", content: "Join PeaceCode with your college email. Free, private, and student-first." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "/auth/signup" }],
+  }),
+component: SignupFlow,
 });
 
 type Step = 1 | 2 | 3 | 4;
