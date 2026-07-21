@@ -53,6 +53,7 @@ function SupportPage() {
           </div>
         ))}
       </Section>
+      <FaqJsonLd items={FAQS} />
 
       <Section title="Rate PeaceCode">
         <div className="px-5 py-4 flex items-center gap-2">
